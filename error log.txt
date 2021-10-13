@@ -1,0 +1,6 @@
+Not Running, Starting up Smoothy
+The Elapsed event was raised at 15:28:00.867
+Smoothy 1.2 is online!
+Smoothy is currently running
+The Elapsed event was raised at 15:28:05.851
+^C
