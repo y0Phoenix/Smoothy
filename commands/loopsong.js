@@ -1,3 +1,4 @@
+//sets serverQueue.loopsong to true if false, else sets it to false
 module.exports = {
     name: 'loopsong',
     description: 'loops the current song',
@@ -11,6 +12,9 @@ module.exports = {
                 serverQueue.loopsong = false
                 message.reply(`:x: I Am No Longer Looping ***${serverQueue.currenttitle}***`)
             }
+        }
+        else{
+            message.reply(':rofl: I Am Not Currently Playing Anything Right Now :rofl:')
         }
     }
 }

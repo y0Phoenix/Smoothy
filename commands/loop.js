@@ -1,5 +1,4 @@
-const executive = require("./executive");
-
+//sets serverQueue.loop to true if false, else sets it to false
 module.exports = {
     name: 'loop',
     description: 'loops the current server queue',

@@ -1,4 +1,4 @@
-
+//non used code just an ideas file
 
 var profile = [];
 

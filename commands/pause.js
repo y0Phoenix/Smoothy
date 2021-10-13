@@ -1,3 +1,4 @@
+//pauses the song at the front of the serverQueue
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'pause',

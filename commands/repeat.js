@@ -1,3 +1,4 @@
+//stops the audioPlayer and sets serverQueue.repeat to true, which is used inside of executive.js
 module.exports = {
     name: 'repeat',
     description: 'repeats the current song',

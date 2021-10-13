@@ -1,4 +1,6 @@
-const executive = require('./executive');
+//checks if a link was specified, if the user is inside of a voiceChannel, if Smoothy has permission to connect and if Smoothy has permission to speak
+//then joins the voiceChannel and finds the video. Both functions are inside of executive.js 
+const executive = require('../executive');
 module.exports = {
     name:'play',
     description: 'plays the specified song',

@@ -1,3 +1,5 @@
+//creates a list of the serverQueue with the title and who requested the song
+//then sends that list inside of an embed message along with some other info
 const { MessageEmbed } = require('discord.js');
 let queuelist = ``;
 async function getQueueList(serverQueue) {

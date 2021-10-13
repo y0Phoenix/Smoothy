@@ -1,3 +1,5 @@
+// This is the Main File for Smoothy Developed by Eugene aka y0Phoenix 
+// This is where the client is created and messages come in from discord and are converted into commands and args 
 const { Client, Intents, Discord } = require('discord.js');
 AbortController = require("node-abort-controller").AbortController;
 const prefix = '-';
@@ -14,6 +16,7 @@ const resume = require('./commands/resume');
 const loop = require('./commands/loop');
 const loopsong = require('./commands/loopsong');
 const repeat = require('./commands/repeat');
+//Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
 const DisconnectIdle = new Map();
@@ -27,17 +30,21 @@ client.once('recconnecting', () => {
 client.once('disconnect', () => {
     console.log('Disconnected!');
 });
+//creates a message from discord with all the info about the user, server, voicechannel and text channel
 client.on('messageCreate', message =>{
     if(!message.content.startsWith(prefix) || message.author.bot){
         console.log('Message author was bot!');
         return;
     }
+    //line 41-42 is where the two maps are defined from the specific guildId from discord. 
+    //this makes it possible to have multiple different song queues and other info for different discord servers
     var serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
     var serverQueue = queue.get(message.guild.id);
     var vc = message.member.voice.channel;
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
     console.log("Command = " + command);
+    //commands come in and checks if command ===, else the command was invalid
     if(command === 'ping'){
         ping.execute(message, args, vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
     }else if (command === 'play' || command === 'p'){
@@ -47,7 +54,7 @@ client.on('messageCreate', message =>{
     }else if (command === 'skip' || command === 'next' || command === 's' || command === 'n'){
         skip.skip(message, serverQueue);
     }else if (command === 'stop' || command === 'clear'){
-        stop.stop(message, queue, serverQueue);
+        stop.stop(message, serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }else if (command === 'leave' || command === 'disconnect' || command === 'dc' || command === 'die'){
         leave.leave(message, queue, serverQueue)
     }else if (command === 'remove' || command === 'r'){

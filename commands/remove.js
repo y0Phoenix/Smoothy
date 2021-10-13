@@ -1,3 +1,4 @@
+//removes a specified song inside of serverQueue using a number inside of args
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'remove',
