@@ -1,0 +1,862 @@
+[10/04/2021 01:58:30.162] Smoothy is already running so killing it!
+[10/04/2021 01:58:31.174] Not Running, Starting up Smoothy
+[10/04/2021 01:58:32.154] Smoothy is currently running 
+[10/04/2021 01:58:32.465] Smoothy 1.3 is online!
+[10/04/2021 01:58:33.162] Smoothy is currently running 
+[10/04/2021 01:58:56.006] Command = p
+[10/04/2021 01:58:56.158] Smoothy is currently running 
+[10/04/2021 01:58:58.296] Found video Creedence Clearwater Revival: Bad Moon Rising
+[10/04/2021 01:58:58.305] subscribed to Player
+[10/04/2021 01:58:58.306] Playing Creedence Clearwater Revival: Bad Moon Rising!
+[10/04/2021 01:58:58.485] Message author was bot!
+[10/04/2021 01:58:59.163] Smoothy is currently running 
+[10/04/2021 01:59:09.884] Command = p
+[10/04/2021 01:59:10.157] Smoothy is currently running 
+[10/04/2021 01:59:11.788] Found video Pink Floyd - Time (2011 Remastered)
+[10/04/2021 01:59:11.788] Pink Floyd - Time (2011 Remastered) has been added to the queue!
+[10/04/2021 01:59:11.926] Message author was bot!
+[10/04/2021 01:59:12.164] Smoothy is currently running 
+[10/04/2021 02:00:04.158] Command = queue
+[10/04/2021 02:00:04.165] Smoothy is currently running 
+[10/04/2021 02:00:04.327] Message author was bot!
+[10/04/2021 02:00:05.159] Smoothy is currently running 
+[10/04/2021 02:00:09.491] Command = l
+[10/04/2021 02:00:09.624] Message author was bot!
+[10/04/2021 02:00:10.165] Smoothy is currently running 
+[10/04/2021 02:01:20.895] Player Status Is Idle
+[10/04/2021 02:01:20.899] subscribed to Player
+[10/04/2021 02:01:20.899] Playing Next Song In Looped Queue
+[10/04/2021 02:01:20.900] Playing Pink Floyd - Time (2011 Remastered)!
+[10/04/2021 02:01:21.063] Message author was bot!
+[10/04/2021 02:01:21.161] Smoothy is currently running 
+[10/04/2021 02:01:32.620] Command = n
+[10/04/2021 02:01:32.620] SkippingPink Floyd - Time (2011 Remastered)!
+[10/04/2021 02:01:32.742] Player Status Is Idle
+[10/04/2021 02:01:32.747] subscribed to Player
+[10/04/2021 02:01:32.747] Playing Next Song In Looped Queue
+[10/04/2021 02:01:32.748] Playing Creedence Clearwater Revival: Bad Moon Rising!
+[10/04/2021 02:01:32.877] Message author was bot!
+[10/04/2021 02:01:33.164] Smoothy is currently running 
+[10/04/2021 02:01:33.175] Message author was bot!
+[10/04/2021 02:01:34.160] Smoothy is currently running 
+[10/04/2021 02:02:05.814] Command = p
+[10/04/2021 02:02:06.165] Smoothy is currently running 
+[10/04/2021 02:02:07.972] Found video Pink Floyd - Wish You Were Here
+[10/04/2021 02:02:07.972] Pink Floyd - Wish You Were Here has been added to the queue!
+[10/04/2021 02:02:08.114] Message author was bot!
+[10/04/2021 02:02:08.158] Smoothy is currently running 
+[10/04/2021 02:02:13.992] Command = queue
+[10/04/2021 02:02:14.130] Message author was bot!
+[10/04/2021 02:02:14.164] Smoothy is currently running 
+[10/04/2021 02:03:55.970] Player Status Is Idle
+[10/04/2021 02:03:55.977] subscribed to Player
+[10/04/2021 02:03:55.978] Playing Next Song In Looped Queue
+[10/04/2021 02:03:55.979] Playing Pink Floyd - Time (2011 Remastered)!
+[10/04/2021 02:03:56.156] Smoothy is currently running 
+[10/04/2021 02:03:56.172] Message author was bot!
+[10/04/2021 02:03:57.164] Smoothy is currently running 
+[10/04/2021 02:03:57.805] Command = n
+[10/04/2021 02:03:57.806] SkippingPink Floyd - Time (2011 Remastered)!
+[10/04/2021 02:03:57.926] Player Status Is Idle
+[10/04/2021 02:03:57.931] subscribed to Player
+[10/04/2021 02:03:57.931] Playing Next Song In Looped Queue
+[10/04/2021 02:03:57.933] Playing Pink Floyd - Wish You Were Here!
+[10/04/2021 02:03:58.034] Message author was bot!
+[10/04/2021 02:03:58.162] Smoothy is currently running 
+[10/04/2021 02:03:58.323] Message author was bot!
+[10/04/2021 02:03:59.158] Smoothy is currently running 
+[10/04/2021 02:08:52.837] Player Status Is Idle
+[10/04/2021 02:08:52.842] subscribed to Player
+[10/04/2021 02:08:52.842] Playing Next Song In Looped Queue
+[10/04/2021 02:08:52.843] Playing Creedence Clearwater Revival: Bad Moon Rising!
+[10/04/2021 02:08:52.988] Message author was bot!
+[10/04/2021 02:08:53.164] Smoothy is currently running 
+[10/04/2021 02:11:16.105] Player Status Is Idle
+[10/04/2021 02:11:16.110] subscribed to Player
+[10/04/2021 02:11:16.111] Playing Next Song In Looped Queue
+[10/04/2021 02:11:16.111] Playing Pink Floyd - Time (2011 Remastered)!
+[10/04/2021 02:11:16.153] Smoothy is currently running 
+[10/04/2021 02:11:16.252] Message author was bot!
+[10/04/2021 02:11:17.151] Smoothy is currently running 
+[10/04/2021 02:18:05.740] Player Status Is Idle
+[10/04/2021 02:18:05.745] subscribed to Player
+[10/04/2021 02:18:05.745] Playing Next Song In Looped Queue
+[10/04/2021 02:18:05.746] Playing Pink Floyd - Wish You Were Here!
+[10/04/2021 02:18:06.162] Smoothy is currently running 
+[10/04/2021 02:18:06.380] Message author was bot!
+[10/04/2021 02:18:07.162] Smoothy is currently running 
+[10/04/2021 02:22:58.706] Player Status Is Idle
+[10/04/2021 02:22:58.710] subscribed to Player
+[10/04/2021 02:22:58.711] Playing Next Song In Looped Queue
+[10/04/2021 02:22:58.712] Playing Creedence Clearwater Revival: Bad Moon Rising!
+[10/04/2021 02:22:58.897] Message author was bot!
+[10/04/2021 02:22:59.161] Smoothy is currently running 
+[10/04/2021 02:25:21.761] Player Status Is Idle
+[10/04/2021 02:25:21.768] subscribed to Player
+[10/04/2021 02:25:21.769] Playing Next Song In Looped Queue
+[10/04/2021 02:25:21.770] Playing Pink Floyd - Time (2011 Remastered)!
+[10/04/2021 02:25:22.062] Message author was bot!
+[10/04/2021 02:25:22.155] Smoothy is currently running 
+[10/04/2021 02:32:11.462] Player Status Is Idle
+[10/04/2021 02:32:11.466] subscribed to Player
+[10/04/2021 02:32:11.467] Playing Next Song In Looped Queue
+[10/04/2021 02:32:11.468] Playing Pink Floyd - Wish You Were Here!
+[10/04/2021 02:32:11.637] Message author was bot!
+[10/04/2021 02:32:12.161] Smoothy is currently running 
+[10/04/2021 02:32:12.554] events.js:377
+[10/04/2021 02:32:12.555]       throw er; // Unhandled 'error' event
+[10/04/2021 02:32:12.556]       ^
+[10/04/2021 02:32:12.556] 
+[10/04/2021 02:32:12.557] AudioPlayerError: Status code: 403
+[10/04/2021 02:32:12.558]     at ClientRequest.<anonymous> (C:\Users\choos\Documents\Discord Bots\Smoothy 1.3\node_modules\miniget\dist\index.js:210:27)
+[10/04/2021 02:32:12.559]     at Object.onceWrapper (events.js:520:26)
+[10/04/2021 02:32:12.560]     at ClientRequest.emit (events.js:400:28)
+[10/04/2021 02:32:12.561]     at HTTPParser.parserOnIncomingClient [as onIncoming] (_http_client.js:647:27)
+[10/04/2021 02:32:12.561]     at HTTPParser.parserOnHeadersComplete (_http_common.js:127:17)
+[10/04/2021 02:32:12.562]     at HTTPParser.execute (<anonymous>)
+[10/04/2021 02:32:12.563]     at TLSSocket.socketOnData (_http_client.js:515:22)
+[10/04/2021 02:32:12.564]     at TLSSocket.emit (events.js:400:28)
+[10/04/2021 02:32:12.565]     at addChunk (internal/streams/readable.js:293:12)
+[10/04/2021 02:32:12.565]     at readableAddChunk (internal/streams/readable.js:267:9)
+[10/04/2021 02:32:12.566] Emitted 'error' event on AudioPlayer instance at:
+[10/04/2021 02:32:12.567]     at OggDemuxer.onStreamError (C:\Users\choos\Documents\Discord Bots\Smoothy 1.3\node_modules\@discordjs\voice\dist\audio\AudioPlayer.js:213:22)
+[10/04/2021 02:32:12.568]     at Object.onceWrapper (events.js:520:26)
+[10/04/2021 02:32:12.569]     at OggDemuxer.emit (events.js:412:35)
+[10/04/2021 02:32:12.569]     at emitErrorNT (internal/streams/destroy.js:106:8)
+[10/04/2021 02:32:12.570]     at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+[10/04/2021 02:32:12.571]     at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+[10/04/2021 02:32:12.572]   resource: <ref *9> AudioResource {
+[10/04/2021 02:32:12.572]     playbackDuration: 0,
+[10/04/2021 02:32:12.573]     started: false,
+[10/04/2021 02:32:12.574]     silenceRemaining: -1,
+[10/04/2021 02:32:12.575]     edges: [
+[10/04/2021 02:32:12.575]       <ref *1> {
+[10/04/2021 02:32:12.576]         type: 'ffmpeg ogg',
+[10/04/2021 02:32:12.577]         to: Node {
+[10/04/2021 02:32:12.577]           edges: [ [Object], [Object], [Object] ],
+[10/04/2021 02:32:12.578]           type: 'ogg/opus'
+[10/04/2021 02:32:12.579]         },
+[10/04/2021 02:32:12.585]         cost: 2,
+[10/04/2021 02:32:12.585]         transformer: [Function: transformer],
+[10/04/2021 02:32:12.586]         from: Node { edges: [ [Object], [Circular *1] ], type: 'arbitrary' }
+[10/04/2021 02:32:12.587]       },
+[10/04/2021 02:32:12.588]       <ref *2> {
+[10/04/2021 02:32:12.588]         type: 'ogg/opus demuxer',
+[10/04/2021 02:32:12.589]         to: Node { edges: [ [Object] ], type: 'opus' },
+[10/04/2021 02:32:12.590]         cost: 1,
+[10/04/2021 02:32:12.591]         transformer: [Function: transformer],
+[10/04/2021 02:32:12.592]         from: Node {
+[10/04/2021 02:32:12.592]           edges: [ [Circular *2], [Object], [Object] ],
+[10/04/2021 02:32:12.593]           type: 'ogg/opus'
+[10/04/2021 02:32:12.594]         }
+[10/04/2021 02:32:12.595]       }
+[10/04/2021 02:32:12.597]     ],
+[10/04/2021 02:32:12.598]     playStream: OggDemuxer {
+[10/04/2021 02:32:12.599]       _readableState: ReadableState {
+[10/04/2021 02:32:12.600]         objectMode: true,
+[10/04/2021 02:32:12.601]         highWaterMark: 16,
+[10/04/2021 02:32:12.601]         buffer: BufferList { head: null, tail: null, length: 0 },
+[10/04/2021 02:32:12.602]         length: 0,
+[10/04/2021 02:32:12.603]         pipes: [],
+[10/04/2021 02:32:12.604]         flowing: false,
+[10/04/2021 02:32:12.604]         ended: false,
+[10/04/2021 02:32:12.605]         endEmitted: false,
+[10/04/2021 02:32:12.606]         reading: true,
+[10/04/2021 02:32:12.607]         sync: false,
+[10/04/2021 02:32:12.607]         needReadable: true,
+[10/04/2021 02:32:12.608]         emittedReadable: false,
+[10/04/2021 02:32:12.609]         readableListening: true,
+[10/04/2021 02:32:12.609]         resumeScheduled: false,
+[10/04/2021 02:32:12.610]         errorEmitted: true,
+[10/04/2021 02:32:12.611]         emitClose: true,
+[10/04/2021 02:32:12.611]         autoDestroy: true,
+[10/04/2021 02:32:12.612]         destroyed: true,
+[10/04/2021 02:32:12.613]         errored: MinigetError: Status code: 403
+[10/04/2021 02:32:12.615]             at ClientRequest.<anonymous> (C:\Users\choos\Documents\Discord Bots\Smoothy 1.3\node_modules\miniget\dist\index.js:210:27)
+[10/04/2021 02:32:12.616]             at Object.onceWrapper (events.js:520:26)
+[10/04/2021 02:32:12.617]             at ClientRequest.emit (events.js:400:28)
+[10/04/2021 02:32:12.617]             at HTTPParser.parserOnIncomingClient [as onIncoming] (_http_client.js:647:27)
+[10/04/2021 02:32:12.618]             at HTTPParser.parserOnHeadersComplete (_http_common.js:127:17)
+[10/04/2021 02:32:12.619]             at HTTPParser.execute (<anonymous>)
+[10/04/2021 02:32:12.619]             at TLSSocket.socketOnData (_http_client.js:515:22)
+[10/04/2021 02:32:12.620]             at TLSSocket.emit (events.js:400:28)
+[10/04/2021 02:32:12.621]             at addChunk (internal/streams/readable.js:293:12)
+[10/04/2021 02:32:12.621]             at readableAddChunk (internal/streams/readable.js:267:9) {
+[10/04/2021 02:32:12.622]           statusCode: 403
+[10/04/2021 02:32:12.623]         },
+[10/04/2021 02:32:12.623]         closed: true,
+[10/04/2021 02:32:12.624]         closeEmitted: false,
+[10/04/2021 02:32:12.625]         defaultEncoding: 'utf8',
+[10/04/2021 02:32:12.625]         awaitDrainWriters: null,
+[10/04/2021 02:32:12.626]         multiAwaitDrain: false,
+[10/04/2021 02:32:12.627]         readingMore: false,
+[10/04/2021 02:32:12.627]         dataEmitted: false,
+[10/04/2021 02:32:12.628]         decoder: null,
+[10/04/2021 02:32:12.631]         encoding: null,
+[10/04/2021 02:32:12.631]         [Symbol(kPaused)]: null
+[10/04/2021 02:32:12.632]       },
+[10/04/2021 02:32:12.633]       _events: [Object: null prototype] {
+[10/04/2021 02:32:12.633]         prefinish: [Function: prefinish],
+[10/04/2021 02:32:12.634]         close: [
+[10/04/2021 02:32:12.635]           [Function (anonymous)],
+[10/04/2021 02:32:12.635]           [Function: onclose],
+[10/04/2021 02:32:12.636]           [Function: bound onceWrapper] {
+[10/04/2021 02:32:12.637]             listener: [Function: onFailureCallback]
+[10/04/2021 02:32:12.637]           }
+[10/04/2021 02:32:12.638]         ],
+[10/04/2021 02:32:12.639]         end: [
+[10/04/2021 02:32:12.639]           [Function: onend],
+[10/04/2021 02:32:12.640]           [Function: bound onceWrapper] {
+[10/04/2021 02:32:12.640]             listener: [Function: onFailureCallback]
+[10/04/2021 02:32:12.641]           }
+[10/04/2021 02:32:12.642]         ],
+[10/04/2021 02:32:12.643]         finish: [
+[10/04/2021 02:32:12.643]           [Function: onfinish],
+[10/04/2021 02:32:12.644]           [Function: bound onceWrapper] {
+[10/04/2021 02:32:12.644]             listener: [Function: onFailureCallback]
+[10/04/2021 02:32:12.646]           }
+[10/04/2021 02:32:12.646]         ],
+[10/04/2021 02:32:12.649]         error: [Function: onerror],
+[10/04/2021 02:32:12.649]         readable: [
+[10/04/2021 02:32:12.650]           [Function: bound onceWrapper] {
+[10/04/2021 02:32:12.651]             listener: [Function (anonymous)]
+[10/04/2021 02:32:12.652]           },
+[10/04/2021 02:32:12.653]           [Function: bound onceWrapper] {
+[10/04/2021 02:32:12.653]             listener: [Function: onReadableCallback]
+[10/04/2021 02:32:12.654]           }
+[10/04/2021 02:32:12.655]         ]
+[10/04/2021 02:32:12.655]       },
+[10/04/2021 02:32:12.656]       _eventsCount: 6,
+[10/04/2021 02:32:12.657]       _maxListeners: undefined,
+[10/04/2021 02:32:12.657]       _writableState: WritableState {
+[10/04/2021 02:32:12.658]         objectMode: false,
+[10/04/2021 02:32:12.659]         highWaterMark: 16384,
+[10/04/2021 02:32:12.659]         finalCalled: false,
+[10/04/2021 02:32:12.660]         needDrain: false,
+[10/04/2021 02:32:12.661]         ending: false,
+[10/04/2021 02:32:12.663]         ended: false,
+[10/04/2021 02:32:12.664]         finished: false,
+[10/04/2021 02:32:12.665]         destroyed: true,
+[10/04/2021 02:32:12.666]         decodeStrings: true,
+[10/04/2021 02:32:12.667]         defaultEncoding: 'utf8',
+[10/04/2021 02:32:12.667]         length: 0,
+[10/04/2021 02:32:12.668]         writing: false,
+[10/04/2021 02:32:12.669]         corked: 0,
+[10/04/2021 02:32:12.670]         sync: true,
+[10/04/2021 02:32:12.671]         bufferProcessing: false,
+[10/04/2021 02:32:12.671]         onwrite: [Function: bound onwrite],
+[10/04/2021 02:32:12.672]         writecb: null,
+[10/04/2021 02:32:12.673]         writelen: 0,
+[10/04/2021 02:32:12.674]         afterWriteTickInfo: null,
+[10/04/2021 02:32:12.674]         buffered: [],
+[10/04/2021 02:32:12.675]         bufferedIndex: 0,
+[10/04/2021 02:32:12.676]         allBuffers: true,
+[10/04/2021 02:32:12.677]         allNoop: true,
+[10/04/2021 02:32:12.677]         pendingcb: 0,
+[10/04/2021 02:32:12.680]         prefinished: false,
+[10/04/2021 02:32:12.680]         errorEmitted: true,
+[10/04/2021 02:32:12.681]         emitClose: true,
+[10/04/2021 02:32:12.682]         autoDestroy: true,
+[10/04/2021 02:32:12.683]         errored: MinigetError: Status code: 403
+[10/04/2021 02:32:12.684]             at ClientRequest.<anonymous> (C:\Users\choos\Documents\Discord Bots\Smoothy 1.3\node_modules\miniget\dist\index.js:210:27)
+[10/04/2021 02:32:12.684]             at Object.onceWrapper (events.js:520:26)
+[10/04/2021 02:32:12.685]             at ClientRequest.emit (events.js:400:28)
+[10/04/2021 02:32:12.686]             at HTTPParser.parserOnIncomingClient [as onIncoming] (_http_client.js:647:27)
+[10/04/2021 02:32:12.687]             at HTTPParser.parserOnHeadersComplete (_http_common.js:127:17)
+[10/04/2021 02:32:12.687]             at HTTPParser.execute (<anonymous>)
+[10/04/2021 02:32:12.688]             at TLSSocket.socketOnData (_http_client.js:515:22)
+[10/04/2021 02:32:12.689]             at TLSSocket.emit (events.js:400:28)
+[10/04/2021 02:32:12.689]             at addChunk (internal/streams/readable.js:293:12)
+[10/04/2021 02:32:12.690]             at readableAddChunk (internal/streams/readable.js:267:9) {
+[10/04/2021 02:32:12.691]           statusCode: 403
+[10/04/2021 02:32:12.691]         },
+[10/04/2021 02:32:12.692]         closed: true
+[10/04/2021 02:32:12.693]       },
+[10/04/2021 02:32:12.693]       allowHalfOpen: true,
+[10/04/2021 02:32:12.696]       _remainder: null,
+[10/04/2021 02:32:12.697]       _head: null,
+[10/04/2021 02:32:12.697]       _bitstream: null,
+[10/04/2021 02:32:12.698]       [Symbol(kCapture)]: false,
+[10/04/2021 02:32:12.699]       [Symbol(kTransformState)]: {
+[10/04/2021 02:32:12.699]         afterTransform: [Function: bound afterTransform],
+[10/04/2021 02:32:12.700]         needTransform: true,
+[10/04/2021 02:32:12.701]         transforming: false,
+[10/04/2021 02:32:12.701]         writecb: null,
+[10/04/2021 02:32:12.702]         writechunk: null,
+[10/04/2021 02:32:12.703]         writeencoding: null
+[10/04/2021 02:32:12.703]       }
+[10/04/2021 02:32:12.704]     },
+[10/04/2021 02:32:12.705]     metadata: {
+[10/04/2021 02:32:12.706]       message: <ref *3> Message {
+[10/04/2021 02:32:12.706]         channelId: '481591680680591378',
+[10/04/2021 02:32:12.707]         guildId: '471822222236057600',
+[10/04/2021 02:32:12.708]         deleted: false,
+[10/04/2021 02:32:12.708]         id: '894478678682124318',
+[10/04/2021 02:32:12.709]         type: 'DEFAULT',
+[10/04/2021 02:32:12.710]         system: false,
+[10/04/2021 02:32:12.711]         content: '-p bad moon rising',
+[10/04/2021 02:32:12.714]         author: User {
+[10/04/2021 02:32:12.714]           id: '217497799414120448',
+[10/04/2021 02:32:12.715]           bot: false,
+[10/04/2021 02:32:12.716]           system: false,
+[10/04/2021 02:32:12.717]           flags: UserFlags { bitfield: 0 },
+[10/04/2021 02:32:12.717]           username: 'Eugene',
+[10/04/2021 02:32:12.718]           discriminator: '3399',
+[10/04/2021 02:32:12.719]           avatar: '76b492da32703b1901d88d2bc4342093'
+[10/04/2021 02:32:12.720]         },
+[10/04/2021 02:32:12.721]         pinned: false,
+[10/04/2021 02:32:12.721]         tts: false,
+[10/04/2021 02:32:12.722]         nonce: null,
+[10/04/2021 02:32:12.723]         embeds: [],
+[10/04/2021 02:32:12.724]         components: [],
+[10/04/2021 02:32:12.724]         attachments: Collection(0) [Map] {},
+[10/04/2021 02:32:12.725]         stickers: Collection(0) [Map] {},
+[10/04/2021 02:32:12.726]         createdTimestamp: 1633330735608,
+[10/04/2021 02:32:12.728]         editedTimestamp: null,
+[10/04/2021 02:32:12.729]         reactions: ReactionManager { message: [Circular *3] },
+[10/04/2021 02:32:12.730]         mentions: MessageMentions {
+[10/04/2021 02:32:12.731]           everyone: false,
+[10/04/2021 02:32:12.731]           users: Collection(0) [Map] {},
+[10/04/2021 02:32:12.732]           roles: Collection(0) [Map] {},
+[10/04/2021 02:32:12.733]           _members: null,
+[10/04/2021 02:32:12.734]           _channels: null,
+[10/04/2021 02:32:12.734]           crosspostedChannels: Collection(0) [Map] {},
+[10/04/2021 02:32:12.735]           repliedUser: null
+[10/04/2021 02:32:12.736]         },
+[10/04/2021 02:32:12.736]         webhookId: null,
+[10/04/2021 02:32:12.737]         groupActivityApplication: null,
+[10/04/2021 02:32:12.738]         applicationId: null,
+[10/04/2021 02:32:12.738]         activity: null,
+[10/04/2021 02:32:12.739]         flags: MessageFlags { bitfield: 0 },
+[10/04/2021 02:32:12.740]         reference: null,
+[10/04/2021 02:32:12.740]         interaction: null
+[10/04/2021 02:32:12.741]       },
+[10/04/2021 02:32:12.741]       voiceChannel: <ref *5> VoiceChannel {
+[10/04/2021 02:32:12.742]         type: 'GUILD_VOICE',
+[10/04/2021 02:32:12.745]         deleted: false,
+[10/04/2021 02:32:12.746]         guild: <ref *4> Guild {
+[10/04/2021 02:32:12.746]           id: '471822222236057600',
+[10/04/2021 02:32:12.747]           name: 'The LFG D-Cord',
+[10/04/2021 02:32:12.748]           icon: '877f64741f1c6aea7b78c2b8db3985d1',
+[10/04/2021 02:32:12.748]           features: [],
+[10/04/2021 02:32:12.749]           commands: GuildApplicationCommandManager {
+[10/04/2021 02:32:12.750]             permissions: [ApplicationCommandPermissionsManager],
+[10/04/2021 02:32:12.750]             guild: [Circular *4]
+[10/04/2021 02:32:12.751]           },
+[10/04/2021 02:32:12.752]           members: GuildMemberManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.752]           channels: GuildChannelManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.753]           bans: GuildBanManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.754]           roles: RoleManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.754]           presences: PresenceManager {},
+[10/04/2021 02:32:12.755]           voiceStates: VoiceStateManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.756]           stageInstances: StageInstanceManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.756]           invites: GuildInviteManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.758]           deleted: false,
+[10/04/2021 02:32:12.760]           available: true,
+[10/04/2021 02:32:12.761]           shardId: 0,
+[10/04/2021 02:32:12.762]           splash: null,
+[10/04/2021 02:32:12.762]           banner: null,
+[10/04/2021 02:32:12.763]           description: null,
+[10/04/2021 02:32:12.764]           verificationLevel: 'NONE',
+[10/04/2021 02:32:12.764]           vanityURLCode: null,
+[10/04/2021 02:32:12.765]           nsfwLevel: 'DEFAULT',
+[10/04/2021 02:32:12.766]           discoverySplash: null,
+[10/04/2021 02:32:12.766]           memberCount: 43,
+[10/04/2021 02:32:12.767]           large: false,
+[10/04/2021 02:32:12.767]           applicationId: null,
+[10/04/2021 02:32:12.768]           afkTimeout: 3600,
+[10/04/2021 02:32:12.769]           afkChannelId: '638471678564761620',
+[10/04/2021 02:32:12.769]           systemChannelId: '888960191620595802',
+[10/04/2021 02:32:12.770]           premiumTier: 'NONE',
+[10/04/2021 02:32:12.771]           premiumSubscriptionCount: 1,
+[10/04/2021 02:32:12.771]           explicitContentFilter: 'DISABLED',
+[10/04/2021 02:32:12.772]           mfaLevel: 'NONE',
+[10/04/2021 02:32:12.773]           joinedTimestamp: 1631857510581,
+[10/04/2021 02:32:12.773]           defaultMessageNotifications: 'ALL_MESSAGES',
+[10/04/2021 02:32:12.774]           systemChannelFlags: SystemChannelFlags { bitfield: 4 },
+[10/04/2021 02:32:12.775]           maximumMembers: 250000,
+[10/04/2021 02:32:12.777]           maximumPresences: null,
+[10/04/2021 02:32:12.778]           approximateMemberCount: null,
+[10/04/2021 02:32:12.779]           approximatePresenceCount: null,
+[10/04/2021 02:32:12.779]           vanityURLUses: null,
+[10/04/2021 02:32:12.780]           rulesChannelId: null,
+[10/04/2021 02:32:12.781]           publicUpdatesChannelId: null,
+[10/04/2021 02:32:12.781]           preferredLocale: 'en-US',
+[10/04/2021 02:32:12.782]           ownerId: '217497799414120448',
+[10/04/2021 02:32:12.783]           emojis: GuildEmojiManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.783]           stickers: GuildStickerManager { guild: [Circular *4] }
+[10/04/2021 02:32:12.784]         },
+[10/04/2021 02:32:12.785]         guildId: '471822222236057600',
+[10/04/2021 02:32:12.785]         parentId: '471822222236057603',
+[10/04/2021 02:32:12.786]         permissionOverwrites: PermissionOverwriteManager { channel: [Circular *5] },
+[10/04/2021 02:32:12.787]         id: '471822222236057604',
+[10/04/2021 02:32:12.787]         name: 'General',
+[10/04/2021 02:32:12.788]         rawPosition: 0,
+[10/04/2021 02:32:12.789]         rtcRegion: null,
+[10/04/2021 02:32:12.789]         bitrate: 64000,
+[10/04/2021 02:32:12.790]         userLimit: 0
+[10/04/2021 02:32:12.791]       },
+[10/04/2021 02:32:12.793]       voiceConnection: <ref *6> VoiceConnection {
+[10/04/2021 02:32:12.794]         _events: [Object: null prototype] {},
+[10/04/2021 02:32:12.795]         _eventsCount: 0,
+[10/04/2021 02:32:12.796]         _maxListeners: undefined,
+[10/04/2021 02:32:12.796]         debug: null,
+[10/04/2021 02:32:12.797]         rejoinAttempts: 0,
+[10/04/2021 02:32:12.798]         receiver: VoiceReceiver {
+[10/04/2021 02:32:12.798]           voiceConnection: [Circular *6],
+[10/04/2021 02:32:12.799]           ssrcMap: SSRCMap {
+[10/04/2021 02:32:12.800]             _events: [Object: null prototype] {},
+[10/04/2021 02:32:12.801]             _eventsCount: 0,
+[10/04/2021 02:32:12.801]             _maxListeners: undefined,
+[10/04/2021 02:32:12.802]             map: [Map],
+[10/04/2021 02:32:12.803]             [Symbol(kCapture)]: false
+[10/04/2021 02:32:12.803]           },
+[10/04/2021 02:32:12.804]           speaking: SpeakingMap {
+[10/04/2021 02:32:12.805]             _events: [Object: null prototype] {},
+[10/04/2021 02:32:12.805]             _eventsCount: 0,
+[10/04/2021 02:32:12.806]             _maxListeners: undefined,
+[10/04/2021 02:32:12.807]             users: Map(0) {},
+[10/04/2021 02:32:12.807]             speakingTimeouts: Map(0) {},
+[10/04/2021 02:32:12.810]             [Symbol(kCapture)]: false
+[10/04/2021 02:32:12.810]           },
+[10/04/2021 02:32:12.811]           subscriptions: Map(0) {},
+[10/04/2021 02:32:12.811]           connectionData: {
+[10/04/2021 02:32:12.812]             ssrc: 153791,
+[10/04/2021 02:32:12.813]             encryptionMode: 'xsalsa20_poly1305_lite',
+[10/04/2021 02:32:12.814]             secretKey: [Uint8Array],
+[10/04/2021 02:32:12.814]             sequence: 48442,
+[10/04/2021 02:32:12.815]             timestamp: 946987455,
+[10/04/2021 02:32:12.816]             nonce: 99005,
+[10/04/2021 02:32:12.816]             nonceBuffer: [Buffer [Uint8Array]],
+[10/04/2021 02:32:12.817]             speaking: false,
+[10/04/2021 02:32:12.818]             packetsPlayed: 99004
+[10/04/2021 02:32:12.818]           },
+[10/04/2021 02:32:12.819]           onWsPacket: [Function: bound onWsPacket],
+[10/04/2021 02:32:12.820]           onUdpMessage: [Function: bound onUdpMessage]
+[10/04/2021 02:32:12.820]         },
+[10/04/2021 02:32:12.821]         onNetworkingClose: [Function: bound onNetworkingClose],
+[10/04/2021 02:32:12.821]         onNetworkingStateChange: [Function: bound onNetworkingStateChange],
+[10/04/2021 02:32:12.822]         onNetworkingError: [Function: bound onNetworkingError],
+[10/04/2021 02:32:12.823]         onNetworkingDebug: [Function: bound onNetworkingDebug],
+[10/04/2021 02:32:12.825]         _state: {
+[10/04/2021 02:32:12.826]           status: 'ready',
+[10/04/2021 02:32:12.827]           adapter: {
+[10/04/2021 02:32:12.827]             sendPayload: [Function: sendPayload],
+[10/04/2021 02:32:12.828]             destroy: [Function: destroy]
+[10/04/2021 02:32:12.829]           },
+[10/04/2021 02:32:12.829]           networking: Networking {
+[10/04/2021 02:32:12.830]             _events: [Object: null prototype],
+[10/04/2021 02:32:12.830]             _eventsCount: 4,
+[10/04/2021 02:32:12.831]             _maxListeners: undefined,
+[10/04/2021 02:32:12.832]             onWsOpen: [Function: bound onWsOpen],
+[10/04/2021 02:32:12.832]             onChildError: [Function: bound onChildError],
+[10/04/2021 02:32:12.833]             onWsPacket: [Function: bound onWsPacket],
+[10/04/2021 02:32:12.833]             onWsClose: [Function: bound onWsClose],
+[10/04/2021 02:32:12.834]             onWsDebug: [Function: bound onWsDebug],
+[10/04/2021 02:32:12.835]             onUdpDebug: [Function: bound onUdpDebug],
+[10/04/2021 02:32:12.835]             onUdpClose: [Function: bound onUdpClose],
+[10/04/2021 02:32:12.836]             debug: null,
+[10/04/2021 02:32:12.836]             _state: [Object],
+[10/04/2021 02:32:12.837]             [Symbol(kCapture)]: false
+[10/04/2021 02:32:12.837]           },
+[10/04/2021 02:32:12.838]           subscription: PlayerSubscription {
+[10/04/2021 02:32:12.838]             connection: [Circular *6],
+[10/04/2021 02:32:12.839]             player: [AudioPlayer]
+[10/04/2021 02:32:12.839]           }
+[10/04/2021 02:32:12.840]         },
+[10/04/2021 02:32:12.841]         packets: {
+[10/04/2021 02:32:12.843]           server: {
+[10/04/2021 02:32:12.844]             endpoint: 'us-south1682.discord.media:443',
+[10/04/2021 02:32:12.845]             guild_id: '471822222236057600',
+[10/04/2021 02:32:12.845]             token: 'c8c9d0a9b7f5fd91'
+[10/04/2021 02:32:12.846]           },
+[10/04/2021 02:32:12.846]           state: {
+[10/04/2021 02:32:12.847]             channel_id: '471822222236057604',
+[10/04/2021 02:32:12.848]             deaf: false,
+[10/04/2021 02:32:12.848]             guild_id: '471822222236057600',
+[10/04/2021 02:32:12.849]             mute: false,
+[10/04/2021 02:32:12.849]             request_to_speak_timestamp: null,
+[10/04/2021 02:32:12.850]             self_deaf: true,
+[10/04/2021 02:32:12.851]             self_mute: false,
+[10/04/2021 02:32:12.851]             self_video: false,
+[10/04/2021 02:32:12.852]             session_id: '2b9b0845a14c3509750ca785c76dcfdb',
+[10/04/2021 02:32:12.852]             suppress: false,
+[10/04/2021 02:32:12.853]             user_id: '887869243218087956',
+[10/04/2021 02:32:12.853]             member: [Object]
+[10/04/2021 02:32:12.854]           }
+[10/04/2021 02:32:12.854]         },
+[10/04/2021 02:32:12.855]         joinConfig: {
+[10/04/2021 02:32:12.855]           selfDeaf: true,
+[10/04/2021 02:32:12.858]           selfMute: false,
+[10/04/2021 02:32:12.858]           group: 'default',
+[10/04/2021 02:32:12.859]           channelId: '471822222236057604',
+[10/04/2021 02:32:12.859]           guildId: '471822222236057600',
+[10/04/2021 02:32:12.860]           adapterCreator: [Function (anonymous)]
+[10/04/2021 02:32:12.861]         },
+[10/04/2021 02:32:12.861]         [Symbol(kCapture)]: false
+[10/04/2021 02:32:12.862]       },
+[10/04/2021 02:32:12.862]       textChannel: <ref *7> TextChannel {
+[10/04/2021 02:32:12.863]         type: 'GUILD_TEXT',
+[10/04/2021 02:32:12.863]         deleted: false,
+[10/04/2021 02:32:12.864]         guild: <ref *4> Guild {
+[10/04/2021 02:32:12.864]           id: '471822222236057600',
+[10/04/2021 02:32:12.865]           name: 'The LFG D-Cord',
+[10/04/2021 02:32:12.865]           icon: '877f64741f1c6aea7b78c2b8db3985d1',
+[10/04/2021 02:32:12.866]           features: [],
+[10/04/2021 02:32:12.866]           commands: GuildApplicationCommandManager {
+[10/04/2021 02:32:12.867]             permissions: [ApplicationCommandPermissionsManager],
+[10/04/2021 02:32:12.867]             guild: [Circular *4]
+[10/04/2021 02:32:12.868]           },
+[10/04/2021 02:32:12.868]           members: GuildMemberManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.869]           channels: GuildChannelManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.870]           bans: GuildBanManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.870]           roles: RoleManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.871]           presences: PresenceManager {},
+[10/04/2021 02:32:12.871]           voiceStates: VoiceStateManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.872]           stageInstances: StageInstanceManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.872]           invites: GuildInviteManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.873]           deleted: false,
+[10/04/2021 02:32:12.873]           available: true,
+[10/04/2021 02:32:12.877]           shardId: 0,
+[10/04/2021 02:32:12.878]           splash: null,
+[10/04/2021 02:32:12.878]           banner: null,
+[10/04/2021 02:32:12.879]           description: null,
+[10/04/2021 02:32:12.880]           verificationLevel: 'NONE',
+[10/04/2021 02:32:12.880]           vanityURLCode: null,
+[10/04/2021 02:32:12.881]           nsfwLevel: 'DEFAULT',
+[10/04/2021 02:32:12.882]           discoverySplash: null,
+[10/04/2021 02:32:12.882]           memberCount: 43,
+[10/04/2021 02:32:12.883]           large: false,
+[10/04/2021 02:32:12.884]           applicationId: null,
+[10/04/2021 02:32:12.884]           afkTimeout: 3600,
+[10/04/2021 02:32:12.885]           afkChannelId: '638471678564761620',
+[10/04/2021 02:32:12.886]           systemChannelId: '888960191620595802',
+[10/04/2021 02:32:12.886]           premiumTier: 'NONE',
+[10/04/2021 02:32:12.887]           premiumSubscriptionCount: 1,
+[10/04/2021 02:32:12.888]           explicitContentFilter: 'DISABLED',
+[10/04/2021 02:32:12.889]           mfaLevel: 'NONE',
+[10/04/2021 02:32:12.889]           joinedTimestamp: 1631857510581,
+[10/04/2021 02:32:12.890]           defaultMessageNotifications: 'ALL_MESSAGES',
+[10/04/2021 02:32:12.892]           systemChannelFlags: SystemChannelFlags { bitfield: 4 },
+[10/04/2021 02:32:12.893]           maximumMembers: 250000,
+[10/04/2021 02:32:12.894]           maximumPresences: null,
+[10/04/2021 02:32:12.895]           approximateMemberCount: null,
+[10/04/2021 02:32:12.895]           approximatePresenceCount: null,
+[10/04/2021 02:32:12.896]           vanityURLUses: null,
+[10/04/2021 02:32:12.897]           rulesChannelId: null,
+[10/04/2021 02:32:12.897]           publicUpdatesChannelId: null,
+[10/04/2021 02:32:12.898]           preferredLocale: 'en-US',
+[10/04/2021 02:32:12.899]           ownerId: '217497799414120448',
+[10/04/2021 02:32:12.899]           emojis: GuildEmojiManager { guild: [Circular *4] },
+[10/04/2021 02:32:12.900]           stickers: GuildStickerManager { guild: [Circular *4] }
+[10/04/2021 02:32:12.901]         },
+[10/04/2021 02:32:12.901]         guildId: '471822222236057600',
+[10/04/2021 02:32:12.902]         parentId: '471822222236057601',
+[10/04/2021 02:32:12.903]         permissionOverwrites: PermissionOverwriteManager { channel: [Circular *7] },
+[10/04/2021 02:32:12.903]         messages: MessageManager { channel: [Circular *7] },
+[10/04/2021 02:32:12.904]         threads: ThreadManager { channel: [Circular *7] },
+[10/04/2021 02:32:12.905]         nsfw: false,
+[10/04/2021 02:32:12.905]         id: '481591680680591378',
+[10/04/2021 02:32:12.906]         name: 'bot-commands',
+[10/04/2021 02:32:12.906]         rawPosition: 2,
+[10/04/2021 02:32:12.907]         topic: null,
+[10/04/2021 02:32:12.910]         lastMessageId: '894487049208483850',
+[10/04/2021 02:32:12.910]         rateLimitPerUser: 0
+[10/04/2021 02:32:12.911]       },
+[10/04/2021 02:32:12.912]       songs: [
+[10/04/2021 02:32:12.912]         {
+[10/04/2021 02:32:12.913]           video: {
+[10/04/2021 02:32:12.914]             type: 'video',
+[10/04/2021 02:32:12.915]             videoId: 'IXdNnw99-Ic',
+[10/04/2021 02:32:12.915]             url: 'https://youtube.com/watch?v=IXdNnw99-Ic',
+[10/04/2021 02:32:12.916]             title: 'Pink Floyd - Wish You Were Here',
+[10/04/2021 02:32:12.920]             description: 'Pink Floyd, Wish You Were Here (1975) So, so you think you can tell Heaven from Hell, Blue skys from pain. Can you tell a green┬á...',
+[10/04/2021 02:32:12.921]             image: 'https://i.ytimg.com/vi/IXdNnw99-Ic/hqdefault.jpg',
+[10/04/2021 02:32:12.922]             thumbnail: 'https://i.ytimg.com/vi/IXdNnw99-Ic/hqdefault.jpg',
+[10/04/2021 02:32:12.922]             seconds: 294,
+[10/04/2021 02:32:12.925]             timestamp: '4:54',
+[10/04/2021 02:32:12.926]             duration: [Object],
+[10/04/2021 02:32:12.927]             ago: '15 years ago',
+[10/04/2021 02:32:12.928]             views: 224090032,
+[10/04/2021 02:32:12.928]             author: [Object]
+[10/04/2021 02:32:12.929]           },
+[10/04/2021 02:32:12.930]           videoURL: {
+[10/04/2021 02:32:12.930]             page: 'watch',
+[10/04/2021 02:32:12.931]             player_response: [Object],
+[10/04/2021 02:32:12.931]             response: [Object],
+[10/04/2021 02:32:12.932]             html5player: '/s/player/9fd4fd09/player_ias.vflset/en_US/base.js',
+[10/04/2021 02:32:12.933]             formats: [Array],
+[10/04/2021 02:32:12.933]             related_videos: [Array],
+[10/04/2021 02:32:12.934]             videoDetails: [Object],
+[10/04/2021 02:32:12.934]             full: true
+[10/04/2021 02:32:12.935]           },
+[10/04/2021 02:32:12.935]           url: 'https://www.youtube.com/v/IXdNnw99-Ic?version=3&autohide=1',
+[10/04/2021 02:32:12.936]           title: 'Pink Floyd - Wish You Were Here',
+[10/04/2021 02:32:12.936]           youtubeurl: true,
+[10/04/2021 02:32:12.937]           thumbnail: 'https://i.ytimg.com/vi/IXdNnw99-Ic/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCZrQ5SSV6g-tDok4S_98OIkO2gHQ',
+[10/04/2021 02:32:12.937]           message: Message {
+[10/04/2021 02:32:12.938]             channelId: '481591680680591378',
+[10/04/2021 02:32:12.939]             guildId: '471822222236057600',
+[10/04/2021 02:32:12.942]             deleted: false,
+[10/04/2021 02:32:12.942]             id: '894479474941390888',
+[10/04/2021 02:32:12.943]             type: 'DEFAULT',
+[10/04/2021 02:32:12.944]             system: false,
+[10/04/2021 02:32:12.945]             content: '-p wish you were here Pink Floyd',
+[10/04/2021 02:32:12.945]             author: [User],
+[10/04/2021 02:32:12.946]             pinned: false,
+[10/04/2021 02:32:12.947]             tts: false,
+[10/04/2021 02:32:12.947]             nonce: null,
+[10/04/2021 02:32:12.948]             embeds: [],
+[10/04/2021 02:32:12.949]             components: [],
+[10/04/2021 02:32:12.949]             attachments: Collection(0) [Map] {},
+[10/04/2021 02:32:12.950]             stickers: Collection(0) [Map] {},
+[10/04/2021 02:32:12.951]             createdTimestamp: 1633330925451,
+[10/04/2021 02:32:12.951]             editedTimestamp: null,
+[10/04/2021 02:32:12.952]             reactions: [ReactionManager],
+[10/04/2021 02:32:12.953]             mentions: [MessageMentions],
+[10/04/2021 02:32:12.953]             webhookId: null,
+[10/04/2021 02:32:12.954]             groupActivityApplication: null,
+[10/04/2021 02:32:12.957]             applicationId: null,
+[10/04/2021 02:32:12.958]             activity: null,
+[10/04/2021 02:32:12.958]             flags: [MessageFlags],
+[10/04/2021 02:32:12.959]             reference: null,
+[10/04/2021 02:32:12.959]             interaction: null
+[10/04/2021 02:32:12.960]           }
+[10/04/2021 02:32:12.961]         },
+[10/04/2021 02:32:12.961]         {
+[10/04/2021 02:32:12.962]           video: {
+[10/04/2021 02:32:12.963]             type: 'video',
+[10/04/2021 02:32:12.963]             videoId: '5BmEGm-mraE',
+[10/04/2021 02:32:12.964]             url: 'https://youtube.com/watch?v=5BmEGm-mraE',
+[10/04/2021 02:32:12.964]             title: 'Creedence Clearwater Revival: Bad Moon Rising',
+[10/04/2021 02:32:12.965]             description: 'Creedence Clearwater Revival Bad Moon Rising Green River Lyrics: I see the bad moon rising. I see trouble on the way. I see┬á...',
+[10/04/2021 02:32:12.966]             image: 'https://i.ytimg.com/vi/5BmEGm-mraE/hqdefault.jpg',
+[10/04/2021 02:32:12.966]             thumbnail: 'https://i.ytimg.com/vi/5BmEGm-mraE/hqdefault.jpg',
+[10/04/2021 02:32:12.967]             seconds: 142,
+[10/04/2021 02:32:12.967]             timestamp: '2:22',
+[10/04/2021 02:32:12.968]             duration: [Object],
+[10/04/2021 02:32:12.968]             ago: '13 years ago',
+[10/04/2021 02:32:12.969]             views: 81313584,
+[10/04/2021 02:32:12.970]             author: [Object]
+[10/04/2021 02:32:12.970]           },
+[10/04/2021 02:32:12.971]           videoURL: {
+[10/04/2021 02:32:12.971]             page: 'watch',
+[10/04/2021 02:32:12.972]             player_response: [Object],
+[10/04/2021 02:32:12.975]             response: [Object],
+[10/04/2021 02:32:12.976]             html5player: '/s/player/9fd4fd09/player_ias.vflset/en_US/base.js',
+[10/04/2021 02:32:12.976]             formats: [Array],
+[10/04/2021 02:32:12.977]             related_videos: [Array],
+[10/04/2021 02:32:12.978]             videoDetails: [Object],
+[10/04/2021 02:32:12.978]             full: true
+[10/04/2021 02:32:12.979]           },
+[10/04/2021 02:32:12.980]           url: 'https://www.youtube.com/v/5BmEGm-mraE?version=3&autohide=1',
+[10/04/2021 02:32:12.981]           title: 'Creedence Clearwater Revival: Bad Moon Rising',
+[10/04/2021 02:32:12.982]           youtubeurl: true,
+[10/04/2021 02:32:12.983]           thumbnail: 'https://i.ytimg.com/vi/5BmEGm-mraE/hqdefault.jpg?sqp=-oaymwEeCMQBEG5IVfKriqkDEQgBFQAAiEIYAXABgAEBwAEG&rs=AOn4CLBXWPUV3ZujTYNDSGOH9kZpUPylXQ',
+[10/04/2021 02:32:12.983]           message: <ref *3> Message {
+[10/04/2021 02:32:12.984]             channelId: '481591680680591378',
+[10/04/2021 02:32:12.985]             guildId: '471822222236057600',
+[10/04/2021 02:32:12.986]             deleted: false,
+[10/04/2021 02:32:12.986]             id: '894478678682124318',
+[10/04/2021 02:32:12.989]             type: 'DEFAULT',
+[10/04/2021 02:32:12.989]             system: false,
+[10/04/2021 02:32:12.990]             content: '-p bad moon rising',
+[10/04/2021 02:32:12.990]             author: [User],
+[10/04/2021 02:32:12.991]             pinned: false,
+[10/04/2021 02:32:12.991]             tts: false,
+[10/04/2021 02:32:12.992]             nonce: null,
+[10/04/2021 02:32:12.993]             embeds: [],
+[10/04/2021 02:32:12.993]             components: [],
+[10/04/2021 02:32:12.994]             attachments: Collection(0) [Map] {},
+[10/04/2021 02:32:12.994]             stickers: Collection(0) [Map] {},
+[10/04/2021 02:32:12.995]             createdTimestamp: 1633330735608,
+[10/04/2021 02:32:12.995]             editedTimestamp: null,
+[10/04/2021 02:32:12.996]             reactions: [ReactionManager],
+[10/04/2021 02:32:12.997]             mentions: [MessageMentions],
+[10/04/2021 02:32:12.997]             webhookId: null,
+[10/04/2021 02:32:12.998]             groupActivityApplication: null,
+[10/04/2021 02:32:12.998]             applicationId: null,
+[10/04/2021 02:32:12.999]             activity: null,
+[10/04/2021 02:32:13.000]             flags: [MessageFlags],
+[10/04/2021 02:32:13.000]             reference: null,
+[10/04/2021 02:32:13.001]             interaction: null
+[10/04/2021 02:32:13.002]           }
+[10/04/2021 02:32:13.002]         },
+[10/04/2021 02:32:13.003]         {
+[10/04/2021 02:32:13.004]           video: {
+[10/04/2021 02:32:13.004]             type: 'video',
+[10/04/2021 02:32:13.005]             videoId: 'JwYX52BP2Sk',
+[10/04/2021 02:32:13.008]             url: 'https://youtube.com/watch?v=JwYX52BP2Sk',
+[10/04/2021 02:32:13.009]             title: 'Pink Floyd - Time (2011 Remastered)',
+[10/04/2021 02:32:13.010]             description: '',
+[10/04/2021 02:32:13.010]             image: 'https://i.ytimg.com/vi/JwYX52BP2Sk/hqdefault.jpg',
+[10/04/2021 02:32:13.011]             thumbnail: 'https://i.ytimg.com/vi/JwYX52BP2Sk/hqdefault.jpg',
+[10/04/2021 02:32:13.011]             seconds: 409,
+[10/04/2021 02:32:13.012]             timestamp: '6:49',
+[10/04/2021 02:32:13.012]             duration: [Object],
+[10/04/2021 02:32:13.013]             ago: '7 years ago',
+[10/04/2021 02:32:13.014]             views: 40135335,
+[10/04/2021 02:32:13.014]             author: [Object]
+[10/04/2021 02:32:13.015]           },
+[10/04/2021 02:32:13.015]           videoURL: {
+[10/04/2021 02:32:13.016]             page: 'watch',
+[10/04/2021 02:32:13.016]             player_response: [Object],
+[10/04/2021 02:32:13.017]             response: [Object],
+[10/04/2021 02:32:13.018]             html5player: '/s/player/9fd4fd09/player_ias.vflset/en_US/base.js',
+[10/04/2021 02:32:13.018]             formats: [Array],
+[10/04/2021 02:32:13.019]             related_videos: [Array],
+[10/04/2021 02:32:13.019]             videoDetails: [Object],
+[10/04/2021 02:32:13.020]             full: true
+[10/04/2021 02:32:13.022]           },
+[10/04/2021 02:32:13.023]           url: 'https://www.youtube.com/v/JwYX52BP2Sk?version=3&autohide=1',
+[10/04/2021 02:32:13.024]           title: 'Pink Floyd - Time (2011 Remastered)',
+[10/04/2021 02:32:13.025]           youtubeurl: true,
+[10/04/2021 02:32:13.025]           thumbnail: 'https://i.ytimg.com/vi/JwYX52BP2Sk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAprVsDdgLzvhTXoWXwIFafAkGnqg',
+[10/04/2021 02:32:13.026]           message: Message {
+[10/04/2021 02:32:13.026]             channelId: '481591680680591378',
+[10/04/2021 02:32:13.027]             guildId: '471822222236057600',
+[10/04/2021 02:32:13.028]             deleted: false,
+[10/04/2021 02:32:13.028]             id: '894478737108762634',
+[10/04/2021 02:32:13.029]             type: 'DEFAULT',
+[10/04/2021 02:32:13.029]             system: false,
+[10/04/2021 02:32:13.030]             content: '-p time pink floyd',
+[10/04/2021 02:32:13.030]             author: [User],
+[10/04/2021 02:32:13.031]             pinned: false,
+[10/04/2021 02:32:13.032]             tts: false,
+[10/04/2021 02:32:13.032]             nonce: null,
+[10/04/2021 02:32:13.033]             embeds: [],
+[10/04/2021 02:32:13.033]             components: [],
+[10/04/2021 02:32:13.034]             attachments: Collection(0) [Map] {},
+[10/04/2021 02:32:13.035]             stickers: Collection(0) [Map] {},
+[10/04/2021 02:32:13.035]             createdTimestamp: 1633330749538,
+[10/04/2021 02:32:13.036]             editedTimestamp: null,
+[10/04/2021 02:32:13.036]             reactions: [ReactionManager],
+[10/04/2021 02:32:13.037]             mentions: [MessageMentions],
+[10/04/2021 02:32:13.038]             webhookId: null,
+[10/04/2021 02:32:13.040]             groupActivityApplication: null,
+[10/04/2021 02:32:13.041]             applicationId: null,
+[10/04/2021 02:32:13.042]             activity: null,
+[10/04/2021 02:32:13.042]             flags: [MessageFlags],
+[10/04/2021 02:32:13.043]             reference: null,
+[10/04/2021 02:32:13.043]             interaction: null
+[10/04/2021 02:32:13.044]           }
+[10/04/2021 02:32:13.045]         }
+[10/04/2021 02:32:13.045]       ],
+[10/04/2021 02:32:13.046]       player: <ref *8> AudioPlayer {
+[10/04/2021 02:32:13.046]         _events: [Object: null prototype] { idle: [Function (anonymous)] },
+[10/04/2021 02:32:13.047]         _eventsCount: 1,
+[10/04/2021 02:32:13.047]         _maxListeners: undefined,
+[10/04/2021 02:32:13.048]         subscribers: [
+[10/04/2021 02:32:13.049]           PlayerSubscription {
+[10/04/2021 02:32:13.049]             connection: [VoiceConnection],
+[10/04/2021 02:32:13.050]             player: [Circular *8]
+[10/04/2021 02:32:13.050]           }
+[10/04/2021 02:32:13.051]         ],
+[10/04/2021 02:32:13.051]         _state: {
+[10/04/2021 02:32:13.052]           status: 'buffering',
+[10/04/2021 02:32:13.053]           resource: [Circular *9],
+[10/04/2021 02:32:13.053]           onReadableCallback: [Function: onReadableCallback],
+[10/04/2021 02:32:13.056]           onFailureCallback: [Function: onFailureCallback],
+[10/04/2021 02:32:13.056]           onStreamError: [Function: onStreamError]
+[10/04/2021 02:32:13.057]         },
+[10/04/2021 02:32:13.058]         behaviors: { noSubscriber: 'pause', maxMissedFrames: 5 },
+[10/04/2021 02:32:13.058]         debug: [Function (anonymous)],
+[10/04/2021 02:32:13.059]         [Symbol(kCapture)]: false
+[10/04/2021 02:32:13.059]       },
+[10/04/2021 02:32:13.060]       subscription: <ref *10> PlayerSubscription {
+[10/04/2021 02:32:13.061]         connection: <ref *6> VoiceConnection {
+[10/04/2021 02:32:13.062]           _events: [Object: null prototype] {},
+[10/04/2021 02:32:13.062]           _eventsCount: 0,
+[10/04/2021 02:32:13.063]           _maxListeners: undefined,
+[10/04/2021 02:32:13.064]           debug: null,
+[10/04/2021 02:32:13.064]           rejoinAttempts: 0,
+[10/04/2021 02:32:13.065]           receiver: VoiceReceiver {
+[10/04/2021 02:32:13.065]             voiceConnection: [Circular *6],
+[10/04/2021 02:32:13.066]             ssrcMap: [SSRCMap],
+[10/04/2021 02:32:13.067]             speaking: [SpeakingMap],
+[10/04/2021 02:32:13.067]             subscriptions: Map(0) {},
+[10/04/2021 02:32:13.068]             connectionData: [Object],
+[10/04/2021 02:32:13.069]             onWsPacket: [Function: bound onWsPacket],
+[10/04/2021 02:32:13.069]             onUdpMessage: [Function: bound onUdpMessage]
+[10/04/2021 02:32:13.070]           },
+[10/04/2021 02:32:13.070]           onNetworkingClose: [Function: bound onNetworkingClose],
+[10/04/2021 02:32:13.071]           onNetworkingStateChange: [Function: bound onNetworkingStateChange],
+[10/04/2021 02:32:13.074]           onNetworkingError: [Function: bound onNetworkingError],
+[10/04/2021 02:32:13.075]           onNetworkingDebug: [Function: bound onNetworkingDebug],
+[10/04/2021 02:32:13.075]           _state: {
+[10/04/2021 02:32:13.076]             status: 'ready',
+[10/04/2021 02:32:13.077]             adapter: [Object],
+[10/04/2021 02:32:13.077]             networking: [Networking],
+[10/04/2021 02:32:13.078]             subscription: [Circular *10]
+[10/04/2021 02:32:13.078]           },
+[10/04/2021 02:32:13.079]           packets: { server: [Object], state: [Object] },
+[10/04/2021 02:32:13.080]           joinConfig: {
+[10/04/2021 02:32:13.080]             selfDeaf: true,
+[10/04/2021 02:32:13.081]             selfMute: false,
+[10/04/2021 02:32:13.082]             group: 'default',
+[10/04/2021 02:32:13.082]             channelId: '471822222236057604',
+[10/04/2021 02:32:13.083]             guildId: '471822222236057600',
+[10/04/2021 02:32:13.084]             adapterCreator: [Function (anonymous)]
+[10/04/2021 02:32:13.084]           },
+[10/04/2021 02:32:13.085]           [Symbol(kCapture)]: false
+[10/04/2021 02:32:13.086]         },
+[10/04/2021 02:32:13.086]         player: <ref *8> AudioPlayer {
+[10/04/2021 02:32:13.089]           _events: [Object: null prototype] { idle: [Function (anonymous)] },
+[10/04/2021 02:32:13.090]           _eventsCount: 1,
+[10/04/2021 02:32:13.090]           _maxListeners: undefined,
+[10/04/2021 02:32:13.091]           subscribers: [ [Circular *10] ],
+[10/04/2021 02:32:13.092]           _state: {
+[10/04/2021 02:32:13.093]             status: 'buffering',
+[10/04/2021 02:32:13.093]             resource: [Circular *9],
+[10/04/2021 02:32:13.094]             onReadableCallback: [Function: onReadableCallback],
+[10/04/2021 02:32:13.095]             onFailureCallback: [Function: onFailureCallback],
+[10/04/2021 02:32:13.095]             onStreamError: [Function: onStreamError]
+[10/04/2021 02:32:13.096]           },
+[10/04/2021 02:32:13.097]           behaviors: { noSubscriber: 'pause', maxMissedFrames: 5 },
+[10/04/2021 02:32:13.097]           debug: [Function (anonymous)],
+[10/04/2021 02:32:13.098]           [Symbol(kCapture)]: false
+[10/04/2021 02:32:13.099]         }
+[10/04/2021 02:32:13.099]       },
+[10/04/2021 02:32:13.100]       currenttitle: 'Pink Floyd - Wish You Were Here',
+[10/04/2021 02:32:13.101]       loop: true,
+[10/04/2021 02:32:13.101]       loopsong: false
+[10/04/2021 02:32:13.102]     },
+[10/04/2021 02:32:13.103]     silencePaddingFrames: 5,
+[10/04/2021 02:32:13.104]     audioPlayer: <ref *8> AudioPlayer {
+[10/04/2021 02:32:13.106]       _events: [Object: null prototype] { idle: [Function (anonymous)] },
+[10/04/2021 02:32:13.107]       _eventsCount: 1,
+[10/04/2021 02:32:13.108]       _maxListeners: undefined,
+[10/04/2021 02:32:13.108]       subscribers: [
+[10/04/2021 02:32:13.109]         <ref *10> PlayerSubscription {
+[10/04/2021 02:32:13.110]           connection: <ref *6> VoiceConnection {
+[10/04/2021 02:32:13.110]             _events: [Object: null prototype] {},
+[10/04/2021 02:32:13.111]             _eventsCount: 0,
+[10/04/2021 02:32:13.112]             _maxListeners: undefined,
+[10/04/2021 02:32:13.112]             debug: null,
+[10/04/2021 02:32:13.113]             rejoinAttempts: 0,
+[10/04/2021 02:32:13.114]             receiver: [VoiceReceiver],
+[10/04/2021 02:32:13.114]             onNetworkingClose: [Function: bound onNetworkingClose],
+[10/04/2021 02:32:13.115]             onNetworkingStateChange: [Function: bound onNetworkingStateChange],
+[10/04/2021 02:32:13.116]             onNetworkingError: [Function: bound onNetworkingError],
+[10/04/2021 02:32:13.116]             onNetworkingDebug: [Function: bound onNetworkingDebug],
+[10/04/2021 02:32:13.117]             _state: [Object],
+[10/04/2021 02:32:13.118]             packets: [Object],
+[10/04/2021 02:32:13.118]             joinConfig: [Object],
+[10/04/2021 02:32:13.119]             [Symbol(kCapture)]: false
+[10/04/2021 02:32:13.121]           },
+[10/04/2021 02:32:13.122]           player: [Circular *8]
+[10/04/2021 02:32:13.123]         }
+[10/04/2021 02:32:13.124]       ],
+[10/04/2021 02:32:13.124]       _state: {
+[10/04/2021 02:32:13.125]         status: 'buffering',
+[10/04/2021 02:32:13.125]         resource: [Circular *9],
+[10/04/2021 02:32:13.126]         onReadableCallback: [Function: onReadableCallback],
+[10/04/2021 02:32:13.127]         onFailureCallback: [Function: onFailureCallback],
+[10/04/2021 02:32:13.127]         onStreamError: [Function: onStreamError]
+[10/04/2021 02:32:13.128]       },
+[10/04/2021 02:32:13.128]       behaviors: { noSubscriber: 'pause', maxMissedFrames: 5 },
+[10/04/2021 02:32:13.129]       debug: [Function (anonymous)],
+[10/04/2021 02:32:13.130]       [Symbol(kCapture)]: false
+[10/04/2021 02:32:13.130]     }
+[10/04/2021 02:32:13.131]   }
+[10/04/2021 02:32:13.132] }

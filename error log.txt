@@ -1,6 +1,59 @@
-Not Running, Starting up Smoothy
-The Elapsed event was raised at 15:28:00.867
-Smoothy 1.2 is online!
-Smoothy is currently running
-The Elapsed event was raised at 15:28:05.851
-^C
+[10/01/2021 02:25:40.797] Not Running, Starting up Smoothy
+[10/01/2021 02:25:40.887] Smoothy is currently running 
+[10/01/2021 02:25:41.585] Smoothy 1.3 is online!
+[10/01/2021 02:25:41.678] Smoothy is currently running 
+[10/01/2021 02:25:53.054] Command = p
+[10/01/2021 02:25:53.075] Smoothy is currently running 
+[10/01/2021 02:25:54.446] Found video Call of Duty: Black Ops 2 - Main Menu Theme (Extended 5H)
+[10/01/2021 02:25:54.451] subscribed to Player
+[10/01/2021 02:25:54.451] Playing Call of Duty: Black Ops 2 - Main Menu Theme (Extended 5H)!
+[10/01/2021 02:25:54.478] Smoothy is currently running 
+[10/01/2021 02:25:54.603] Message author was bot!
+[10/01/2021 02:25:54.676] Smoothy is currently running 
+[10/01/2021 02:26:19.778] Command = p
+[10/01/2021 02:26:19.787] Smoothy is currently running 
+[10/01/2021 02:26:21.300] Found video MW2 Multiplayer Menu Soundtrack
+[10/01/2021 02:26:21.300] MW2 Multiplayer Menu Soundtrack has been added to the queue!
+[10/01/2021 02:26:21.383] Smoothy is currently running 
+[10/01/2021 02:26:21.409] Message author was bot!
+[10/01/2021 02:26:21.474] Smoothy is currently running 
+[10/01/2021 02:26:55.479] Command = p
+[10/01/2021 02:26:55.481] Smoothy is currently running 
+[10/01/2021 02:26:57.146] Found video BLACK OPS 3 - OFFICIAL MAIN MENU THEME SONG
+[10/01/2021 02:26:57.147] BLACK OPS 3 - OFFICIAL MAIN MENU THEME SONG has been added to the queue!
+[10/01/2021 02:26:57.174] Smoothy is currently running 
+[10/01/2021 02:26:57.262] Message author was bot!
+[10/01/2021 02:26:57.284] Smoothy is currently running 
+[10/01/2021 02:27:03.998] Command = queue
+[10/01/2021 02:27:04.082] Smoothy is currently running 
+[10/01/2021 02:27:04.100] Message author was bot!
+[10/01/2021 02:27:04.187] Smoothy is currently running 
+[10/01/2021 02:27:13.066] Command = r
+[10/01/2021 02:27:13.095] Smoothy is currently running 
+[10/01/2021 02:27:13.163] Message author was bot!
+[10/01/2021 02:27:13.186] Smoothy is currently running 
+[10/01/2021 02:27:16.900] Command = queue
+[10/01/2021 02:27:16.976] Smoothy is currently running 
+[10/01/2021 02:27:17.009] Message author was bot!
+[10/01/2021 02:27:17.085] Smoothy is currently running 
+[10/01/2021 02:27:43.131] Command = n
+[10/01/2021 02:27:43.131] SkippingCall of Duty: Black Ops 2 - Main Menu Theme (Extended 5H)!
+[10/01/2021 02:27:43.176] Smoothy is currently running 
+[10/01/2021 02:27:43.265] Player Status Is Idle
+[10/01/2021 02:27:43.270] subscribed to Player
+[10/01/2021 02:27:43.271] Playing MW2 Multiplayer Menu Soundtrack!
+[10/01/2021 02:27:43.296] Smoothy is currently running 
+[10/01/2021 02:27:43.344] Message author was bot!
+[10/01/2021 02:27:43.373] Smoothy is currently running 
+[10/01/2021 02:27:43.540] Message author was bot!
+[10/01/2021 02:27:43.586] Smoothy is currently running 
+[10/01/2021 02:29:04.019] Command = dc
+[10/01/2021 02:29:04.020] Left The Voice Channel From Command
+[10/01/2021 02:29:04.074] Smoothy is currently running 
+[10/01/2021 02:29:04.112] Message author was bot!
+[10/01/2021 02:29:04.180] Smoothy is currently running 
+[10/01/2021 02:29:10.022] Command = die
+[10/01/2021 02:29:10.084] Smoothy is currently running 
+[10/01/2021 02:29:10.127] Message author was bot!
+[10/01/2021 02:29:10.179] Smoothy is currently running 
+[10/01/2021 11:04:41.997] ^C

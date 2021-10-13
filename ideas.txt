@@ -1,0 +1,16 @@
+catch 403 erroor and retry playing instead of crashing bot 
+
+repeat song: stop the audio player but dont shift the queue
+
+more info in queue: loop and loopsong booleans
+
+if audioplayer crashed or voiceconnection disconnected retry/rejoin with serverQueue.songs still defined
+
+bass boost:
+
+volume:
+
+dm help message embed:
+
+pitch control:
+

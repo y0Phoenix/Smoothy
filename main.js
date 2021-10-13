@@ -1,70 +1,75 @@
-const { Client, Intents,} = require('discord.js');
+const { Client, Intents, Discord } = require('discord.js');
+AbortController = require("node-abort-controller").AbortController;
 const prefix = '-';
+const play = require('./commands/play');
+const leave = require('./commands/leave');
+const stop = require('./commands/stop');
+const skip = require('./commands/skip');
+const ping = require('./commands/ping');
+const queuelist = require('./commands/queue');
+const remove = require('./commands/remove');
+const help = require('./commands/help');
+const pause= require('./commands/pause');
+const resume = require('./commands/resume');
+const loop = require('./commands/loop');
+const loopsong = require('./commands/loopsong');
+const repeat = require('./commands/repeat');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
-// ​const connections = new Map();
-// ​const audioManager = new AudioManager();
-// ​
-client.once('ready', () => console.log(`${client.user.username} is online!`));
-​
-// client.on('messageCreate', message => {
-//     if(message.author.bot || message.channel.type === `DM`) return;
+const queue = new Map();
+const DisconnectIdle = new Map();
+client.once('ready', () => {
+    console.log('Smoothy 1.4 is online!');
+    client.user.setActivity('-help', { type: 'LISTENING' })
+});
+client.once('recconnecting', () => {
+    console.log('Smoothy is reconnecting!');
+});
+client.once('disconnect', () => {
+    console.log('Disconnected!');
+});
+client.on('messageCreate', message =>{
+    if(!message.content.startsWith(prefix) || message.author.bot){
+        console.log('Message author was bot!');
+        return;
+    }
+    var serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
+    var serverQueue = queue.get(message.guild.id);
+    var vc = message.member.voice.channel;
+    const args = message.content.slice(prefix.length).split(/ +/);
+    const command = args.shift().toLowerCase();
+    console.log("Command = " + command);
+    if(command === 'ping'){
+        ping.execute(message, args, vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
+    }else if (command === 'play' || command === 'p'){
+        play.play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue,);
+    }else if (command === 'queue' || command === 'list'){
+        queuelist.execute(message, serverQueue);
+    }else if (command === 'skip' || command === 'next' || command === 's' || command === 'n'){
+        skip.skip(message, serverQueue);
+    }else if (command === 'stop' || command === 'clear'){
+        stop.stop(message, queue, serverQueue);
+    }else if (command === 'leave' || command === 'disconnect' || command === 'dc' || command === 'die'){
+        leave.leave(message, queue, serverQueue)
+    }else if (command === 'remove' || command === 'r'){
+        remove.remove(message, args, serverQueue)
+    }else if (command === 'help'){
+        help.help(message)
+    }else if (command === 'pause'){
+        pause.pause(message, serverQueue)
+    }else if (command === 'resume'){
+        resume.resume(message,serverQueue)
+    }else if (command === 'crash'){
+        snoopy_goes_wild.dummy = 'me';
+    }else if (command === 'loop' || command === 'l'){
+        loop.loop(message, serverQueue)
+    }else if (command === 'loopsong' || command === 'ls'){
+        loopsong.loopsong(message, serverQueue)
+    }else if (command === 'repeat' || command === 'restart'){
+        repeat.repeat(message, serverQueue)
+    }else
+        message.channel.send('Invalid Command Type -help To See Current Commands');
+    return;
     
-//     if(!message.content.startsWith(prefix)) return;
-    
-//     let args = message.content.substring(prefix.length).split(" ");
-    
-//     const vc = connections.get(message.guild.me.voice.channel?.id);
-    
-//     switch(args[0].toLowerCase()){
-//         case 'play':
-//             if(!message.member.voice.channel && !message.guild.me.voice.channel) return message.channel.send({content: `Please join a voice channel in order to play a song!`});
-//             if(!args[1]) return message.channel.send({content: `Please provide a song`});
-//             const uvc = message.member.voice.channel || message.guild.me.voice.channel;
-//             audioManager.play(uvc, args[1], {
-//                 quality: 'high',
-//                 audiotype: 'arbitrary',
-//                 volume: 10
-//             }).then(queue => {
-//                 connections.set(uvc.id, uvc);
-//                 if(queue === false) message.channel.send({content: `Your song is now playing!`});
-//                 else message.channel.send({content: `Your song has been added to the queue!`});
-//             }).catch(err => {
-//                 console.log(err);
-//                 message.channel.send({content: `There was an error while trying to connect to the voice channel!`});
-//             });
-//             break;
-//         case 'skip':
-//             if(!vc) return message.channel.send({content: `There is currently nothing playing!`});
-//             audioManager.skip(vc).then(() => message.channel.send({content: `Successfully skipped the song!`})).catch(err => {
-//                 console.log(err);
-//                 message.channel.send({content: `There was an error while skipping the song!`});
-//             });
-//             break;
-//         case 'stop':
-//             if(!vc) return message.channel.send({content: `There is currently nothing playing!`});
-//             audioManager.stop(vc);
-//             message.channel.send({content: `Player successfully stopped!`});            
-//             break;
-//         case 'queue':
-//             if(!vc) return message.channel.send({content: `There is currently nothing playing!`});
-//             const queue = audioManager.queue(vc).reduce((text, song, index) => {
-//                 if(song.title) text += `**[${index + 1}]** ${song.title}`;
-//                 else text += `**[${index + 1}]** ${song.url}`;
-//                 return text;
-//             }, `__**QUEUE**__`);
-//             const queueEmbed = new discord.MessageEmbed()
-//             .setColor(`BLURPLE`)
-//             .setTitle(`Queue`)
-//             .setDescription(queue);
-//             message.channel.send({embeds: [queueEmbed]});
-//             break;
-//         case 'volume':
-//             if(!vc) return message.channel.send({content: `There is currently nothing playing!`});
-//             if(!args[1]) return message.channel.send({content: `Please provide the volume`});
-//             if(Number(args[1] < 1 || Number(args[1]) > 10)) return message.channel.send({content: `Please provide a volume between 1-10`});
-//             audioManager.volume(vc, Number(args[1]));
-//             break;
-//     }
-//});
-​
-client.login('ODg3ODY5MjQzMjE4MDg3OTU2.YUKaqw.b70z4bJ2dclica2mbtMI0y2ZuUM');
+}); 
+client.login('ODg3ODY5MjQzMjE4MDg3OTU2.YUKaqw.b70z4bJ2dclica2mbtMI0y2ZuUM');    
+
