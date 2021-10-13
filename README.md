@@ -5,8 +5,8 @@ Smoothy is currently a barebones Discord Music Bot, however it works quite well 
 
 # Table of Contents
 1. [Dependencies](#Dependencies)
-2. [Current Functionalities](#CurrentFuctionalities)
-3. [Run Smoothy.exe](#RunSmoothy.exe)
+2. [Current Functionalities](#Current_Fuctionalities)
+3. [Run Smoothy.exe](#Run_Smoothy.exe)
 
 ## Dependencies
 * [node.js LTS version](https://nodejs.org/dist/v14.18.1/node-v14.18.1-x64.msi): ytdl-core currently doesn't work correctly with the latest nodejs.
