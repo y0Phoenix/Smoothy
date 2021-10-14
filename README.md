@@ -22,17 +22,17 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 ## Current Fuctionalities <a name="currentfunctionalities"></a>
 1. Message embeds for a cleaner more professional look when Smoothy replies to a command
 2. Smoothy will automatically disconnect after 30 minutes on idle to save bandwith
-3. Play songs from youtube via search query or link
-4. Skip a song inside of a serverQueue
-5. Pause the current song 
-6. Resume the current song
-7. Stop the serverQueue
-8. Loop the current serverQueue
-9. Loop the current song
-10. Repeat the current song
-11. List out the current queue as numbered songs and 'requested by' for each song
-12. Remove a specified song via number in the serverQueue
-13. Leave the voice channel
+3. Play songs from youtube via search query or link via (prefix)play
+4. Skip a song inside of a serverQueue via (prefix)skip
+5. Pause the current song via (prefix)pause
+6. Resume the current song via (prefix)resume
+7. Stop the serverQueue via (prefix)stop
+8. Loop the current serverQueue via (prefix)loop
+9. Loop the current song via (prefix)loopsong
+10. Repeat the current song via (prefix)repeat
+11. List out the current queue as numbered songs and 'requested by' for each song via (prefix)queue
+12. Remove a specified song via number in the serverQueue via (prefix)remove
+13. Leave the voice channel via (prefix)disconnect
 
 ## Run Smoothy.exe <a name="runsmoothy.exe"></a>
 * This program is simple. All it does is checks if Smoothy is running and starts him if he isn't.
