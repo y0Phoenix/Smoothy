@@ -16,6 +16,7 @@ const resume = require('./commands/resume');
 const loop = require('./commands/loop');
 const loopsong = require('./commands/loopsong');
 const repeat = require('./commands/repeat');
+const shuffle = require('./commands/shuffle');
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
@@ -46,10 +47,10 @@ client.on('messageCreate', message =>{
     console.log("Command = " + command);
     //commands come in and checks if command ===, else the command was invalid
     if(command === 'ping'){
-        ping.execute(message, args, vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
+        ping.execute(message);
     }else if (command === 'play' || command === 'p'){
         play.play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue,);
-    }else if (command === 'queue' || command === 'list'){
+    }else if (command === 'queue' || command === 'list' || command === 'q'){
         queuelist.execute(message, serverQueue);
     }else if (command === 'skip' || command === 'next' || command === 's' || command === 'n'){
         skip.skip(message, serverQueue);
@@ -73,6 +74,8 @@ client.on('messageCreate', message =>{
         loopsong.loopsong(message, serverQueue)
     }else if (command === 'repeat' || command === 'restart'){
         repeat.repeat(message, serverQueue)
+    }else if (command === 'shuffle' || command === 'mix'){
+        shuffle.shuffle(message, serverQueue)
     }else
         message.channel.send('Invalid Command Type -help To See Current Commands');
     return;
