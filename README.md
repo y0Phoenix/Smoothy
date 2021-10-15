@@ -1,4 +1,10 @@
 # Smoothy
+
+![ ](https://img.shields.io/github/repo-size/y0Phoenix/Smoothy)
+![ ](https://img.shields.io/github/issues/y0Phoenix/Smoothy)
+![ ](https://img.shields.io/github/stars/y0Phoenix/Smoothy)
+![ ](https://img.shields.io/github/license/y0Phoenix/Smoothy)
+
 Discord Music Bot using Discord.js v13 and Node.js LTS with node-abort-controller
 
 Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, it works quite well and does what you need it to.
