@@ -9,6 +9,9 @@ Discord Music Bot using Discord.js v13 and Node.js LTS with node-abort-controlle
 
 Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, it works quite well and does what you need it to.
 
+![alt text](https://github.com/y0Phoenix/Smoothy/blob/main/Smoothy%20Logo.png?raw=true)
+
+
 # Table of Contents
 1. [Dependencies](#dependencies)
 2. [Current Functionalities](#currentfunctionalities)
@@ -28,26 +31,26 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 ## Current Fuctionalities <a name="currentfunctionalities"></a>
 1. Message embeds for a cleaner more professional look when Smoothy replies to a command
 2. Smoothy will automatically disconnect after 30 minutes on idle to save bandwith
-3. Play songs from youtube via search query or link **via (prefix)play**
-4. Skip a song inside of a serverQueue **via (prefix)skip**
-5. Pause the current song **via (prefix)pause**
-6. Resume the current song **via (prefix)resume**
-7. Stop the serverQueue **via (prefix)stop**
-8. Loop the current serverQueue **via (prefix)loop**
-9. Loop the current song **via (prefix)loopsong**
-10. Repeat the current song **via (prefix)repeat**
-11. List out the current queue as numbered songs and 'requested by' for each song **via (prefix)queue**
-12. Remove a specified song via number in the serverQueue **via (prefix)remove**
-13. Leave the voice channel **via (prefix)disconnect**
+3. `Play` songs from youtube via search query or link `via (prefix)play`
+4. `Skip` a song inside of a serverQueue `via (prefix)skip`
+5. `Pause` the current song `via (prefix)pause`
+6. `Resume` the current song `via (prefix)resume`
+7. `Stop` the serverQueue `via (prefix)stop`
+8. `Loop` the current serverQueue `via (prefix)loop`
+9. `Loop` the current song `via (prefix)loopsong`
+10. `Repeat` the current song `via (prefix)repeat`
+11. `List` out the current `queue` as numbered songs and 'requested by' for each song `via (prefix)queue`
+12. `Remove` a specified song via number in the serverQueue `via (prefix)remove`
+13. `Leave` the voice channel `via (prefix)disconnect`
 
 ## Run Smoothy.exe <a name="runsmoothy.exe"></a>
 * This program is simple. All it does is checks if Smoothy is running and starts him if he isn't.
 
 * It also will log the entire terminal if Smoothy threw an error and/or crahsed.
 
-* All you have to do to configure this program is change the 'directory', 'run.batfilename' and the 'errorlogfilename' values at\
-**(Run Smoothy.dll.config:4-6)**
-```
+* All you have to do to configure this program is change the `directory`, `run.batfilename` and the `errorlogfilename` values at\
+`(Run Smoothy.dll.config:4-6)`
+```xml
         <appSettings>
 		<add key="directory" value="C:\Users\choos\Documents\Dicord bots\Smoothy 1.4"/>
 		<add key="run.batfilename" value="C:\Users\choos\Documents\Dicord bots\Smoothy 1.4\run.bat"/>
@@ -58,15 +61,15 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 The program should then use the proper filenames and start Smoothy.
 
 ## Using Smoothy <a name="usingsmoothy"></a>
-* In order to use Smoothy on your computer you will need to plugin your own bot token at **(main.js:74)**.
-```
+* In order to use Smoothy on your computer you will need to plugin your own bot token at `(main.js:74)`.
+```js
 }); 
 client.login(''); 
 ```
 
 
-* You can also change the prefix to whatever you please at **(main.js:3)**.
-```
+* You can also change the prefix to whatever you please at `(main.js:3)`.
+```js
 const prefix = '-';
 ```
 
