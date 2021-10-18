@@ -1,3 +1,5 @@
+# Smoothy Help
+
 ![ ](https://img.shields.io/github/repo-size/y0Phoenix/Smoothy)
 ![ ](https://img.shields.io/github/issues/y0Phoenix/Smoothy)
 ![ ](https://img.shields.io/github/stars/y0Phoenix/Smoothy)
