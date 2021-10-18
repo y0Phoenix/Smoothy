@@ -33,7 +33,26 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 
 5. Repeat Command: `-repeat` or `-restart` Will ***Restart*** the current song 
 
-6. Stop Command: `
+6. Stop Command: `-stop` or `-clear` Will Stop the servers music player and clear the queue
+
+7. Queue Command: `-queue`, `-list`, or `-q` Will show the servers music queue along with a specified number in order to `jump` to or `remove` a song
+
+8. Jump Command: `-jump` or `-j` Will jump the music player to the specified song with a number
+
+9. Remove Command: `-remove` or `-r` Will remove a specified song with a number
+
+10. Shuffle Command: `-shuffle` or `-mix` Will shuffle the servers song queue, and will unshuffle it by typing the command again
+
+11. Loop Command: `-loop` or `-l` Will loop the servers queue, and will stop looping by typing the command again
+
+12. Loopsong Command: `-loopsong` or `-ls` Will loop the current song forever until you type the command again
 
 ## Contact Info And Support <a name="contact"></a>
+1. Prefered contact method if you have a GitHub Profile: Goto [Smoothy's issues page](https://github.com/y0Phoenix/Smoothy/issues) and create an issue. This creates an issue forum which makes it far easier to track comments and linking + merging with other issues  
+
+2. If you dont have a GitHub Profile: DM with any info, ideas or a crash to [Eugene#3399](https://discordapp.com/users/3399) on Discord.
+
+3. Email: You can also email me at supy0phoenix@gmail.com with any info, ideas or a crash. 
+
+### Please Be Patient when contacting me as I am working alone on this program, any info + ideas are much appreciated.
 
