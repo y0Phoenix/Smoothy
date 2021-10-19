@@ -8,10 +8,9 @@ module.exports = {
             serverQueue.player.pause();
             const pauseEmbed = new MessageEmbed()
                 .setTitle(':pause_button: Paused')
-                .setURL(`${serverQueue.songs[0].url}`)
-                .setDescription(`I Have Paused ***${serverQueue.songs[0].title}***
-                You Can Resume By Typing ***-resume***`)
-                .setThumbnail(`${serverQueue.songs[0].thumbnail}`)
+                .setDescription(`I Have Paused ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
+                .addField(`Help` , `You Can Resume By Typing ***-resume***`)
+                .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
                 .addField(`Requested By` , `<@${message.author.id}>`)
                 .setTimestamp();
             message.reply({embeds: [pauseEmbed]});

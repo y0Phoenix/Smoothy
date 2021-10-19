@@ -7,12 +7,12 @@ module.exports = {
             if(serverQueue.shuffledSongs.length > 0){
                 serverQueue.player.stop();
                 serverQueue.repeat = true
-                message.reply(`:thumbsup: I Am Restarting ***${serverQueue.shuffledSongs[0].title}*** :thumbsup:`)
+                message.reply(`:thumbsup: I Am Restarting ***${serverQueue.shuffledSongs[0].title}*** :arrows_counterclockwise:`)
             }
             else if(serverQueue.songs.length > 0){
                 serverQueue.player.stop();
                 serverQueue.repeat = true
-                message.reply(`:thumbsup: I Am Restarting ***${serverQueue.songs[0].title}*** :thumbsup:`)
+                message.reply(`:thumbsup: I Am Restarting ***${serverQueue.songs[0].title}*** :arrows_counterclockwise:`)
             }
             else{
                 message.reply(':rofl: Not Currently Playing Anything At The Moment :rofl:')

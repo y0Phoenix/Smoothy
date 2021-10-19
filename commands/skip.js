@@ -11,9 +11,9 @@ module.exports = {
                     const skipEmbed = new MessageEmbed()
                         .setColor('#0099ff')
                         .setTitle('Skipping Song')
-                        .setDescription(`:next_track: Now Skipping ***[${serverQueue.currenttitle}](${serverQueue.songs[0].url})***`)
+                        .setDescription(`:next_track: Now Skipping ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
                         .addField(`Requested By` , `<@${message.author.id}>`)
-                        .setThumbnail(`${serverQueue.songs[0].thumbnail}`)
+                        .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
                         .setTimestamp();
                     message.reply({embeds: [skipEmbed]})
                     await serverQueue.player.stop();  
@@ -24,9 +24,9 @@ module.exports = {
                         .setColor('#0099ff')
                         .setTitle('Skipping Song')
                         .setURL(`${serverQueue.shuffledSongs[0].url}`)
-                        .setDescription(`:next_track: Now Skipping ***[${serverQueue.currenttitle}](${serverQueue.shuffledSongs[0].url})***`)
+                        .setDescription(`:next_track: Now Skipping ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
                         .addField(`Requested By` , `<@${message.author.id}>`)
-                        .setThumbnail(`${serverQueue.shuffledSongs[0].thumbnail}`)
+                        .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
                         .setTimestamp();
                     message.reply({embeds: [skipEmbed]})
                     await serverQueue.player.stop();

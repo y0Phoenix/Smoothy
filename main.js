@@ -17,12 +17,13 @@ const loop = require('./commands/loop');
 const loopsong = require('./commands/loopsong');
 const repeat = require('./commands/repeat');
 const shuffle = require('./commands/shuffle');
+const jump = require('./commands/jump');
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
 const DisconnectIdle = new Map();
 client.once('ready', () => {
-    console.log('Smoothy 1.4 is online!');
+    console.log('Smoothy 1.4.2 is online!');
     client.user.setActivity('-help', { type: 'LISTENING' })
 });
 client.once('recconnecting', () => {
@@ -34,7 +35,6 @@ client.once('disconnect', () => {
 //creates a message from discord with all the info about the user, server, voicechannel and text channel
 client.on('messageCreate', message =>{
     if(!message.content.startsWith(prefix) || message.author.bot){
-        console.log('Message author was bot!');
         return;
     }
     //line 41-42 is where the two maps are defined from the specific guildId from discord. 
@@ -57,25 +57,27 @@ client.on('messageCreate', message =>{
     }else if (command === 'stop' || command === 'clear'){
         stop.stop(message, serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }else if (command === 'leave' || command === 'disconnect' || command === 'dc' || command === 'die'){
-        leave.leave(message, queue, serverQueue)
+        leave.leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle);
     }else if (command === 'remove' || command === 'r'){
-        remove.remove(message, args, serverQueue)
+        remove.remove(message, args, serverQueue);
     }else if (command === 'help'){
-        help.help(message)
+        help.help(message);
     }else if (command === 'pause'){
-        pause.pause(message, serverQueue)
+        pause.pause(message, serverQueue);
     }else if (command === 'resume'){
-        resume.resume(message,serverQueue)
+        resume.resume(message,serverQueue);
     }else if (command === 'crash'){
         snoopy_goes_wild.dummy = 'me';
     }else if (command === 'loop' || command === 'l'){
-        loop.loop(message, serverQueue)
+        loop.loop(message, serverQueue);
     }else if (command === 'loopsong' || command === 'ls'){
-        loopsong.loopsong(message, serverQueue)
+        loopsong.loopsong(message, serverQueue);
     }else if (command === 'repeat' || command === 'restart'){
-        repeat.repeat(message, serverQueue)
+        repeat.repeat(message, serverQueue);
     }else if (command === 'shuffle' || command === 'mix'){
-        shuffle.shuffle(message, serverQueue)
+        shuffle.shuffle(message, serverQueue);
+    }else if (command === 'jump' || command === 'j'){
+        jump.jump(message, args, serverQueue);
     }else
         message.channel.send('Invalid Command Type -help To See Current Commands');
     return;

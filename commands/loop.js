@@ -6,12 +6,12 @@ module.exports = {
         if(serverQueue){   
             if(serverQueue.loop === false){
                 serverQueue.loop = true;
-                message.reply(':thumbsup: I Am Now Looping The Current Queue!');
+                message.reply(':thumbsup: I Am Now Looping The Current Queue! :repeat:');
             }
             else{
                 serverQueue.loop = false;
                 message.reply('I Am No Longer Looping The Queue!')
-            }
+            } 
         }
         else{
             message.reply(':rofl: No Queue To Loop :rofl:')

@@ -5,14 +5,13 @@ module.exports = {
     name: 'resume',
     description: 'resumes the current song',
     async resume(message,serverQueue){
-        if(serverQueue !== undefined){
+        if(serverQueue){
             if(serverQueue.player.state.status === AudioPlayerStatus.Paused){
                 serverQueue.player.unpause();
                 const resumEmbed = new MessageEmbed()
                     .setTitle(':arrow_forward: Resuming')
-                    .setURL(`${serverQueue.songs[0].url}`)
-                    .setDescription(`I Have Resumed ***${serverQueue.songs[0].title}***`)
-                    .setThumbnail(`${serverQueue.songs[0].thumbnail}`)
+                    .setDescription(`I Have Resumed ***[${serverQueue.currensong[0].title}](${serverQueue.currensong[0].url})***`)
+                    .setThumbnail(`${serverQueue.currensong[0].thumbnail}`)
                     .addField(`Requested By` , `<@${message.author.id}>`)
                     .setTimestamp();
                 message.reply({embeds: [resumEmbed]});

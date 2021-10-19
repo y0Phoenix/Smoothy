@@ -7,7 +7,7 @@ module.exports = {
             if(serverQueue.songs.length > 1){
                 serverQueue.shuffle = true
                 serverQueue.shuffledSongs.push(serverQueue.songs[0]);
-                message.reply(':thumbsup: I Am Now Shuffling The Queue');
+                message.reply(':thumbsup: I Am Now Shuffling The Queue :twisted_rightwards_arrows:');
                 var songsLength = parseInt(serverQueue.songs.length);
                 var randomNumber = () => {
                     return Math.floor(Math.random() * songsLength);
