@@ -23,7 +23,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 
 * Smoothy has a variety of different commands associated with playing music you can check them out at [Commands](#commands)
 
-* If you have any ideas to help improve Smoothy, you can chack out the [Contact](#contact) 
+* If you have any ideas to help improve Smoothy, you can chack out [Contact](#contact) 
 
 
 ## Commands <a name="commands"></a>
