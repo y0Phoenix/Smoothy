@@ -23,6 +23,8 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 
 * Smoothy has a variety of different commands associated with playing music you can check them out at [Commands](#commands)
 
+* If you have any ideas to help improve Smoothy, you can chack out the [Contact](#contact) 
+
 
 ## Commands <a name="commands"></a>
 1. Play Command: `-play` or `-p` Will Make Smoothy ***Join The Voice Channel*** Then ***Play A Song.*** If A Song Is Currently Playing Then The Typed Song Is Added To The Queue
@@ -37,11 +39,11 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 
 6. Stop Command: `-stop` or `-clear` Will Stop the servers music player and clear the queue
 
-7. Queue Command: `-queue`, `-list`, or `-q` Will show the servers music queue along with a specified number in order to `jump` to or `remove` a song
+7. Queue Command: `-queue`, `-list`, or `-q` Will show the servers song queue along with specified numbers for each song in order to `jump` to or `remove` them
 
-8. Jump Command: `-jump` or `-j` Will jump the music player to the specified song with a number
+8. Jump Command: `-jump` or `-j` Will jump the music player to the song specified with a number
 
-9. Remove Command: `-remove` or `-r` Will remove a specified song with a number
+9. Remove Command: `-remove` or `-r` Will remove a song specified with a number
 
 10. Shuffle Command: `-shuffle` or `-mix` Will shuffle the servers song queue, and will unshuffle it by typing the command again
 
@@ -50,7 +52,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 12. Loopsong Command: `-loopsong` or `-ls` Will loop the current song forever until you type the command again
 
 ## Contact Info And Support <a name="contact"></a>
-1. Prefered contact method if you have a GitHub Profile: Goto [Smoothy's issues page](https://github.com/y0Phoenix/Smoothy/issues) and create an issue. This creates an issue forum which makes it far easier to track comments and linking + merging with other issues  
+1. Prefered contact method if you have a GitHub Profile: Goto [Smoothy's issues page](https://github.com/y0Phoenix/Smoothy/issues) and create an issue. This creates an forum which makes it far easier to track comments and linking + merging with other issues  
 
 2. If you dont have a GitHub Profile: DM with any info, ideas or a crash to [Eugene#3399](https://discordapp.com/users/3399) on Discord.
 
