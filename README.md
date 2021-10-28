@@ -32,22 +32,23 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 ## Current Fuctionalities <a name="currentfunctionalities"></a>
 1. Message embeds for a cleaner more professional look when Smoothy replies to a command
 2. Smoothy will automatically disconnect after 30 minutes on idle to save bandwith
-3. `Play` songs from youtube via search query or link `via (prefix)play`
-4. `Skip` a song inside of a serverQueue `via (prefix)skip`
-5. `Pause` the current song `via (prefix)pause`
-6. `Resume` the current song `via (prefix)resume`
-7. `Stop` the serverQueue `via (prefix)stop`
-8. `Loop` the current serverQueue `via (prefix)loop`
-9. `Loop` the current song `via (prefix)loopsong`
-10. `Repeat` the current song `via (prefix)repeat`
-11. `List` out the current `queue` as numbered songs and 'requested by' for each song `via (prefix)queue`
-12. `Remove` a specified song via number in the serverQueue `via (prefix)remove`
-13. `Leave` the voice channel `via (prefix)disconnect`
-14. List the `Queue` `via (prefix)queue`
-15. `Jump` to a specified song `via (prefix)jump (number)` 
-16. `Playplaylist` plays a YouTube playlist via link `via (prefix)playplaylist`
-17. `Myprefix` shows the current set prefix via `myprefix`
-18. `Changeprefix` changes the prefix for the individual Discord server `via (prefix)changeprefix`
+### Plese note that the `-` is the default prefix. In order to check your servers prefix if it was changed type `myprefix` without the `-` and use that instead of `-`.
+| Command      | Description 								| Usage                        |
+| ------------ | ---------------------------------------------------------------------- | ---------------------------- |
+| Play         | Plays a songs from youtube via search query or link 			| `-p`, `-play` 	       |
+| Skip         | Skips a song inside of a serverQueue 					| `-s`, `-n`, `-skip`, `-next` |
+| Pause        | Pauses the current song 						| `-pause` 		       |
+| Resume       | Resumes the paused song 						| `-reume`                     |
+| Stop         | Stops the current song and clears the queue 				| `-stop`, `-clear`            |
+| Loop         | Loops the queue foreverer until the command is entered again 		| `-l`, `-loop`                |
+| Repeat       | Restarts the current song                                              | `-repeat`, `-restart`        |
+| Queue        | Lists out the current song queue with individual numbers for each song | `-q`, `-queue`, `-list`      |
+| Remove       | Removes a song from the queue via a specified number for the song      | `-r`, `-remove` 	       |
+| Leave        | Leaves the voice channel and clears the song queue 			| `-dc`, `-die`, `-disconnect` |
+| Jump         | Jumps to a song via number and removes that song from the queue 	| `-j`, `-jump` 	       |
+| PlayPlaylist | Plays a YouTube playlist thats either public or unlisted via link 	| `-pp`, `-playplaylist`       |
+| MyPrefix     | Displays the server current set prefix (default is `-`) 		| `myprefix`                   |	
+| ChangePrefix | Changes the individual servers prefix 					| `-prefix`, `-changeprefix`,  |
 
 ## Run Smoothy.exe <a name="runsmoothy.exe"></a>
 * This program is simple. All it does is checks if Smoothy is running and starts him if he isn't.
