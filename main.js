@@ -1,8 +1,7 @@
 // This is the Main File for Smoothy Developed by Eugene aka y0Phoenix 
 // This is where the client is created and messages come in from discord and are converted into commands and args 
-const { Client, Intents, Discord } = require('discord.js');
+const { Client, Intents, Discord, MessageEmbed } = require('discord.js');
 AbortController = require("node-abort-controller").AbortController;
-const prefix = '-';
 const play = require('./commands/play');
 const leave = require('./commands/leave');
 const stop = require('./commands/stop');
@@ -18,12 +17,14 @@ const loopsong = require('./commands/loopsong');
 const repeat = require('./commands/repeat');
 const shuffle = require('./commands/shuffle');
 const jump = require('./commands/jump');
+const changeprefix = require('./commands/change prefix')
+const fs = require('fs')
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
 const DisconnectIdle = new Map();
 client.once('ready', () => {
-    console.log('Smoothy 1.4.2 is online!');
+    console.log('Smoothy 1.4.3 is online!');
     client.user.setActivity('-help', { type: 'LISTENING' })
 });
 client.once('recconnecting', () => {
@@ -34,7 +35,42 @@ client.once('disconnect', () => {
 });
 //creates a message from discord with all the info about the user, server, voicechannel and text channel
 client.on('messageCreate', message =>{
-    if(!message.content.startsWith(prefix) || message.author.bot){
+    if(message.author.bot){
+        return;
+    }
+    var file = fs.readFileSync('./commands/config.json');
+    var data = JSON.parse(file);
+    let prefix = undefined;
+    let found = 0;
+    for(j=0;
+        prefix === undefined;
+        j++){
+            if(data.length === j){
+                prefix = data[0].prefix;
+                found = 0;
+            }
+            else{
+                const exists = data[j].guildId === message.guild.id;
+                if(exists){
+                    prefix = data[j].prefix;
+                    found = j;
+                }
+            }
+        }
+    if(message.content === 'myprefix'){
+        const myprefixEmbed = new MessageEmbed()
+            .setColor('BLUE')
+            .addFields(
+                {
+                   name: ':thumbsup: Current Prefix',value: `**${prefix}**`
+                }
+            )
+        ;   
+        message.channel.send({embeds: [myprefixEmbed]});
+        console.log(`Send current prefix ${prefix} to the channel`);
+        return;
+    }
+    if(!message.content.startsWith(prefix)){
         return;
     }
     //line 41-42 is where the two maps are defined from the specific guildId from discord. 
@@ -48,8 +84,8 @@ client.on('messageCreate', message =>{
     //commands come in and checks if command ===, else the command was invalid
     if(command === 'ping'){
         ping.execute(message);
-    }else if (command === 'play' || command === 'p'){
-        play.play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue,);
+    }else if (command === 'play' || command === 'p' || command === 'pp' || command === 'playp'){
+        play.play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command);
     }else if (command === 'queue' || command === 'list' || command === 'q'){
         queuelist.execute(message, serverQueue);
     }else if (command === 'skip' || command === 'next' || command === 's' || command === 'n'){
@@ -66,7 +102,7 @@ client.on('messageCreate', message =>{
         pause.pause(message, serverQueue);
     }else if (command === 'resume'){
         resume.resume(message,serverQueue);
-    }else if (command === 'crash'){
+    }else if (command === 'crash' || command === 'c'){
         snoopy_goes_wild.dummy = 'me';
     }else if (command === 'loop' || command === 'l'){
         loop.loop(message, serverQueue);
@@ -78,10 +114,17 @@ client.on('messageCreate', message =>{
         shuffle.shuffle(message, serverQueue);
     }else if (command === 'jump' || command === 'j'){
         jump.jump(message, args, serverQueue);
-    }else
-        message.channel.send('Invalid Command Type -help To See Current Commands');
+    }else if (command === 'prefix' || command === 'changeprefix' || command === 'prefixchange'){
+        changeprefix.prefix(message, args, serverQueue, data, found)
+    }
+    else{
+        const invalidCommandEmbed = new MessageEmbed()
+            .setColor(`RED`)
+            .setDescription(`Invalid Command Type -help To See Current Commands`)
+        ;
+        message.channel.send({embeds: [invalidCommandEmbed]});
     return;
-    
+    }
 }); 
-client.login('');    
+client.login('ODg3ODY5MjQzMjE4MDg3OTU2.YUKaqw.vNNJ_yD2ZOUgVwAtyqKdFSsBnLw');    
 

@@ -7,16 +7,23 @@ module.exports = {
         if(serverQueue !== undefined){
             serverQueue.player.pause();
             const pauseEmbed = new MessageEmbed()
+                .setColor('RED')
                 .setTitle(':pause_button: Paused')
                 .setDescription(`I Have Paused ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
                 .addField(`Help` , `You Can Resume By Typing ***-resume***`)
                 .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
-                .addField(`Requested By` , `<@${message.author.id}>`)
+                .addFields(
+                    {
+                        name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
+                    },
+                    {
+                        name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
+                    })
                 .setTimestamp();
-            message.reply({embeds: [pauseEmbed]});
+                message.channel.send({embeds: [pauseEmbed]})
         }
         else{
-            message.reply(`:rofl: Nothing To Pause :rofl:`);
+            message.channel.send(`:rofl: Nothing To Pause :rofl:`);
         }
     }
     

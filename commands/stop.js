@@ -2,17 +2,28 @@
 const executive = require('../executive');
 var {AudioPlayerStatus,
     } = require('@discordjs/voice');
+const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'stop',
     description: 'stops playing and clears the queue',
     async stop(message, serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
         voiceChannel = message.member.voice.channel;
-        if (serverQueue.player.state.status === AudioPlayerStatus.Playing){
+        if (serverQueue){
+            serverQueue.stop = true;
             serverQueue.player.stop();
-            queue.delete(message.guild.id)
-            message.reply(':octagonal_sign: I Have ***Stopped*** The Music :octagonal_sign:!');
+            queue.delete(message.guild.id);
+            const stopEmbed = new MessageEmbed()
+                .setColor('RED')
+                .setDescription(`:octagonal_sign: I Have ***Stopped*** The Music!`)
+            ;
+            message.channel.send({embeds: [stopEmbed]});
             executive.disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle)
-        }else
-            message.reply(':rofl: Nothing ***Playing*** Currently :rofl:!')
+        }else{
+            const notPlayingEmbed = new MessageEmbed()
+                .setColor('RED')
+                .setDescription(`:rofl: Nothing ***Playing*** Currently!`)
+            ;
+            message.channel.send({embeds: [notPlayingEmbed]})
+        }
     }
 }

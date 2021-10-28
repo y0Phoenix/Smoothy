@@ -9,18 +9,25 @@ module.exports = {
             if(serverQueue.player.state.status === AudioPlayerStatus.Paused){
                 serverQueue.player.unpause();
                 const resumEmbed = new MessageEmbed()
+                    .setColor('GREEN')
                     .setTitle(':arrow_forward: Resuming')
-                    .setDescription(`I Have Resumed ***[${serverQueue.currensong[0].title}](${serverQueue.currensong[0].url})***`)
-                    .setThumbnail(`${serverQueue.currensong[0].thumbnail}`)
-                    .addField(`Requested By` , `<@${message.author.id}>`)
+                    .setDescription(`I Have Resumed ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
+                    .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
+                    .addFields(
+                        {
+                            name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
+                        },
+                        {
+                            name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
+                        })
                     .setTimestamp();
-                message.reply({embeds: [resumEmbed]});
+                message.channel.send({embeds: [resumEmbed]});
             }else{
-                message.reply(`:rofl: Not Currently Paused :rofl:`);
+                message.channel.send(`:rofl: Not Currently Paused :rofl:`);
             }
 
         }else{
-            message.reply(`:rofl: Not Currently Paused :rofl:`);
+            message.channel.send(`:rofl: Not Currently Paused :rofl:`);
         }
     }
     

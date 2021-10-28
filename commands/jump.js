@@ -8,31 +8,62 @@ module.exports = {
         if(serverQueue){
             if(serverQueue.loopsong === false){
                 if(serverQueue.songs.length > 1){
-                    if(serverQueue.songs[i]){
-                        serverQueue.jump = i;
-                        const jumpEmbed = new MessageEmbed()
-                            .setColor('#0099ff')
-                            .setTitle('Jumping To Song')
-                            .setDescription(`:arrow_heading_down: Now Jumping To ***[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})***`)
-                            .addField(`Requested By` , `<@${message.author.id}>`)
-                            .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
-                            .setTimestamp();
-                        message.reply({embeds: [jumpEmbed]});
-                        serverQueue.player.stop();
+                    if(serverQueue.shuffle === false){
+                        if(serverQueue.songs[i]){
+                            serverQueue.jump = i;
+                                const jumpEmbed = new MessageEmbed()
+                                .setColor('DARK_GOLD')
+                                .setTitle('Jumping To Song')
+                                .setDescription(`:arrow_heading_down: Now Jumping To ***[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})***`)
+                                .addFields(
+                                    {
+                                        name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
+                                    },
+                                    {
+                                        name: `***Duration***`, value: `${serverQueue.songs[i].duration}`, inline: true
+                                    })
+                                .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
+                                .setTimestamp();
+                            message.channel.send({embeds: [jumpEmbed]});
+                            serverQueue.player.stop();
+                        }
+                        else{
+                            message.channel.send(':x: No Song Specified');
+                        }
                     }
                     else{
-                        message.reply(':x: No Song Specified');
+                        if(serverQueue.shuffledSongs[i]){
+                            serverQueue.jump = i;
+                            const jumpEmbed = new MessageEmbed()
+                                .setColor('DARK_GOLD')
+                                .setTitle('Jumping To Song')
+                                .setDescription(`:arrow_heading_down: Now Jumping To ***[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})***`)
+                                .addFields(
+                                    {
+                                        name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
+                                    },
+                                    {
+                                        name: `***Duration***`, value: `${serverQueue.shuffledSongs[i].duration}`, inline: true
+                                    })
+                                .setThumbnail(`${serverQueue.shuffledSongs[i].thumbnail}`)
+                                .setTimestamp();
+                            message.channel.send({embeds: [jumpEmbed]});
+                            serverQueue.player.stop();
+                        }
+                        else{
+                            message.channel.send(':x: No Song Specified');
+                        }
                     }
                 }
                 else{
-                    message.reply(':x: No Other Songs Besides The Current Exist In The Queue :x:');
+                    message.channel.send(':x: No Other Songs Besides The Current Exist In The Queue :x:');
                 }
             }
             else{
-                message.reply(`:rofl: I Cannot Jump To A Song Wile I Am Looping A Song :rofl:`)
+                message.channel.send(`:rofl: I Cannot Jump To A Song Wile I Am Looping A Song :rofl:`)
             }
         }else{
-            message.reply(':rofl: I Dont Have A Song Queue :rofl:');
+            message.channel.send(':rofl: I Dont Have A Song Queue :rofl:');
         }     
     }
 }

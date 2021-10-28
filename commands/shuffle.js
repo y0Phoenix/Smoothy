@@ -7,7 +7,7 @@ module.exports = {
             if(serverQueue.songs.length > 1){
                 serverQueue.shuffle = true
                 serverQueue.shuffledSongs.push(serverQueue.songs[0]);
-                message.reply(':thumbsup: I Am Now Shuffling The Queue :twisted_rightwards_arrows:');
+                message.channel.send(':thumbsup: I Am Now Shuffling The Queue :twisted_rightwards_arrows:');
                 var songsLength = parseInt(serverQueue.songs.length);
                 var randomNumber = () => {
                     return Math.floor(Math.random() * songsLength);
@@ -38,13 +38,13 @@ module.exports = {
                 }
             }
             else{
-                message.reply(':rofl: I Cannot Shuffle A 1 Song Queue :rofl:')
+                message.channel.send(':rofl: I Cannot Shuffle A 1 Song Queue :rofl:')
             }
         }
         else{
             serverQueue.shuffle = false;
             serverQueue.shuffledSongs = [];
-            message.reply(':thumbsup: I Have Returned The Queue To Its Original Order');
+            message.channel.send(':thumbsup: I Have Returned The Queue To Its Original Order');
         }
     }        
 }

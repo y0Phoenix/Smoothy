@@ -8,35 +8,47 @@ module.exports = {
         if(serverQueue.shuffle === true){
             if(serverQueue.shuffledSongs[i]){
                 const removeEmbed = new MessageEmbed()
-                    .setColor('#0099ff')
+                    .setColor('BLURPLE')
                     .setTitle(':eject: Removing Song')
                     .setURL(`${serverQueue.songs[i].url}`)
                     .setDescription(`I Have Removed ***[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})***`)
-                    .addField(`Requested By` , `<@${message.author.id}>`)
+                    .addFields(
+                        {
+                            name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
+                        },
+                        {
+                            name: `***Duration***`, value: `${serverQueue.shuffledSongs[i].duration}`, inline: true
+                        })
                     .setThumbnail(`${serverQueue.shuffledSongs[i].thumbnail}`)
                     .setTimestamp();
-                message.reply({embeds: [removeEmbed]});    
+                message.channel.send({embeds: [removeEmbed]});    
                 serverQueue.shuffledSongs.splice(i, 1);
             }
             else{
-                message.reply('No Song Specified');
+                message.channel.send('No Song Specified');
             }
         }
         else{
             if(serverQueue.songs[i]){
                 const removeEmbed = new MessageEmbed()
-                    .setColor('#0099ff')
+                    .setColor('BLURPLE')
                     .setTitle(':eject: Removing Song')
                     .setURL(`${serverQueue.songs[i].url}`)
                     .setDescription(`I Have Removed ***[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})***`)
-                    .addField(`Requested By` , `<@${message.author.id}>`)
+                    .addFields(
+                        {
+                            name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
+                        },
+                        {
+                            name: `***Duration***`, value: `${serverQueue.songs[i].duration}`, inline: true
+                        })
                     .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
                     .setTimestamp();
-                message.reply({embeds: [removeEmbed]});    
+                message.channel.send({embeds: [removeEmbed]});    
                 serverQueue.songs.splice(i, 1);
             }
             else{
-                message.reply('No Song Specified');
+                message.channel.send('No Song Specified');
             }
         }
     }

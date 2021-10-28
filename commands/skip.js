@@ -6,34 +6,24 @@ module.exports = {
     async skip(message, serverQueue) {    
         if(serverQueue !== undefined){
             if (serverQueue.songs.length > 0 ) {
-                if(serverQueue.shuffle === false){
-                    console.log("Skipping" + serverQueue.currenttitle + "!");
-                    const skipEmbed = new MessageEmbed()
-                        .setColor('#0099ff')
-                        .setTitle('Skipping Song')
-                        .setDescription(`:next_track: Now Skipping ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
-                        .addField(`Requested By` , `<@${message.author.id}>`)
-                        .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
-                        .setTimestamp();
-                    message.reply({embeds: [skipEmbed]})
-                    await serverQueue.player.stop();  
-                }
-                else{
-                    console.log("Skipping" + serverQueue.currenttitle + "!");
-                    const skipEmbed = new MessageEmbed()
-                        .setColor('#0099ff')
-                        .setTitle('Skipping Song')
-                        .setURL(`${serverQueue.shuffledSongs[0].url}`)
-                        .setDescription(`:next_track: Now Skipping ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
-                        .addField(`Requested By` , `<@${message.author.id}>`)
-                        .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
-                        .setTimestamp();
-                    message.reply({embeds: [skipEmbed]})
-                    await serverQueue.player.stop();
-                }
-                
+                console.log("Skipping" + serverQueue.currenttitle + "!");
+                const skipEmbed = new MessageEmbed()
+                    .setColor('AQUA')
+                    .setTitle('Skipping Song')
+                    .setDescription(`:next_track: Now Skipping ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
+                    .addFields(
+                        {
+                            name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
+                        },
+                        {
+                            name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
+                        })
+                    .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
+                    .setTimestamp();
+                message.channel.send({embeds: [skipEmbed]})
+                serverQueue.player.stop();  
             }else{
-                message.reply(':rofl: Nothing To ***Skip*** :rofl:');
+                message.channel.send(':rofl: Nothing To ***Skip*** :rofl:');
             }
         }
     }

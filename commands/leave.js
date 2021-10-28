@@ -1,4 +1,5 @@
-var {VoiceConnectionStatus, getVoiceConnection, AudioPlayerStatus,} = require('@discordjs/voice');
+const {VoiceConnectionStatus, getVoiceConnection, AudioPlayerStatus,} = require('@discordjs/voice');
+const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'leave',
     description: 'leaves the voice channel and clear the queue',
@@ -6,7 +7,11 @@ module.exports = {
         if(serverQueue){
             var voiceConnection = getVoiceConnection(message.guild.id)
             if(voiceConnection.state.status === VoiceConnectionStatus.Ready){
-                message.channel.send(':cry: Leaving Channel :cry:')
+                const leaveEmbed = new MessageEmbed()
+                    .setColor('RED')
+                    .setDescription(`':cry: Leaving Channel`)
+                ;
+                message.channel.send({embeds: [leaveEmbed]})
                 console.log('Left The Voice Channel From Command')
                 if(serverQueue.player.state.status === AudioPlayerStatus.Playing){
                     serverQueue.player.stop();    
@@ -19,7 +24,11 @@ module.exports = {
                 DisconnectIdle.delete(message.guild.id)
             }
             else{
-                message.reply(':rofl: I Am Not In VC :rofl:');
+                const noVCEmbed = new MessageEmbed()
+                    .setColor('RED')
+                    .setDescription(`:rofl: I Am Not In VC`)
+                ;
+                message.channel.send({embeds: [noVCEmbed]});
                 return;
             }
         }     
