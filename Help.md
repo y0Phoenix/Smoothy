@@ -27,35 +27,24 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 
 
 ## Commands <a name="commands"></a>
-### Please not that `-` is the default prefix, if you have set a different prefix in your own server type `myprefix` and use that prefix instead of `-`.
+### Plese note that the `-` is the default prefix. In order to check your servers prefix if it was changed type `myprefix` without the `-` and use that instead of `-`.
 
-1. Play Command: `-play` or `-p` Will Make Smoothy ***Join The Voice Channel*** Then ***Play A Song.*** If A Song Is Currently Playing Then The Typed Song Is Added To The Queue
-
-2. Skip Command: -`skip`, `-s`, `-next`, or -`n` Will ***Skip*** The Current ***Song*** And ***Play The Next Song*** In The Queue
-
-3. Pause Command: `-pause` Will ***Pause*** The Servers Music
-
-4. Resume Command: `-resume` Will ***Resume*** The Servers Music
-
-5. Repeat Command: `-repeat` or `-restart` Will ***Restart*** the current song 
-
-6. Stop Command: `-stop` or `-clear` Will Stop the servers music player and clear the queue
-
-7. Queue Command: `-queue`, `-list`, or `-q` Will show the servers song queue along with specified numbers for each song in order to `jump` to or `remove` them
-
-8. Jump Command: `-jump` or `-j` Will jump the music player to the song specified with a number
-
-9. Remove Command: `-remove` or `-r` Will remove a song specified with a number
-
-10. Shuffle Command: `-shuffle` or `-mix` Will shuffle the servers song queue, and will unshuffle it by typing the command again
-
-11. Loop Command: `-loop` or `-l` Will loop the servers queue, and will stop looping by typing the command again
-
-12. Loopsong Command: `-loopsong` or `-ls` Will loop the current song forever until you type the command again
-
-13. Playlist Command: `-pp`, `-playplaylist` Will pause the current song inorder to add a large number of songs to the queue via a YouTube playlist ***link***
-
-14. Change Prefix Command: `-prefix`, `-changeprefix` or `-prefixchange` Will change the prefix to a different one specified. You can also view the current prefix by typing `myprefix` 
+| Command      | Description 								| Usage                        |
+| ------------ | ---------------------------------------------------------------------- | ---------------------------- |
+| Play         | Plays a songs from youtube via search query or link 			| `-p`, `-play` 	       |
+| Skip         | Skips a song inside of a serverQueue 					| `-s`, `-n`, `-skip`, `-next` |
+| Pause        | Pauses the current song 						| `-pause` 		       |
+| Resume       | Resumes the paused song 						| `-reume`                     |
+| Stop         | Stops the current song and clears the queue 				| `-stop`, `-clear`            |
+| Loop         | Loops the queue foreverer until the command is entered again 		| `-l`, `-loop`                |
+| Repeat       | Restarts the current song                                              | `-repeat`, `-restart`        |
+| Queue        | Lists out the current song queue with individual numbers for each song | `-q`, `-queue`, `-list`      |
+| Remove       | Removes a song from the queue via a specified number for the song      | `-r`, `-remove` 	       |
+| Leave        | Leaves the voice channel and clears the song queue 			| `-dc`, `-die`, `-disconnect` |
+| Jump         | Jumps to a song via number and removes that song from the queue 	| `-j`, `-jump` 	       |
+| PlayPlaylist | Plays a YouTube playlist thats either public or unlisted via link 	| `-pp`, `-playplaylist`       |
+| MyPrefix     | Displays the server current set prefix (default is `-`) 		| `myprefix`                   |	
+| ChangePrefix | Changes the individual servers prefix 					| `-prefix`, `-changeprefix`,  |
 
 ## Contact Info And Support <a name="contact"></a>
 1. Prefered contact method if you have a GitHub Profile: Goto [Smoothy's issues page](https://github.com/y0Phoenix/Smoothy/issues) and create an issue. This creates an forum which makes it far easier to track comments and linking + merging with other issues  
