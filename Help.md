@@ -27,6 +27,8 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 
 
 ## Commands <a name="commands"></a>
+### Please not that `-` is the default prefix, if you have set a different prefix in your own server type `myprefix` and use that prefix instead of `-`.
+
 1. Play Command: `-play` or `-p` Will Make Smoothy ***Join The Voice Channel*** Then ***Play A Song.*** If A Song Is Currently Playing Then The Typed Song Is Added To The Queue
 
 2. Skip Command: -`skip`, `-s`, `-next`, or -`n` Will ***Skip*** The Current ***Song*** And ***Play The Next Song*** In The Queue
@@ -50,6 +52,10 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 11. Loop Command: `-loop` or `-l` Will loop the servers queue, and will stop looping by typing the command again
 
 12. Loopsong Command: `-loopsong` or `-ls` Will loop the current song forever until you type the command again
+
+13. Playlist Command: `-pp`, `-playplaylist` Will pause the current song inorder to add a large number of songs to the queue via a YouTube playlist ***link***
+
+14. Change Prefix Command: `-prefix`, `-changeprefix` or `-prefixchange` Will change the prefix to a different one specified. You can also view the current prefix by typing `myprefix` 
 
 ## Contact Info And Support <a name="contact"></a>
 1. Prefered contact method if you have a GitHub Profile: Goto [Smoothy's issues page](https://github.com/y0Phoenix/Smoothy/issues) and create an issue. This creates an forum which makes it far easier to track comments and linking + merging with other issues  
