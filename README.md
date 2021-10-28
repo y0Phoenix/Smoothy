@@ -27,6 +27,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 * [tweetnacl](https://www.npmjs.com/package/tweetnacl): Is a dependency of discord.js.
 * [ytdl-core](https://www.npmjs.com/package/ytdl-core): Is required to both search and create audio streams from a YouTube video.
 * [yt-search](https://www.npmjs.com/package/yt-search): Is requred if want to find a video with search query instead of a pasted link.
+* [node-ytpl](https://www.npmjs.com/package/ytpl): Is required to search for YouTube playlists specified with a link (only works with unlisted and public playlists)
 
 ## Current Fuctionalities <a name="currentfunctionalities"></a>
 1. Message embeds for a cleaner more professional look when Smoothy replies to a command
@@ -42,6 +43,11 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 11. `List` out the current `queue` as numbered songs and 'requested by' for each song `via (prefix)queue`
 12. `Remove` a specified song via number in the serverQueue `via (prefix)remove`
 13. `Leave` the voice channel `via (prefix)disconnect`
+14. List the `Queue` `via (prefix)queue`
+15. `Jump` to a specified song `via (prefix)jump (number)` 
+16. `Playplaylist` plays a YouTube playlist via link `via (prefix)playplaylist`
+17. `Myprefix` shows the current set prefix via `myprefix`
+18. `Changeprefix` changes the prefix for the individual Discord server `via (prefix)changeprefix`
 
 ## Run Smoothy.exe <a name="runsmoothy.exe"></a>
 * This program is simple. All it does is checks if Smoothy is running and starts him if he isn't.
@@ -66,11 +72,6 @@ The program should then use the proper filenames and start Smoothy.
 }); 
 client.login(''); 
 ```
-
-
-* You can also change the prefix to whatever you please at `(main.js:3)`.
-```js
-const prefix = '-';
-```
+* You will also need to install the required [Dependencies](#dependencies) in order to use the wide range of functions avalible with Smoothy. If you don't install all of them Smoothy will throw an erorr.
 
 
