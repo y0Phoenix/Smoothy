@@ -1,3 +1,5 @@
+const { MessageEmbed } = require("discord.js");
+
 //reordes the queue into a new array
 module.exports = {
     name: 'shuffle',
@@ -7,7 +9,11 @@ module.exports = {
             if(serverQueue.songs.length > 1){
                 serverQueue.shuffle = true
                 serverQueue.shuffledSongs.push(serverQueue.songs[0]);
-                message.channel.send(':thumbsup: I Am Now Shuffling The Queue :twisted_rightwards_arrows:');
+                const shuffleEmbed = new MessageEmbed()
+                    .setColor('GREEN')
+                    .setDescription(':thumbsup: I Am Now Shuffling The Queue :twisted_rightwards_arrows:')
+                ;
+                message.channel.send({embeds: [shuffleEmbed]});
                 var songsLength = parseInt(serverQueue.songs.length);
                 var randomNumber = () => {
                     return Math.floor(Math.random() * songsLength);
@@ -38,13 +44,21 @@ module.exports = {
                 }
             }
             else{
-                message.channel.send(':rofl: I Cannot Shuffle A 1 Song Queue :rofl:')
+                const oneEmbed = new MessageEmbed()
+                    .setColor('RED')
+                    .setDescription(':rofl: I Cannot Shuffle A 1 Song Queue')
+                ;
+                message.channel.send({embeds: [oneEmbed]})
             }
         }
         else{
             serverQueue.shuffle = false;
             serverQueue.shuffledSongs = [];
-            message.channel.send(':thumbsup: I Have Returned The Queue To Its Original Order');
+            const noShuffleEmbed = new MessageEmbed()
+                .setColor('GREEN')
+                .setDescription(':thumbsup: I Have Returned The Queue To Its Original Order')
+            ;
+            message.channel.send({embeds: [noShuffleEmbed]});
         }
     }        
 }

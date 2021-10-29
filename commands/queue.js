@@ -220,20 +220,7 @@ async function getQueueList(message, serverQueue) {
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Shuffled Queue')
-                        .addFields(
-                            {
-                                name: '****Now Playing****', 
-                                value: `**[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})**\n***Duration:*** ${serverQueue.currentsong[0].duration}`
-                            },
-                            {
-                                name: 'Requested By',
-                                value: `<@${serverQueue.shuffledSongs[0].message.author.id}>`
-                            },
-                            {
-                                name: 'Queue',
-                                value: queuelist
-                            }
-                        )
+                        .setDescription(`${queuelist}`)
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
                     queuelist = ``;
@@ -285,20 +272,7 @@ async function getQueueList(message, serverQueue) {
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Looped Queue')
-                        .addFields(
-                            {
-                                name: '****Now Playing****', 
-                                value: `**[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})**\n***Duration:*** ${serverQueue.currentsong[0].duration}`
-                            },
-                            {
-                                name: 'Requested By',
-                                value: `<@${serverQueue.songs[0].message.author.id}>`
-                            },
-                            {
-                                name: 'Queue',
-                                value: queuelist
-                            }
-                        )
+                        .setDescription(`${queuelist}`)
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
                     queuelist = ``;
@@ -350,20 +324,7 @@ async function getQueueList(message, serverQueue) {
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Looped Shuffled Queue')
-                        .addFields(
-                            {
-                                name: '****Now Playing****', 
-                                value: `**[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})**\n***Duration:*** ${serverQueue.currentsong[0].duration}`
-                            },
-                            {
-                                name: 'Requested By',
-                                value: `<@${serverQueue.shuffledSongs[0].message.author.id}>`
-                            },
-                            {
-                                name: 'Queue',
-                                value: queuelist
-                            }
-                        )
+                        .setDescription(`${queuelist}`)
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
                     queuelist = ``;
@@ -415,20 +376,7 @@ async function getQueueList(message, serverQueue) {
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Queue')
-                        .addFields(
-                            {
-                                name: 'Looped Song', 
-                                value: `**[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})**\n***Duration:*** ${serverQueue.currentsong[0].duration}`
-                            },
-                            {
-                                name: 'Requested By',
-                                value: `<@${serverQueue.songs[0].message.author.id}>`
-                            },
-                            {
-                                name: 'Queue (Wont Play Until -ls or -loopsong is entered)',
-                                value: queuelist
-                            }
-                        )
+                        .setDescription(`${queuelist}`)
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
                     queuelist = ``;
@@ -458,7 +406,7 @@ async function getQueueList(message, serverQueue) {
 
                 if(serverQueue.songs[i]){
                     if(serverQueue.songs[i] === serverQueue.songs[0]){
-                        queuelist += `\n****Now Playing****\n**[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}>\n***Duration*** ${serverQueue.songs[i].duration}\n`
+                        queuelist += `\n****Now Playing Looped Song****\n**[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}>\n***Duration*** ${serverQueue.songs[i].duration}\n`
                     }
                     else{
                         queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}> ***Duration*** ${serverQueue.songs[i].duration}`   
@@ -480,20 +428,7 @@ async function getQueueList(message, serverQueue) {
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Shuffled Queue')
-                        .addFields(
-                            {
-                                name: 'Looped Song', 
-                                value: `**[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})**\n***Duration:*** ${serverQueue.currentsong[0].duration}`
-                            },
-                            {
-                                name: 'Requested By',
-                                value: `<@${serverQueue.shuffledSongs[0].message.author.id}>`
-                            },
-                            {
-                                name: 'Queue (Wont Play Until -ls Or -loopsong Is Entered)',
-                                value: queuelist
-                            }
-                        )
+                        .setDescription(`${queuelist}`)
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
                     queuelist = ``;
