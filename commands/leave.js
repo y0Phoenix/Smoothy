@@ -9,7 +9,7 @@ module.exports = {
             if(voiceConnection.state.status === VoiceConnectionStatus.Ready){
                 const leaveEmbed = new MessageEmbed()
                     .setColor('RED')
-                    .setDescription(`':cry: Leaving Channel`)
+                    .setDescription(`:cry: Leaving Channel`)
                 ;
                 message.channel.send({embeds: [leaveEmbed]})
                 console.log('Left The Voice Channel From Command')

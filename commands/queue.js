@@ -2,19 +2,18 @@
 //then sends that list inside of an embed message along with some other info
 
 const { MessageEmbed } = require('discord.js');
-const { shuffle } = require('./shuffle');
 let queuelist = ``;
-var endqueuelist = 5;
+var endqueuelist = 4;
 var i = 1
 
 async function getQueueList(message, serverQueue) {
-    if(serverQueue.songs.length <= 5){
+    if(serverQueue.songs.length <= 4){
         if(serverQueue.shuffle === true && serverQueue.loop === false && serverQueue.loopsong === false){
             for(i;
                 i < serverQueue.shuffledSongs.length;
                 i++){
                     if(serverQueue.shuffledSongs[i]){
-                        queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}>\n***Duration*** ${serverQueue.shuffledSongs[i].duration}`
+                        queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}> ***Duration*** ${serverQueue.shuffledSongs[i].duration}`
                     }
                     else{
                         break;
@@ -46,7 +45,7 @@ async function getQueueList(message, serverQueue) {
                 i < serverQueue.songs.length;
                 i++){
                     if(serverQueue.songs[i]){
-                        queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}>\n***Duration*** ${serverQueue.songs[i].duration}`
+                        queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}> ***Duration*** ${serverQueue.songs[i].duration}`
                     }
                     else{
                         break;
@@ -78,7 +77,7 @@ async function getQueueList(message, serverQueue) {
                 i < serverQueue.shuffledSongs.length;
                 i++){
                     if(serverQueue.shuffledSongs[i]){
-                            queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}>\n***Duration*** ${serverQueue.shuffledSongs[i].duration}`
+                            queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}> ***Duration*** ${serverQueue.shuffledSongs[i].duration}`
                     }                    
                     else{
                         break;
@@ -110,7 +109,7 @@ async function getQueueList(message, serverQueue) {
                 i < serverQueue.songs.length;
                 i++){
                     if(serverQueue.songs[i]){
-                        queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}>\n***Duration*** ${serverQueue.songs[i].duration}`                  
+                        queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}> ***Duration*** ${serverQueue.songs[i].duration}`                  
                     }
                     else{
                         break;
@@ -142,7 +141,7 @@ async function getQueueList(message, serverQueue) {
                 i < serverQueue.shuffledSongs.length;
                 i++){
                     if(serverQueue.shuffledSongs[i]){
-                        queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}>\n***Duration*** ${serverQueue.shuffledSongs[i].duration}`
+                        queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}> ***Duration*** ${serverQueue.shuffledSongs[i].duration}`
                     }
                     else{
                         break;
@@ -175,10 +174,10 @@ async function getQueueList(message, serverQueue) {
                 i++){
                     if(i < serverQueue.songs.length){
                         if(serverQueue.songs[i]){
-                            queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}>\n***Duration*** ${serverQueue.songs[i].duration}`
+                            queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}> ***Duration*** ${serverQueue.songs[i].duration}`
                         }                               
                         else{
-                            endqueuelist = 5;
+                            endqueuelist = 4;
                             i = 1;
                             queuelist = ``;
                             break;
@@ -204,7 +203,7 @@ async function getQueueList(message, serverQueue) {
                             )
                             .setTimestamp();
                         await message.channel.send({embeds: [queueListEmbed]})
-                        endqueuelist = 5;
+                        endqueuelist = 4;
                         i = 1;
                         queuelist = ``;
                         break;
@@ -217,7 +216,7 @@ async function getQueueList(message, serverQueue) {
             for (i; 
                 i < endqueuelist + 1; 
                 i++){
-                if(i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i < 6){
+                if(i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i < 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Shuffled Queue')
@@ -240,7 +239,7 @@ async function getQueueList(message, serverQueue) {
                     queuelist = ``;
                     longQueueList(message, serverQueue);
                     break;
-                }else if (i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i > 6){
+                }else if (i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i > 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addFields(
@@ -255,7 +254,7 @@ async function getQueueList(message, serverQueue) {
                     longQueueList(message, serverQueue);
                     break;
                 }
-                else if(i === serverQueue.shuffledSongs.length && endqueuelist > 5){
+                else if(i === serverQueue.shuffledSongs.length && endqueuelist > 4){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addFields(
@@ -266,17 +265,17 @@ async function getQueueList(message, serverQueue) {
                         )
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
                 }
 
                 if(serverQueue.shuffledSongs[i]){
-                    queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}>\n***Duration*** ${serverQueue.shuffledSongs[i].duration}`
+                    queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}> ***Duration*** ${serverQueue.shuffledSongs[i].duration}`
                 }
                 else{
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
@@ -287,7 +286,7 @@ async function getQueueList(message, serverQueue) {
             for (i; 
                 i < endqueuelist + 1; 
                 i++){
-                if(i === endqueuelist && endqueuelist < serverQueue.songs.length && i < 6){
+                if(i === endqueuelist && endqueuelist < serverQueue.songs.length && i < 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Looped Queue')
@@ -310,7 +309,7 @@ async function getQueueList(message, serverQueue) {
                     queuelist = ``;
                     longQueueList(message, serverQueue);
                     break;
-                }else if (i === endqueuelist && endqueuelist < serverQueue.songs.length && i > 6){
+                }else if (i === endqueuelist && endqueuelist < serverQueue.songs.length && i > 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addFields(
@@ -325,7 +324,7 @@ async function getQueueList(message, serverQueue) {
                     longQueueList(message, serverQueue);
                     break;
                 }
-                else if(i === serverQueue.songs.length && endqueuelist > 5){
+                else if(i === serverQueue.songs.length && endqueuelist > 4){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addFields(
@@ -336,17 +335,17 @@ async function getQueueList(message, serverQueue) {
                         )
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
                 }
 
                 if(serverQueue.songs[i]){
-                    queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}>\n***Duration*** ${serverQueue.songs[i].duration}`
+                    queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}> ***Duration*** ${serverQueue.songs[i].duration}`
                 }          
                 else{
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
@@ -357,7 +356,7 @@ async function getQueueList(message, serverQueue) {
             for (i; 
                 i < endqueuelist + 1; 
                 i++){
-                if(i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i < 6){
+                if(i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i < 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Looped Shuffled Queue')
@@ -380,7 +379,7 @@ async function getQueueList(message, serverQueue) {
                     queuelist = ``;
                     longQueueList(message, serverQueue);
                     break;
-                }else if (i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i > 6){
+                }else if (i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i > 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addFields(
@@ -395,7 +394,7 @@ async function getQueueList(message, serverQueue) {
                     longQueueList(message, serverQueue);
                     break;
                 }
-                else if(i === serverQueue.shuffledSongs.length && endqueuelist > 5){
+                else if(i === serverQueue.shuffledSongs.length && endqueuelist > 4){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addFields(
@@ -406,17 +405,17 @@ async function getQueueList(message, serverQueue) {
                         )
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
                 }
 
                 if(serverQueue.shuffledSongs[i]){
-                    queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}>\n***Duration*** ${serverQueue.shuffledSongs[i].duration}`
+                    queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}> ***Duration*** ${serverQueue.shuffledSongs[i].duration}`
             }          
                 else{
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
@@ -427,7 +426,7 @@ async function getQueueList(message, serverQueue) {
             for (i; 
                 i < endqueuelist + 1; 
                 i++){
-                if(i === endqueuelist && endqueuelist < serverQueue.songs.length && i < 6){
+                if(i === endqueuelist && endqueuelist < serverQueue.songs.length && i < 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Queue')
@@ -450,7 +449,7 @@ async function getQueueList(message, serverQueue) {
                     queuelist = ``;
                     longQueueList(message, serverQueue);
                     break;
-                }else if (i === endqueuelist && endqueuelist < serverQueue.songs.length && i > 6){
+                }else if (i === endqueuelist && endqueuelist < serverQueue.songs.length && i > 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addFields(
@@ -465,7 +464,7 @@ async function getQueueList(message, serverQueue) {
                     longQueueList(message, serverQueue);
                     break;
                 }
-                else if(i === serverQueue.songs.length && endqueuelist > 5){
+                else if(i === serverQueue.songs.length && endqueuelist > 4){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addFields(
@@ -476,17 +475,17 @@ async function getQueueList(message, serverQueue) {
                         )
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
                 }
 
                 if(serverQueue.songs[i]){
-                    queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}>\n***Duration*** ${serverQueue.songs[i].duration}`
+                    queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}> ***Duration*** ${serverQueue.songs[i].duration}`
                 }         
                 else{
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
@@ -497,7 +496,7 @@ async function getQueueList(message, serverQueue) {
             for (i; 
                 i < endqueuelist + 1; 
                 i++){
-                if(i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i < 6){
+                if(i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i < 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Shuffled Queue')
@@ -520,7 +519,7 @@ async function getQueueList(message, serverQueue) {
                     queuelist = ``;
                     longQueueList(message, serverQueue);
                     break;
-                }else if (i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i > 6){
+                }else if (i === endqueuelist && endqueuelist < serverQueue.shuffledSongs.length && i > 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addFields(
@@ -535,7 +534,7 @@ async function getQueueList(message, serverQueue) {
                     longQueueList(message, serverQueue);
                     break;
                 }
-                else if(i === serverQueue.shuffledSongs.length && endqueuelist > 5){
+                else if(i === serverQueue.shuffledSongs.length && endqueuelist > 4){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addFields(
@@ -546,17 +545,17 @@ async function getQueueList(message, serverQueue) {
                         )
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
                 }
 
                 if(serverQueue.shuffledSongs[i]){
-                    queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}>\n***Duration*** ${serverQueue.shuffledSongs[i].duration}`
+                    queuelist += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}> ***Duration*** ${serverQueue.shuffledSongs[i].duration}`
                 }
                 else{
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
@@ -567,7 +566,7 @@ async function getQueueList(message, serverQueue) {
             for (i; 
                 i < endqueuelist + 1; 
                 i++){
-                if(i === endqueuelist && endqueuelist < serverQueue.songs.length && i < 6){
+                if(i === endqueuelist && endqueuelist < serverQueue.songs.length && i < 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .setTitle(':thumbsup: Here Is The Queue')
@@ -584,7 +583,7 @@ async function getQueueList(message, serverQueue) {
                     queuelist = ``;
                     longQueueList(message, serverQueue);
                     break;
-                }else if (i === endqueuelist && endqueuelist < serverQueue.songs.length && i > 6){
+                }else if (i === endqueuelist && endqueuelist < serverQueue.songs.length && i > 5){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addField('Queue', queuelist
@@ -595,24 +594,24 @@ async function getQueueList(message, serverQueue) {
                     longQueueList(message, serverQueue);
                     break;
                 }
-                else if(i === serverQueue.songs.length && endqueuelist > 5){
+                else if(i === serverQueue.songs.length && endqueuelist > 4){
                     const queueListEmbed = new MessageEmbed()
                         .setColor('LUMINOUS_VIVID_PINK')
                         .addField('Queue', queuelist
                         )
                         .setTimestamp();
                     await message.channel.send({embeds: [queueListEmbed]})
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
                 }
                 
                 if(serverQueue.songs[i]){
-                    queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}>\n***Duration*** ${serverQueue.songs[i].duration}`
+                    queuelist += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}> ***Duration*** ${serverQueue.songs[i].duration}`
                 }
                 else{
-                    endqueuelist = 5;
+                    endqueuelist = 4;
                     i = 1;
                     queuelist = ``;
                     break;
@@ -624,10 +623,10 @@ async function getQueueList(message, serverQueue) {
 
 async function longQueueList(message, serverQueue){
     if(endqueuelist < serverQueue.songs.length){
-        endqueuelist = endqueuelist + 5;
+        endqueuelist = endqueuelist + 4;
         getQueueList(message, serverQueue);
     }else if(i === serverQueue.songs.length){
-        endqueuelist = 5;
+        endqueuelist = 4;
         i = 1;
         queuelist = ``;
     }

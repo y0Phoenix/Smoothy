@@ -16,18 +16,45 @@ var video = undefined;
 var videoURL = undefined;
 var yturl = undefined;
 var videoName = undefined;
-var totalseconds = undefined;
-var minutes = undefined;
-var Seconds = undefined;
-var seconds = undefined;
-var hours = undefined;
-var duration = undefined;
 var added = false;
 var _playlist = false;
 const noMoreSongsEmbed = new MessageEmbed()
     .setColor('RED')
     .setDescription(`:x: No More Songs To Play`)
 ;
+
+function durationCheck(videoURL){
+    let totalseconds = parseInt(videoURL.videoDetails.lengthSeconds);
+    let minutes = Math.floor(totalseconds / 60);
+    let Seconds = Math.abs(minutes * 60 - totalseconds);
+    let seconds = undefined;
+    if(Seconds < 10){
+        seconds = `0${Seconds}`;
+    }
+    else{
+        seconds = `${Seconds}`;
+    }
+    hours = Math.floor(totalseconds / 3600);
+    if(hours > 0){
+        for(i = 0;
+            minutes > 60;
+            i++){
+                minutes = Math.floor(minutes - 60);
+            }
+        if(minutes < 10){
+            minutes = `0${minutes}`
+        }
+        if(minutes === 60){
+            return `${hours}:00:${seconds}`
+        }
+        else{
+            return `${hours}:${minutes}:${seconds}`
+        }
+    }
+    else{
+        return `${minutes}:${seconds}`
+    }
+}
 
 async function retryTimer(serverQueue){
     if(serverQueue.player.state.status !== AudioPlayerStatus.Playing && serverQueue.tries < 5 && serverQueue.loop === false){
@@ -64,7 +91,10 @@ function disconnectvcidle(serverQueue, queue, DisconnectIdle, serverDisconnectId
         queue.delete(serverQueue.message.guild.id);
     }
     DisconnectIdle.delete(serverDisconnectIdle.message.guild.id);
-    serverDisconnectIdle.message.channel.send(':cry: Left VC Due To Idle :cry:');
+    const vcIdleEmbed = new MessageEmbed()
+        .setColor('RED')
+        .setDescription(':cry: Left VC Due To Idle')
+    serverDisconnectIdle.message.channel.send({embeds: [vcIdleEmbed]});
     console.log(`Left VC Due To Idle`)
 }
 
@@ -76,6 +106,7 @@ function disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconn
 }
 
 async function createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue){
+    duration = durationCheck(videoURL);
     songobject = {
         video: video,
         videoURL: videoURL,
@@ -84,10 +115,6 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
         thumbnail: videoURL.videoDetails.thumbnails[3].url,
         message: message,
         args: args,
-        totalseconds: totalseconds,
-        minutes: minutes,
-        seconds: seconds,
-        hours: hours,
         duration: duration,
         messagesent: false,
         playlistsong: false,
@@ -98,10 +125,6 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
         title: videoURL.videoDetails.title,
         url: videoURL.videoDetails.embed.flashSecureUrl,
         thumbnail: videoURL.videoDetails.thumbnails[3].url,
-        totalseconds: totalseconds,
-        minutes: minutes,
-        seconds: seconds,
-        hours: hours,
         duration: duration,
         messagesent: false,
     }
@@ -240,30 +263,30 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
             console.log('Retries Successfull')
             localServerQueue.audioPlayerErr = false;
             localServerQueue.tries = 0; 
-            if(serverQueue.shuffle === true){
-                serverQueue.currenttitle = serverQueue.shuffledSongs[0].title;
-                if(serverQueue.loopsong === false && serverQueue.audioPlayerErr === false && serverQueue.songs[0].messagesent === false){
+            if(localServerQueue.shuffle === true){
+                localServerQueue.currenttitle = localServerQueue.shuffledSongs[0].title;
+                if(localServerQueue.loopsong === false && localServerQueue.audioPlayerErr === false && localServerQueue.songs[0].messagesent === false){
                     const playembed = new MessageEmbed()
                         .setColor('#0099ff')
                         .setTitle(`:thumbsup: Now Playing`)
-                        .setDescription(`:musical_note: ***[${serverQueue.currenttitle}](${serverQueue.shuffledSongs[0].url})*** :musical_note:`)
-                        .addField(`Requested By` , `<@${serverQueue.shuffledSongs[0].message.author.id}>`)
-                        .setThumbnail(`${serverQueue.shuffledSongs[0].thumbnail}`)
+                        .setDescription(`:musical_note: ***[${localServerQueue.currenttitle}](${localServerQueue.shuffledSongs[0].url})*** :musical_note:`)
+                        .addField(`Requested By` , `<@${localServerQueue.shuffledSongs[0].message.author.id}>`)
+                        .setThumbnail(`${localServerQueue.shuffledSongs[0].thumbnail}`)
                         .setTimestamp()
                     ;
-                    serverQueue.message.channel.send({embeds: [playembed]});
-                    serverQueue.shuffledSongs[0].messagesent = true;
+                    localServerQueue.message.channel.send({embeds: [playembed]});
+                    localServerQueue.shuffledSongs[0].messagesent = true;
                 }
             }
             else{
-                serverQueue.currenttitle = serverQueue.currentsong[0].title;
-                if(serverQueue.loopsong === false && serverQueue.audioPlayerErr === false && serverQueue.songs[0].messagesent === false){
+                localServerQueue.currenttitle = localServerQueue.currentsong[0].title;
+                if(localServerQueue.loopsong === false && localServerQueue.audioPlayerErr === false && localServerQueue.songs[0].messagesent === false){
                     const playembed = new MessageEmbed()
                         .setColor('#0099ff')
                         .setTitle(`:thumbsup: Now Playing`)
-                        .setDescription(`:musical_note: ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
-                        .addField(`Requested By` , `<@${serverQueue.songs[0].message.author.id}>`)
-                        .setThumbnail(`${serverQueue.currentsong[0].videoURL.videoDetails.thumbnails[3].url}`)
+                        .setDescription(`:musical_note: ***[${localServerQueue.currenttitle}](${localServerQueue.currentsong[0].url})***`)
+                        .addField(`Requested By` , `<@${localServerQueue.songs[0].message.author.id}>`)
+                        .setThumbnail(`${localServerQueue.currentsong[0].thumbnail}`)
                         .setTimestamp()
                     ;
                     serverQueue.message.channel.send({embeds: [playembed]});
@@ -272,7 +295,6 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
             }   
         }
     })
-    
     queue.set(message.guild.id, construct);
 }
 
@@ -284,30 +306,7 @@ async function executive(message, args, queue, DisconnectIdle, serverDisconnectI
         console.log('Cleared Timout For disconnectTimer');
     }    
     //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
-    totalseconds = `${videoURL.videoDetails.lengthSeconds}`;
-    minutes = `${Math.floor(totalseconds / 60)}`;
-    Seconds = Math.abs(minutes * 60 - totalseconds);
-    if(Seconds < 10){
-        seconds = `0${Seconds}`;
-    }
-    else{
-        seconds = `${Seconds}`;
-    }
-    hours = `${Math.floor(totalseconds / 3600)}`;
-    const durationCheck = () => {
-        if(hours > 0){
-            if(minutes === `60`){
-                return `${hours}:00:${seconds}`
-            }
-            else{
-                return `${hours}:${minutes}:${seconds}`
-            }
-        }
-        else{
-            return `${minutes}:${seconds}`
-        }
-    }
-    duration = durationCheck()
+    duration = durationCheck(videoURL);
     if(!serverQueue){
         createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
         serverQueue = queue.get(message.guild.id);
@@ -316,8 +315,7 @@ async function executive(message, args, queue, DisconnectIdle, serverDisconnectI
     else{
         serverQueue.songs.push({video: video, videoURL: videoURL, url: videoURL.videoDetails.embed.flashSecureUrl, 
             title: videoURL.videoDetails.title, thumbnail: videoURL.videoDetails.thumbnails[3].url,
-            message: message, args: args, totalseconds: totalseconds, minutes: minutes, seconds: seconds, hours: hours, 
-            duration: duration, messagesent: false,});
+            message: message, args: args, duration: duration, messagesent: false,});
         
         const addQueueEmbed = new MessageEmbed()
             .setColor('YELLOW')
@@ -513,6 +511,7 @@ async function findvideo(serverQueue){
     if(serverQueue.shuffle === true && serverQueue.loop === true && serverQueue.loopsong === false){
         if(serverQueue.shuffledSongs[1].playlistsong === true){
             videoName = serverQueue.shuffledSongs[1].title;
+            serverQueue.playlist = true
         }
         else{
             videoName = serverQueue.shuffledSongs[1].args.join(' ');  
@@ -521,6 +520,7 @@ async function findvideo(serverQueue){
     else if(serverQueue.shuffle === true && serverQueue.loop === false && serverQueue.loopsong === true){
         if(serverQueue.shuffledSongs[0].playlistsong === true){
             videoName = serverQueue.shuffledSongs[0].title;
+            serverQueue.playlist = true
         }
         else{
             videoName = serverQueue.shuffledSongs[0].args.join(' ');  
@@ -529,6 +529,7 @@ async function findvideo(serverQueue){
     else if(serverQueue.shuffle === true && serverQueue.loop === false && serverQueue.loopsong === false){
         if(serverQueue.shuffledSongs[0].playlistsong === true){
             videoName = serverQueue.shuffledSongs[0].title;
+            serverQueue.playlist = true
         }
         else{
             videoName = serverQueue.shuffledSongs[0].args.join(' ');  
@@ -537,6 +538,7 @@ async function findvideo(serverQueue){
     else if(serverQueue.loop === true && serverQueue.shuffle === false && serverQueue.songs.length > 1){
         if(serverQueue.songs[0].playlistsong === true){
             videoName = serverQueue.songs[0].title;
+            serverQueue.playlist = true
         }
         else{
             videoName = serverQueue.songs[0].args.join(' ');  
@@ -548,6 +550,7 @@ async function findvideo(serverQueue){
             if(serverQueue.shuffledSongs[i].playlistsong === true){
                 videoName = serverQueue.shuffledSongs[i].title;
                 serverQueue.shuffledSongs.splice(i, 1)
+                serverQueue.playlist = true
             }
             else{
                 videoName = serverQueue.shuffledSongs[i].args.join(' ');
@@ -570,6 +573,7 @@ async function findvideo(serverQueue){
     else{
         if(serverQueue.songs[0].playlistsong === true){
             videoName = serverQueue.songs[0].title;
+            serverQueue.playlist = true
         }
         else{
             videoName = serverQueue.songs[0].args.join(' ');  
@@ -587,34 +591,10 @@ async function findvideo(serverQueue){
         videoURL = await ytdl.getInfo(videoName);
     }
     console.log(`Found ${videoURL.videoDetails.title}`)
-    totalseconds = `${videoURL.videoDetails.lengthSeconds}`;
-    minutes = `${Math.floor(totalseconds / 60)}`;
-    Seconds = Math.abs(minutes * 60 - totalseconds);
-    if(Seconds < 10){
-        seconds = `0${Seconds}`;
-    }
-    else{
-        seconds = `${Seconds}`;
-    }
-    hours = `${Math.floor(totalseconds / 3600)}`;
-    const durationCheck = () => {
-        if(hours > 0){
-            if(minutes === `60`){
-                return `${hours}:00:${seconds}`
-            }
-            else{
-                return `${hours}:${minutes}:${seconds}`
-            }
-        }
-        else{
-            return `${minutes}:${seconds}`
-        }
-    }
-    duration = durationCheck()
+    duration = durationCheck(videoURL);
     serverQueue.currentsong.push({video: video, videoURL: videoURL, title: videoURL.videoDetails.title,
         url: videoURL.videoDetails.embed.flashSecureUrl, thumbnail: videoURL.videoDetails.thumbnails[3].url, 
-        totalseconds: totalseconds, minutes: minutes, seconds: seconds, hours: hours, duration: duration, 
-        messagesent: false,})      
+        duration: duration, messagesent: false,})      
 }
 
 module.exports = {
@@ -653,120 +633,63 @@ module.exports = {
         _playlist = true;
         videoName = args.join(' ');
         const playlist = await ytpl(videoName);
-        const playlistEmbed = new MessageEmbed()
-            .setColor('GOLD')
-            .setTitle(`Found YouTube Playlist 
-            ***${playlist.title}***`)
-            .setURL(`${playlist.url}`)
-            .setDescription(`Please Wait While Smoothy Adds The Songs To The Queue`)
-            .addFields(
-                {
-                    name: 'Requested By',value: `<@${message.author.id}>`,inline: true
-                },
-                {
-                    name: 'Song Count',value: `**${playlist.estimatedItemCount}**`
-                }
-            )
-            .setThumbnail(`${playlist.bestThumbnail.url}`)
-            .setTimestamp()
-        ;
-        message.channel.send({embeds: [playlistEmbed]});
-        console.log('Found YouTube playlist');
-        if(!serverQueue){
-            videoName = playlist.items[0].title;
-            const videoFinder = async (query) => {
-                const videoResult = await ytSearch(query);
-                return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
-            }
-            video = await videoFinder(videoName);
-            videoURL = await ytdl.getBasicInfo(video.url)
-            totalseconds = `${videoURL.videoDetails.lengthSeconds}`;
-            minutes = `${Math.floor(totalseconds / 60)}`;
-            Seconds = Math.abs(minutes * 60 - totalseconds);
-            if(Seconds < 10){
-                seconds = `0${Seconds}`;
-            }
-            else{
-                seconds = `${Seconds}`;
-            }
-            hours = `${Math.floor(totalseconds / 3600)}`;
-            const durationCheck = () => {
-                if(hours > 0){
-                    if(minutes === `60`){
-                        return `${hours}:00:${seconds}`
+        if(playlist){
+            const playlistEmbed = new MessageEmbed()
+                .setColor('GOLD')
+                .setTitle(`Found YouTube Playlist`)
+                .setDescription(`:notes: ***[${playlist.title}](${playlist.url})***
+                All The Songs Will Be Added To The Queue!`)
+                .addFields(
+                    {
+                        name: 'Requested By',value: `<@${message.author.id}>`,inline: true
+                    },
+                    {
+                        name: 'Song Count',value: `**${playlist.estimatedItemCount}**`
                     }
-                    else{
-                        return `${hours}:${minutes}:${seconds}`
-                    }
-                }
-                else{
-                    return `${minutes}:${seconds}`
-                }
-            }
-            duration = durationCheck();
-            await createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
-            serverQueue = queue.get(message.guild.id);
-            serverQueue.playlist = true;
-            console.log('Created the serverQueue');
-            added = true;
-        }
-        else{
-            if(serverQueue.player.state.status === AudioPlayerStatus.Playing){
-                serverQueue.player.pause();
-            }
-        }
-        for(i=0;
-            i < playlist.items.length;
-            i++){
-            if(added === true){
-                added = false;
-            }
-            else{
-                videoName = playlist.items[i].title;
+                )
+                .setThumbnail(`${playlist.bestThumbnail.url}`)
+                .setTimestamp()
+            ;
+            message.channel.send({embeds: [playlistEmbed]});
+            console.log('Found YouTube playlist');
+            if(!serverQueue){
+                videoName = playlist.items[0].title;
                 const videoFinder = async (query) => {
                     const videoResult = await ytSearch(query);
                     return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
                 }
                 video = await videoFinder(videoName);
                 videoURL = await ytdl.getBasicInfo(video.url)
-                totalseconds = `${videoURL.videoDetails.lengthSeconds}`;
-                minutes = `${Math.floor(totalseconds / 60)}`;
-                Seconds = Math.abs(minutes * 60 - totalseconds);
-                if(Seconds < 10){
-                    seconds = `0${Seconds}`;
+                duration = playlist.items[0].duration;
+                await createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue,);
+                serverQueue = queue.get(message.guild.id);
+                serverQueue.playlist = true;
+                console.log('Created the serverQueue');
+                added = true;
+            }
+            for(i=0;
+                i < playlist.items.length;
+                i++){
+                if(added === true){
+                    added = false;
                 }
                 else{
-                    seconds = `${Seconds}`;
-                }
-                hours = `${Math.floor(totalseconds / 3600)}`;
-                const durationCheck = () => {
-                    if(hours > 0){
-                        if(minutes === `60`){
-                            return `${hours}:00:${seconds}`
-                        }
-                        else{
-                            return `${hours}:${minutes}:${seconds}`
-                        }
-                    }
-                    else{
-                        return `${minutes}:${seconds}`
-                    }
-                }
-                duration = durationCheck();
-                serverQueue.songs.push({video: video, videoURL: videoURL, url: videoURL.videoDetails.embed.flashSecureUrl, 
-                    title: videoURL.videoDetails.title, thumbnail: videoURL.videoDetails.thumbnails[3].url,
-                    message: message, args: args, totalseconds: totalseconds, minutes: minutes, seconds: seconds, hours: hours, 
-                    duration: duration, messagesent: false, playlistsong: true,});
-            }   
-        }
-            
-        
-        if(serverQueue.player.state.status === AudioPlayerStatus.Paused){
-            serverQueue.player.unpause();
+                    duration = playlist.items[i].duration;
+                    serverQueue.songs.push({video: undefined, videoURL: undefined, url: playlist.items[i].url, 
+                        title: playlist.items[i].title, thumbnail: playlist.items[i].bestThumbnail.url,
+                        message: message, args: args, duration: duration, messagesent: false, playlistsong: true,});
+                }   
+            }
+            play(serverQueue);   
         }
         else{
-            play(serverQueue);
+            const noPlaylistEmbed = new MessageEmbed()
+                .setColor('RED')
+                .setDescription(':rofl: Playlist Either Doesnt Exist Or Is Private')
+            ;
+            message.channel.send({embeds: [noPlaylistEmbed]});
         }
+        
     },
     //joins the voiceChannel only when voiceConnection is disconnected
     async joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle){

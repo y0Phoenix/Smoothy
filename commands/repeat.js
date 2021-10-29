@@ -11,7 +11,7 @@ module.exports = {
                 serverQueue.repeat = true
                 const restartShuffleEmbed = new MessageEmbed()
                     .setColor('GREEN')
-                    .setDescription(`:thumbsup: I Am Restarting ***${serverQueue.shuffledSongs[0].title}*** :arrows_counterclockwise:`)
+                    .setDescription(`:thumbsup: I Am Restarting ***[${serverQueue.shuffledSongs[0].title}](${serverQueue.shuffledSongs[0].url})*** :arrows_counterclockwise:`)
                 ;
                 message.channel.send({embeds: [restartShuffleEmbed]})
             }
@@ -20,7 +20,7 @@ module.exports = {
                 serverQueue.repeat = true
                 const restartCurrentEmbed = new MessageEmbed()
                     .setColor('GREEN')
-                    .setDescription(`:thumbsup: I Am Restarting ***${serverQueue.songs[0].title}*** :arrows_counterclockwise:`)
+                    .setDescription(`:thumbsup: I Am Restarting ***[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})*** :arrows_counterclockwise:`)
                 ;
                 message.channel.send({embeds: [restartCurrentEmbed]})
             }
