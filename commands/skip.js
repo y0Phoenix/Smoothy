@@ -6,11 +6,11 @@ module.exports = {
     async skip(message, serverQueue) {    
         if(serverQueue !== undefined){
             if (serverQueue.songs.length > 0 ) {
-                console.log("Skipping" + serverQueue.currenttitle + "!");
+                console.log("Skipping " + serverQueue.currenttitle + "!");
                 const skipEmbed = new MessageEmbed()
                     .setColor('AQUA')
                     .setTitle('Skipping Song')
-                    .setDescription(`:next_track: Now Skipping ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
+                    .setDescription(`:next_track: Now Skipping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                     .addFields(
                         {
                             name: `Requested By` , value: `<@${message.author.id}>`, inline: true,

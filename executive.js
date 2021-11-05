@@ -11,17 +11,99 @@ const {AudioPlayerStatus,
     VoiceConnectionStatus,
     } = require('@discordjs/voice');
 const { MessageEmbed } = require('discord.js');
-var voiceConnection = undefined;
-var video = undefined;
-var videoURL = undefined;
-var yturl = undefined;
-var videoName = undefined;
-var added = false;
-var _playlist = false;
+var voiceConnection;
+var video;
+var videoURL;
+var yturl ;
+var videoName;
+
+const videoFinder = async (query) => {
+    const videoResult = await ytSearch(query);
+    if(videoResult.videos){
+        let name = query.toLowerCase();
+        let _possibleVids = [];
+        let vid = videoResult.videos[0].title.toLowerCase();
+        let includes = vid.includes(name)
+        if(includes === true){
+            return(videoResult.videos[0]);
+        }
+        else{
+            for(i = 0;
+                i < 6;
+                i++){
+                let possibleVid = videoResult.videos[i].title.toLowerCase();
+                const levenshteinDistance = (name = '', possibleVid = '') => {
+                    const track = Array(possibleVid.length + 1).fill(null).map(() =>
+                    Array(name.length + 1).fill(null));
+                    for (let i = 0; 
+                        i <= name.length; 
+                        i += 1) {
+                    track[0][i] = i;
+                    }
+                    for (let j = 0; 
+                        j <= possibleVid.length; 
+                        j += 1) {
+                    track[j][0] = j;
+                    }
+                    for (let j = 1; 
+                        j <= possibleVid.length; 
+                        j += 1) {
+                    for (let i = 1; 
+                        i <= name.length; 
+                        i += 1) {
+                        const indicator = name[i - 1] === possibleVid[j - 1] ? 0 : 1;
+                        track[j][i] = Math.min(
+                            track[j][i - 1] + 1,
+                            track[j - 1][i] + 1,
+                            track[j - 1][i - 1] + indicator,
+                        );
+                    }
+                    }
+                    return track[possibleVid.length][name.length];
+                }
+            let dif = levenshteinDistance(name, possibleVid);
+            _possibleVids.push({dif: dif, video: videoResult.videos[i]});
+            }
+            let v = 0;
+            let j = 0;
+            for(i = 0;
+                i < _possibleVids.length;
+                i++){
+                if(v === 0){
+                    v = _possibleVids[i].dif
+                    j = i;
+                }
+                else{
+                    if(v > _possibleVids[i].dif){
+                        v = _possibleVids[i].dif;
+                        j = i;
+                    }
+                }
+            }
+            return (_possibleVids[j].video);
+        }
+    }
+    return undefined;
+}
+
 const noMoreSongsEmbed = new MessageEmbed()
     .setColor('RED')
     .setDescription(`:x: No More Songs To Play`)
 ;
+const noVidEmbed = new MessageEmbed()
+    .setColor('RED')
+    .setDescription(':rofl: No ***video*** results found')
+;
+
+function validURL(videoName) {
+    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(videoName);
+  }
 
 function durationCheck(videoURL){
     let totalseconds = parseInt(videoURL.videoDetails.lengthSeconds);
@@ -56,20 +138,20 @@ function durationCheck(videoURL){
     }
 }
 
-async function retryTimer(serverQueue){
+async function retryTimer(serverQueue, queue, DisconnectIdle, serverDisconnectIdle){
     if(serverQueue.player.state.status !== AudioPlayerStatus.Playing && serverQueue.tries < 5 && serverQueue.loop === false){
         serverQueue.currentsong.shift();
         await findvideo(serverQueue);
-        await play(serverQueue);
         console.log(`Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`);
-        if(serverQueue.tries > 2){
+        play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        if(serverQueue.tries >= 4){
             serverQueue.message.channel.send(`Smoothy Is Buffering Please Wait`)
         }
     }else{
         serverQueue.currentsong.shift();
-        await loopNextSong(serverQueue);
         console.log(`Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`);
-        if(serverQueue.tries > 2){
+        await loopNextSong(serverQueue);
+        if(serverQueue.tries >= 4){
             serverQueue.message.channel.send(`Smoothy Is Buffering Please Wait`)
         }
     } 
@@ -81,6 +163,79 @@ async function checkIfPlaying(serverQueue){
     }
     else{
         return false;
+    }
+}
+
+async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle){
+    console.log('Player Status Is Idle');
+    if(serverQueue.stop === true){
+
+    }else{
+        if(serverQueue.player.state.status === AudioPlayerStatus.Idle && serverQueue.audioPlayerErr === false){             
+            serverQueue.messagesent = false;
+            //normal song ending when loop and loopsong are false
+            if(serverQueue.currentsong.length > 0){
+                serverQueue.currentsong.shift();
+            }
+                if(serverQueue.loop === false && serverQueue.loopsong === false && 
+                    serverQueue.shuffle === false && serverQueue.jump === 0
+                    && serverQueue.repeat === false){
+                    serverQueue.songs.shift();
+                    if(serverQueue.songs.length > 0) {
+                        playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                    }
+                    else {
+                        serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]});
+                        serverDisconnectIdle = DisconnectIdle.get(serverQueue.message.guild.id);
+                        queue.delete(serverQueue.message.guild.id);
+                        disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                    }
+                }
+                //song ending while loop is true and loopsong is false
+                else if(serverQueue.loop === true && serverQueue.loopsong === false && 
+                    serverQueue.shuffle === false && serverQueue.jump === 0
+                    && serverQueue.repeat === false){
+                    loopNextSong(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                    console.log('Playing Next Song In Looped Queue');
+                }
+                //song ending whil loopsong is true
+                else if(serverQueue.loopsong === true){
+                        console.log('Playing Looped Current Song');
+                        playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                }
+                //song ending while repeat is true
+                else if(serverQueue.repeat === true){
+                    playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                    serverQueue.repeat = false;
+                }
+                //song ending while jump > 0
+                else if(serverQueue.jump > 0){
+                    playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                }
+                //song ending while shuffle is true
+                else{
+                    if(serverQueue.shuffle === true && serverQueue.loop === true 
+                        && serverQueue.loopsong === false && serverQueue.jump === 0
+                        && serverQueue.repeat === false){
+                        loopNextSong(serverQueue, queue, DisconnectIdle, serverDisconnectIdle)
+                    }
+                    else{
+                        const currentsong = serverQueue.shuffledSongs[0];
+                        findSplice(serverQueue, currentsong);
+                        serverQueue.shuffledSongs.shift();
+                        if(serverQueue.shuffledSongs.length > 0){
+                            playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle)
+                        }
+                        else{
+                            serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]});
+                            serverDisconnectIdle = DisconnectIdle.get(serverQueue.message.guild.id);
+                            queue.delete(serverQueue.message.guild.id);
+                            disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                        }
+                    }
+                }
+        }else{
+        }
     }
 }
 
@@ -116,7 +271,6 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
         message: message,
         args: args,
         duration: duration,
-        messagesent: false,
         playlistsong: false,
     };
     currentsongobject = {
@@ -125,17 +279,13 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
         title: videoURL.videoDetails.title,
         url: videoURL.videoDetails.embed.flashSecureUrl,
         thumbnail: videoURL.videoDetails.thumbnails[3].url,
+        message: message,
         duration: duration,
-        messagesent: false,
     }
     const player = createAudioPlayer();
     console.log('created the audioplayer');
     const subscription = voiceConnection.subscribe(player);
-    console.log('subscribed to Player'); 
-    if(_playlist === true){
-        player.pause();
-        console.log('Paused the player due to playlist being true')
-    } 
+    console.log('subscribed to Player');  
     construct = {
         message: message,
         voiceChannel: message.member.voice.channel,
@@ -148,114 +298,60 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
         audioPlayerErr: false,
         player: player,
         subscription: subscription,
-        currenttitle: undefined,
+        resource: undefined,
+        messagesent: false,
         shuffle: false,
         loop: false,
         loopsong: false,
         repeat: false,
-        playlist: _playlist,
+        playlist: false,
     };
-    _playlist = false;
     
     //this function executes when the player throws an error
     construct.player.on('error',async (err) => {
         const localServerQueue = err.resource.metadata;
         localServerQueue.audioPlayerErr = true;
         console.log(`Audio Player Threw An Err`);
-        const playing = await checkIfPlaying(localServerQueue);
-        if(localServerQueue.tries <= 5 && playing === false){
-            await retryTimer(localServerQueue);
-            localServerQueue.tries = localServerQueue.tries + 1;
-        }
-        else{
-            localServerQueue.tries = 0;
-            localServerQueue.audioPlayerErr = false;
-            console.log(`Retries Failed Sending Error Message`)
-            const audioPlayerErrME = new MessageEmbed()
-                .setColor('RED')
-                .setTitle(`AudioPlayerError: [${localServerQueue.currentsong[0].title}](${localServerQueue.currentsong[0].url}) Threw An Error :pensive:`)
-                .setDescription(`Please Screenshot this message along with any other relevent info, 
-                and DM it to <@Eugene#3399> if you have a GitHub Profile I would appreciate a comment on
-                the AudioPlayerError issue at [Smoothies Repo](https://github.com/y0Phoenix/Smoothy/issues/1).`)
-                .setThumbnail(`https://github.com/y0Phoenix/Smoothy/blob/main/Smoothy%20Logo.png?raw=true`)
-                .setImage(`${localServerQueue.currentsong[0].thumbnail}`)
-                .setTimestamp();
-            message.channel.send({embeds: [audioPlayerErrME]})
-        }
+        setTimeout(async () => {
+            if(localServerQueue.tries < 5){
+                localServerQueue.player.stop();
+                await retryTimer(localServerQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                localServerQueue.tries++
+                const playing = await checkIfPlaying(localServerQueue);
+                if(playing === true){
+                    localServerQueue.tries = 0;
+                    localServerQueue.audioPlayerErr = false;
+                    console.log('Retries Sucessfull');
+                }
+            }
+            else if(localServerQueue.tries === 5){
+                localServerQueue.tries = 0;
+                localServerQueue.audioPlayerErr = false;
+                console.log(`Retries Failed Sending Error Message`)
+                const audioPlayerErrME = new MessageEmbed()
+                    .setColor('RED')
+                    .setTitle(`AudioPlayerError: ${localServerQueue.songs[0].title} Threw An Error :pensive:`)
+                    .setURL(`${localServerQueue.songs[0].url}`)
+                    .setDescription(`Please Screenshot this message along with any other relevent info, 
+                    and DM it to **Eugene#3399** if you have a GitHub Profile I would appreciate a comment on
+                    the AudioPlayerError issue at [Smoothies Repo](https://github.com/y0Phoenix/Smoothy/issues/1).`)
+                    .setThumbnail(`https://github.com/y0Phoenix/Smoothy/blob/main/Smoothy%20Logo.png?raw=true`)
+                    .setImage(`${localServerQueue.songs[0].thumbnail}`)
+                    .setTimestamp()
+                ;
+                message.channel.send({embeds: [audioPlayerErrME]});
+                localServerQueue.player.stop();
+                audioPlayerIdle(localServerQueue, queue, DisconnectIdle, serverDisconnectIdle);
+            }
+        }, 1500)
     })
 
     //when the audioPlayer for this construct inside serverQueue is Idle the function is executed
     construct.player.on(AudioPlayerStatus.Idle, async (playerEvent) =>{
         //resource.metadata is set inside of the async play function 
         const localServerQueue = playerEvent.resource.metadata;
-        console.log('Player Status Is Idle');
-        if(localServerQueue.stop === true){
+        audioPlayerIdle(localServerQueue, queue, DisconnectIdle, serverDisconnectIdle);
 
-        }else{
-            if(localServerQueue.player.state.status === AudioPlayerStatus.Idle && localServerQueue.audioPlayerErr === false){             
-                //normal song ending when loop and loopsong are false
-                if(localServerQueue.currentsong.length > 0){
-                    localServerQueue.currentsong.shift();
-                }
-                    if(localServerQueue.loop === false && localServerQueue.loopsong === false && 
-                        localServerQueue.shuffle === false && localServerQueue.jump === 0
-                        && localServerQueue.repeat === false){
-                        localServerQueue.songs.shift();
-                        if(localServerQueue.songs.length > 0) {
-                            playNext(localServerQueue, queue);
-                        }
-                        else {
-                            localServerQueue.message.channel.send({embeds: [noMoreSongsEmbed]});
-                            serverDisconnectIdle = DisconnectIdle.get(localServerQueue.message.guild.id);
-                            queue.delete(localServerQueue.message.guild.id);
-                            disconnectTimervcidle(localServerQueue, queue, DisconnectIdle, serverDisconnectIdle);
-                        }
-                    }
-                    //song ending while loop is true and loopsong is false
-                    else if(localServerQueue.loop === true && localServerQueue.loopsong === false && 
-                        localServerQueue.shuffle === false && localServerQueue.jump === 0
-                        && localServerQueue.repeat === false){
-                        loopNextSong(localServerQueue);
-                        console.log('Playing Next Song In Looped Queue');
-                    }
-                    //song ending whil loopsong is true
-                    else if(localServerQueue.loopsong === true){
-                            console.log('Playing Looped Current Song');
-                            playNext(localServerQueue, queue);
-                    }
-                    //song ending while repeat is true
-                    else if(localServerQueue.repeat === true){
-                        playNext(localServerQueue, queue);
-                        localServerQueue.repeat = false;
-                    }
-                    //song ending while jump > 0
-                    else if(localServerQueue.jump > 0){
-                        playNext(localServerQueue, queue);
-                    }
-                    //song ending while shuffle is true
-                    else{
-                        if(localServerQueue.shuffle === true && localServerQueue.loop === true 
-                            && localServerQueue.loopsong === false && localServerQueue.jump === 0
-                            && localServerQueue.repeat === false){
-                            loopNextSong(localServerQueue)
-                        }
-                        else{
-                            localServerQueue.shuffledSongs.shift();
-                            if(localServerQueue.shuffledSongs.length > 0){
-                                playNext(localServerQueue, queue)
-                            }
-                            else{
-                                localServerQueue.message.channel.send({embeds: [noMoreSongsEmbed]});
-                                serverDisconnectIdle = DisconnectIdle.get(localServerQueue.message.guild.id);
-                                queue.delete(localServerQueue.message.guild.id);
-                                disconnectTimervcidle(localServerQueue, queue, DisconnectIdle, serverDisconnectIdle);
-                            }
-                        }
-                    }
-            }else{
-
-            }
-        }
     })
     construct.player.on(AudioPlayerStatus.Playing, async (data) => {
         const localServerQueue = data.resource.metadata;
@@ -263,35 +359,17 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
             console.log('Retries Successfull')
             localServerQueue.audioPlayerErr = false;
             localServerQueue.tries = 0; 
-            if(localServerQueue.shuffle === true){
-                localServerQueue.currenttitle = localServerQueue.shuffledSongs[0].title;
-                if(localServerQueue.loopsong === false && localServerQueue.audioPlayerErr === false && localServerQueue.songs[0].messagesent === false){
-                    const playembed = new MessageEmbed()
-                        .setColor('#0099ff')
-                        .setTitle(`:thumbsup: Now Playing`)
-                        .setDescription(`:musical_note: ***[${localServerQueue.currenttitle}](${localServerQueue.shuffledSongs[0].url})*** :musical_note:`)
-                        .addField(`Requested By` , `<@${localServerQueue.shuffledSongs[0].message.author.id}>`)
-                        .setThumbnail(`${localServerQueue.shuffledSongs[0].thumbnail}`)
-                        .setTimestamp()
-                    ;
-                    localServerQueue.message.channel.send({embeds: [playembed]});
-                    localServerQueue.shuffledSongs[0].messagesent = true;
-                }
-            }
-            else{
-                localServerQueue.currenttitle = localServerQueue.currentsong[0].title;
-                if(localServerQueue.loopsong === false && localServerQueue.audioPlayerErr === false && localServerQueue.songs[0].messagesent === false){
-                    const playembed = new MessageEmbed()
-                        .setColor('#0099ff')
-                        .setTitle(`:thumbsup: Now Playing`)
-                        .setDescription(`:musical_note: ***[${localServerQueue.currenttitle}](${localServerQueue.currentsong[0].url})***`)
-                        .addField(`Requested By` , `<@${localServerQueue.songs[0].message.author.id}>`)
-                        .setThumbnail(`${localServerQueue.currentsong[0].thumbnail}`)
-                        .setTimestamp()
-                    ;
-                    serverQueue.message.channel.send({embeds: [playembed]});
-                    serverQueue.songs[0].messagesent = true;
-                }
+            if(localServerQueue.loopsong === false && localServerQueue.audioPlayerErr === false && localServerQueue.messagesent === false){
+                const playembed = new MessageEmbed()
+                    .setColor('#0099ff')
+                    .setTitle(`:thumbsup: Now Playing`)
+                    .setDescription(`:musical_note: ***[${localServerQueue.currentsong[0].title}](${localServerQueue.currentsong[0].url})*** :musical_note:`)
+                    .addField(`Requested By` , `<@${localServerQueue.currentsong[0].message.author.id}>`)
+                    .setThumbnail(`${localServerQueue.currentsong[0].thumbnail}`)
+                    .setTimestamp()
+                ;
+                localServerQueue.message.channel.send({embeds: [playembed]});
+                localServerQueue.messagesent = true;
             }   
         }
     })
@@ -310,12 +388,12 @@ async function executive(message, args, queue, DisconnectIdle, serverDisconnectI
     if(!serverQueue){
         createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
         serverQueue = queue.get(message.guild.id);
-        play(serverQueue);
+        play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }
     else{
         serverQueue.songs.push({video: video, videoURL: videoURL, url: videoURL.videoDetails.embed.flashSecureUrl, 
             title: videoURL.videoDetails.title, thumbnail: videoURL.videoDetails.thumbnails[3].url,
-            message: message, args: args, duration: duration, messagesent: false,});
+            message: message, args: args, duration: duration});
         
         const addQueueEmbed = new MessageEmbed()
             .setColor('YELLOW')
@@ -336,157 +414,74 @@ async function executive(message, args, queue, DisconnectIdle, serverDisconnectI
 }
 
 //created the stream using ytdl-core, connects it to an audioResource then plays the resource inside of serverQueue.player
-async function play(serverQueue) {
-    if(serverQueue.playlist === true){
-        serverQueue.player.unpause();
-        console.log('Unpaused the player and set serverQueue.playlist to false')
-        serverQueue.playlist = false;
-    }
+async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
     if(serverQueue.shuffle === true){
-        yturl = ytdl.validateURL(serverQueue.shuffledSongs[0].videoURL.videoDetails.embed.flashSecureUrl) ? true : false;
+        yturl = ytdl.validateURL(serverQueue.shuffledSongs[0].url) ? true : false;
     }
     else{
-        yturl = ytdl.validateURL(serverQueue.currentsong[0].videoURL.videoDetails.embed.flashSecureUrl) ? true : false;
+        yturl = ytdl.validateURL(serverQueue.currentsong[0].url) ? true : false;
     }
         if(yturl === true){
             try{
-                if(serverQueue.shuffle === true){
-                    if(serverQueue.jump > 0){
-                        const stream = ytdl(serverQueue.shuffledSongs[0].url,{ 
-                            highWaterMark: 33554, 
-                            filter: 'audioonly', 
-                            quality: 'highestaudio',
-                        });
-                        const resource = createAudioResource(stream, { inputType: StreamType.Arbitrary });
-                        resource.metadata = serverQueue;
-                        serverQueue.player.play(resource);
-                        console.log("Playing " + serverQueue.shuffledSongs[0].title + "!");
-                        serverQueue.currenttitle = serverQueue.shuffledSongs[0].title;
-                        if(serverQueue.loopsong === false && serverQueue.audioPlayerErr === false){
-                            const playembed = new MessageEmbed()
-                                .setColor('#0099ff')
-                                .setTitle(`:thumbsup: Now Playing`)
-                                .setDescription(`:musical_note: ***[${serverQueue.currenttitle}](${serverQueue.shuffledSongs[0].url})*** :musical_note:`)
-                                .addFields(
-                                    {
-                                        name: `Requested By` , value: `<@${serverQueue.shuffledSongs[serverQueue.jump].message.author.id}>`, inline: true,
-                                    },
-                                    {
-                                        name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
-                                    })
-                                .setThumbnail(`${serverQueue.shuffledSongs[0].thumbnail}`)
-                                .setTimestamp()
-                            ;
-                            serverQueue.songs[0].message.channel.send({embeds: [playembed]});
-                            serverQueue.shuffledSongs[0].messagesent = true;
-                        }
-                    }
-                    if(serverQueue.shuffle === true && serverQueue.jump === 0){
-                        const stream = ytdl(serverQueue.shuffledSongs[0].url,{ 
-                            highWaterMark: 33554, 
-                            filter: 'audioonly', 
-                            quality: 'highestaudio',
-                        });
-                        const resource = createAudioResource(stream, { inputType: StreamType.Arbitrary });
-                        resource.metadata = serverQueue;
-                        serverQueue.player.play(resource);
-                        console.log("Playing " + serverQueue.shuffledSongs[0].title + "!");
-                        serverQueue.currenttitle = serverQueue.shuffledSongs[0].title;
-                        if(serverQueue.loopsong === false && serverQueue.audioPlayerErr === false){
-                            const playembed = new MessageEmbed()
-                                .setColor('#0099ff')
-                                .setTitle(`:thumbsup: Now Playing`)
-                                .setDescription(`:musical_note: ***[${serverQueue.currenttitle}](${serverQueue.shuffledSongs[0].url})*** :musical_note:`)
-                                .addFields(
-                                    {
-                                        name: `Requested By` , value: `<@${serverQueue.shuffledSongs[0].message.author.id}>`, inline: true,
-                                    },
-                                    {
-                                        name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
-                                    })
-                                .setThumbnail(`${serverQueue.shuffledSongs[0].thumbnail}`)
-                                .setTimestamp()
-                            ;
-                            serverQueue.songs[0].message.channel.send({embeds: [playembed]});
-                            serverQueue.shuffledSongs[0].messagesent = true;
-                        }
-                    }   
-                }
-                else if(serverQueue.jump > 0){
-                    const stream = ytdl(serverQueue.currentsong[0].url,{ 
-                        highWaterMark: 33554, 
-                        filter: 'audioonly', 
-                        quality: 'highestaudio',
-                        }); 
-                    const resource = createAudioResource(stream, { inputType: StreamType.Arbitrary });
-                    resource.metadata = serverQueue;
-                    serverQueue.player.play(resource);
-                    console.log("Playing " + serverQueue.currentsong[0].title + "!");
-                    serverQueue.currenttitle = serverQueue.currentsong[0].title;
-                    serverQueue.jump = 0;
-                    if(serverQueue.loopsong === false && serverQueue.audioPlayerErr === false){
-                        const playembed = new MessageEmbed()
-                            .setColor('#0099ff')
-                            .setTitle(`:thumbsup: Now Playing`)
-                            .setDescription(`:musical_note: ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
-                            .addFields(
-                                {
-                                    name: `Requested By` , value: `<@${serverQueue.songs[0].message.author.id}>`, inline: true,
-                                },
-                                {
-                                    name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
-                                })
-                            .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
-                            .setTimestamp()
-                        ;
-                        serverQueue.songs[0].message.channel.send({embeds: [playembed]});
-                        serverQueue.songs[0].messagesent = true;
-                    }
-                }
-                else{
-                    const stream = ytdl(serverQueue.currentsong[0].url,{ 
-                        highWaterMark: 33554, 
-                        filter: 'audioonly', 
-                        quality: 'highestaudio',
-                        }); 
-                    const resource = createAudioResource(stream, { inputType: StreamType.Arbitrary });
-                    resource.metadata = serverQueue;
-                    serverQueue.player.play(resource);
-                    console.log("Playing " + serverQueue.currentsong[0].title + "!");
-                    serverQueue.currenttitle = serverQueue.currentsong[0].title;
-                    if(serverQueue.loopsong === false && serverQueue.audioPlayerErr === false){
-                        const playembed = new MessageEmbed()
-                            .setColor('#0099ff')
-                            .setTitle(`:thumbsup: Now Playing`)
-                            .setDescription(`:musical_note: ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
-                            .addFields(
-                                {
-                                    name: `Requested By` , value: `<@${serverQueue.songs[0].message.author.id}>`, inline: true,
-                                },
-                                {
-                                    name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
-                                })
-                            .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
-                            .setTimestamp()
-                        ;
-                        serverQueue.songs[0].message.channel.send({embeds: [playembed]});
-                        serverQueue.songs[0].messagesent = true;
-                    }
-                }   
+                const stream = ytdl(serverQueue.currentsong[0].url,{ 
+                    highWaterMark: 33554, 
+                    filter: 'audioonly', 
+                    quality: 'highestaudio',
+                    }); 
+                serverQueue.resource = createAudioResource(stream, { inputType: StreamType.Arbitrary, inlineVolume: true });
+                serverQueue.resource.metadata = serverQueue;
+                serverQueue.player.play(serverQueue.resource);
+                console.log("Playing " + serverQueue.currentsong[0].title + "!");
+                if(serverQueue.loopsong === false && serverQueue.audioPlayerErr === false){
+                    const playembed = new MessageEmbed()
+                        .setColor('#0099ff')
+                        .setTitle(`:thumbsup: Now Playing`)
+                        .setDescription(`:musical_note: ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
+                        .addFields(
+                            {
+                                name: `Requested By` , value: `<@${serverQueue.currentsong[0].message.author.id}>`, inline: true,
+                            },
+                            {
+                                name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
+                            })
+                        .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
+                        .setTimestamp()
+                    ;
+                    serverQueue.songs[0].message.channel.send({embeds: [playembed]});
+                    serverQueue.messagesent = true;
+                } 
             }catch (err) {
                 console.log(err)
             }
         }
         else{
-            serverQueue.message.channel.send(`***${serverQueue.songs[0].title}*** Was Not Valid`)
+            serverQueue.message.channel.send({embeds: [noVidEmbed]});
             serverQueue.player.stop();
+            audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
         }
 }
 
 //searches for the song again to ensure it exists then plays that song at the play function
-async function playNext(serverQueue){
+async function playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle){
     await findvideo(serverQueue)    
-    play(serverQueue); 
+    play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle); 
+}
+
+function findSplice(serverQueue, currentsong){
+    const title = currentsong.title;
+    for(i = 0;
+        i < serverQueue.songs.length;
+        i++){
+            if(title === serverQueue.songs[i].title){
+                if(i === 0){
+                    serverQueue.songs.shift();
+                }
+                else{
+                    console.log(`Splicing ${serverQueue.songs[i].title} ${i}`) 
+                    serverQueue.songs.splice(i, 1);  
+                }
+            }
+        }
 }
 
 //finds the song again to ensure it exists then sets a constant to the song in front of the queue and pushes that song to the back, which makes a looped song queue
@@ -494,107 +489,115 @@ async function loopNextSong(serverQueue){
     await findvideo(serverQueue)
     if(serverQueue.shuffle === true){
         const currentsong = serverQueue.shuffledSongs[0];
+        findSplice(serverQueue, currentsong);
         serverQueue.shuffledSongs.shift();
         serverQueue.shuffledSongs.push(currentsong);
-        play(serverQueue)
+        play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle)
     }
     else{
         const currentsong = serverQueue.songs[0];
         serverQueue.songs.shift();
         serverQueue.songs.push(currentsong);
-        play(serverQueue)
+        play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle)
     }
 }
 
 //finds the song specified in args
 async function findvideo(serverQueue){
+    let message = undefined;
     if(serverQueue.shuffle === true && serverQueue.loop === true && serverQueue.loopsong === false){
         if(serverQueue.shuffledSongs[1].playlistsong === true){
-            videoName = serverQueue.shuffledSongs[1].title;
-            serverQueue.playlist = true
+            videoName = serverQueue.shuffledSongs[1].url;
+            message = serverQueue.shuffledSongs[1].message;
         }
         else{
             videoName = serverQueue.shuffledSongs[1].args.join(' ');  
+            message = serverQueue.shuffledSongs[1].message;
         }  
     }
     else if(serverQueue.shuffle === true && serverQueue.loop === false && serverQueue.loopsong === true){
         if(serverQueue.shuffledSongs[0].playlistsong === true){
-            videoName = serverQueue.shuffledSongs[0].title;
-            serverQueue.playlist = true
+            videoName = serverQueue.shuffledSongs[0].url;
+            message = serverQueue.shuffledSongs[0].message;
         }
         else{
             videoName = serverQueue.shuffledSongs[0].args.join(' ');  
+            message = serverQueue.shuffledSongs[0].message;
         }  
     }
     else if(serverQueue.shuffle === true && serverQueue.loop === false && serverQueue.loopsong === false){
         if(serverQueue.shuffledSongs[0].playlistsong === true){
-            videoName = serverQueue.shuffledSongs[0].title;
-            serverQueue.playlist = true
+            videoName = serverQueue.shuffledSongs[0].url;
+            message = serverQueue.shuffledSongs[0].message;
         }
         else{
             videoName = serverQueue.shuffledSongs[0].args.join(' ');  
+            message = serverQueue.shuffledSongs[0].message;
         }  
     }
     else if(serverQueue.loop === true && serverQueue.shuffle === false && serverQueue.songs.length > 1){
         if(serverQueue.songs[0].playlistsong === true){
-            videoName = serverQueue.songs[0].title;
-            serverQueue.playlist = true
+            videoName = serverQueue.songs[0].url;
+            message = serverQueue.songs[0].message;
         }
         else{
             videoName = serverQueue.songs[0].args.join(' ');  
+            message = serverQueue.songs[0].message;
         }  
     }
     else if(serverQueue.jump > 0){
         if(serverQueue.shuffle === true){
             var i = serverQueue.jump;
             if(serverQueue.shuffledSongs[i].playlistsong === true){
-                videoName = serverQueue.shuffledSongs[i].title;
+                videoName = serverQueue.shuffledSongs[i].url;
+                message = serverQueue.shuffledSongs[i].message;
                 serverQueue.shuffledSongs.splice(i, 1)
-                serverQueue.playlist = true
             }
             else{
                 videoName = serverQueue.shuffledSongs[i].args.join(' ');
+                message = serverQueue.shuffledSongs[i].message;
                 serverQueue.shuffledSongs.splice(i, 1)  
             }
         }else{
             var i = serverQueue.jump;
             if(serverQueue.songs[i].playlistsong === true){
-                videoName = serverQueue.songs[i].title;
+                videoName = serverQueue.songs[i].url;
+                message = serverQueue.songs[i].message;
                 serverQueue.songs.splice(i, 1)
-                serverQueue.playlist = true
 
             }
             else{
                 videoName = serverQueue.songs[i].args.join(' ');
+                message = serverQueue.songs[i].message;
                 serverQueue.songs.splice(i, 1)  
             }
         }  
     }
     else{
         if(serverQueue.songs[0].playlistsong === true){
-            videoName = serverQueue.songs[0].title;
-            serverQueue.playlist = true
+            message = serverQueue.songs[0].message;
+            videoName = serverQueue.songs[0].url;
         }
         else{
             videoName = serverQueue.songs[0].args.join(' ');  
+            message = serverQueue.songs[0].message;
         }  
     }
-    const videoFinder = async (query) => {
-        const videoResult = await ytSearch(query);
-        return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
-    }
-    video = await videoFinder(videoName);
-    if(video){
-        videoURL = await ytdl.getInfo(video.url);
+    let URL = validURL(videoName);
+    if(URL === true){
+        videoURL = await ytdl.getInfo(videoName);
     }
     else{
-        videoURL = await ytdl.getInfo(videoName);
+        video = await videoFinder(videoName);
+        if(video){
+            videoURL = await ytdl.getInfo(video.url);
+        }   
     }
     console.log(`Found ${videoURL.videoDetails.title}`)
     duration = durationCheck(videoURL);
     serverQueue.currentsong.push({video: video, videoURL: videoURL, title: videoURL.videoDetails.title,
         url: videoURL.videoDetails.embed.flashSecureUrl, thumbnail: videoURL.videoDetails.thumbnails[3].url, 
-        duration: duration, messagesent: false,})      
+        message: message, duration: duration, playlistsong: true,})      
 }
 
 module.exports = {
@@ -603,93 +606,107 @@ module.exports = {
     //this function only gets called from commands/play.js. It finds the song specified in args 
     async FindVideoCheck(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue){
         videoName = args.join(' ');
-        const videoFinder = async (query) => {
-            const videoResult = await ytSearch(query);
-            return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
-        }
-        video = await videoFinder(videoName);
-        if(video){
-            videoURL = await ytdl.getInfo(video.url);
-            yturl = ytdl.validateURL(videoURL.videoDetails.embed.flashSecureUrl) ? true : false;
-            if (yturl === true){
-                executive(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
-            }
-        }
-        else{
+        let URL = validURL(videoName);
+        if(URL === true){
             videoURL = await ytdl.getInfo(videoName);
             if(videoURL){
+                console.log(`Found ${videoURL.videoDetails.title}`)
                 yturl = ytdl.validateURL(videoURL.videoDetails.embed.flashSecureUrl) ? true : false;
                 if (yturl === true){
                     executive(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
                 }
             else{
-                message.channel.send(':rofl: No ***video*** results found :rofl:');
+                message.channel.send({embeds: [noVidEmbed]});
                 return;
                 }
             }
-        }   
-    },
-    async findvideoplaylist(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue){
-        _playlist = true;
-        videoName = args.join(' ');
-        const playlist = await ytpl(videoName);
-        if(playlist){
-            const playlistEmbed = new MessageEmbed()
-                .setColor('GOLD')
-                .setTitle(`Found YouTube Playlist`)
-                .setDescription(`:notes: ***[${playlist.title}](${playlist.url})***
-                All The Songs Will Be Added To The Queue!`)
-                .addFields(
-                    {
-                        name: 'Requested By',value: `<@${message.author.id}>`,inline: true
-                    },
-                    {
-                        name: 'Song Count',value: `**${playlist.estimatedItemCount}**`
-                    }
-                )
-                .setThumbnail(`${playlist.bestThumbnail.url}`)
-                .setTimestamp()
-            ;
-            message.channel.send({embeds: [playlistEmbed]});
-            console.log('Found YouTube playlist');
-            if(!serverQueue){
-                videoName = playlist.items[0].title;
-                const videoFinder = async (query) => {
-                    const videoResult = await ytSearch(query);
-                    return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
-                }
-                video = await videoFinder(videoName);
-                videoURL = await ytdl.getBasicInfo(video.url)
-                duration = playlist.items[0].duration;
-                await createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue,);
-                serverQueue = queue.get(message.guild.id);
-                serverQueue.playlist = true;
-                console.log('Created the serverQueue');
-                added = true;
-            }
-            for(i=0;
-                i < playlist.items.length;
-                i++){
-                if(added === true){
-                    added = false;
-                }
-                else{
-                    duration = playlist.items[i].duration;
-                    serverQueue.songs.push({video: undefined, videoURL: undefined, url: playlist.items[i].url, 
-                        title: playlist.items[i].title, thumbnail: playlist.items[i].bestThumbnail.url,
-                        message: message, args: args, duration: duration, messagesent: false, playlistsong: true,});
-                }   
-            }
-            play(serverQueue);   
         }
         else{
-            const noPlaylistEmbed = new MessageEmbed()
-                .setColor('RED')
-                .setDescription(':rofl: Playlist Either Doesnt Exist Or Is Private')
-            ;
-            message.channel.send({embeds: [noPlaylistEmbed]});
+            video = await videoFinder(videoName);
+            if(video){
+                videoURL = await ytdl.getInfo(video.url);
+                console.log(`Found ${videoURL.videoDetails.title}`)
+                yturl = ytdl.validateURL(videoURL.videoDetails.embed.flashSecureUrl) ? true : false;
+                if (yturl === true){
+                    executive(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
+                }
+            }
+            else{
+                message.channel.send({embeds: [noVidEmbed]});
+                return;
+            }   
         }
         
+    },
+    async findvideoplaylist(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue){
+        serverDisconnectIdle = DisconnectIdle.get(message.guild.id)
+            if(serverDisconnectIdle.disconnectTimer !== undefined){
+                clearTimeout(serverDisconnectIdle.disconnectTimer);
+                console.log('Cleared Timout For disconnectTimer');
+            }    
+        videoName = args.join(' ');
+        if(videoName.includes('/playlist')){
+            const playlist = await ytpl(videoName);
+            var added = false;
+            if(playlist){
+                videoURL = await ytdl.getBasicInfo(playlist.items[0].url)
+                args[0] = videoURL.videoDetails.embed.flashSecureUrl;
+                const playlistEmbed = new MessageEmbed()
+                    .setColor('GOLD')
+                    .setTitle(`Found YouTube Playlist`)
+                    .setDescription(`:notes: ***[${playlist.title}](${playlist.url})***
+                    All The Songs Will Be Added To The Queue!`)
+                    .addFields(
+                        {
+                            name: 'Requested By',value: `<@${message.author.id}>`,inline: true
+                        },
+                        {
+                            name: 'Song Count',value: `**${playlist.estimatedItemCount}**`
+                        }
+                    )
+                    .setThumbnail(`${playlist.bestThumbnail.url}`)
+                    .setTimestamp()
+                ;
+                message.channel.send({embeds: [playlistEmbed]});
+                console.log('Found YouTube playlist');
+                if(!serverQueue){
+                    duration = playlist.items[0].duration;
+                    await createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue,);
+                    serverQueue = queue.get(message.guild.id);
+                    serverQueue.playlist = true;
+                    console.log('Created the serverQueue');
+                    added = true;
+                }
+                for(i=0;
+                    i < playlist.items.length;
+                    i++){
+                    if(added === true){
+                        added = false;
+                    }
+                    else{
+                        duration = playlist.items[i].duration;
+                        serverQueue.songs.push({video: undefined, videoURL: undefined, url: playlist.items[i].url, 
+                            title: playlist.items[i].title, thumbnail: playlist.items[i].bestThumbnail.url,
+                            message: message, args: args, duration: duration, playlistsong: true,});
+                    }   
+                }
+                play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);   
+            }
+            else{
+                const noPlaylistEmbed = new MessageEmbed()
+                    .setColor('RED')
+                    .setDescription(':rofl: Playlist Either Doesnt Exist Or Is Private')
+                ;
+                message.channel.send({embeds: [noPlaylistEmbed]});
+            }
+        }
+        else{
+            const wrongEmbed = new MessageEmbed()
+                .setColor('RED')
+                .setDescription(':rofl: You Need To Add A Valid Playlist Link')
+            ;
+            message.channel.send({embeds: [wrongEmbed]});
+        }
     },
     //joins the voiceChannel only when voiceConnection is disconnected
     async joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle){

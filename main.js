@@ -18,13 +18,14 @@ const repeat = require('./commands/repeat');
 const shuffle = require('./commands/shuffle');
 const jump = require('./commands/jump');
 const changeprefix = require('./commands/change prefix')
-const fs = require('fs')
+const volume = require('./commands/volume');
+const fs = require('fs');
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
 const DisconnectIdle = new Map();
 client.once('ready', () => {
-    console.log('Smoothy 1.4.3 is online!');
+    console.log('Smoothy 1.4.4 is online!');
     client.user.setActivity('-help', { type: 'LISTENING' })
 });
 client.once('recconnecting', () => {
@@ -73,14 +74,12 @@ client.on('messageCreate', message =>{
     if(!message.content.startsWith(prefix)){
         return;
     }
-    //line 41-42 is where the two maps are defined from the specific guildId from discord. 
-    //this makes it possible to have multiple different song queues and other info for different discord servers
     var serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
     var serverQueue = queue.get(message.guild.id);
     var vc = message.member.voice.channel;
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
-    console.log("Command = " + command);
+    console.log(`Command = ${command} ${args.join(' ')}`);
     //commands come in and checks if command ===, else the command was invalid
     if(command === 'ping'){
         ping.execute(message);
@@ -98,9 +97,9 @@ client.on('messageCreate', message =>{
         remove.remove(message, args, serverQueue);
     }else if (command === 'help'){
         help.help(message);
-    }else if (command === 'pause'){
+    }else if (command === 'pause' || command === 'pa'){
         pause.pause(message, serverQueue);
-    }else if (command === 'resume'){
+    }else if (command === 'resume' || command === 'un'){
         resume.resume(message,serverQueue);
     }else if (command === 'crash' || command === 'c'){
         snoopy_goes_wild.dummy = 'me';
@@ -108,7 +107,7 @@ client.on('messageCreate', message =>{
         loop.loop(message, serverQueue);
     }else if (command === 'loopsong' || command === 'ls'){
         loopsong.loopsong(message, serverQueue);
-    }else if (command === 'repeat' || command === 'restart'){
+    }else if (command === 'repeat' || command === 'restart' || command === 're'){
         repeat.repeat(message, serverQueue);
     }else if (command === 'shuffle' || command === 'mix'){
         shuffle.shuffle(message, serverQueue);
@@ -116,8 +115,9 @@ client.on('messageCreate', message =>{
         jump.jump(message, args, serverQueue);
     }else if (command === 'prefix' || command === 'changeprefix' || command === 'prefixchange'){
         changeprefix.prefix(message, args, serverQueue, data, found)
-    }
-    else{
+    }else if (command === 'volume' || command === 'v'){
+        volume.execute(message, args, serverQueue)
+    }else{
         const invalidCommandEmbed = new MessageEmbed()
             .setColor(`RED`)
             .setDescription(`Invalid Command Type -help To See Current Commands`)
@@ -126,5 +126,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('');    
+client.login('ODg3ODY5MjQzMjE4MDg3OTU2.YUKaqw.1FD5nmd0fQXDrlTCNaBPT7KmX-4');    
 

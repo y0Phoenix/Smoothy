@@ -9,7 +9,7 @@ module.exports = {
             const pauseEmbed = new MessageEmbed()
                 .setColor('RED')
                 .setTitle(':pause_button: Paused')
-                .setDescription(`I Have Paused ***[${serverQueue.currenttitle}](${serverQueue.currentsong[0].url})***`)
+                .setDescription(`I Have Paused ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                 .addField(`Help` , `You Can Resume By Typing ***-resume***`)
                 .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
                 .addFields(
