@@ -1,5 +1,6 @@
 //stops the audioPlayer which make AudioPlayerStatus Idle, which then exeuctes the function at ../executive.js(78)
 const { MessageEmbed } = require('discord.js');
+const smoothy = require('../modules');
 module.exports = {
     name: 'skip',
     description: 'skips the current song',
@@ -9,7 +10,6 @@ module.exports = {
                 console.log("Skipping " + serverQueue.currenttitle + "!");
                 const skipEmbed = new MessageEmbed()
                     .setColor('AQUA')
-                    .setTitle('Skipping Song')
                     .setDescription(`:next_track: Now Skipping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                     .addFields(
                         {
@@ -17,13 +17,15 @@ module.exports = {
                         },
                         {
                             name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
-                        })
-                    .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
-                    .setTimestamp();
+                        }
+                    )
+                ;
                 message.channel.send({embeds: [skipEmbed]})
+                .then(msg => smoothy.deleteMsg(msg, 60000));
                 serverQueue.player.stop();  
             }else{
-                message.channel.send(':rofl: Nothing To ***Skip*** :rofl:');
+                message.channel.send(':rofl: Nothing To ***Skip*** :rofl:')
+                .then(msg => smoothy.deleteMsg(msg, 30000));
             }
         }
     }

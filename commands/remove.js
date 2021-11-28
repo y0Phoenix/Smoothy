@@ -1,5 +1,7 @@
 //removes a specified song inside of serverQueue using a number inside of args
 const { MessageEmbed } = require('discord.js');
+const smoothy = require('../modules');
+
 module.exports = {
     name: 'remove',
     description: 'removes specified song from the serverQueue',
@@ -9,8 +11,6 @@ module.exports = {
             if(serverQueue.shuffledSongs[i]){
                 const removeEmbed = new MessageEmbed()
                     .setColor('BLURPLE')
-                    .setTitle(':eject: Removing Song')
-                    .setURL(`${serverQueue.songs[i].url}`)
                     .setDescription(`I Have Removed ***[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})***`)
                     .addFields(
                         {
@@ -19,13 +19,13 @@ module.exports = {
                         {
                             name: `***Duration***`, value: `${serverQueue.shuffledSongs[i].duration}`, inline: true
                         })
-                    .setThumbnail(`${serverQueue.shuffledSongs[i].thumbnail}`)
-                    .setTimestamp();
-                message.channel.send({embeds: [removeEmbed]});    
+                message.channel.send({embeds: [removeEmbed]})
+                .then(msg => smoothy.deleteMsg(msg, 60000));   
                 serverQueue.shuffledSongs.splice(i, 1);
             }
             else{
-                message.channel.send('No Song Specified');
+                message.channel.send('No Song Specified')
+                .then(msg => smoothy.deleteMsg(msg, 30000));
             }
         }
         else{
@@ -44,11 +44,13 @@ module.exports = {
                         })
                     .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
                     .setTimestamp();
-                message.channel.send({embeds: [removeEmbed]});    
+                message.channel.send({embeds: [removeEmbed]})
+                .then(msg => smoothy.deleteMsg(msg, 60000));   
                 serverQueue.songs.splice(i, 1);
             }
             else{
-                message.channel.send('No Song Specified');
+                message.channel.send('No Song Specified')
+                .then(msg => smoothy.deleteMsg(msg, 30000));
             }
         }
     }

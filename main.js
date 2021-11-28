@@ -24,6 +24,7 @@ const fs = require('fs');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
 const DisconnectIdle = new Map();
+
 client.once('ready', () => {
     console.log('Smoothy 1.4.4 is online!');
     client.user.setActivity('-help', { type: 'LISTENING' })
@@ -67,7 +68,12 @@ client.on('messageCreate', message =>{
                 }
             )
         ;   
-        message.channel.send({embeds: [myprefixEmbed]});
+        message.channel.send({embeds: [myprefixEmbed]})
+        .then(msg => {
+            setTimeout(() => {
+                msg.delete(), 30000
+            })
+        });
         console.log(`Send current prefix ${prefix} to the channel`);
         return;
     }
@@ -122,9 +128,14 @@ client.on('messageCreate', message =>{
             .setColor(`RED`)
             .setDescription(`Invalid Command Type -help To See Current Commands`)
         ;
-        message.channel.send({embeds: [invalidCommandEmbed]});
+        message.channel.send({embeds: [invalidCommandEmbed]})
+        .then(msg => {
+            setTimeout(() => {
+                msg.delete(), 30000
+            })
+        });
     return;
     }
 }); 
-client.login('');    
+client.login('ODg3ODY5MjQzMjE4MDg3OTU2.YUKaqw.gpVgJ9LqkwjtoeEWC5896pLPGk8');    
 

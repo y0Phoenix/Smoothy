@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const smoothy = require('../modules');
 var volume = undefined;
 
 const noSongEmbed = new MessageEmbed()
@@ -11,7 +12,6 @@ var volumeEmbed = new MessageEmbed()
     .setDescription(`:thumbsup: Volume Is Now ${volume}`)
     .setTimestamp()
 ;
-
 
 module.exports = {
     name: 'volume',
@@ -37,16 +37,19 @@ module.exports = {
                                 .setColor('RED')
                                 .setDescription(':rofl: Volume is 100 max')
                             ;
-                            message.channel.send({embeds: [toHighEmbed]});
+                            message.channel.send({embeds: [toHighEmbed]})
+                            .then(msg => smoothy.deleteMsg(msg, 30000));
                         }
                     }
                     else{
-                        message.channel.send({embeds: [noSongEmbed]});
+                        message.channel.send({embeds: [noSongEmbed]})
+                        .then(msg => smoothy.deleteMsg(msg, 30000));
                     }
                 }
             }
             else{
-                message.channel.send({embeds: [noSongEmbed]});
+                message.channel.send({embeds: [noSongEmbed]})
+                .then(msg => smoothy.deleteMsg(msg, 30000));
             }
         }
         else{
@@ -54,7 +57,8 @@ module.exports = {
                 .setColor('RED')
                 .setDescription(':rofl: You Must Specify With A Number')
             ;
-            message.channel.send({embeds: [specifyEmbed]});
+            message.channel.send({embeds: [specifyEmbed]})
+            .then(msg => smoothy.deleteMsg(msg, 30000));
         }
     }
 }

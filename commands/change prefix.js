@@ -1,5 +1,6 @@
 const { MessageEmbed } = require("discord.js");
-const fs = require("fs")
+const fs = require("fs");
+const smoothy = require('../modules');
 const File = './commands/config.json'
 
 module.exports = {
@@ -24,14 +25,16 @@ module.exports = {
                     }
                 )
             ;
-            message.channel.send({embeds: [prefixEmbed]});
+            message.channel.send({embeds: [prefixEmbed]})
+            .then(msg => smoothy.deleteMsg(msg, 60000));
         }
         else{
             const specifyEmbed = new MessageEmbed()
                 .setColor('RED')
                 .setDescription(':thumbsdown: You Must Specify With A New Prefix')
             ;
-            message.channel.send({embeds: [specifyEmbed]});
+            message.channel.send({embeds: [specifyEmbed]})
+            .then(msg => smoothy.deleteMsg(msg, 30000));
         }
     }
 }

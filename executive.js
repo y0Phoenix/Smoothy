@@ -2,6 +2,7 @@
 const ytSearch = require('yt-search');
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
+const smoothy = require('./modules')
 const {AudioPlayerStatus,
 	StreamType,
 	createAudioPlayer,
@@ -109,12 +110,12 @@ function durationCheck(videoURL){
     let totalseconds = parseInt(videoURL.videoDetails.lengthSeconds);
     let minutes = Math.floor(totalseconds / 60);
     let Seconds = Math.abs(minutes * 60 - totalseconds);
-    let seconds = undefined;
+    let _seconds;
     if(Seconds < 10){
-        seconds = `0${Seconds}`;
+        _seconds = `0${Seconds}`;
     }
     else{
-        seconds = `${Seconds}`;
+        _seconds = `${Seconds}`;
     }
     hours = Math.floor(totalseconds / 3600);
     if(hours > 0){
@@ -127,14 +128,14 @@ function durationCheck(videoURL){
             minutes = `0${minutes}`
         }
         if(minutes === 60){
-            return `${hours}:00:${seconds}`
+            return `${hours}:00:${_seconds}`
         }
         else{
-            return `${hours}:${minutes}:${seconds}`
+            return `${hours}:${minutes}:${_seconds}`
         }
     }
     else{
-        return `${minutes}:${seconds}`
+        return `${minutes}:${_seconds}`
     }
 }
 
@@ -146,6 +147,7 @@ async function retryTimer(serverQueue, queue, DisconnectIdle, serverDisconnectId
         play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
         if(serverQueue.tries >= 4){
             serverQueue.message.channel.send(`Smoothy Is Buffering Please Wait`)
+            .then(msg => smoothy.deleteMsg(msg, 30000));
         }
     }else{
         serverQueue.currentsong.shift();
@@ -153,6 +155,7 @@ async function retryTimer(serverQueue, queue, DisconnectIdle, serverDisconnectId
         await loopNextSong(serverQueue);
         if(serverQueue.tries >= 4){
             serverQueue.message.channel.send(`Smoothy Is Buffering Please Wait`)
+            .then(msg => smoothy.smoothy.deleteMsg(msg, 30000));
         }
     } 
 }
@@ -185,7 +188,8 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                         playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
                     }
                     else {
-                        serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]});
+                        serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]})
+                        .then(msg => smoothy.deleteMsg(msg, 30000));
                         serverDisconnectIdle = DisconnectIdle.get(serverQueue.message.guild.id);
                         queue.delete(serverQueue.message.guild.id);
                         disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
@@ -206,7 +210,6 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                 //song ending while repeat is true
                 else if(serverQueue.repeat === true){
                     playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-                    serverQueue.repeat = false;
                 }
                 //song ending while jump > 0
                 else if(serverQueue.jump > 0){
@@ -227,7 +230,8 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                             playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle)
                         }
                         else{
-                            serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]});
+                            serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]})
+                            .then(msg => smoothy.deleteMsg(msg, 30000));
                             serverDisconnectIdle = DisconnectIdle.get(serverQueue.message.guild.id);
                             queue.delete(serverQueue.message.guild.id);
                             disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
@@ -249,7 +253,8 @@ function disconnectvcidle(serverQueue, queue, DisconnectIdle, serverDisconnectId
     const vcIdleEmbed = new MessageEmbed()
         .setColor('RED')
         .setDescription(':cry: Left VC Due To Idle')
-    serverDisconnectIdle.message.channel.send({embeds: [vcIdleEmbed]});
+    serverDisconnectIdle.message.channel.send({embeds: [vcIdleEmbed]})
+    .then(msg => smoothy.deleteMsg(msg, 60000));
     console.log(`Left VC Due To Idle`)
 }
 
@@ -261,7 +266,8 @@ function disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconn
 }
 
 async function createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue){
-    duration = durationCheck(videoURL);
+    const duration = durationCheck(videoURL);
+    const durationms = parseInt(videoURL.videoDetails.lengthSeconds) * 1000;
     songobject = {
         video: video,
         videoURL: videoURL,
@@ -271,6 +277,7 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
         message: message,
         args: args,
         duration: duration,
+        durationms: durationms,
         playlistsong: false,
     };
     currentsongobject = {
@@ -281,6 +288,7 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
         thumbnail: videoURL.videoDetails.thumbnails[3].url,
         message: message,
         duration: duration,
+        durationms: durationms,
     }
     const player = createAudioPlayer();
     console.log('created the audioplayer');
@@ -368,7 +376,8 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
                     .setThumbnail(`${localServerQueue.currentsong[0].thumbnail}`)
                     .setTimestamp()
                 ;
-                localServerQueue.message.channel.send({embeds: [playembed]});
+                localServerQueue.message.channel.send({embeds: [playembed]})
+                .then(msg => smoothy.deleteMsg(msg, serverQueue.currentsong[0].durationms));
                 localServerQueue.messagesent = true;
             }   
         }
@@ -385,6 +394,7 @@ async function executive(message, args, queue, DisconnectIdle, serverDisconnectI
     }    
     //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
     duration = durationCheck(videoURL);
+    let durationms = parseInt(videoURL.videoDetails.lengthSeconds) * 1000;
     if(!serverQueue){
         createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
         serverQueue = queue.get(message.guild.id);
@@ -393,22 +403,13 @@ async function executive(message, args, queue, DisconnectIdle, serverDisconnectI
     else{
         serverQueue.songs.push({video: video, videoURL: videoURL, url: videoURL.videoDetails.embed.flashSecureUrl, 
             title: videoURL.videoDetails.title, thumbnail: videoURL.videoDetails.thumbnails[3].url,
-            message: message, args: args, duration: duration});
+            message: message, args: args, duration: duration, durationms: durationms, playlistsong: false});
         
         const addQueueEmbed = new MessageEmbed()
             .setColor('YELLOW')
-            .setTitle(':thumbsup: Song Added To Queue')
             .setDescription(`***[${videoURL.videoDetails.title}](${videoURL.videoDetails.embed.flashSecureUrl})***
             Has Been Added To The Queue :arrow_down:`)
-            .addFields(
-                {
-                    name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
-                },
-                {
-                    name: `***Duration***`, value: `${duration}`, inline: true
-                })
-            .setThumbnail(`${videoURL.videoDetails.thumbnails[3].url}`)
-            .setTimestamp()
+        ;
         message.channel.send({embeds: [addQueueEmbed]});
     }
 }
@@ -432,7 +433,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
                 serverQueue.resource.metadata = serverQueue;
                 serverQueue.player.play(serverQueue.resource);
                 console.log("Playing " + serverQueue.currentsong[0].title + "!");
-                if(serverQueue.loopsong === false && serverQueue.audioPlayerErr === false){
+                if(serverQueue.loopsong === false && serverQueue.audioPlayerErr === false && serverQueue.repeat === false){
                     const playembed = new MessageEmbed()
                         .setColor('#0099ff')
                         .setTitle(`:thumbsup: Now Playing`)
@@ -443,19 +444,22 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
                             },
                             {
                                 name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
-                            })
+                            }
+                        )
                         .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
-                        .setTimestamp()
                     ;
-                    serverQueue.songs[0].message.channel.send({embeds: [playembed]});
+                    serverQueue.songs[0].message.channel.send({embeds: [playembed]})
+                    .then(msg => smoothy.deleteMsg(msg, serverQueue.currentsong[0].durationms));
                     serverQueue.messagesent = true;
-                } 
+                }
+                serverQueue.repeat = false; 
             }catch (err) {
                 console.log(err)
             }
         }
         else{
-            serverQueue.message.channel.send({embeds: [noVidEmbed]});
+            serverQueue.message.channel.send({embeds: [noVidEmbed]})
+            .then(msg => smoothy.deleteMsg(msg, 30000));
             serverQueue.player.stop();
             audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
         }
@@ -595,9 +599,10 @@ async function findvideo(serverQueue){
     }
     console.log(`Found ${videoURL.videoDetails.title}`)
     duration = durationCheck(videoURL);
+    let durationms = parseInt(videoURL.videoDetails.lengthSeconds) * 1000;
     serverQueue.currentsong.push({video: video, videoURL: videoURL, title: videoURL.videoDetails.title,
         url: videoURL.videoDetails.embed.flashSecureUrl, thumbnail: videoURL.videoDetails.thumbnails[3].url, 
-        message: message, duration: duration, playlistsong: true,})      
+        message: message, duration: duration, durationms: durationms,})      
 }
 
 module.exports = {
@@ -616,7 +621,8 @@ module.exports = {
                     executive(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
                 }
             else{
-                message.channel.send({embeds: [noVidEmbed]});
+                message.channel.send({embeds: [noVidEmbed]})
+                .then(msg => smoothy.deleteMsg(msg, 30000));
                 return;
                 }
             }
@@ -632,7 +638,8 @@ module.exports = {
                 }
             }
             else{
-                message.channel.send({embeds: [noVidEmbed]});
+                message.channel.send({embeds: [noVidEmbed]})
+                .then(msg => smoothy.deleteMsg(msg, 30000));
                 return;
             }   
         }
@@ -676,6 +683,7 @@ module.exports = {
                     serverQueue.playlist = true;
                     console.log('Created the serverQueue');
                     added = true;
+                    play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle); 
                 }
                 for(i=0;
                     i < playlist.items.length;
@@ -690,14 +698,15 @@ module.exports = {
                             message: message, args: args, duration: duration, playlistsong: true,});
                     }   
                 }
-                play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);   
+                  
             }
             else{
                 const noPlaylistEmbed = new MessageEmbed()
                     .setColor('RED')
                     .setDescription(':rofl: Playlist Either Doesnt Exist Or Is Private')
                 ;
-                message.channel.send({embeds: [noPlaylistEmbed]});
+                message.channel.send({embeds: [noPlaylistEmbed]})
+                .then(msg => smoothy.deleteMsg(msg, 30000));
             }
         }
         else{
@@ -705,7 +714,8 @@ module.exports = {
                 .setColor('RED')
                 .setDescription(':rofl: You Need To Add A Valid Playlist Link')
             ;
-            message.channel.send({embeds: [wrongEmbed]});
+            message.channel.send({embeds: [wrongEmbed]})
+            .then(msg => smoothy.deleteMsg(msg, 30000));
         }
     },
     //joins the voiceChannel only when voiceConnection is disconnected

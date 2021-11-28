@@ -2,6 +2,7 @@
 //then sends that list inside of an embed message along with some other info
 
 const { MessageEmbed } = require('discord.js');
+const smoothy = require('../modules');
 let queuelist = ``;
 var endqueuelist = 10;
 var i = 0
@@ -141,7 +142,8 @@ module.exports = {
             const noSongsEmbed = new MessageEmbed()
                 .setColor('RED')
                 .setDescription(`:rofl: No Songs Currently In Queue`)
-            message.channel.send({embeds: [noSongsEmbed]});
+            message.channel.send({embeds: [noSongsEmbed]})
+            .then(msg => smoothy.deleteMsg(msg, 30000));
         }  
     }
 }
