@@ -39,6 +39,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 | Skip         | Skips a song inside of a serverQueue 					         | `-s`, `-n`, `-skip`, `-next` |
 | Pause        | Pauses the current song 						         | `-pause` 		        |
 | Resume       | Resumes the paused song 						         | `-reume`                     |
+| Volume	   | Changes the volume of the current song being played | `-volume`, `-v` |
 | Stop         | Stops the current song and clears the queue 				         | `-stop`, `-clear`            |
 | Loop         | Loops the queue foreverer until the command is entered again 		         | `-l`, `-loop`                |
 | Shuffle      | Shuffles the song queue, then returns it to normal after entering command again | `-mix`, `-shuffle`           |

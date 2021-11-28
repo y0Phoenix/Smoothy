@@ -19,7 +19,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 ## Helpful Info <a name="helpfulinfo"></a>
 * Smoothy will automatically disconnect from the VC in `30 minutes` on Idle
 
-* Smoothy is being developed by `Eugene` alone, and will occasionally crash .Please be patient with crashes and help by DMing `Eugene#3399` or by creating an issue at https://github.com/y0Phoenix/Smoothy with context. Any help is much appreciated! :)
+* Smoothy is being developed by `Eugene` alone, and will occasionally crash .Please be patient with crashes and help by DMing `Eugene#3399` or by creating an issue at https://github.com/y0Phoenix/Smoothy with context. Any help is much appreciated! :sweat_smile:
 
 * Smoothy has a variety of different commands associated with playing music you can check them out at [Commands](#commands)
 
@@ -35,6 +35,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 | Skip         | Skips a song inside of a serverQueue 					                                 | `-s`, `-n`, `-skip`, `-next` |
 | Pause        | Pauses the current song 						                                             | `-pause` 		                |
 | Resume       | Resumes the paused song 						                                             | `-reume`                     |
+| Volume	   | Changes the volume of the current song being played | `-volume`, `-v` |
 | Stop         | Stops the current song and clears the queue 				                             | `-stop`, `-clear`            |
 | Loop         | Loops the queue foreverer until the command is entered again 		               | `-l`, `-loop`                |
 | Shuffle      | Shuffles the song queue, then returns it to normal after entering command again | `-mix`, `-shuffle`           |
