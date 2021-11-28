@@ -104,7 +104,7 @@ function validURL(videoName) {
       '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
       '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
     return !!pattern.test(videoName);
-  }
+}
 
 function durationCheck(videoURL){
     let totalseconds = parseInt(videoURL.videoDetails.lengthSeconds);

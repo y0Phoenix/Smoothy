@@ -26,7 +26,7 @@ const queue = new Map();
 const DisconnectIdle = new Map();
 
 client.once('ready', () => {
-    console.log('Smoothy 1.4.4 is online!');
+    console.log('Smoothy 1.4.5 is online!');
     client.user.setActivity('-help', { type: 'LISTENING' })
 });
 client.once('recconnecting', () => {
@@ -64,7 +64,7 @@ client.on('messageCreate', message =>{
             .setColor('BLUE')
             .addFields(
                 {
-                   name: ':thumbsup: Current Prefix',value: `**${prefix}**`
+                name: ':thumbsup: Current Prefix',value: `**${prefix}**`
                 }
             )
         ;   
@@ -137,5 +137,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('');    
+client.login('ODg3ODY5MjQzMjE4MDg3OTU2.YUKaqw.1COaxFoifE69KabK9Y3PMOIjqcw');    
 
