@@ -21,11 +21,11 @@ module.exports = {
                 )
             ;
             message.channel.send({embeds: [pauseEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 60000));
+            .then(msg => smoothy.deleteMsg(msg, 60000, false));
         }
         else{
             message.channel.send(`:rofl: Nothing To Pause :rofl:`)
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
         }
     }
     

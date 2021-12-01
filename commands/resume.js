@@ -22,15 +22,15 @@ module.exports = {
                     )
                 ;
                 message.channel.send({embeds: [resumEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 60000));
+                .then(msg => smoothy.deleteMsg(msg, 60000, false));
             }else{
                 message.channel.send(`:rofl: Not Currently Paused :rofl:`)
-                .then(msg => smoothy.deleteMsg(msg, 30000));
+                .then(msg => smoothy.deleteMsg(msg, 30000, false));
             }
 
         }else{
             message.channel.send(`:rofl: Not Currently Paused :rofl:`)
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
         }
     }
     

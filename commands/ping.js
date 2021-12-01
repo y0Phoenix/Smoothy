@@ -5,6 +5,6 @@ module.exports = ping = {
     description: "this is a ping command",
     execute(message){
         message.channel.send('pong') 
-        .then(msg => smoothy.deleteMsg(msg, 30000));
+        .then(msg => smoothy.deleteMsg(msg, 30000, false));
     }
 }

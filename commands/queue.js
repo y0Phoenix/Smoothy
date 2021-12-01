@@ -143,7 +143,7 @@ module.exports = {
                 .setColor('RED')
                 .setDescription(`:rofl: No Songs Currently In Queue`)
             message.channel.send({embeds: [noSongsEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
         }  
     }
 }

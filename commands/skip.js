@@ -7,25 +7,34 @@ module.exports = {
     async skip(message, serverQueue) {    
         if(serverQueue !== undefined){
             if (serverQueue.songs.length > 0 ) {
-                console.log("Skipping " + serverQueue.currenttitle + "!");
-                const skipEmbed = new MessageEmbed()
-                    .setColor('AQUA')
-                    .setDescription(`:next_track: Now Skipping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
-                    .addFields(
-                        {
-                            name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
-                        },
-                        {
-                            name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
-                        }
-                    )
-                ;
-                message.channel.send({embeds: [skipEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 60000));
-                serverQueue.player.stop();  
+                try {
+                    console.log("Skipping " + serverQueue.currenttitle + "!");
+                    const skipEmbed = new MessageEmbed()
+                        .setColor('AQUA')
+                        .setDescription(`:next_track: Now Skipping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
+                        .addFields(
+                            {
+                                name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
+                            },
+                            {
+                                name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
+                            }
+                        )
+                    ;
+                    message.channel.send({embeds: [skipEmbed]})
+                    .then(msg => smoothy.deleteMsg(msg, 60000, false));
+                    await serverQueue.nowPlaying.delete();
+                    serverQueue.nowPlaying = undefined;
+                    clearTimeout(serverQueue.nowPlayingMsgTimer);
+                    serverQueue.player.stop();  
+                    
+                    }
+                    catch(error) {
+                        console.log('Unknown MSG');
+                    }
             }else{
                 message.channel.send(':rofl: Nothing To ***Skip*** :rofl:')
-                .then(msg => smoothy.deleteMsg(msg, 30000));
+                .then(msg => smoothy.deleteMsg(msg, 30000, false, serverQueue));
             }
         }
     }

@@ -26,7 +26,7 @@ module.exports = {
                 )
             ;
             message.channel.send({embeds: [prefixEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 60000));
+            .then(msg => smoothy.deleteMsg(msg, 60000, false));
         }
         else{
             const specifyEmbed = new MessageEmbed()
@@ -34,7 +34,7 @@ module.exports = {
                 .setDescription(':thumbsdown: You Must Specify With A New Prefix')
             ;
             message.channel.send({embeds: [specifyEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false, false));
         }
     }
 }

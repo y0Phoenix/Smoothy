@@ -12,8 +12,7 @@ module.exports = {
                     .setColor('PURPLE')
                     .setDescription(`:thumbsup: I Am Now Looping The Current Queue! :repeat:`)
                 ;
-                message.channel.send({embeds: [loopEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, serverQueue.currentsong[0].durationms));
+                message.channel.send({embeds: [loopEmbed]});
             }
             else{
                 serverQueue.loop = false;
@@ -22,12 +21,12 @@ module.exports = {
                     .setDescription(`:x: No Longer Looping The Queue!`)
                 ;
                 message.channel.send({embeds: [endLoopEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 60000));
+                .then(msg => smoothy.deleteMsg(msg, 60000, false));
             } 
         }
         else{
             message.channel.send(':rofl: No Queue To Loop :rofl:')
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
         }
     }
 }

@@ -26,12 +26,12 @@ module.exports = {
                                 .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
                                 .setTimestamp();
                             message.channel.send({embeds: [jumpEmbed]})
-                            .then(msg => smoothy.deleteMsg(msg, 60000));
+                            .then(msg => smoothy.deleteMsg(msg, 60000, false));
                             serverQueue.player.stop();
                         }
                         else{
                             message.channel.send(':x: No Song Specified')
-                            .then(msg => smoothy.deleteMsg(msg, 30000));
+                            .then(msg => smoothy.deleteMsg(msg, 30000, false));
                         }
                     }
                     else{
@@ -51,27 +51,27 @@ module.exports = {
                                 .setThumbnail(`${serverQueue.shuffledSongs[i].thumbnail}`)
                                 .setTimestamp();
                             message.channel.send({embeds: [jumpEmbed]})
-                            .then(msg => smoothy.deleteMsg(msg, 60000));
+                            .then(msg => smoothy.deleteMsg(msg, 60000, false));
                             serverQueue.player.stop();
                         }
                         else{
                             message.channel.send(':x: No Song Specified')
-                            .then(msg => smoothy.deleteMsg(msg, 30000));
+                            .then(msg => smoothy.deleteMsg(msg, 30000, false));
                         }
                     }
                 }
                 else{
                     message.channel.send(':x: No Other Songs Besides The Current Exist In The Queue :x:')
-                    .then(msg => smoothy.deleteMsg(msg, 30000));
+                    .then(msg => smoothy.deleteMsg(msg, 30000, false));
                 }
             }
             else{
                 message.channel.send(`:rofl: I Cannot Jump To A Song Wile I Am Looping A Song :rofl:`)
-                .then(msg => smoothy.deleteMsg(msg, 30000));
+                .then(msg => smoothy.deleteMsg(msg, 30000, false));
             }
         }else{
             message.channel.send(':rofl: I Dont Have A Song Queue :rofl:')
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
         }     
     }
 }

@@ -18,7 +18,7 @@ module.exports = {
                 .setDescription(`:octagonal_sign: I Have ***Stopped*** The Music!`)
             ;
             message.channel.send({embeds: [stopEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 60000));
+            .then(msg => smoothy.deleteMsg(msg, 60000, false));
             executive.disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle)
         }else{
             const notPlayingEmbed = new MessageEmbed()
@@ -26,7 +26,7 @@ module.exports = {
                 .setDescription(`:rofl: Nothing ***Playing*** Currently!`)
             ;
             message.channel.send({embeds: [notPlayingEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
         }
     }
 }

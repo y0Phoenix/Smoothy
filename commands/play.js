@@ -25,14 +25,14 @@ module.exports = {
     async play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command) {
         try{
             if (args.length === 0) return message.channel.send({embeds: [specifyEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
             if (!vc) return message.channel.send({embeds: [needVCEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
             const permissions = vc.permissionsFor(message.client.user);
             if (!permissions.has('CONNECT')) return message.channel.send({embeds: [connectEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
             if (!permissions.has('SPEAK')) return message.channel.send({embeds: [speakEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
             
             if(command === 'pp' || command === 'playp'){
                 executive.joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle);

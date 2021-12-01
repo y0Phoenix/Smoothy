@@ -38,18 +38,18 @@ module.exports = {
                                 .setDescription(':rofl: Volume is 100 max')
                             ;
                             message.channel.send({embeds: [toHighEmbed]})
-                            .then(msg => smoothy.deleteMsg(msg, 30000));
+                            .then(msg => smoothy.deleteMsg(msg, 30000, false));
                         }
                     }
                     else{
                         message.channel.send({embeds: [noSongEmbed]})
-                        .then(msg => smoothy.deleteMsg(msg, 30000));
+                        .then(msg => smoothy.deleteMsg(msg, 30000, false));
                     }
                 }
             }
             else{
                 message.channel.send({embeds: [noSongEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 30000));
+                .then(msg => smoothy.deleteMsg(msg, 30000, false));
             }
         }
         else{
@@ -58,7 +58,7 @@ module.exports = {
                 .setDescription(':rofl: You Must Specify With A Number')
             ;
             message.channel.send({embeds: [specifyEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
         }
     }
 }

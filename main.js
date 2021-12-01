@@ -56,6 +56,7 @@ client.on('messageCreate', message =>{
                 if(exists){
                     prefix = data[j].prefix;
                     found = j;
+                    break;
                 }
             }
         }
@@ -126,16 +127,16 @@ client.on('messageCreate', message =>{
     }else{
         const invalidCommandEmbed = new MessageEmbed()
             .setColor(`RED`)
-            .setDescription(`Invalid Command Type -help To See Current Commands`)
+            .setDescription(`:rofl: Invalid Command Type -help To See Current Commands`)
         ;
         message.channel.send({embeds: [invalidCommandEmbed]})
         .then(msg => {
             setTimeout(() => {
-                msg.delete(), 30000
-            })
+                msg.delete()
+            }, 30000)
         });
     return;
     }
 }); 
-client.login('');    
+client.login('ODg5NjA0NjY0Mjg1MzU2MDcy.YUjq6A.nR_oUkYm6Fr5DaV1d6svxZzTzhk');    
 
