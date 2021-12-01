@@ -3,7 +3,7 @@ module.exports =  {
     async deleteMsg(msg, time, bool, serverQueue) {
         if (bool) {
             serverQueue.nowPlayingTimer = setTimeout( async () => { 
-                await serverQueue.nowPlaying.delete();
+                await msg.delete();
                 serverQueue.nowPlaying = undefined;
             }, time);
         }
@@ -18,8 +18,10 @@ module.exports =  {
         const sq = q.get(id)
         
         if (vc) {
-            if (sq.nowPlaying) {
-                await sq.nowPlaying.delete();
+            if (sq) {
+                if (sq.nowPlaying) {
+                    await sq.nowPlaying.delete();
+                }
             }
                 if (sdi.queueMSGs) {
                     for (let i = 0;
