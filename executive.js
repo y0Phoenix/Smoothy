@@ -261,7 +261,7 @@ function disconnectvcidle(serverQueue, queue, DisconnectIdle, serverDisconnectId
 //starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
 // this timer only starts when the audioPlayer is Idle 
 function disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle){
-    serverDisconnectIdle.disconnectTimer = setTimeout(disconnectvcidle, 1800000, serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+    serverDisconnectIdle.disconnectTimer = setTimeout(disconnectvcidle, 15000, serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     console.log('Starting disconnectTimer Timeout');
 }
 

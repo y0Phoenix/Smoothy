@@ -8,7 +8,7 @@ module.exports = {
         if(serverQueue !== undefined){
             if (serverQueue.songs.length > 0 ) {
                 try {
-                    console.log("Skipping " + serverQueue.currenttitle + "!");
+                    console.log("Skipping " + serverQueue.currentsong[0].title + "!");
                     const skipEmbed = new MessageEmbed()
                         .setColor('AQUA')
                         .setDescription(`:next_track: Now Skipping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)

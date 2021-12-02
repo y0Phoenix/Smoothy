@@ -20,10 +20,10 @@ module.exports =  {
         if (vc) {
             if (sq) {
                 if (sq.nowPlaying) {
-                    await sq.nowPlaying.delete();
+                    sq.nowPlaying.delete();
                 }
             }
-                if (sdi.queueMSGs) {
+                if (sdi.queueMSGs[0]) {
                     for (let i = 0;
                         i < sdi.queueMSGs.length;
                         i++) {
