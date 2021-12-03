@@ -152,10 +152,10 @@ async function retryTimer(serverQueue, queue, DisconnectIdle, serverDisconnectId
     }else{
         serverQueue.currentsong.shift();
         console.log(`Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`);
-        await loopNextSong(serverQueue);
+        await loopNextSong(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
         if(serverQueue.tries >= 4){
             serverQueue.message.channel.send(`Smoothy Is Buffering Please Wait`)
-            .then(msg => smoothy.smoothy.deleteMsg(msg, 30000, false));
+            .then(msg => smoothy.deleteMsg(msg, 30000, false));
         }
     } 
 }
@@ -173,7 +173,8 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
     console.log('Player Status Is Idle');
     if(serverQueue.stop === true){
 
-    }else{
+    }
+    else{
         if(serverQueue.player.state.status === AudioPlayerStatus.Idle && serverQueue.audioPlayerErr === false){             
             serverQueue.messagesent = false;
             if (serverQueue.nowPlaying) {
@@ -196,7 +197,7 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                         .then(msg => smoothy.deleteMsg(msg, 30000, false));
                         serverDisconnectIdle = DisconnectIdle.get(serverQueue.message.guild.id);
                         queue.delete(serverQueue.message.guild.id);
-                        disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                        disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
                     }
                 }
                 //song ending while loop is true and loopsong is false
@@ -238,7 +239,7 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                             .then(msg => smoothy.deleteMsg(msg, 30000, false));
                             serverDisconnectIdle = DisconnectIdle.get(serverQueue.message.guild.id);
                             queue.delete(serverQueue.message.guild.id);
-                            disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                            disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
                         }
                     }
                 }
@@ -248,20 +249,20 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
 }
 
 //disconnects from voiceConnection after 1800000 ms or 30 min
-function disconnectvcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle){ 
+function disconnectvcidle(queue, DisconnectIdle, serverDisconnectIdle){ 
     const vcIdleEmbed = new MessageEmbed()
         .setColor('RED')
         .setDescription(':cry: Left VC Due To Idle')
     serverDisconnectIdle.message.channel.send({embeds: [vcIdleEmbed]})
-        .then(msg => smoothy.deleteMsg(msg, 60000, false));
+        .then(msg => smoothy.deleteMsg(msg, 1800000, false));
     console.log(`Left VC Due To Idle`)
     smoothy.leave(queue, DisconnectIdle, serverDisconnectIdle.message);
 }
 
 //starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
 // this timer only starts when the audioPlayer is Idle 
-function disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle){
-    serverDisconnectIdle.disconnectTimer = setTimeout(disconnectvcidle, 15000, serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+function disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle){
+    serverDisconnectIdle.disconnectTimer = setTimeout(disconnectvcidle, 15000, queue, DisconnectIdle, serverDisconnectIdle);
     console.log('Starting disconnectTimer Timeout');
 }
 
@@ -301,7 +302,6 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
         songs: [songobject],
         shuffledSongs: [],
         currentsong: [currentsongobject],
-        queueMSGs: [],
         jump: 0,
         tries: 0,
         audioPlayerErr: false,
@@ -380,7 +380,7 @@ async function createServerQueue(message, args, queue, DisconnectIdle, serverDis
                     .setTimestamp()
                 ;
                 localserverQueue.nowPlaying = await localServerQueue.message.channel.send({embeds: [playembed]});
-                smoothy.deleteMsg(localServerQueue.nowPlaying, serverQueue.currentsong[0].durationms, true, serverQueue);
+                smoothy.deleteMsg(localServerQueue.nowPlaying, serverQueue.currentsong[0].durationms, true);
                 localServerQueue.messagesent = true;
             }   
         }
@@ -414,7 +414,7 @@ async function executive(message, args, queue, DisconnectIdle, serverDisconnectI
             Has Been Added To The Queue :arrow_down:`)
         ;
         let msg = await message.channel.send({embeds: [addQueueEmbed]});
-        serverDisconnectIdle.queueMSGs.push(msg);
+        serverDisconnectIdle.msgs.push(msg);
     }
 }
 
@@ -437,7 +437,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
                 serverQueue.resource.metadata = serverQueue;
                 serverQueue.player.play(serverQueue.resource);
                 console.log("Playing " + serverQueue.currentsong[0].title + "!");
-                if(serverQueue.loopsong === false && serverQueue.audioPlayerErr === false && serverQueue.repeat === false){
+                if(serverQueue.audioPlayerErr === false){
                     const playembed = new MessageEmbed()
                         .setColor('#0099ff')
                         .setTitle(`:thumbsup: Now Playing`)
@@ -453,7 +453,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
                         .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
                     ;
                     serverQueue.nowPlaying = await serverQueue.songs[0].message.channel.send({embeds: [playembed]});
-                    smoothy.deleteMsg(serverQueue.nowPlaying, serverQueue.currentsong[0].durationms, true , serverQueue);
+                    smoothy.deleteMsg(serverQueue.nowPlaying, serverQueue.currentsong[0].durationms, true);
                     serverQueue.messagesent = true;
                 }
                 serverQueue.repeat = false; 
@@ -493,7 +493,7 @@ function findSplice(serverQueue, currentsong){
 }
 
 //finds the song again to ensure it exists then sets a constant to the song in front of the queue and pushes that song to the back, which makes a looped song queue
-async function loopNextSong(serverQueue){
+async function loopNextSong(serverQueue, queue, DisconnectIdle, serverDisconnectIdle){
     await findvideo(serverQueue)
     if(serverQueue.shuffle === true){
         const currentsong = serverQueue.shuffledSongs[0];
@@ -736,13 +736,13 @@ module.exports = {
                 message: message, 
                 disconnectTimer: undefined,
                 voiceConnection: voiceConnection,
-                queueMSGs: [],
+                msgs: [],
             });
         }
     },
     //this is the samething above but inside of an export so it can be called from commands/stop.js
-    async disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle){
-        serverDisconnectIdle.disconnectTimer = setTimeout(disconnectvcidle, 1800000, queue, DisconnectIdle, serverDisconnectIdle, serverQueue)
+    async disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle){
+        serverDisconnectIdle.disconnectTimer = setTimeout(disconnectvcidle, 1800000, queue, DisconnectIdle, serverDisconnectIdle)
         console.log('Starting disconnectTimer Timeout');
     },
 }

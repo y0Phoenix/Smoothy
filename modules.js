@@ -1,11 +1,8 @@
 const { getVoiceConnection } = require("@discordjs/voice");
 module.exports =  { 
-    async deleteMsg(msg, time, bool, serverQueue) {
+    async deleteMsg(msg, time, bool) {
         if (bool) {
-            serverQueue.nowPlayingTimer = setTimeout( async () => { 
-                await msg.delete();
-                serverQueue.nowPlaying = undefined;
-            }, time);
+        
         }
         else {
             setTimeout( async () => { await msg.delete() }, time);
@@ -23,11 +20,11 @@ module.exports =  {
                     sq.nowPlaying.delete();
                 }
             }
-                if (sdi.queueMSGs[0]) {
+                if (sdi.msgs[0]) {
                     for (let i = 0;
-                        i < sdi.queueMSGs.length;
+                        i < sdi.msgs.length;
                         i++) {
-                            sdi.queueMSGs[i].delete();
+                            sdi.msgs[i].delete();
                         }
                 }
                 if (vc) {

@@ -93,7 +93,7 @@ client.on('messageCreate', message =>{
     }else if (command === 'play' || command === 'p' || command === 'pp' || command === 'playp'){
         play.play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command);
     }else if (command === 'queue' || command === 'list' || command === 'q'){
-        queuelist.execute(message, serverQueue);
+        queuelist.execute(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'skip' || command === 'next' || command === 's' || command === 'n'){
         skip.skip(message, serverQueue);
     }else if (command === 'stop' || command === 'clear'){
@@ -111,9 +111,9 @@ client.on('messageCreate', message =>{
     }else if (command === 'crash' || command === 'c'){
         snoopy_goes_wild.dummy = 'me';
     }else if (command === 'loop' || command === 'l'){
-        loop.loop(message, serverQueue);
+        loop.loop(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'loopsong' || command === 'ls'){
-        loopsong.loopsong(message, serverQueue);
+        loopsong.loopsong(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'repeat' || command === 'restart' || command === 're'){
         repeat.repeat(message, serverQueue);
     }else if (command === 'shuffle' || command === 'mix'){
@@ -138,5 +138,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('');    
+client.login('ODg5NjA0NjY0Mjg1MzU2MDcy.YUjq6A.EoOUQ3vAs9mMcC5fwO7vNphgu-w');    
 

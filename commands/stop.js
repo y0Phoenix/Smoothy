@@ -19,7 +19,7 @@ module.exports = {
             ;
             message.channel.send({embeds: [stopEmbed]})
             .then(msg => smoothy.deleteMsg(msg, 60000, false));
-            executive.disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle)
+            executive.disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle)
         }else{
             const notPlayingEmbed = new MessageEmbed()
                 .setColor('RED')

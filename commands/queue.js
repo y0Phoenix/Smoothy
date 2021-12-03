@@ -61,7 +61,7 @@ async function queueListAdd(serverQueue){
     }
 }
 
-async function getQueueList(message, serverQueue) {
+async function getQueueList(message, serverQueue, serverDisconnectIdle) {
     if(serverQueue.songs.length <= 10 && serverQueue.shuffledSongs.length <= 10){ 
         await queueListAdd(serverQueue);
         const queueListEmbed = new MessageEmbed()
@@ -69,7 +69,8 @@ async function getQueueList(message, serverQueue) {
             .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
             .setDescription(`${queuelist}`)
             .setTimestamp();
-        await message.channel.send({embeds: [queueListEmbed]})
+        let msg = await message.channel.send({embeds: [queueListEmbed]});
+        serverDisconnectIdle.msgs.push(msg);
         queuelist = ``;
     }
     else{
@@ -80,7 +81,8 @@ async function getQueueList(message, serverQueue) {
                 .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
                 .setDescription(`${queuelist}`)
                 .setTimestamp();
-            await message.channel.send({embeds: [queueListEmbed]});
+            let msg = await message.channel.send({embeds: [queueListEmbed]});
+            serverDisconnectIdle.msgs.push(msg);
             queuelist = ``;
             longQueueList(message, serverQueue);
         }
@@ -89,7 +91,8 @@ async function getQueueList(message, serverQueue) {
                 .setColor('LUMINOUS_VIVID_PINK')
                 .setDescription(`${queuelist}`)
                 .setTimestamp();
-            await message.channel.send({embeds: [queueListEmbed]});
+            let msg = await message.channel.send({embeds: [queueListEmbed]});
+            serverDisconnectIdle.msgs.push(msg);
             queuelist = ``;
             longQueueList(message, serverQueue);
         }
@@ -107,13 +110,13 @@ async function longQueueList(message, serverQueue){
 module.exports = {
     name: 'queue',
     description: 'Shows queue to the discord text channel',
-    async execute(message, serverQueue){
+    async execute(message, serverQueue, serverDisconnectIdle){
         if(serverQueue !== undefined){
                 if(serverQueue.songs.length >= 2){
                     queuelist = ``;
                     endqueuelist = 10;
                     i = 0
-                    getQueueList(message, serverQueue);
+                    getQueueList(message, serverQueue, serverDisconnectIdle);
                 }
                 else{
                     const queueListEmbed = new MessageEmbed()
@@ -135,7 +138,8 @@ module.exports = {
                         )
                         .setTimestamp()
                     ;
-                await message.channel.send({embeds: [queueListEmbed]})
+                let msg = await message.channel.send({embeds: [queueListEmbed]});
+                serverDisconnectIdle.msgs.push(msg);
                 queuelist = ``;
                 } 
         }else{

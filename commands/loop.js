@@ -4,7 +4,7 @@ const smoothy = require('../modules');
 module.exports = {
     name: 'loop',
     description: 'loops the current server queue',
-    async loop(message, serverQueue,){
+    async loop(message, serverQueue, serverDisconnectIdle){
         if(serverQueue){   
             if(serverQueue.loop === false){
                 serverQueue.loop = true;
@@ -12,7 +12,8 @@ module.exports = {
                     .setColor('PURPLE')
                     .setDescription(`:thumbsup: I Am Now Looping The Current Queue! :repeat:`)
                 ;
-                message.channel.send({embeds: [loopEmbed]});
+                let msg = await message.channel.send({embeds: [loopEmbed]});
+                serverDisconnectIdle.msgs.push(msg);
             }
             else{
                 serverQueue.loop = false;
