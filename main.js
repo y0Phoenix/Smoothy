@@ -138,5 +138,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('ODg5NjA0NjY0Mjg1MzU2MDcy.YUjq6A.EoOUQ3vAs9mMcC5fwO7vNphgu-w');    
+client.login('');    
 
