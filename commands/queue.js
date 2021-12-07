@@ -84,7 +84,7 @@ async function getQueueList(message, serverQueue, serverDisconnectIdle) {
             let msg = await message.channel.send({embeds: [queueListEmbed]});
             serverDisconnectIdle.msgs.push(msg);
             queuelist = ``;
-            longQueueList(message, serverQueue);
+            longQueueList(message, serverQueue, serverDisconnectIdle);
         }
         else if(endqueuelist > 10 && queuelist !== ``){
             const queueListEmbed = new MessageEmbed()
