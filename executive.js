@@ -254,7 +254,7 @@ function disconnectvcidle(queue, DisconnectIdle, serverDisconnectIdle){
         .setColor('RED')
         .setDescription(':cry: Left VC Due To Idle')
     serverDisconnectIdle.message.channel.send({embeds: [vcIdleEmbed]})
-        .then(msg => smoothy.deleteMsg(msg, 1800000, false));
+        .then(msg => smoothy.deleteMsg(msg, 60000, false));
     console.log(`Left VC Due To Idle`)
     smoothy.leave(queue, DisconnectIdle, serverDisconnectIdle.message);
 }
@@ -262,7 +262,7 @@ function disconnectvcidle(queue, DisconnectIdle, serverDisconnectIdle){
 //starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
 // this timer only starts when the audioPlayer is Idle 
 function disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle){
-    serverDisconnectIdle.disconnectTimer = setTimeout(disconnectvcidle, 15000, queue, DisconnectIdle, serverDisconnectIdle);
+    serverDisconnectIdle.disconnectTimer = setTimeout(disconnectvcidle, 1800000, queue, DisconnectIdle, serverDisconnectIdle);
     console.log('Starting disconnectTimer Timeout');
 }
 
@@ -453,7 +453,6 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
                         .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
                     ;
                     serverQueue.nowPlaying = await serverQueue.songs[0].message.channel.send({embeds: [playembed]});
-                    smoothy.deleteMsg(serverQueue.nowPlaying, serverQueue.currentsong[0].durationms, true);
                     serverQueue.messagesent = true;
                 }
                 serverQueue.repeat = false; 
@@ -678,12 +677,14 @@ module.exports = {
                     .setThumbnail(`${playlist.bestThumbnail.url}`)
                     .setTimestamp()
                 ;
-                message.channel.send({embeds: [playlistEmbed]});
+                
                 console.log('Found YouTube playlist');
                 if(!serverQueue){
                     duration = playlist.items[0].duration;
                     await createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue,);
                     serverQueue = queue.get(message.guild.id);
+                    serverQueue.nowPlaying = await message.channel.send({embeds: [playlistEmbed]});
+                    serverQueue.messagesent = true;
                     serverQueue.playlist = true;
                     console.log('Created the serverQueue');
                     added = true;
@@ -701,8 +702,7 @@ module.exports = {
                             title: playlist.items[i].title, thumbnail: playlist.items[i].bestThumbnail.url,
                             message: message, args: args, duration: duration, playlistsong: true,});
                     }   
-                }
-                  
+                } 
             }
             else{
                 const noPlaylistEmbed = new MessageEmbed()
