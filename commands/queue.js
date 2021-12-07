@@ -94,16 +94,15 @@ async function getQueueList(message, serverQueue, serverDisconnectIdle) {
             let msg = await message.channel.send({embeds: [queueListEmbed]});
             serverDisconnectIdle.msgs.push(msg);
             queuelist = ``;
-            longQueueList(message, serverQueue);
+            longQueueList(message, serverQueue, serverDisconnectIdle);
         }
     }
 }
 
-async function longQueueList(message, serverQueue){
-    
+async function longQueueList(message, serverQueue, serverDisconnectIdle){
     if(endqueuelist < serverQueue.songs.length){
         endqueuelist = endqueuelist + 10;
-        getQueueList(message, serverQueue);
+        getQueueList(message, serverQueue, serverDisconnectIdle);
     }
 }
 
@@ -112,36 +111,36 @@ module.exports = {
     description: 'Shows queue to the discord text channel',
     async execute(message, serverQueue, serverDisconnectIdle){
         if(serverQueue !== undefined){
-                if(serverQueue.songs.length >= 2){
-                    queuelist = ``;
-                    endqueuelist = 10;
-                    i = 0
-                    getQueueList(message, serverQueue, serverDisconnectIdle);
-                }
-                else{
-                    const queueListEmbed = new MessageEmbed()
-                        .setColor('LUMINOUS_VIVID_PINK')
-                        .setTitle(':thumbsup: Here Is The Queue')
-                        .addFields(
-                            {
-                                name: '****Now Playing****', 
-                                value: `**[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})**\n***Duration:*** ${serverQueue.songs[0].duration}`
-                            },
-                            {
-                                name: 'Requested By',
-                                value: `<@${serverQueue.songs[0].message.author.id}>`
-                            },
-                            {
-                                name: 'Queue',
-                                value: `No Other Songs`
-                            }
-                        )
-                        .setTimestamp()
-                    ;
-                let msg = await message.channel.send({embeds: [queueListEmbed]});
-                serverDisconnectIdle.msgs.push(msg);
+            if(serverQueue.songs.length >= 2){
                 queuelist = ``;
-                } 
+                endqueuelist = 10;
+                i = 0
+                getQueueList(message, serverQueue, serverDisconnectIdle);
+            }
+            else{
+                const queueListEmbed = new MessageEmbed()
+                    .setColor('LUMINOUS_VIVID_PINK')
+                    .setTitle(':thumbsup: Here Is The Queue')
+                    .addFields(
+                        {
+                            name: '****Now Playing****', 
+                            value: `**[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})**\n***Duration:*** ${serverQueue.songs[0].duration}`
+                        },
+                        {
+                            name: 'Requested By',
+                            value: `<@${serverQueue.songs[0].message.author.id}>`
+                        },
+                        {
+                            name: 'Queue',
+                            value: `No Other Songs`
+                        }
+                    )
+                    .setTimestamp()
+                ;
+            let msg = await message.channel.send({embeds: [queueListEmbed]});
+            serverDisconnectIdle.msgs.push(msg);
+            queuelist = ``;
+            } 
         }else{
             const noSongsEmbed = new MessageEmbed()
                 .setColor('RED')
