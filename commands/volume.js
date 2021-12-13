@@ -1,36 +1,43 @@
 const { MessageEmbed } = require("discord.js");
 const smoothy = require('../modules');
-var volume = undefined;
 
 const noSongEmbed = new MessageEmbed()
     .setColor('RED')
     .setDescription(':rofl: No Song To Change Volume')
 ;
 
-var volumeEmbed = new MessageEmbed()
-    .setColor('GOLD')
-    .setDescription(`:thumbsup: Volume Is Now ${volume}`)
-    .setTimestamp()
-;
+function volumeE(v) {
+    const volumeEmbed = new MessageEmbed()
+        .setColor('GOLD')
+        .setDescription(`:thumbsup: Volume Is Now ${v}`)
+        .setTimestamp()
+    ;
+    return volumeEmbed;
+}
 
 module.exports = {
     name: 'volume',
     description: 'changes the volume for the serverQueues resource',
-    async execute(message, args, serverQueue){
+    async execute(message, args, serverQueue, serverDisconnectIdle){
+        let volume;
         if(args.length > 0){
             if(serverQueue){
                 args = args[0].toLowerCase();
                 if(args === 'default' || args === 'reset' || args === 'de' || args === 're'){
                     volume = 1;
                     serverQueue.resource.volume.volume = volume;
-                    message.channel.send({embeds: [volumeEmbed]});
+                    let embed = volumeE(volume);
+                    let msg = await message.channel.send({embeds: [embed]});
+                    serverDisconnectIdle.msgs.push(msg);
                 }
                 else{
                     volume = parseInt(args);
                     if(serverQueue.songs.length > 0){
                         if(args <= 100){
                             serverQueue.resource.volume.volume = volume;
-                            message.channel.send({embeds: [volumeEmbed]});
+                            let embed = volumeE(volume);
+                            let msg = await message.channel.send({embeds: [embed]});
+                            serverDisconnectIdle.msgs.push(msg);
                         }
                         else{
                             const toHighEmbed = new MessageEmbed()

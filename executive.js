@@ -518,7 +518,7 @@ async function findvideo(serverQueue){
             message = serverQueue.shuffledSongs[1].message;
         }
         else{
-            videoName = serverQueue.shuffledSongs[1].args.join(' ');  
+            videoName = serverQueue.shuffledSongs[1].url;  
             message = serverQueue.shuffledSongs[1].message;
         }  
     }
@@ -528,7 +528,7 @@ async function findvideo(serverQueue){
             message = serverQueue.shuffledSongs[0].message;
         }
         else{
-            videoName = serverQueue.shuffledSongs[0].args.join(' ');  
+            videoName = serverQueue.shuffledSongs[0].url;  
             message = serverQueue.shuffledSongs[0].message;
         }  
     }
@@ -538,7 +538,7 @@ async function findvideo(serverQueue){
             message = serverQueue.shuffledSongs[0].message;
         }
         else{
-            videoName = serverQueue.shuffledSongs[0].args.join(' ');  
+            videoName = serverQueue.shuffledSongs[0].url;  
             message = serverQueue.shuffledSongs[0].message;
         }  
     }
@@ -548,7 +548,7 @@ async function findvideo(serverQueue){
             message = serverQueue.songs[0].message;
         }
         else{
-            videoName = serverQueue.songs[0].args.join(' ');  
+            videoName = serverQueue.songs[0].url;  
             message = serverQueue.songs[0].message;
         }  
     }
@@ -561,7 +561,7 @@ async function findvideo(serverQueue){
                 serverQueue.shuffledSongs.splice(i, 1)
             }
             else{
-                videoName = serverQueue.shuffledSongs[i].args.join(' ');
+                videoName = serverQueue.shuffledSongs[i].url;
                 message = serverQueue.shuffledSongs[i].message;
                 serverQueue.shuffledSongs.splice(i, 1)  
             }
@@ -574,7 +574,7 @@ async function findvideo(serverQueue){
 
             }
             else{
-                videoName = serverQueue.songs[i].args.join(' ');
+                videoName = serverQueue.songs[i].url;
                 message = serverQueue.songs[i].message;
                 serverQueue.songs.splice(i, 1)  
             }
@@ -586,7 +586,7 @@ async function findvideo(serverQueue){
             videoName = serverQueue.songs[0].url;
         }
         else{
-            videoName = serverQueue.songs[0].args.join(' ');  
+            videoName = serverQueue.songs[0].url;  
             message = serverQueue.songs[0].message;
         }  
     }

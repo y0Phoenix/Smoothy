@@ -123,7 +123,7 @@ client.on('messageCreate', message =>{
     }else if (command === 'prefix' || command === 'changeprefix' || command === 'prefixchange'){
         changeprefix.prefix(message, args, serverQueue, data, found)
     }else if (command === 'volume' || command === 'v'){
-        volume.execute(message, args, serverQueue)
+        volume.execute(message, args, serverQueue, serverDisconnectIdle)
     }else{
         const invalidCommandEmbed = new MessageEmbed()
             .setColor(`RED`)
@@ -138,5 +138,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('');    
+client.login('ODg3ODY5MjQzMjE4MDg3OTU2.YUKaqw.9XbzA5rR12AeSDNVpw8ARUbRJj0');    
 
