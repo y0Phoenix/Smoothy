@@ -4,7 +4,7 @@ const smoothy = require('../modules');
 module.exports = {
     name:'jump',
     description: 'jumps to the specified song',
-    async jump(message, args, serverQueue){
+    async jump(message, args, serverQueue, serverDisconnectIdle){
         var i = parseInt(args);
         if(serverQueue){
             if(serverQueue.loopsong === false){

@@ -119,7 +119,7 @@ client.on('messageCreate', message =>{
     }else if (command === 'shuffle' || command === 'mix'){
         shuffle.shuffle(message, serverQueue);
     }else if (command === 'jump' || command === 'j'){
-        jump.jump(message, args, serverQueue);
+        jump.jump(message, args, serverQueue, serverDisconnectIdle);
     }else if (command === 'prefix' || command === 'changeprefix' || command === 'prefixchange'){
         changeprefix.prefix(message, args, serverQueue, data, found)
     }else if (command === 'volume' || command === 'v'){
@@ -138,5 +138,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('ODg3ODY5MjQzMjE4MDg3OTU2.YUKaqw.U0jIxMMG_AoWYFTYN6e3d39j9Z0');    
+client.login('ODg3ODY5MjQzMjE4MDg3OTU2.YUKaqw.5RMu-X2fkX5lkQFFrkoNJaa869g');    
 

@@ -654,57 +654,37 @@ async function findvideo(serverQueue) {
     serverQueue.loop === false &&
     serverQueue.loopsong === false
   ) {
-    if (serverQueue.shuffledSongs[0].playlistsong === true) {
-      videoName = serverQueue.shuffledSongs[0].url;
-      message = serverQueue.shuffledSongs[0].message;
-    } else {
-      videoName = serverQueue.shuffledSongs[0].url;
-      message = serverQueue.shuffledSongs[0].message;
+    let i = serverQueue.jump;
+    if (i > 0) {
+        videoName = serverQueue.shuffledSongs[i].url;
+        message = serverQueue.shuffledSongs[i].message;
+        serverQueue.shuffledSongs.splice(i, 1);
+    }
+    else {
+        videoName = serverQueue.shuffledSongs[0].url;
+        message = serverQueue.shuffledSongs[0].message;
     }
   } else if (
     serverQueue.loop === true &&
     serverQueue.shuffle === false &&
     serverQueue.songs.length > 1
   ) {
-    if (serverQueue.songs[0].playlistsong === true) {
       videoName = serverQueue.songs[0].url;
       message = serverQueue.songs[0].message;
-    } else {
-      videoName = serverQueue.songs[0].url;
-      message = serverQueue.songs[0].message;
-    }
   } else if (serverQueue.jump > 0) {
+    let i = serverQueue.jump;
     if (serverQueue.shuffle === true) {
-      var i = serverQueue.jump;
-      if (serverQueue.shuffledSongs[i].playlistsong === true) {
         videoName = serverQueue.shuffledSongs[i].url;
         message = serverQueue.shuffledSongs[i].message;
         serverQueue.shuffledSongs.splice(i, 1);
-      } else {
-        videoName = serverQueue.shuffledSongs[i].url;
-        message = serverQueue.shuffledSongs[i].message;
-        serverQueue.shuffledSongs.splice(i, 1);
-      }
     } else {
-      var i = serverQueue.jump;
-      if (serverQueue.songs[i].playlistsong === true) {
         videoName = serverQueue.songs[i].url;
         message = serverQueue.songs[i].message;
         serverQueue.songs.splice(i, 1);
-      } else {
-        videoName = serverQueue.songs[i].url;
-        message = serverQueue.songs[i].message;
-        serverQueue.songs.splice(i, 1);
-      }
     }
   } else {
-    if (serverQueue.songs[0].playlistsong === true) {
-      message = serverQueue.songs[0].message;
-      videoName = serverQueue.songs[0].url;
-    } else {
       videoName = serverQueue.songs[0].url;
       message = serverQueue.songs[0].message;
-    }
   }
   let URL = validURL(videoName);
   if (URL === true) {
