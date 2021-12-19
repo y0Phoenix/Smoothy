@@ -655,10 +655,12 @@ async function findvideo(serverQueue) {
     serverQueue.loopsong === false
   ) {
     let i = serverQueue.jump;
+    serverQueue.jump = 0;
     if (i > 0) {
         videoName = serverQueue.shuffledSongs[i].url;
         message = serverQueue.shuffledSongs[i].message;
         serverQueue.shuffledSongs.splice(i, 1);
+        serverQueue.songs.splice(i, 1);
     }
     else {
         videoName = serverQueue.shuffledSongs[0].url;
@@ -672,16 +674,11 @@ async function findvideo(serverQueue) {
       videoName = serverQueue.songs[0].url;
       message = serverQueue.songs[0].message;
   } else if (serverQueue.jump > 0) {
-    let i = serverQueue.jump;
-    if (serverQueue.shuffle === true) {
-        videoName = serverQueue.shuffledSongs[i].url;
-        message = serverQueue.shuffledSongs[i].message;
-        serverQueue.shuffledSongs.splice(i, 1);
-    } else {
-        videoName = serverQueue.songs[i].url;
-        message = serverQueue.songs[i].message;
-        serverQueue.songs.splice(i, 1);
-    }
+      let i = serverQueue.jump;
+      serverQueue.jump = 0;
+      videoName = serverQueue.songs[i].url;
+      message = serverQueue.songs[i].message;
+      serverQueue.songs.splice(i, 1);
   } else {
       videoName = serverQueue.songs[0].url;
       message = serverQueue.songs[0].message;
