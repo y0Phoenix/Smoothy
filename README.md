@@ -69,7 +69,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 The program should then use the proper filenames and start Smoothy.
 
 ## Using Smoothy <a name="usingsmoothy"></a>
-* In order to use Smoothy on your computer you will need to plugin your own bot token at `(main.js:74)`.
+* In order to use Smoothy on your computer you will need to plugin your own bot token at `(main.js:141)`.
 ```js
 }); 
 client.login(''); 

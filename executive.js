@@ -833,7 +833,7 @@ module.exports = {
           )
           .setThumbnail(`${playlist.bestThumbnail.url}`)
           .setTimestamp();
-        console.log('Found YouTube playlist');
+        console.log(`Found YouTube playlist ${playlist.title}`);
         if (!serverQueue) {
           duration = playlist.items[0].duration;
           await createServerQueue(

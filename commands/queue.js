@@ -99,7 +99,7 @@ async function getQueueList(message, serverQueue, serverDisconnectIdle) {
     }
 }
 
-async function longQueueList(message, serverQueue, serverDisconnectIdle){
+function longQueueList(message, serverQueue, serverDisconnectIdle){
     if(endqueuelist < serverQueue.songs.length){
         endqueuelist = endqueuelist + 10;
         getQueueList(message, serverQueue, serverDisconnectIdle);
