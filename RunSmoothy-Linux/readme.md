@@ -5,7 +5,11 @@
 First thing is you will need to install the latest Nodejs LTS via nodesource
 ```
     sudo apt-get install curl
+```
+```
     curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+```
+```
     sudo apt-get install -y nodejs
 ```
 You can take a look at [Nodesource GitHub](https://github.com/nodesource/distributions#deb) to get the specific url for whichever version is LTS
@@ -28,6 +32,9 @@ If all is well you can proceed onto compiling, if not you can create an issue at
 In order to compile c# on your linux machine you will need to install mono via
 ```
     sudo apt-get update
+```
+
+```
     sudo apt-get mono-complete
 ```
 
@@ -41,6 +48,8 @@ Also Make sure you move the run.sh file into Smoothys' root Directory otherwise 
 Finally you can compile and run the new program via the following
 ```
     sudo mcs Program.cs
+```
+```
     sudo mono Program.exe
 ```
 
