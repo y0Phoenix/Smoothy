@@ -2,7 +2,7 @@
 const ytSearch = require('yt-search');
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
-const smoothy = require('./modules');
+const {deleteMsg, leave} = require('./modules');
 const {
   AudioPlayerStatus,
   StreamType,
@@ -142,7 +142,7 @@ async function retryTimer(
     if (serverQueue.tries >= 4) {
       serverQueue.message.channel
         .send(`Smoothy Is Buffering Please Wait`)
-        .then((msg) => smoothy.deleteMsg(msg, 30000, false));
+        .then((msg) => deleteMsg(msg, 30000, false));
     }
   } else {
     serverQueue.currentsong.shift();
@@ -158,7 +158,7 @@ async function retryTimer(
     if (serverQueue.tries >= 4) {
       serverQueue.message.channel
         .send(`Smoothy Is Buffering Please Wait`)
-        .then((msg) => smoothy.deleteMsg(msg, 30000, false));
+        .then((msg) => deleteMsg(msg, 30000, false));
     }
   }
 }
@@ -206,7 +206,7 @@ async function audioPlayerIdle(
         } else {
           serverQueue.message.channel
             .send({ embeds: [noMoreSongsEmbed] })
-            .then((msg) => smoothy.deleteMsg(msg, 30000, false));
+            .then((msg) => deleteMsg(msg, 30000, false));
           serverDisconnectIdle = DisconnectIdle.get(
             serverQueue.message.guild.id
           );
@@ -262,7 +262,7 @@ async function audioPlayerIdle(
           } else {
             serverQueue.message.channel
               .send({ embeds: [noMoreSongsEmbed] })
-              .then((msg) => smoothy.deleteMsg(msg, 30000, false));
+              .then((msg) => deleteMsg(msg, 30000, false));
             serverDisconnectIdle = DisconnectIdle.get(
               serverQueue.message.guild.id
             );
@@ -283,9 +283,9 @@ function disconnectvcidle(queue, DisconnectIdle, serverDisconnectIdle) {
     .setDescription(':cry: Left VC Due To Idle');
   serverDisconnectIdle.message.channel
     .send({ embeds: [vcIdleEmbed] })
-    .then((msg) => smoothy.deleteMsg(msg, 60000, false));
+    .then((msg) => deleteMsg(msg, 60000, false));
   console.log(`Left VC Due To Idle`);
-  smoothy.leave(queue, DisconnectIdle, serverDisconnectIdle.message);
+  leave(queue, DisconnectIdle, serverDisconnectIdle.message);
 }
 
 //starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
@@ -452,7 +452,7 @@ async function createServerQueue(
           .setTimestamp();
         localserverQueue.nowPlaying =
           await localServerQueue.message.channel.send({ embeds: [playembed] });
-        smoothy.deleteMsg(
+        deleteMsg(
           localServerQueue.nowPlaying,
           serverQueue.currentsong[0].durationms,
           true
@@ -569,7 +569,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
   } else {
     serverQueue.message.channel
       .send({ embeds: [noVidEmbed] })
-      .then((msg) => smoothy.deleteMsg(msg, 30000, false));
+      .then((msg) => deleteMsg(msg, 30000, false));
     serverQueue.player.stop();
     audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
   }
@@ -740,7 +740,7 @@ module.exports = {
         } else {
           message.channel
             .send({ embeds: [noVidEmbed] })
-            .then((msg) => smoothy.deleteMsg(msg, 30000, false));
+            .then((msg) => deleteMsg(msg, 30000, false));
           return;
         }
       }
@@ -765,7 +765,7 @@ module.exports = {
       } else {
         message.channel
           .send({ embeds: [noVidEmbed] })
-          .then((msg) => smoothy.deleteMsg(msg, 30000, false));
+          .then((msg) => deleteMsg(msg, 30000, false));
         return;
       }
     }
@@ -855,7 +855,7 @@ module.exports = {
           .setDescription(':rofl: Playlist Either Doesnt Exist Or Is Private');
         message.channel
           .send({ embeds: [noPlaylistEmbed] })
-          .then((msg) => smoothy.deleteMsg(msg, 30000, false));
+          .then((msg) => deleteMsg(msg, 30000, false));
       }
     } else {
       const wrongEmbed = new MessageEmbed()
@@ -863,7 +863,7 @@ module.exports = {
         .setDescription(':rofl: You Need To Add A Valid Playlist Link');
       message.channel
         .send({ embeds: [wrongEmbed] })
-        .then((msg) => smoothy.deleteMsg(msg, 30000, false));
+        .then((msg) => deleteMsg(msg, 30000, false));
     }
   },
   //joins the voiceChannel only when voiceConnection is disconnected

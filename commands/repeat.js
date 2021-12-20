@@ -1,6 +1,6 @@
 const { AudioPlayerStatus } = require("@discordjs/voice");
 const { MessageEmbed } = require("discord.js");
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 
 //stops the audioPlayer and sets serverQueue.repeat to true, which is used inside of executive.js
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
                         .setDescription(`:thumbsup: I Am Restarting ***[${serverQueue.shuffledSongs[0].title}](${serverQueue.shuffledSongs[0].url})*** :arrows_counterclockwise:`)
                     ;
                     message.channel.send({embeds: [restartShuffleEmbed]})
-                    .then(msg => smoothy.deleteMsg(msg, 60000, false));
+                    .then(msg => deleteMsg(msg, 60000, false));
                 }
                 else if(serverQueue.songs.length > 0){
                     serverQueue.player.stop();
@@ -27,7 +27,7 @@ module.exports = {
                         .setDescription(`:thumbsup: I Am Restarting ***[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})*** :arrows_counterclockwise:`)
                     ;
                     message.channel.send({embeds: [restartCurrentEmbed]})
-                    .then(msg => smoothy.deleteMsg(msg, 60000, false));
+                    .then(msg => deleteMsg(msg, 60000, false));
                 }
                 else{
                     const notPlayingEmbed = new MessageEmbed()
@@ -35,7 +35,7 @@ module.exports = {
                         .setDescription(`:rofl: Not Currently Playing Anything At The Moment`)
                     ;
                     message.channel.send({embeds: [notPlayingEmbed]})
-                    .then(msg => smoothy.deleteMsg(msg, 30000, false));
+                    .then(msg => deleteMsg(msg, 30000, false));
                 }
             }
             else {
@@ -44,7 +44,7 @@ module.exports = {
                     .setDescription(':rofl: Please Unpause The Player Before Restarting')
                 ;
                 message.channel.send({embeds: [pausedEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, false));
             }
         }
         else{
@@ -53,7 +53,7 @@ module.exports = {
                 .setDescription(`:rofl: Not Currently Playing Anything At The Moment`)
             ;
             message.channel.send({embeds: [notPlayingEmbed]})   
-            .then(msg => smoothy.deleteMsg(msg, 30000, false));     
+            .then(msg => deleteMsg(msg, 30000, false));     
         }
     }
 }

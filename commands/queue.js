@@ -2,7 +2,7 @@
 //then sends that list inside of an embed message along with some other info
 
 const { MessageEmbed } = require('discord.js');
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 let queuelist = ``;
 var endqueuelist = 10;
 var i = 0
@@ -109,7 +109,7 @@ function longQueueList(message, serverQueue, serverDisconnectIdle){
 module.exports = {
     name: 'queue',
     description: 'Shows queue to the discord text channel',
-    async execute(message, serverQueue, serverDisconnectIdle){
+    async queuelist(message, serverQueue, serverDisconnectIdle){
         if(serverQueue !== undefined){
             if(serverQueue.songs.length >= 2){
                 queuelist = ``;
@@ -146,7 +146,7 @@ module.exports = {
                 .setColor('RED')
                 .setDescription(`:rofl: No Songs Currently In Queue`)
             message.channel.send({embeds: [noSongsEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, false));
         }  
     }
 }

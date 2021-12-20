@@ -1,6 +1,6 @@
 //pauses the song at the front of the serverQueue
 const { MessageEmbed } = require('discord.js');
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 module.exports = {
     name: 'pause',
     description: 'pauses the current song',
@@ -21,11 +21,11 @@ module.exports = {
                 )
             ;
             message.channel.send({embeds: [pauseEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 60000, false));
+            .then(msg => deleteMsg(msg, 60000, false));
         }
         else{
             message.channel.send(`:rofl: Nothing To Pause :rofl:`)
-            .then(msg => smoothy.deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, false));
         }
     }
     

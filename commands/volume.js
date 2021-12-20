@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 
 const noSongEmbed = new MessageEmbed()
     .setColor('RED')
@@ -18,7 +18,7 @@ function volumeE(v) {
 module.exports = {
     name: 'volume',
     description: 'changes the volume for the serverQueues resource',
-    async execute(message, args, serverQueue, serverDisconnectIdle){
+    async volume(message, args, serverQueue, serverDisconnectIdle){
         let volume;
         if(args.length > 0){
             if(serverQueue){
@@ -45,18 +45,18 @@ module.exports = {
                                 .setDescription(':rofl: Volume is 100 max')
                             ;
                             message.channel.send({embeds: [toHighEmbed]})
-                            .then(msg => smoothy.deleteMsg(msg, 30000, false));
+                            .then(msg => deleteMsg(msg, 30000, false));
                         }
                     }
                     else{
                         message.channel.send({embeds: [noSongEmbed]})
-                        .then(msg => smoothy.deleteMsg(msg, 30000, false));
+                        .then(msg => deleteMsg(msg, 30000, false));
                     }
                 }
             }
             else{
                 message.channel.send({embeds: [noSongEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, false));
             }
         }
         else{
@@ -65,7 +65,7 @@ module.exports = {
                 .setDescription(':rofl: You Must Specify With A Number')
             ;
             message.channel.send({embeds: [specifyEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, false));
         }
     }
 }

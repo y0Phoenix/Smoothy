@@ -1,6 +1,6 @@
 //removes a specified song inside of serverQueue using a number inside of args
 const { MessageEmbed } = require('discord.js');
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 
 module.exports = {
     name: 'remove',
@@ -20,12 +20,12 @@ module.exports = {
                             name: `***Duration***`, value: `${serverQueue.shuffledSongs[i].duration}`, inline: true
                         })
                 message.channel.send({embeds: [removeEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 60000, false));   
+                .then(msg => deleteMsg(msg, 60000, false));   
                 serverQueue.shuffledSongs.splice(i, 1);
             }
             else{
                 message.channel.send('No Song Specified')
-                .then(msg => smoothy.deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, false));
             }
         }
         else{
@@ -45,12 +45,12 @@ module.exports = {
                     .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
                     .setTimestamp();
                 message.channel.send({embeds: [removeEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 60000, false));   
+                .then(msg => deleteMsg(msg, 60000, false));   
                 serverQueue.songs.splice(i, 1);
             }
             else{
                 message.channel.send('No Song Specified')
-                .then(msg => smoothy.deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, false));
             }
         }
     }

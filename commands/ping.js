@@ -1,10 +1,10 @@
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 
 module.exports = ping = {
     name: 'ping',
     description: "this is a ping command",
-    execute(message){
+    ping(message){
         message.channel.send('pong') 
-        .then(msg => smoothy.deleteMsg(msg, 30000, false));
+        .then(msg => deleteMsg(msg, 30000, false));
     }
 }

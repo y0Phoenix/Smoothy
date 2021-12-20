@@ -1,6 +1,6 @@
 const {VoiceConnectionStatus, getVoiceConnection, AudioPlayerStatus,} = require('@discordjs/voice');
 const { MessageEmbed } = require('discord.js');
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 const noVCEmbed = new MessageEmbed()
         .setColor('RED')
         .setDescription(`:rofl: I Am Not In VC`)
@@ -17,7 +17,7 @@ module.exports = {
                     .setDescription(`:cry: Leaving Channel`)
                 ;
                 message.channel.send({embeds: [leaveEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 60000, false));
+                .then(msg => deleteMsg(msg, 60000, false));
                 console.log('Left The Voice Channel From Command')
                 if(serverQueue){
                     if(serverQueue.player.state.status === AudioPlayerStatus.Playing){
@@ -27,17 +27,17 @@ module.exports = {
                 if(serverDisconnectIdle.disconnectTimer !== undefined){
                     clearTimeout(serverDisconnectIdle.disconnectTimer)
                 }
-                smoothy.leave(queue, DisconnectIdle, message);
+                leave(queue, DisconnectIdle, message);
             }
             else{
                 message.channel.send({embeds: [noVCEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, false));
                 return;
             }   
         }
         else{
             message.channel.send({embeds: [noVCEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, false));
             return;
         } 
     }

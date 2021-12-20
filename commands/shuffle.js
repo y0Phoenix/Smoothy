@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 //reordes the queue into a new array
 module.exports = {
     name: 'shuffle',
@@ -15,7 +15,7 @@ module.exports = {
                     .setDescription(':thumbsup: I Am Now Shuffling The Queue :twisted_rightwards_arrows:')
                 ;
                 message.channel.send({embeds: [shuffleEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 60000, false));
+                .then(msg => deleteMsg(msg, 60000, false));
                 var songsLength = parseInt(serverQueue.songs.length);
                 const randomNumber = () => {
                     return Math.floor(Math.random() * songsLength);
@@ -52,7 +52,7 @@ module.exports = {
                     .setDescription(':rofl: I Cannot Shuffle A 1 Song Queue')
                 ;
                 message.channel.send({embeds: [oneEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, false));
             }
         }
         else{
@@ -64,7 +64,7 @@ module.exports = {
                 .setDescription(':thumbsup: I Have Returned The Queue To Its Original Order')
             ;
             message.channel.send({embeds: [noShuffleEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 60000, false));
+            .then(msg => deleteMsg(msg, 60000, false));
         }
     }        
 }

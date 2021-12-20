@@ -1,7 +1,8 @@
 //sets serverQueue.loopsong to true if false, else sets it to false
 const { MessageEmbed } = require('discord.js');
-const smoothy = require('../modules');
-module.exports = {
+const {deleteMsg, leave} = require('../modules');
+
+ module.exports = {
     name: 'loopsong',
     description: 'loops the current song',
     async loopsong(message, serverQueue, serverDisconnectIdle){
@@ -22,7 +23,7 @@ module.exports = {
                     .setDescription(`:x: No Longer Looping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                 ;
                 message.channel.send({embeds: [endLoopSongEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 60000, false));
+                .then(msg => deleteMsg(msg, 60000, false));
             }
         }
         else{
@@ -30,7 +31,7 @@ module.exports = {
                 .setColor('ORANGE')
                 .setDescription(`:rofl: Nothing Playing Right Now`)
             message.channel.send({embeds: [notPlayingEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, false));
         }
     }
 }
