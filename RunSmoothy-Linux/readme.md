@@ -33,7 +33,7 @@ In order to compile c# on your linux machine you will need to install mono via
 
 After that you will need to change these lines of code in the Program.cs file
 ```
-    static string rundirectory = "/home/<user>/<Your>/<Directory>/";
+    static string rundirectory = "/home/<Your>/<Smoothy>/<Directory>/";
 ```
 Make sure you keep the errorlog.txt file in the same directory as the Program
 Also Make sure you move the run.sh file into Smoothys' root Directory otherwise Smoothy will never run

@@ -52,9 +52,9 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 | ChangePrefix | Changes the individual servers prefix 					         | `-prefix`, `-changeprefix`,  |
 
 ## Run Smoothy.exe <a name="runsmoothy.exe"></a>
-* This program is simple. All it does is checks if Smoothy is running and starts him if he isn't.
+* This program is simple. All it does is checks if Smoothy is running and starts him if he isn't. **This is a windows only program you can check out the linux version inside the [RunSmoothy-Linux directory](https://github.com/y0Phoenix/Smoothy/tree/development/RunSmoothy-Linux) and read the readme.md file to learn more.**
 
-* It also will log the entire terminal if Smoothy threw an error and/or crahsed.
+* This program will also log the entire terminal if Smoothy threw an error and/or crahsed.
 
 * All you have to do to configure this program is change the `directory`, `run.batfilename` and the `errorlogfilename` values at\
 `(Run Smoothy.dll.config:4-6)`
