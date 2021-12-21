@@ -68,9 +68,8 @@ async function getQueueList(message, serverQueue, serverDisconnectIdle) {
             .setColor('LUMINOUS_VIVID_PINK')
             .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
             .setDescription(`${queuelist}`)
-            .setTimestamp();
         let msg = await message.channel.send({embeds: [queueListEmbed]});
-        serverDisconnectIdle.msgs.push(msg);
+        serverDisconnectIdle.queueMsgs.push(msg);
         queuelist = ``;
     }
     else{
@@ -80,9 +79,8 @@ async function getQueueList(message, serverQueue, serverDisconnectIdle) {
                 .setColor('LUMINOUS_VIVID_PINK')
                 .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
                 .setDescription(`${queuelist}`)
-                .setTimestamp();
             let msg = await message.channel.send({embeds: [queueListEmbed]});
-            serverDisconnectIdle.msgs.push(msg);
+            serverDisconnectIdle.queueMsgs.push(msg);
             queuelist = ``;
             longQueueList(message, serverQueue, serverDisconnectIdle);
         }
@@ -90,9 +88,8 @@ async function getQueueList(message, serverQueue, serverDisconnectIdle) {
             const queueListEmbed = new MessageEmbed()
                 .setColor('LUMINOUS_VIVID_PINK')
                 .setDescription(`${queuelist}`)
-                .setTimestamp();
             let msg = await message.channel.send({embeds: [queueListEmbed]});
-            serverDisconnectIdle.msgs.push(msg);
+            serverDisconnectIdle.queueMsgs.push(msg);
             queuelist = ``;
             longQueueList(message, serverQueue, serverDisconnectIdle);
         }
@@ -111,6 +108,12 @@ module.exports = {
     description: 'Shows queue to the discord text channel',
     async queuelist(message, serverQueue, serverDisconnectIdle){
         if(serverQueue !== undefined){
+            if (serverDisconnectIdle.queueMsgs[0]) {
+                serverDisconnectIdle.queueMsgs.forEach(msg => {
+                    msg.delete();
+                });
+                serverDisconnectIdle.queueMsgs = [];
+            }
             if(serverQueue.songs.length >= 2){
                 queuelist = ``;
                 endqueuelist = 10;
@@ -135,10 +138,9 @@ module.exports = {
                             value: `No Other Songs`
                         }
                     )
-                    .setTimestamp()
                 ;
             let msg = await message.channel.send({embeds: [queueListEmbed]});
-            serverDisconnectIdle.msgs.push(msg);
+            serverDisconnectIdle.queueMsgs.push(msg);
             queuelist = ``;
             } 
         }else{

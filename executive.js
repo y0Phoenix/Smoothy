@@ -877,6 +877,7 @@ module.exports = {
         disconnectTimer: undefined,
         voiceConnection: voiceConnection,
         msgs: [],
+        queueMsgs: [],
       });
     }
   },

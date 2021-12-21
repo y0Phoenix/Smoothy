@@ -12,30 +12,36 @@ module.exports =  {
         const id = msg.guild.id
         const vc = getVoiceConnection(id);
         const sdi = di.get(id);
-        const sq = q.get(id)
-        
+        const sq = q.get(id);
         if (vc) {
             if (sq) {
                 if (sq.nowPlaying) {
                     sq.nowPlaying.delete();
                 }
             }
-                if (sdi.msgs[0]) {
-                    for (let i = 0;
-                        i < sdi.msgs.length;
-                        i++) {
-                            sdi.msgs[i].delete();
-                        }
-                }
-                if (vc) {
-                    vc.disconnect()
-                }
-                if (sq) {
-                    q.delete(id);
-                }
-                if (sdi) {
-                    di.delete(id);
-                }
+            if (sdi.msgs[0]) {
+                for (let i = 0;
+                    i < sdi.msgs.length;
+                    i++) {
+                        sdi.msgs[i].delete();
+                    }
+            }
+            if (sdi.queueMsgs[0]) {
+                for (let i = 0;
+                    i < sdi.queueMsgs.length;
+                    i++) {
+                        sdi.queueMsgs[i].delete();
+                    }
+            }
+            if (vc) {
+                vc.disconnect()
+            }
+            if (sq) {
+                q.delete(id);
+            }
+            if (sdi) {
+                di.delete(id);
+            }
         }
     }
 }
