@@ -141,5 +141,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('ODg3ODY5MjQzMjE4MDg3OTU2.YUKaqw.GARSjc-wWSKU_ghZT0E8NYmquL0');    
+client.login('ODg5NjA0NjY0Mjg1MzU2MDcy.YUjq6A.hrJXl2FIPk7EkKlBip1AEW6h7Xo');    
 

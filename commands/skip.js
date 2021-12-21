@@ -12,7 +12,8 @@ module.exports = {
                     console.log("Skipping " + serverQueue.currentsong[0].title + "!");
                     const skipEmbed = new MessageEmbed()
                         .setColor('AQUA')
-                        .setDescription(`:next_track: Now Skipping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
+                        .setDescription(`:next_track: Skipping 
+                        ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                         .addFields(
                             {
                                 name: `Requested By` , value: `<@${message.author.id}>`, inline: true,

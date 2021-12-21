@@ -180,94 +180,85 @@ async function audioPlayerIdle(
   console.log('Player Status Is Idle');
   if (serverQueue.stop === true) {
   } else {
-    if (
-      serverQueue.player.state.status === AudioPlayerStatus.Idle &&
-      serverQueue.audioPlayerErr === false
-    ) {
+    if (serverQueue.player.state.status === AudioPlayerStatus.Idle && !serverQueue.audioPlayerErr) {
       serverQueue.messagesent = false;
       if (serverQueue.nowPlaying) {
         await serverQueue.nowPlaying.delete();
         serverQueue.nowPlaying = undefined;
       }
-      //normal song ending when loop and loopsong are false
-      if (serverQueue.currentsong.length > 0) {
+      // song ending while previous is true
+      if (serverQueue.previousbool) {
+        playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
         serverQueue.currentsong.shift();
+        serverQueue.bool = true;
       }
-      if (
-        serverQueue.loop === false &&
-        serverQueue.loopsong === false &&
-        serverQueue.shuffle === false &&
-        serverQueue.jump === 0 &&
-        serverQueue.repeat === false
-      ) {
-        serverQueue.songs.shift();
-        if (serverQueue.songs.length > 0) {
-          playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-        } else {
-          serverQueue.message.channel
-            .send({ embeds: [noMoreSongsEmbed] })
-            .then((msg) => deleteMsg(msg, 30000, false));
-          serverDisconnectIdle = DisconnectIdle.get(
-            serverQueue.message.guild.id
-          );
-          queue.delete(serverQueue.message.guild.id);
-          disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
-        }
-      }
-      //song ending while loop is true and loopsong is false
-      else if (
-        serverQueue.loop === true &&
-        serverQueue.loopsong === false &&
-        serverQueue.shuffle === false &&
-        serverQueue.jump === 0 &&
-        serverQueue.repeat === false
-      ) {
-        loopNextSong(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-        console.log('Playing Next Song In Looped Queue');
-      }
-      //song ending whil loopsong is true
-      else if (serverQueue.loopsong === true) {
-        console.log('Playing Looped Current Song');
-        playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-      }
-      //song ending while repeat is true
-      else if (serverQueue.repeat === true) {
-        playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-      }
-      //song ending while jump > 0
-      else if (serverQueue.jump > 0) {
-        playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-      }
-      //song ending while shuffle is true
       else {
-        if (
-          serverQueue.shuffle === true &&
-          serverQueue.loop === true &&
-          serverQueue.loopsong === false &&
-          serverQueue.jump === 0 &&
-          serverQueue.repeat === false
-        ) {
-          loopNextSong(
-            serverQueue,
-            queue,
-            DisconnectIdle,
-            serverDisconnectIdle
-          );
-        } else {
-          const currentsong = serverQueue.shuffledSongs[0];
-          findSplice(serverQueue, currentsong);
-          serverQueue.shuffledSongs.shift();
-          if (serverQueue.shuffledSongs.length > 0) {
+        serverQueue.previous.shift();
+        serverQueue.previous.push(serverQueue.currentsong[0]);
+        if (serverQueue.currentsong.length > 0) {
+          serverQueue.currentsong.shift();
+        }
+        //normal song ending
+        if (!serverQueue.loop && !serverQueue.loopsong && !serverQueue.shuffle && serverQueue.jump === 0 && !serverQueue.repeat) {
+          if (serverQueue.songs.length > 0) {
+            serverQueue.bool ? serverQueue.bool = false : serverQueue.songs.shift();
             playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
           } else {
             serverQueue.message.channel
               .send({ embeds: [noMoreSongsEmbed] })
-              .then((msg) => deleteMsg(msg, 30000, false));
+              .then((msg) => deleteMsg(msg, 30000, false)); 
             serverDisconnectIdle = DisconnectIdle.get(
               serverQueue.message.guild.id
             );
             queue.delete(serverQueue.message.guild.id);
             disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
+          }
+        }
+        //song ending while loop is true and loopsong is false
+        else if (serverQueue.loop === true && serverQueue.loopsong === false && serverQueue.shuffle === false && serverQueue.jump === 0 && 
+          serverQueue.repeat === false && serverQueue.previousbool === false) {
+          loopNextSong(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+          console.log('Playing Next Song In Looped Queue');
+        }
+        //song ending whil loopsong is true
+        else if (serverQueue.loopsong === true) {
+          console.log('Playing Looped Current Song');
+          playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        }
+        //song ending while repeat is true
+        else if (serverQueue.repeat === true) {
+          playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        }
+        //song ending while jump > 0
+        else if (serverQueue.jump > 0) {
+          playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        }
+        //song ending while shuffle is true
+        else {
+          if (serverQueue.shuffle === true && serverQueue.loop === true && serverQueue.loopsong === false
+             && serverQueue.jump === 0 && serverQueue.repeat === false && serverQueue.previousbool === false) {
+            loopNextSong(
+              serverQueue,
+              queue,
+              DisconnectIdle,
+              serverDisconnectIdle
+            );
+          } else {
+            const currentsong = serverQueue.shuffledSongs[0];
+            findSplice(serverQueue, currentsong);
+            serverQueue.shuffledSongs.shift();
+            if (serverQueue.shuffledSongs.length > 0) {
+              playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+            } else {
+              serverQueue.message.channel
+                .send({ embeds: [noMoreSongsEmbed] })
+                .then((msg) => deleteMsg(msg, 30000, false));
+              serverDisconnectIdle = DisconnectIdle.get(
+                serverQueue.message.guild.id
+              );
+              queue.delete(serverQueue.message.guild.id);
+              disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
+            }
           }
         }
       }
@@ -349,6 +340,8 @@ async function createServerQueue(
     audioPlayerErr: false,
     player: player,
     subscription: subscription,
+    previous: [],
+    previousbool: false,
     resource: undefined,
     messagesent: false,
     nowPlaying: undefined,
@@ -358,6 +351,7 @@ async function createServerQueue(
     loopsong: false,
     repeat: false,
     playlist: false,
+    bool: false,
   };
 
   //this function executes when the player throws an error
@@ -576,12 +570,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
 }
 
 //searches for the song again to ensure it exists then plays that song at the play function
-async function playNext(
-  serverQueue,
-  queue,
-  DisconnectIdle,
-  serverDisconnectIdle
-) {
+async function playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
   await findvideo(serverQueue);
   play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
 }
@@ -625,63 +614,70 @@ async function loopNextSong(
 //finds the song specified in args
 async function findvideo(serverQueue) {
   let message = undefined;
-  if (
-    serverQueue.shuffle === true &&
-    serverQueue.loop === true &&
-    serverQueue.loopsong === false
-  ) {
-    if (serverQueue.shuffledSongs[1].playlistsong === true) {
-      videoName = serverQueue.shuffledSongs[1].url;
-      message = serverQueue.shuffledSongs[1].message;
-    } else {
-      videoName = serverQueue.shuffledSongs[1].url;
-      message = serverQueue.shuffledSongs[1].message;
-    }
-  } else if (
-    serverQueue.shuffle === true &&
-    serverQueue.loop === false &&
-    serverQueue.loopsong === true
-  ) {
-    if (serverQueue.shuffledSongs[0].playlistsong === true) {
-      videoName = serverQueue.shuffledSongs[0].url;
-      message = serverQueue.shuffledSongs[0].message;
-    } else {
-      videoName = serverQueue.shuffledSongs[0].url;
-      message = serverQueue.shuffledSongs[0].message;
-    }
-  } else if (
-    serverQueue.shuffle === true &&
-    serverQueue.loop === false &&
-    serverQueue.loopsong === false
-  ) {
-    let i = serverQueue.jump;
-    serverQueue.jump = 0;
-    if (i > 0) {
-        videoName = serverQueue.shuffledSongs[i].url;
-        message = serverQueue.shuffledSongs[i].message;
-        serverQueue.shuffledSongs.splice(i, 1);
-        serverQueue.songs.splice(i, 1);
-    }
-    else {
+  if (serverQueue.previousbool) {
+    videoName = serverQueue.previous[0].url;
+    message = serverQueue.previous[0].message;
+    serverQueue.previousbool = false;
+  }
+  else {
+    if (
+      serverQueue.shuffle === true &&
+      serverQueue.loop === true &&
+      serverQueue.loopsong === false
+    ) {
+      if (serverQueue.shuffledSongs[1].playlistsong === true) {
+        videoName = serverQueue.shuffledSongs[1].url;
+        message = serverQueue.shuffledSongs[1].message;
+      } else {
+        videoName = serverQueue.shuffledSongs[1].url;
+        message = serverQueue.shuffledSongs[1].message;
+      }
+    } else if (
+      serverQueue.shuffle === true &&
+      serverQueue.loop === false &&
+      serverQueue.loopsong === true
+    ) {
+      if (serverQueue.shuffledSongs[0].playlistsong === true) {
         videoName = serverQueue.shuffledSongs[0].url;
         message = serverQueue.shuffledSongs[0].message;
-    }
-  } else if (
-    serverQueue.loop === true &&
-    serverQueue.shuffle === false &&
-    serverQueue.songs.length > 1
-  ) {
-      videoName = serverQueue.songs[0].url;
-      message = serverQueue.songs[0].message;
-  } else if (serverQueue.jump > 0) {
+      } else {
+        videoName = serverQueue.shuffledSongs[0].url;
+        message = serverQueue.shuffledSongs[0].message;
+      }
+    } else if (
+      serverQueue.shuffle === true &&
+      serverQueue.loop === false &&
+      serverQueue.loopsong === false
+    ) {
       let i = serverQueue.jump;
       serverQueue.jump = 0;
-      videoName = serverQueue.songs[i].url;
-      message = serverQueue.songs[i].message;
-      serverQueue.songs.splice(i, 1);
-  } else {
-      videoName = serverQueue.songs[0].url;
-      message = serverQueue.songs[0].message;
+      if (i > 0) {
+          videoName = serverQueue.shuffledSongs[i].url;
+          message = serverQueue.shuffledSongs[i].message;
+          serverQueue.shuffledSongs.splice(i, 1);
+          serverQueue.songs.splice(i, 1);
+      }
+      else {
+          videoName = serverQueue.shuffledSongs[0].url;
+          message = serverQueue.shuffledSongs[0].message;
+      }
+    } else if (
+      serverQueue.loop === true &&
+      serverQueue.shuffle === false &&
+      serverQueue.songs.length > 1
+    ) {
+        videoName = serverQueue.songs[0].url;
+        message = serverQueue.songs[0].message;
+    } else if (serverQueue.jump > 0) {
+        let i = serverQueue.jump;
+        serverQueue.jump = 0;
+        videoName = serverQueue.songs[i].url;
+        message = serverQueue.songs[i].message;
+        serverQueue.songs.splice(i, 1);
+    } else {
+        videoName = serverQueue.songs[0].url;
+        message = serverQueue.songs[0].message;
+    }
   }
   let URL = validURL(videoName);
   if (URL === true) {
