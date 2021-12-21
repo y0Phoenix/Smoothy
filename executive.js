@@ -818,9 +818,8 @@ module.exports = {
             serverQueue
           );
           serverQueue = queue.get(message.guild.id);
-          serverQueue.nowPlaying = await message.channel.send({
-            embeds: [playlistEmbed],
-          });
+          let msg = await message.channel.send({embeds: [playlistEmbed],});
+          serverDisconnectIdle.msgs.push(msg);
           serverQueue.messagesent = true;
           serverQueue.playlist = true;
           console.log('Created the serverQueue');
