@@ -200,8 +200,8 @@ async function audioPlayerIdle(
         }
         //normal song ending
         if (!serverQueue.loop && !serverQueue.loopsong && !serverQueue.shuffle && serverQueue.jump === 0 && !serverQueue.repeat) {
+          serverQueue.bool ? serverQueue.bool = false : serverQueue.songs.shift();
           if (serverQueue.songs.length > 0) {
-            serverQueue.bool ? serverQueue.bool = false : serverQueue.songs.shift();
             playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
           } else {
             serverQueue.message.channel
