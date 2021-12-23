@@ -27,7 +27,7 @@ const queue = new Map();
 const DisconnectIdle = new Map();
 
 client.once('ready', () => {
-    console.log('Smoothy 1.4.5 is online!');
+    console.log('Smoothy 1.4.6 is online!');
     client.user.setActivity('-help', { type: 'LISTENING' })
 });
 client.once('recconnecting', () => {

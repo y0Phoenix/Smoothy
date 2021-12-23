@@ -43,7 +43,12 @@ After that you will need to change these lines of code in the Program.cs file
     static string rundirectory = "/home/<Your>/<Smoothy>/<Directory>/";
 ```
 Make sure you keep the errorlog.txt file in the same directory as the Program
-Also Make sure you move the run.sh file into Smoothys' root Directory otherwise Smoothy will never run
+
+Next you will need to run the following command in order to make run.sh executable.
+```
+    sudo chmod +x run.sh
+```
+Also Make sure you move the run.sh file into Smoothys' root Directory otherwise Smoothy will never run. 
 
 Finally you can compile and run the new program via the following
 ```
