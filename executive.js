@@ -2,7 +2,7 @@
 const ytSearch = require('yt-search');
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
-const {deleteMsg, leave} = require('./modules');
+const {deleteMsg, leave, distance, topResult} = require('./modules');
 const {
   AudioPlayerStatus,
   StreamType,
@@ -31,45 +31,11 @@ const videoFinder = async (query) => {
     } else {
       for (i = 0; i < 6; i++) {
         let possibleVid = videoResult.videos[i].title.toLowerCase();
-        const levenshteinDistance = (name = '', possibleVid = '') => {
-          const track = Array(possibleVid.length + 1)
-            .fill(null)
-            .map(() => Array(name.length + 1).fill(null));
-          for (let i = 0; i <= name.length; i += 1) {
-            track[0][i] = i;
-          }
-          for (let j = 0; j <= possibleVid.length; j += 1) {
-            track[j][0] = j;
-          }
-          for (let j = 1; j <= possibleVid.length; j += 1) {
-            for (let i = 1; i <= name.length; i += 1) {
-              const indicator = name[i - 1] === possibleVid[j - 1] ? 0 : 1;
-              track[j][i] = Math.min(
-                track[j][i - 1] + 1,
-                track[j - 1][i] + 1,
-                track[j - 1][i - 1] + indicator
-              );
-            }
-          }
-          return track[possibleVid.length][name.length];
-        };
-        let dif = levenshteinDistance(name, possibleVid);
+        let dif = distance(name, possibleVid);
         _possibleVids.push({ dif: dif, video: videoResult.videos[i] });
       }
-      let v = 0;
-      let j = 0;
-      for (i = 0; i < _possibleVids.length; i++) {
-        if (v === 0) {
-          v = _possibleVids[i].dif;
-          j = i;
-        } else {
-          if (v > _possibleVids[i].dif) {
-            v = _possibleVids[i].dif;
-            j = i;
-          }
-        }
-      }
-      return _possibleVids[j].video;
+      const returnObj = await topResult(_possibleVids); 
+      return returnObj.video;
     }
   }
   return undefined;

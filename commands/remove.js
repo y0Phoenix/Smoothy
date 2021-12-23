@@ -1,13 +1,28 @@
 //removes a specified song inside of serverQueue using a number inside of args
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave, find} = require('../modules');
 
 module.exports = {
     name: 'remove',
     description: 'removes specified song from the serverQueue',
     async remove(message, args, serverQueue) {
-        var i = parseInt(args)
+        var i = parseInt(args);
+        var query = args.join(' ');
+        if (isNaN(i)) {
+            const result = await find(serverQueue, query);
+            if (result !== null) {
+                if (result.shuffledSong) {
+                    i = result.shuffledSong;
+                    serverQueue.songs.splice(result.song, 1);
+                }
+                else {
+                    i = result.song;
+                }
+            }
+        }
         if(serverQueue.shuffle === true){
+            const result = await find(serverQueue, serverQueue.shuffledSongs[i].title);
+            serverQueue.songs.splice(result.song, 1);
             if(serverQueue.shuffledSongs[i]){
                 const removeEmbed = new MessageEmbed()
                     .setColor('BLURPLE')
