@@ -2,7 +2,7 @@
 const ytSearch = require('yt-search');
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
-const {deleteMsg, leave, distance, topResult} = require('./modules');
+const {deleteMsg, leave, distance, topResult, find } = require('./modules');
 const {
   AudioPlayerStatus,
   StreamType,
@@ -99,6 +99,25 @@ async function retryTimer(
     serverQueue.tries < 5 &&
     serverQueue.loop === false
   ) {
+    if (serverQueue.jump === true) {
+      const result = await find(serverQueue, serverQueue.currentsong[0].title);
+      if (result !== null) {
+        if (result.shuffledSong !== null) {
+          serverQueue.jump = result.shuffledSong;
+        }
+        else {
+          serverQueue.jump = result.song;
+        }
+      }
+      else {
+        const errorEmbed = new MessageEmbed()
+          .setColor('RED')
+          .setDescription(`:thumbsdown: [${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url}) failed to play reverting to original queue try again later`)
+        ;
+        let msg = await serverQueue.message.channel.send({embeds: [errorEmbed]});
+        deleteMsg(msg, 30000, false);
+      }
+    }
     serverQueue.currentsong.shift();
     await findvideo(serverQueue);
     console.log(
@@ -151,6 +170,9 @@ async function audioPlayerIdle(
       if (serverQueue.nowPlaying) {
         await serverQueue.nowPlaying.delete();
         serverQueue.nowPlaying = undefined;
+      }
+      if (serverQueue.jump === true) {
+        serverQueue.jump = 0;
       }
       // song ending while previous is true
       if (serverQueue.previousbool) {
@@ -616,7 +638,7 @@ async function findvideo(serverQueue) {
       serverQueue.loopsong === false
     ) {
       let i = serverQueue.jump;
-      serverQueue.jump = 0;
+      serverQueue.jump = true;
       if (i > 0) {
           videoName = serverQueue.shuffledSongs[i].url;
           message = serverQueue.shuffledSongs[i].message;
@@ -636,7 +658,7 @@ async function findvideo(serverQueue) {
         message = serverQueue.songs[0].message;
     } else if (serverQueue.jump > 0) {
         let i = serverQueue.jump;
-        serverQueue.jump = 0;
+        serverQueue.jump = true;
         videoName = serverQueue.songs[i].url;
         message = serverQueue.songs[i].message;
         serverQueue.songs.splice(i, 1);
