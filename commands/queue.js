@@ -2,7 +2,7 @@
 //then sends that list inside of an embed message along with some other info
 
 const { MessageEmbed } = require('discord.js');
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 let queuelist = ``;
 var endqueuelist = 10;
 var i = 0
@@ -61,15 +61,15 @@ async function queueListAdd(serverQueue){
     }
 }
 
-async function getQueueList(message, serverQueue) {
+async function getQueueList(message, serverQueue, serverDisconnectIdle) {
     if(serverQueue.songs.length <= 10 && serverQueue.shuffledSongs.length <= 10){ 
         await queueListAdd(serverQueue);
         const queueListEmbed = new MessageEmbed()
             .setColor('LUMINOUS_VIVID_PINK')
             .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
             .setDescription(`${queuelist}`)
-            .setTimestamp();
-        await message.channel.send({embeds: [queueListEmbed]})
+        let msg = await message.channel.send({embeds: [queueListEmbed]});
+        serverDisconnectIdle.queueMsgs.push(msg);
         queuelist = ``;
     }
     else{
@@ -79,71 +79,76 @@ async function getQueueList(message, serverQueue) {
                 .setColor('LUMINOUS_VIVID_PINK')
                 .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
                 .setDescription(`${queuelist}`)
-                .setTimestamp();
-            await message.channel.send({embeds: [queueListEmbed]});
+            let msg = await message.channel.send({embeds: [queueListEmbed]});
+            serverDisconnectIdle.queueMsgs.push(msg);
             queuelist = ``;
-            longQueueList(message, serverQueue);
+            longQueueList(message, serverQueue, serverDisconnectIdle);
         }
         else if(endqueuelist > 10 && queuelist !== ``){
             const queueListEmbed = new MessageEmbed()
                 .setColor('LUMINOUS_VIVID_PINK')
                 .setDescription(`${queuelist}`)
-                .setTimestamp();
-            await message.channel.send({embeds: [queueListEmbed]});
+            let msg = await message.channel.send({embeds: [queueListEmbed]});
+            serverDisconnectIdle.queueMsgs.push(msg);
             queuelist = ``;
-            longQueueList(message, serverQueue);
+            longQueueList(message, serverQueue, serverDisconnectIdle);
         }
     }
 }
 
-async function longQueueList(message, serverQueue){
-    
+function longQueueList(message, serverQueue, serverDisconnectIdle){
     if(endqueuelist < serverQueue.songs.length){
         endqueuelist = endqueuelist + 10;
-        getQueueList(message, serverQueue);
+        getQueueList(message, serverQueue, serverDisconnectIdle);
     }
 }
 
 module.exports = {
     name: 'queue',
     description: 'Shows queue to the discord text channel',
-    async execute(message, serverQueue){
+    async queuelist(message, serverQueue, serverDisconnectIdle){
         if(serverQueue !== undefined){
-                if(serverQueue.songs.length >= 2){
-                    queuelist = ``;
-                    endqueuelist = 10;
-                    i = 0
-                    getQueueList(message, serverQueue);
-                }
-                else{
-                    const queueListEmbed = new MessageEmbed()
-                        .setColor('LUMINOUS_VIVID_PINK')
-                        .setTitle(':thumbsup: Here Is The Queue')
-                        .addFields(
-                            {
-                                name: '****Now Playing****', 
-                                value: `**[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})**\n***Duration:*** ${serverQueue.songs[0].duration}`
-                            },
-                            {
-                                name: 'Requested By',
-                                value: `<@${serverQueue.songs[0].message.author.id}>`
-                            },
-                            {
-                                name: 'Queue',
-                                value: `No Other Songs`
-                            }
-                        )
-                        .setTimestamp()
-                    ;
-                await message.channel.send({embeds: [queueListEmbed]})
+            if (serverDisconnectIdle.queueMsgs[0]) {
+                serverDisconnectIdle.queueMsgs.forEach(msg => {
+                    msg.delete();
+                });
+                serverDisconnectIdle.queueMsgs = [];
+            }
+            if(serverQueue.songs.length >= 2){
                 queuelist = ``;
-                } 
+                endqueuelist = 10;
+                i = 0
+                getQueueList(message, serverQueue, serverDisconnectIdle);
+            }
+            else{
+                const queueListEmbed = new MessageEmbed()
+                    .setColor('LUMINOUS_VIVID_PINK')
+                    .setTitle(':thumbsup: Here Is The Queue')
+                    .addFields(
+                        {
+                            name: '****Now Playing****', 
+                            value: `**[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})**\n***Duration:*** ${serverQueue.songs[0].duration}`
+                        },
+                        {
+                            name: 'Requested By',
+                            value: `<@${serverQueue.songs[0].message.author.id}>`
+                        },
+                        {
+                            name: 'Queue',
+                            value: `No Other Songs`
+                        }
+                    )
+                ;
+            let msg = await message.channel.send({embeds: [queueListEmbed]});
+            serverDisconnectIdle.queueMsgs.push(msg);
+            queuelist = ``;
+            } 
         }else{
             const noSongsEmbed = new MessageEmbed()
                 .setColor('RED')
                 .setDescription(`:rofl: No Songs Currently In Queue`)
             message.channel.send({embeds: [noSongsEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => deleteMsg(msg, 30000, false));
         }  
     }
 }

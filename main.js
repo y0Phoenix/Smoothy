@@ -2,23 +2,24 @@
 // This is where the client is created and messages come in from discord and are converted into commands and args 
 const { Client, Intents, Discord, MessageEmbed } = require('discord.js');
 AbortController = require("node-abort-controller").AbortController;
-const play = require('./commands/play');
-const leave = require('./commands/leave');
-const stop = require('./commands/stop');
-const skip = require('./commands/skip');
-const ping = require('./commands/ping');
-const queuelist = require('./commands/queue');
-const remove = require('./commands/remove');
-const help = require('./commands/help');
-const pause= require('./commands/pause');
-const resume = require('./commands/resume');
-const loop = require('./commands/loop');
-const loopsong = require('./commands/loopsong');
-const repeat = require('./commands/repeat');
-const shuffle = require('./commands/shuffle');
-const jump = require('./commands/jump');
-const changeprefix = require('./commands/change prefix')
-const volume = require('./commands/volume');
+const {play} = require('./commands/play');
+const {leave} = require('./commands/leave');
+const {stop} = require('./commands/stop');
+const {skip} = require('./commands/skip');
+const {ping} = require('./commands/ping');
+const {queuelist} = require('./commands/queue');
+const {remove} = require('./commands/remove');
+const {help} = require('./commands/help');
+const {pause}= require('./commands/pause');
+const {resume} = require('./commands/resume');
+const {loop} = require('./commands/loop');
+const {loopsong} = require('./commands/loopsong');
+const {repeat} = require('./commands/repeat');
+const {shuffle} = require('./commands/shuffle');
+const {jump} = require('./commands/jump');
+const {changeprefix} = require('./commands/change prefix')
+const {volume} = require('./commands/volume');
+const { previous } = require('./commands/previous');
 const fs = require('fs');
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
@@ -26,7 +27,7 @@ const queue = new Map();
 const DisconnectIdle = new Map();
 
 client.once('ready', () => {
-    console.log('Smoothy 1.4.4 is online!');
+    console.log('Smoothy 1.4.5 is online!');
     client.user.setActivity('-help', { type: 'LISTENING' })
 });
 client.once('recconnecting', () => {
@@ -56,6 +57,7 @@ client.on('messageCreate', message =>{
                 if(exists){
                     prefix = data[j].prefix;
                     found = j;
+                    break;
                 }
             }
         }
@@ -64,7 +66,7 @@ client.on('messageCreate', message =>{
             .setColor('BLUE')
             .addFields(
                 {
-                   name: ':thumbsup: Current Prefix',value: `**${prefix}**`
+                name: ':thumbsup: Current Prefix',value: `**${prefix}**`
                 }
             )
         ;   
@@ -88,54 +90,56 @@ client.on('messageCreate', message =>{
     console.log(`Command = ${command} ${args.join(' ')}`);
     //commands come in and checks if command ===, else the command was invalid
     if(command === 'ping'){
-        ping.execute(message);
+        ping(message);
     }else if (command === 'play' || command === 'p' || command === 'pp' || command === 'playp'){
-        play.play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command);
+        play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command);
     }else if (command === 'queue' || command === 'list' || command === 'q'){
-        queuelist.execute(message, serverQueue);
+        queuelist(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'skip' || command === 'next' || command === 's' || command === 'n'){
-        skip.skip(message, serverQueue);
+        skip(message, serverQueue);
     }else if (command === 'stop' || command === 'clear'){
-        stop.stop(message, serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        stop(message, serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }else if (command === 'leave' || command === 'disconnect' || command === 'dc' || command === 'die'){
-        leave.leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle);
+        leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle);
     }else if (command === 'remove' || command === 'r'){
-        remove.remove(message, args, serverQueue);
+        remove(message, args, serverQueue);
     }else if (command === 'help'){
-        help.help(message);
+        help(message);
     }else if (command === 'pause' || command === 'pa'){
-        pause.pause(message, serverQueue);
+        pause(message, serverQueue);
     }else if (command === 'resume' || command === 'un'){
-        resume.resume(message,serverQueue);
+        resume(message,serverQueue);
     }else if (command === 'crash' || command === 'c'){
         snoopy_goes_wild.dummy = 'me';
     }else if (command === 'loop' || command === 'l'){
-        loop.loop(message, serverQueue);
+        loop(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'loopsong' || command === 'ls'){
-        loopsong.loopsong(message, serverQueue);
+        loopsong(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'repeat' || command === 'restart' || command === 're'){
-        repeat.repeat(message, serverQueue);
+        repeat(message, serverQueue);
     }else if (command === 'shuffle' || command === 'mix'){
-        shuffle.shuffle(message, serverQueue);
+        shuffle(message, serverQueue);
     }else if (command === 'jump' || command === 'j'){
-        jump.jump(message, args, serverQueue);
+        jump(message, args, serverQueue, serverDisconnectIdle);
     }else if (command === 'prefix' || command === 'changeprefix' || command === 'prefixchange'){
-        changeprefix.prefix(message, args, serverQueue, data, found)
+        changeprefix(message, args, serverQueue, data, found)
     }else if (command === 'volume' || command === 'v'){
-        volume.execute(message, args, serverQueue)
+        volume(message, args, serverQueue, serverDisconnectIdle)
+    }else if (command === 'previous' || command === 'pr') {
+        previous(message, args, serverQueue, serverDisconnectIdle);
     }else{
         const invalidCommandEmbed = new MessageEmbed()
             .setColor(`RED`)
-            .setDescription(`Invalid Command Type -help To See Current Commands`)
+            .setDescription(`:rofl: Invalid Command Type -help To See Current Commands`)
         ;
         message.channel.send({embeds: [invalidCommandEmbed]})
         .then(msg => {
             setTimeout(() => {
-                msg.delete(), 30000
-            })
+                msg.delete()
+            }, 30000)
         });
     return;
     }
 }); 
-client.login('');    
+client.login('your token here');    
 

@@ -1,2 +1,3 @@
-@echo off
+echo Smoothy Run Batch File Started
 node .
+

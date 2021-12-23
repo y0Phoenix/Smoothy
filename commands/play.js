@@ -2,7 +2,7 @@
 //then joins the voiceChannel and finds the video. Both functions are inside of executive.js 
 const { MessageEmbed } = require('discord.js');
 const executive = require('../executive');
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 const needVCEmbed = new MessageEmbed()
     .setColor('RED')
     .setDescription(':nerd: You Need To Be In A ***Voice Channel*** To Execute This Command')
@@ -25,14 +25,14 @@ module.exports = {
     async play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command) {
         try{
             if (args.length === 0) return message.channel.send({embeds: [specifyEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => deleteMsg(msg, 30000, false));
             if (!vc) return message.channel.send({embeds: [needVCEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => deleteMsg(msg, 30000, false));
             const permissions = vc.permissionsFor(message.client.user);
             if (!permissions.has('CONNECT')) return message.channel.send({embeds: [connectEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => deleteMsg(msg, 30000, false));
             if (!permissions.has('SPEAK')) return message.channel.send({embeds: [speakEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => deleteMsg(msg, 30000, false));
             
             if(command === 'pp' || command === 'playp'){
                 executive.joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle);

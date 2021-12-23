@@ -45,17 +45,17 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 | Shuffle      | Shuffles the song queue, then returns it to normal after entering command again | `-mix`, `-shuffle`           |
 | Repeat       | Restarts the current song                                                       | `-repeat`, `-restart`        |
 | Queue        | Lists out the current song queue with individual numbers for each song          | `-q`, `-queue`, `-list`      |
-| Remove       | Removes a song from the queue via a specified number for the song               | `-r`, `-remove` 	        |
+| Remove       | Removes a song from the queue via a specified number for the song or song name              | `-r`, `-remove` 	        |
 | Leave        | Leaves the voice channel and clears the song queue 			         | `-dc`, `-die`, `-disconnect` |
-| Jump         | Jumps to a song via number and removes that song from the queue 	         | `-j`, `-jump` 	        |
+| Jump         | Jumps to a song via number or name and removes that song from the queue 	         | `-j`, `-jump` 	        |
 | PlayPlaylist | Plays a YouTube playlist thats either public or unlisted via link 	         | `-pp`, `-playplaylist`       |
 | MyPrefix     | Displays the server current set prefix (default is `-`) 		         | `myprefix`                   |	
 | ChangePrefix | Changes the individual servers prefix 					         | `-prefix`, `-changeprefix`,  |
 
 ## Run Smoothy.exe <a name="runsmoothy.exe"></a>
-* This program is simple. All it does is checks if Smoothy is running and starts him if he isn't.
+* This program is simple. All it does is checks if Smoothy is running and starts him if he isn't. **This is a windows only program you can check out the linux version inside the [RunSmoothy-Linux directory](https://github.com/y0Phoenix/Smoothy/tree/development/RunSmoothy-Linux) and read the readme.md file to learn more.**
 
-* It also will log the entire terminal if Smoothy threw an error and/or crahsed.
+* This program will also log the entire terminal if Smoothy threw an error and/or crahsed.
 
 * All you have to do to configure this program is change the `directory`, `run.batfilename` and the `errorlogfilename` values at\
 `(Run Smoothy.dll.config:4-6)`
@@ -70,7 +70,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 The program should then use the proper filenames and start Smoothy.
 
 ## Using Smoothy <a name="usingsmoothy"></a>
-* In order to use Smoothy on your computer you will need to plugin your own bot token at `(main.js:74)`.
+* In order to use Smoothy on your computer you will need to plugin your own bot token at `(main.js:141)`.
 ```js
 }); 
 client.login(''); 

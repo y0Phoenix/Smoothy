@@ -1,36 +1,37 @@
 //sets serverQueue.loopsong to true if false, else sets it to false
 const { MessageEmbed } = require('discord.js');
-const smoothy = require('../modules');
-module.exports = {
+const {deleteMsg, leave} = require('../modules');
+
+ module.exports = {
     name: 'loopsong',
     description: 'loops the current song',
-    async loopsong(message, serverQueue){
+    async loopsong(message, serverQueue, serverDisconnectIdle){
         if(serverQueue){
             if(serverQueue.loopsong === false){
                 serverQueue.loopsong = true
                 const loopSongEmbed = new MessageEmbed()
                     .setColor('ORANGE')
-                    .setDescription(`:thumbsup: Now Looping ***${serverQueue.currenttitle}*** :repeat_one:`)
+                    .setDescription(`:thumbsup: Now Looping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})*** :repeat_one:`)
                 ;
-                message.channel.send({embeds: [loopSongEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, serverQueue.currentsong[0].durationms));
+                let msg = await message.channel.send({embeds: [loopSongEmbed]});
+                serverDisconnectIdle.msgs.push(msg);
             }
             else{
                 serverQueue.loopsong = false
                 const endLoopSongEmbed = new MessageEmbed()
                     .setColor('ORANGE')
-                    .setDescription(`:x: No Longer Looping ***${serverQueue.currenttitle}***`)
+                    .setDescription(`:x: No Longer Looping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                 ;
                 message.channel.send({embeds: [endLoopSongEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 60000));
+                .then(msg => deleteMsg(msg, 60000, false));
             }
         }
         else{
             const notPlayingEmbed = new MessageEmbed()
                 .setColor('ORANGE')
-                .setDescription(`:rofl: Not Currently Playing Anything Right Now`)
+                .setDescription(`:rofl: Nothing Playing Right Now`)
             message.channel.send({embeds: [notPlayingEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => deleteMsg(msg, 30000, false));
         }
     }
 }

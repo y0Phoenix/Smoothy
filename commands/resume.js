@@ -1,7 +1,7 @@
 //resumes the audioPlayer only if the audioPlayer is Paused
 const { MessageEmbed } = require('discord.js');
 var {AudioPlayerStatus,} = require('@discordjs/voice');
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 module.exports = {
     name: 'resume',
     description: 'resumes the current song',
@@ -22,15 +22,15 @@ module.exports = {
                     )
                 ;
                 message.channel.send({embeds: [resumEmbed]})
-                .then(msg => smoothy.deleteMsg(msg, 60000));
+                .then(msg => deleteMsg(msg, 60000, false));
             }else{
                 message.channel.send(`:rofl: Not Currently Paused :rofl:`)
-                .then(msg => smoothy.deleteMsg(msg, 30000));
+                .then(msg => deleteMsg(msg, 30000, false));
             }
 
         }else{
             message.channel.send(`:rofl: Not Currently Paused :rofl:`)
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => deleteMsg(msg, 30000, false));
         }
     }
     

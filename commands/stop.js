@@ -3,7 +3,7 @@ const executive = require('../executive');
 var {AudioPlayerStatus,
     } = require('@discordjs/voice');
 const { MessageEmbed } = require('discord.js');
-const smoothy = require('../modules');
+const {deleteMsg, leave} = require('../modules');
 module.exports = {
     name: 'stop',
     description: 'stops playing and clears the queue',
@@ -18,15 +18,15 @@ module.exports = {
                 .setDescription(`:octagonal_sign: I Have ***Stopped*** The Music!`)
             ;
             message.channel.send({embeds: [stopEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 60000));
-            executive.disconnectTimervcidle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle)
+            .then(msg => deleteMsg(msg, 60000, false));
+            executive.disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle)
         }else{
             const notPlayingEmbed = new MessageEmbed()
                 .setColor('RED')
                 .setDescription(`:rofl: Nothing ***Playing*** Currently!`)
             ;
             message.channel.send({embeds: [notPlayingEmbed]})
-            .then(msg => smoothy.deleteMsg(msg, 30000));
+            .then(msg => deleteMsg(msg, 30000, false));
         }
     }
 }
