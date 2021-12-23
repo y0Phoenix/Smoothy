@@ -1,9 +1,9 @@
 //stops the audioPlayer deletes serverQueue and starts the disconnecttimer
-const executive = require('../executive');
+const {disconnectTimervcidle} = require('../executive');
 var {AudioPlayerStatus,
     } = require('@discordjs/voice');
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave, writeGlobal} = require('../modules');
 module.exports = {
     name: 'stop',
     description: 'stops playing and clears the queue',
@@ -12,14 +12,15 @@ module.exports = {
         if (serverQueue){
             serverQueue.stop = true;
             serverQueue.player.stop();
-            queue.delete(message.guild.id);
+            queue.delete(message.guildId);
+            writeGlobal('delete queue', null, serverQueue.id);
             const stopEmbed = new MessageEmbed()
                 .setColor('RED')
                 .setDescription(`:octagonal_sign: I Have ***Stopped*** The Music!`)
             ;
             message.channel.send({embeds: [stopEmbed]})
             .then(msg => deleteMsg(msg, 60000, false));
-            executive.disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle)
+            disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
         }else{
             const notPlayingEmbed = new MessageEmbed()
                 .setColor('RED')

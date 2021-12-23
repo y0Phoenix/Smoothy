@@ -2,7 +2,7 @@
 const ytSearch = require('yt-search');
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
-const {deleteMsg, leave, distance, topResult, find } = require('./modules');
+const {deleteMsg, leave, distance, topResult, find, writeGlobal, exists } = require('./modules');
 const {
   AudioPlayerStatus,
   StreamType,
@@ -13,6 +13,7 @@ const {
   VoiceConnectionStatus,
 } = require('@discordjs/voice');
 const { MessageEmbed } = require('discord.js');
+const fs = require('fs');
 var voiceConnection;
 var video;
 var videoURL;
@@ -94,11 +95,7 @@ async function retryTimer(
   DisconnectIdle,
   serverDisconnectIdle
 ) {
-  if (
-    serverQueue.player.state.status !== AudioPlayerStatus.Playing &&
-    serverQueue.tries < 5 &&
-    serverQueue.loop === false
-  ) {
+  if (serverQueue.player.state.status !== AudioPlayerStatus.Playing && serverQueue.tries < 5 && serverQueue.loop === false) {
     if (serverQueue.jump === true) {
       const result = await find(serverQueue, serverQueue.currentsong[0].title);
       if (result !== null) {
@@ -109,6 +106,7 @@ async function retryTimer(
           serverQueue.jump = result.song;
         }
       }
+
       else {
         const errorEmbed = new MessageEmbed()
           .setColor('RED')
@@ -124,22 +122,6 @@ async function retryTimer(
       `Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`
     );
     play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-    if (serverQueue.tries >= 4) {
-      serverQueue.message.channel
-        .send(`Smoothy Is Buffering Please Wait`)
-        .then((msg) => deleteMsg(msg, 30000, false));
-    }
-  } else {
-    serverQueue.currentsong.shift();
-    console.log(
-      `Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`
-    );
-    await loopNextSong(
-      serverQueue,
-      queue,
-      DisconnectIdle,
-      serverDisconnectIdle
-    );
     if (serverQueue.tries >= 4) {
       serverQueue.message.channel
         .send(`Smoothy Is Buffering Please Wait`)
@@ -196,9 +178,10 @@ async function audioPlayerIdle(
               .send({ embeds: [noMoreSongsEmbed] })
               .then((msg) => deleteMsg(msg, 30000, false)); 
             serverDisconnectIdle = DisconnectIdle.get(
-              serverQueue.message.guild.id
+              serverQueue.message.guildId
             );
-            queue.delete(serverQueue.message.guild.id);
+            queue.delete(serverQueue.message.guildId);
+            writeGlobal('delete queue', null, serverQueue.id);  
             disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
           }
         }
@@ -242,9 +225,10 @@ async function audioPlayerIdle(
                 .send({ embeds: [noMoreSongsEmbed] })
                 .then((msg) => deleteMsg(msg, 30000, false));
               serverDisconnectIdle = DisconnectIdle.get(
-                serverQueue.message.guild.id
+                serverQueue.message.guildId
               );
-              queue.delete(serverQueue.message.guild.id);
+              queue.delete(serverQueue.message.guildId);
+              writeGlobal('delete queue', null, serverQueue.id);
               disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
             }
           }
@@ -311,6 +295,7 @@ async function createServerQueue(
     message: message,
     duration: duration,
     durationms: durationms,
+    load: false
   };
   const player = createAudioPlayer();
   console.log('created the audioplayer');
@@ -318,6 +303,7 @@ async function createServerQueue(
   console.log('subscribed to Player');
   construct = {
     message: message,
+    id: message.guildId,
     voiceChannel: message.member.voice.channel,
     voiceConnection: voiceConnection,
     songs: [songobject],
@@ -428,7 +414,7 @@ async function createServerQueue(
           )
           .addField(
             `Requested By`,
-            `<@${localServerQueue.currentsong[0].message.author.id}>`
+            `<@${localServerQueue.currentsong[0].message.author.id ? localServerQueue.currentsong[0].message.author.id : localServerQueue.currentsong[0].message.authorId}>`
           )
           .setThumbnail(`${localServerQueue.currentsong[0].thumbnail}`)
           .setTimestamp();
@@ -440,10 +426,20 @@ async function createServerQueue(
           true
         );
         localServerQueue.messagesent = true;
+        writeGlobal('update queue', localServerQueue, localServerQueue.id)
       }
     }
   });
-  queue.set(message.guild.id, construct);
+  const bool = await exists(message.guildId, 'queue');
+  if (bool) {
+    serverQueue = queue.get(message.guildId);
+    serverQueue.player = construct.player;
+    serverQueue.subscription = construct.subscription;
+  }
+  else {
+    queue.set(message.guildId, construct);
+    writeGlobal('add queue', queue.get(message.guildId), message.guildId);
+  }
 }
 
 //creates the serverQueue which stores info about the songs, voiceConnection, audioPlayer, subscription, and textChannel
@@ -455,27 +451,17 @@ async function executive(
   serverDisconnectIdle,
   serverQueue
 ) {
-  serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
+  serverDisconnectIdle = DisconnectIdle.get(message.guildId);
   if (serverDisconnectIdle.disconnectTimer !== undefined) {
     clearTimeout(serverDisconnectIdle.disconnectTimer);
     console.log('Cleared Timout For disconnectTimer');
+    writeGlobal('update dci', serverDisconnectIdle, message.guildId);
   }
   //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
   duration = durationCheck(videoURL);
   let durationms = parseInt(videoURL.videoDetails.lengthSeconds) * 1000;
-  if (!serverQueue) {
-    createServerQueue(
-      message,
-      args,
-      queue,
-      DisconnectIdle,
-      serverDisconnectIdle,
-      serverQueue
-    );
-    serverQueue = queue.get(message.guild.id);
-    play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-  } else {
-    serverQueue.songs.push({
+  const queuePush = async () => {
+    let songObj = {
       video: video,
       videoURL: videoURL,
       url: videoURL.videoDetails.embed.flashSecureUrl,
@@ -486,13 +472,31 @@ async function executive(
       duration: duration,
       durationms: durationms,
       playlistsong: false,
-    });
-
+    }
+    serverQueue.songs.push(songObj);
+    writeGlobal('update queue', serverQueue, serverQueue.id);
+  
     const addQueueEmbed = new MessageEmbed().setColor('YELLOW')
       .setDescription(`***[${videoURL.videoDetails.title}](${videoURL.videoDetails.embed.flashSecureUrl})***
             Has Been Added To The Queue :arrow_down:`);
     let msg = await message.channel.send({ embeds: [addQueueEmbed] });
     serverDisconnectIdle.msgs.push(msg);
+    writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
+  }
+  if (!serverQueue) {
+      await createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
+      serverQueue = queue.get(message.guildId);
+      play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+  } else {
+    if (!serverQueue.currentsong[0].load) {
+      queuePush();
+    }
+    else {
+      serverQueue.currentsong[0].load = false;
+      await createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
+      serverQueue = queue.get(message.guildId);
+      play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+    }
   }
 }
 
@@ -528,7 +532,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
           .addFields(
             {
               name: `Requested By`,
-              value: `<@${serverQueue.currentsong[0].message.author.id}>`,
+              value: `<@${!serverQueue.currentsong[0].message.authorId ? serverQueue.currentsong[0].message.author.id: serverQueue.currentsong[0].message.authorId}>`,
               inline: true,
             },
             {
@@ -539,12 +543,14 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
           )
           .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`);
         serverQueue.nowPlaying =
-          await serverQueue.songs[0].message.channel.send({
+          await serverQueue.message.channel.send({
             embeds: [playembed],
           });
         serverQueue.messagesent = true;
+        writeGlobal('update queue', serverQueue, serverQueue.id)
       }
       serverQueue.repeat = false;
+
     } catch (err) {
       console.log(err);
     }
@@ -679,7 +685,7 @@ async function findvideo(serverQueue) {
   console.log(`Found ${videoURL.videoDetails.title}`);
   duration = durationCheck(videoURL);
   let durationms = parseInt(videoURL.videoDetails.lengthSeconds) * 1000;
-  serverQueue.currentsong.push({
+  const songObj = {
     video: video,
     videoURL: videoURL,
     title: videoURL.videoDetails.title,
@@ -688,7 +694,10 @@ async function findvideo(serverQueue) {
     message: message,
     duration: duration,
     durationms: durationms,
-  });
+    load: false,
+  }
+  serverQueue.currentsong.push(songObj);
+  writeGlobal('update queue', serverQueue, message.guildId);
 }
 
 module.exports = {
@@ -703,7 +712,12 @@ module.exports = {
     serverDisconnectIdle,
     serverQueue
   ) {
-    videoName = args.join(' ');
+    if (Array.isArray(args)) {
+      videoName = args.join(' ');
+    }
+    else {
+      videoName = args;
+    }
     let URL = validURL(videoName);
     if (URL === true) {
       videoURL = await ytdl.getInfo(videoName);
@@ -762,7 +776,7 @@ module.exports = {
     serverDisconnectIdle,
     serverQueue
   ) {
-    serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
+    serverDisconnectIdle = DisconnectIdle.get(message.guildId);
     if (serverDisconnectIdle.disconnectTimer !== undefined) {
       clearTimeout(serverDisconnectIdle.disconnectTimer);
       console.log('Cleared Timout For disconnectTimer');
@@ -805,9 +819,10 @@ module.exports = {
             serverDisconnectIdle,
             serverQueue
           );
-          serverQueue = queue.get(message.guild.id);
+          serverQueue = queue.get(message.guildId);
           let msg = await message.channel.send({embeds: [playlistEmbed],});
           serverDisconnectIdle.msgs.push(msg);
+          writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
           serverQueue.messagesent = true;
           serverQueue.playlist = true;
           console.log('Created the serverQueue');
@@ -819,19 +834,21 @@ module.exports = {
             added = false;
           } else {
             duration = playlist.items[i].duration;
-            serverQueue.songs.push({
-              video: undefined,
-              videoURL: undefined,
-              url: playlist.items[i].url,
-              title: playlist.items[i].title,
-              thumbnail: playlist.items[i].bestThumbnail.url,
-              message: message,
-              args: args,
-              duration: duration,
-              playlistsong: true,
-            });
+            let songObj = {
+                video: undefined,
+                videoURL: undefined,
+                url: playlist.items[i].url,
+                title: playlist.items[i].title,
+                thumbnail: playlist.items[i].bestThumbnail.url,
+                message: message,
+                args: args,
+                duration: duration,
+                playlistsong: true,
+            }
+            serverQueue.songs.push(songObj);
           }
         }
+        writeGlobal('update queue', serverQueue, serverQueue.id);
       } else {
         const noPlaylistEmbed = new MessageEmbed()
           .setColor('RED')
@@ -850,22 +867,29 @@ module.exports = {
     }
   },
   //joins the voiceChannel only when voiceConnection is disconnected
-  async joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle) {
+  async joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle, client, bool) {
     if (VoiceConnectionStatus.Disconnected)
       voiceConnection = joinVoiceChannel({
         channelId: vc.id,
-        guildId: vc.guild.id,
+        guildId: vc.guildId,
         adapterCreator: vc.guild.voiceAdapterCreator,
       });
     //sets the DisconnectIdle map
     if (!serverDisconnectIdle) {
-      DisconnectIdle.set(message.guild.id, {
-        message: message,
-        disconnectTimer: undefined,
-        voiceConnection: voiceConnection,
-        msgs: [],
-        queueMsgs: [],
-      });
+      if (bool) {
+      }
+      else {
+        DisconnectIdle.set(message.guildId, {
+          message: message,
+          id: message.guildId,
+          client: client,
+          disconnectTimer: undefined,
+          voiceConnection: voiceConnection,
+          msgs: [],
+          queueMsgs: [],
+        });
+        await writeGlobal('add dci', DisconnectIdle.get(message.guildId), message.guildId);
+      }
     }
   },
   //this is the samething above but inside of an export so it can be called from commands/stop.js

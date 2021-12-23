@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave, writeGlobal} = require('../modules');
 //reordes the queue into a new array
 module.exports = {
     name: 'shuffle',
@@ -44,6 +44,7 @@ module.exports = {
                         end++;
                     }
                 }
+                writeGlobal('update queue', serverQueue, serverQueue.id);
             }
             else{
                 console.log('Cant shuffled the queue only 1 song');
@@ -65,6 +66,7 @@ module.exports = {
             ;
             message.channel.send({embeds: [noShuffleEmbed]})
             .then(msg => deleteMsg(msg, 60000, false));
+            writeGlobal('update queue', serverQueue, serverQueue.id);
         }
     }        
 }

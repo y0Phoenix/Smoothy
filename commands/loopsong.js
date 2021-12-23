@@ -1,6 +1,6 @@
 //sets serverQueue.loopsong to true if false, else sets it to false
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave, writeGlobal} = require('../modules');
 
  module.exports = {
     name: 'loopsong',
@@ -15,6 +15,7 @@ const {deleteMsg, leave} = require('../modules');
                 ;
                 let msg = await message.channel.send({embeds: [loopSongEmbed]});
                 serverDisconnectIdle.msgs.push(msg);
+                writeGlobal('update dci', serverDisconnectIdle, message.guildId);
             }
             else{
                 serverQueue.loopsong = false

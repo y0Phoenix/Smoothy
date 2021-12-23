@@ -1,6 +1,6 @@
 // This is the Main File for Smoothy Developed by Eugene aka y0Phoenix 
 // This is where the client is created and messages come in from discord and are converted into commands and args 
-const { Client, Intents, Discord, MessageEmbed } = require('discord.js');
+const { Client, Intents, MessageEmbed, MessageManager, TextChannel } = require('discord.js');
 AbortController = require("node-abort-controller").AbortController;
 const {play} = require('./commands/play');
 const {leave} = require('./commands/leave');
@@ -21,12 +21,62 @@ const {changeprefix} = require('./commands/change prefix')
 const {volume} = require('./commands/volume');
 const { previous } = require('./commands/previous');
 const fs = require('fs');
+const { Sequelize, DataTypes, Model } = require('sequelize');
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
 const DisconnectIdle = new Map();
 
-client.once('ready', () => {
+// todo implement mySQL or MongoDB into Smoothy instead of plain JSON file
+// const sequelize = new Sequelize('discord', 'root', 'aaron', {
+//     host: 'localhost',
+//     dialect: 'mysql',
+//     logging: false,
+// });
+
+// const Tags = sequelize.define('server', {
+// 	queue: {
+//         type: Sequelize.STRING,
+//     }
+// });
+
+var file = fs.readFileSync('./commands/config/global.json');
+var data = JSON.parse(file);
+
+client.once('ready', async () => {
+    if (data.queues[0]) {
+        for (let i = 0;
+            i < data.queues.length;
+            i++) {
+                const channel = await client.channels.fetch(data.queues[i].message.channelId);
+                const message = await channel.messages.fetch(data.queues[i].message.id);
+                data.queues[i].message = message;
+                data.queues[i].voiceChannel = message.member.voice.channel;
+                data.queues[i].currentsong[0].load = true;
+                queue.set(data.queues[i].id, data.queues[i]);
+            }
+            if (data.disconnectIdles[0]) {
+            for (let i = 0;
+                i < data.disconnectIdles.length;
+                i++) {
+                    const channel = await client.channels.fetch(data.disconnectIdles[i].message.channelId);
+                    const message = await channel.messages.fetch(data.disconnectIdles[i].message.id);
+                    data.disconnectIdles[i].message = message;
+                    data.disconnectIdles[i].client = client;
+                    DisconnectIdle.set(data.disconnectIdles[i].id, data.disconnectIdles[i]);
+                }
+            for (let i = 0;
+                i < data.disconnectIdles.length;
+                i++) {
+                    let id = data.queues[i].id;
+                    let serverDisconnectIdle = DisconnectIdle.get(id);
+                    let serverQueue = queue.get(id)
+                    play(serverQueue.message, serverQueue.currentsong[0].title, 
+                        serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+                }
+        }
+    
+    }
     console.log('Smoothy 1.4.6 is online!');
     client.user.setActivity('-help', { type: 'LISTENING' })
 });
@@ -41,8 +91,8 @@ client.on('messageCreate', message =>{
     if(message.author.bot){
         return;
     }
-    var file = fs.readFileSync('./commands/config.json');
-    var data = JSON.parse(file);
+    let file = fs.readFileSync('./commands/config/config.json');
+    let data = JSON.parse(file);
     let prefix = undefined;
     let found = 0;
     for(j=0;
@@ -53,7 +103,7 @@ client.on('messageCreate', message =>{
                 found = 0;
             }
             else{
-                const exists = data[j].guildId === message.guild.id;
+                const exists = data[j].guildId === message.guildId;
                 if(exists){
                     prefix = data[j].prefix;
                     found = j;
@@ -82,8 +132,8 @@ client.on('messageCreate', message =>{
     if(!message.content.startsWith(prefix)){
         return;
     }
-    var serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
-    var serverQueue = queue.get(message.guild.id);
+    var serverDisconnectIdle = DisconnectIdle.get(message.guildId);
+    var serverQueue = queue.get(message.guildId);
     var vc = message.member.voice.channel;
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
@@ -92,7 +142,7 @@ client.on('messageCreate', message =>{
     if(command === 'ping'){
         ping(message);
     }else if (command === 'play' || command === 'p' || command === 'pp' || command === 'playp'){
-        play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command);
+        play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command, client);
     }else if (command === 'queue' || command === 'list' || command === 'q'){
         queuelist(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'skip' || command === 'next' || command === 's' || command === 'n'){
@@ -141,5 +191,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('your token here');    
+client.login('ODg5NjA0NjY0Mjg1MzU2MDcy.YUjq6A.ZWTW2iJynWAPL1UUal3D3XYq5Fk');    
 

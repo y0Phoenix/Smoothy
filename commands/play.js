@@ -1,8 +1,8 @@
 //checks if a link was specified, if the user is inside of a voiceChannel, if Smoothy has permission to connect and if Smoothy has permission to speak
 //then joins the voiceChannel and finds the video. Both functions are inside of executive.js 
 const { MessageEmbed } = require('discord.js');
-const executive = require('../executive');
-const {deleteMsg, leave} = require('../modules');
+const {joinvoicechannel, FindVideoCheck, findvideoplaylist} = require('../executive');
+const {deleteMsg, exists} = require('../modules');
 const needVCEmbed = new MessageEmbed()
     .setColor('RED')
     .setDescription(':nerd: You Need To Be In A ***Voice Channel*** To Execute This Command')
@@ -22,7 +22,7 @@ const speakEmbed = new MessageEmbed()
 module.exports = {
     name:'play',
     description: 'plays the specified song',
-    async play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command) {
+    async play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command, client) {
         try{
             if (args.length === 0) return message.channel.send({embeds: [specifyEmbed]})
             .then(msg => deleteMsg(msg, 30000, false));
@@ -34,13 +34,14 @@ module.exports = {
             if (!permissions.has('SPEAK')) return message.channel.send({embeds: [speakEmbed]})
             .then(msg => deleteMsg(msg, 30000, false));
             
-            if(command === 'pp' || command === 'playp'){
-                executive.joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle);
-                executive.findvideoplaylist(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue)
+            const bool = await exists(message.guildId, 'dci');
+            if(command !== null && command === 'pp' || command === 'playp'){
+                await joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle, client, bool);
+                findvideoplaylist(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue)
             }
             else{
-                executive.joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle);
-                executive.FindVideoCheck(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue); 
+                await joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle, client, bool);
+                FindVideoCheck(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue); 
             }
             
         }

@@ -1,6 +1,6 @@
 //sets serverQueue.loop to true if false, else sets it to false
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave, writeGlobal} = require('../modules');
 
 module.exports = {
     name: 'loop',
@@ -15,6 +15,7 @@ module.exports = {
                 ;
                 let msg = await message.channel.send({embeds: [loopEmbed]});
                 serverDisconnectIdle.msgs.push(msg);
+                writeGlobal('update dci', serverDisconnectIdle, message.guildId);
             }
             else{
                 serverQueue.loop = false;

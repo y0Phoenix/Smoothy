@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const fs = require("fs");
 const {deleteMsg, leave} = require('../modules');
-const File = './commands/config.json'
+const File = './commands//config/config.json';
 
 module.exports = {
     name: 'prefix',
@@ -10,7 +10,7 @@ module.exports = {
         if(args.length > 0){
             let prefix = args[0];
             if(found === 0){
-                data.push({guildId: message.guild.id,prefix: prefix});
+                data.push({guildId: message.guildId,prefix: prefix});
                 fs.writeFileSync(File, JSON.stringify(data));
             }
             else if(found > 0){
