@@ -13,7 +13,7 @@ module.exports = {
                 if(serverQueue.songs.length > 1){
                     if (isNaN(i)) {
                         const result = await find(serverQueue, query);
-                        if (result == null) {
+                        if (result == null || result.error === true) {
                             const noMatch = new MessageEmbed() 
                                 .setColor('RED')
                                 .setDescription(':rofl: No Exact Matches Found Please Check Your Spelling')

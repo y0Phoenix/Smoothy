@@ -2,15 +2,22 @@ const { getVoiceConnection } = require("@discordjs/voice");
 /**
  * @param  {} queue the object that is the serverQueue with the songs
  * @param  {} query the song you wish to find
- * @returns an object with two params song, shuffledSong shuffled song will return null if the serverQueue was not shuffled
+ * @returns an object with three params song, shuffledSong (null if the queue isn't shuffled), and error (if no good match was found, false if a match is found)
  * @returns null if an error occurred
  */
 async function find(queue, query) {
     const options = [];
-    const returnObj = {};
+    const returnObj = {
+        song: null,
+        shuffledSong: null,
+        error: false
+    };
     let proceed = true;
     let result;
     const shuffle = queue.shuffle ? true : false;
+    if (!shuffle) {
+        returnObj.shuffledSong = null;
+    }
     let arr = queue.shuffle ? [...queue.shuffledSongs] : [...queue.songs];
     try {
         for (let j = 0;
@@ -32,11 +39,13 @@ async function find(queue, query) {
                 }
             }
         if (proceed) {
-            result = topResult(options);
-            returnObj.song = queue.songs.map(video => video.title).indexOf(result.video.title);
-            if (shuffle) {
-                returnObj.shuffledSong = queue.shuffledSongs.map(video => video.title).indexOf(result.video.title);
-            }
+            returnObj.error = true;
+            // todo imporve distance algorithm to make this code viable
+            // result = topResult(options);
+            // returnObj.song = queue.songs.map(video => video.title).indexOf(result.video.title);
+            // if (shuffle) {
+            //     returnObj.shuffledSong = queue.shuffledSongs.map(video => video.title).indexOf(result.video.title);
+            // }
         }
         return returnObj;
     } catch (err) {
