@@ -39,10 +39,11 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 | Loop         | Loops the queue foreverer until the command is entered again 		               | `-l`, `-loop`                |
 | Shuffle      | Shuffles the song queue, then returns it to normal after entering command again | `-mix`, `-shuffle`           |
 | Repeat       | Restarts the current song                                                       | `-repeat`, `-restart`        |
+| Previous     | Plays the previous song and returns to the original song after                  | `-previous`, `-pr`           |
 | Queue        | Lists out the current song queue with individual numbers for each song          | `-q`, `-queue`, `-list`      |
-| Remove       | Removes a song from the queue via a specified number for the song               | `-r`, `-remove` 	            |
+| Remove       | Removes a song from the queue via a specified number or song name               | `-r`, `-remove` 	            |
 | Leave        | Leaves the voice channel and clears the song queue 			                       | `-dc`, `-die`, `-disconnect` |
-| Jump         | Jumps to a song via number and removes that song from the queue 	               | `-j`, `-jump` 	              |
+| Jump         | Jumps to a song via number or song name and removes that song from the queue 	               | `-j`, `-jump` 	              |
 | PlayPlaylist | Plays a YouTube playlist thats either public or unlisted via link 	             | `-pp`, `-playplaylist`       |
 | MyPrefix     | Displays the server current set prefix (default is `-`) 		                     | `myprefix`                   |	
 | ChangePrefix | Changes the individual servers prefix 					                                 | `-prefix`, `-changeprefix`,  |
