@@ -619,25 +619,15 @@ async function findvideo(serverQueue) {
       serverQueue.loop === true &&
       serverQueue.loopsong === false
     ) {
-      if (serverQueue.shuffledSongs[1].playlistsong === true) {
-        videoName = serverQueue.shuffledSongs[1].url;
-        message = serverQueue.shuffledSongs[1].message;
-      } else {
-        videoName = serverQueue.shuffledSongs[1].url;
-        message = serverQueue.shuffledSongs[1].message;
-      }
+      videoName = serverQueue.shuffledSongs[1].url;
+      message = serverQueue.shuffledSongs[1].message;
     } else if (
       serverQueue.shuffle === true &&
       serverQueue.loop === false &&
       serverQueue.loopsong === true
     ) {
-      if (serverQueue.shuffledSongs[0].playlistsong === true) {
         videoName = serverQueue.shuffledSongs[0].url;
         message = serverQueue.shuffledSongs[0].message;
-      } else {
-        videoName = serverQueue.shuffledSongs[0].url;
-        message = serverQueue.shuffledSongs[0].message;
-      }
     } else if (
       serverQueue.shuffle === true &&
       serverQueue.loop === false &&
@@ -820,15 +810,15 @@ module.exports = {
             serverQueue
           );
           serverQueue = queue.get(message.guildId);
-          let msg = await message.channel.send({embeds: [playlistEmbed],});
-          serverDisconnectIdle.msgs.push(msg);
-          writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
           serverQueue.messagesent = true;
           serverQueue.playlist = true;
           console.log('Created the serverQueue');
           added = true;
           play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
         }
+        let msg = await message.channel.send({embeds: [playlistEmbed],});
+        serverDisconnectIdle.msgs.push(msg);
+        writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
         for (i = 0; i < playlist.items.length; i++) {
           if (added === true) {
             added = false;

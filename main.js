@@ -51,6 +51,9 @@ client.once('ready', async () => {
                 const channel = await client.channels.fetch(data.queues[i].message.channelId);
                 const message = await channel.messages.fetch(data.queues[i].message.id);
                 data.queues[i].message = message;
+                if (data.queues[i].nowPlaying) {
+                    
+                }
                 data.queues[i].voiceChannel = message.member.voice.channel;
                 data.queues[i].currentsong[0].load = true;
                 queue.set(data.queues[i].id, data.queues[i]);
@@ -191,5 +194,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('ODg5NjA0NjY0Mjg1MzU2MDcy.YUjq6A.ZWTW2iJynWAPL1UUal3D3XYq5Fk');    
+client.login('ODg5NjA0NjY0Mjg1MzU2MDcy.YUjq6A.yc5W-wS6sYSVSeG7k1Ry3eb4GBM');    
 

@@ -15,7 +15,8 @@ const {deleteMsg, leave, writeGlobal} = require('../modules');
                 ;
                 let msg = await message.channel.send({embeds: [loopSongEmbed]});
                 serverDisconnectIdle.msgs.push(msg);
-                writeGlobal('update dci', serverDisconnectIdle, message.guildId);
+                await writeGlobal('update dci', serverDisconnectIdle, message.guildId);
+                writeGlobal('update queue', serverQueue, message.guildId);
             }
             else{
                 serverQueue.loopsong = false
@@ -25,6 +26,7 @@ const {deleteMsg, leave, writeGlobal} = require('../modules');
                 ;
                 message.channel.send({embeds: [endLoopSongEmbed]})
                 .then(msg => deleteMsg(msg, 60000, false));
+                writeGlobal('update queue', serverQueue, message.guildId);
             }
         }
         else{

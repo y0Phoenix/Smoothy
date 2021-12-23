@@ -30,7 +30,7 @@ async function find(queue, query) {
                 const bool = arr[j].title.toLowerCase().includes(query);
                 if (bool) { 
                     returnObj.song = queue.songs.map(video => video.title).indexOf(arr[j].title);
-                    queue.songs.splice(i, 1);
+                    queue.songs.splice(returnObj.song, 1);
                     if (shuffle) {
                         returnObj.shuffledSong = arr.map(video => video.title).indexOf(arr[j].title);
                     }

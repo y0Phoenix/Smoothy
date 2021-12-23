@@ -16,6 +16,7 @@ module.exports = {
                 let msg = await message.channel.send({embeds: [loopEmbed]});
                 serverDisconnectIdle.msgs.push(msg);
                 writeGlobal('update dci', serverDisconnectIdle, message.guildId);
+                writeGlobal('update queue', serverQueue, message.guildId);
             }
             else{
                 serverQueue.loop = false;
@@ -25,6 +26,7 @@ module.exports = {
                 ;
                 message.channel.send({embeds: [endLoopEmbed]})
                 .then(msg => deleteMsg(msg, 60000, false));
+                writeGlobal('update queue', serverQueue, message.guildId);
             } 
         }
         else{
