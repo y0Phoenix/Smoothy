@@ -141,5 +141,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('');    
+client.login('your token here');    
 
