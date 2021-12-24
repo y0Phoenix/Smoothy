@@ -188,7 +188,7 @@ async function leave(q, di, msg) {
  * @variation str queue, dci
  */
 async function exists(id, str) {
-    const file = fs.readFileSync('./commands/config/global.json');
+    const file = fs.readFileSync('./config/global.json');
     const data = JSON.parse(file);
     if (str === 'queue') {
         for (let i = 0;
@@ -225,7 +225,7 @@ async function exists(id, str) {
  */
 async function writeGlobal(str, data, id) {
     // todo implement nowPlaying msg saved to global.json
-    const file = './commands/config/global.json';
+    const file = './config/global.json';
     let _file = fs.readFileSync(file);
     let _data = JSON.parse(_file);
     let Data = {..._data}
@@ -240,6 +240,7 @@ async function writeGlobal(str, data, id) {
                     return j;
                 }
             }
+        return null
     }
     const queueGet = async () => {
         for (let i = 0;
@@ -250,6 +251,7 @@ async function writeGlobal(str, data, id) {
                     return j;
                 }
             }
+        return null
     }
     if (id !== null) {    
         d = await dciGet();
@@ -380,9 +382,15 @@ async function writeGlobal(str, data, id) {
         Data.disconnectIdles[d] = {...dciObj};
     }
     if (str === 'delete queue') {
+        if (q == null) {
+            return
+        }
         Data.queues.splice(q, 1);
     }
     if (str === 'delete dci') {
+        if (d == null) {
+            return
+        }
         Data.disconnectIdles.splice(d, 1);
     }
     Data = CircularJSON.stringify(Data);

@@ -166,9 +166,6 @@ async function audioPlayerIdle(
       else {
         serverQueue.previous.shift();
         serverQueue.previous.push(serverQueue.currentsong[0]);
-        if (serverQueue.currentsong.length > 0) {
-          serverQueue.currentsong.shift();
-        }
         //normal song ending
         if (!serverQueue.loop && !serverQueue.loopsong && !serverQueue.shuffle && serverQueue.jump === 0 && !serverQueue.repeat) {
           serverQueue.bool ? serverQueue.bool = false : serverQueue.songs.shift();
@@ -612,24 +609,26 @@ async function findvideo(serverQueue) {
     serverQueue.previousbool = false;
   }
   else {
-    if (
+    if (serverQueue.loopsong === true) {
+      videoName = serverQueue.currentsong[0].url;
+      message = serverQueue.currentsong[0].message;
+    }
+    else if (
       serverQueue.shuffle === true &&
-      serverQueue.loop === true &&
-      serverQueue.loopsong === false
+      serverQueue.loop === true
     ) {
       videoName = serverQueue.shuffledSongs[1].url;
       message = serverQueue.shuffledSongs[1].message;
     } else if (
       serverQueue.shuffle === true &&
-      serverQueue.loop === false &&
-      serverQueue.loopsong === true
+      serverQueue.loop === false
     ) {
         videoName = serverQueue.shuffledSongs[0].url;
         message = serverQueue.shuffledSongs[0].message;
-    } else if (
+    } 
+    else if (
       serverQueue.shuffle === true &&
-      serverQueue.loop === false &&
-      serverQueue.loopsong === false
+      serverQueue.loop === false
     ) {
       let i = serverQueue.jump;
       serverQueue.jump = true;
@@ -656,7 +655,8 @@ async function findvideo(serverQueue) {
         videoName = serverQueue.songs[i].url;
         message = serverQueue.songs[i].message;
         serverQueue.songs.splice(i, 1);
-    } else {
+    }
+    else {
         videoName = serverQueue.songs[0].url;
         message = serverQueue.songs[0].message;
     }
@@ -669,6 +669,9 @@ async function findvideo(serverQueue) {
     if (video) {
       videoURL = await playdl.video_info(video.url);
     }
+  }
+  if (serverQueue.currentsong.length > 0) {
+    serverQueue.currentsong.shift();
   }
   console.log(`Found ${videoURL.video_details.title}`);
   duration = durationCheck(videoURL.video_details.durationInSec);

@@ -21,7 +21,7 @@ const {changeprefix} = require('./commands/change prefix')
 const {volume} = require('./commands/volume');
 const { previous } = require('./commands/previous');
 const fs = require('fs');
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const config = require('config');
 const { seek } = require('./commands/seek');
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
@@ -41,7 +41,7 @@ const DisconnectIdle = new Map();
 //     }
 // });
 
-var file = fs.readFileSync('./commands/config/global.json');
+var file = fs.readFileSync('./config/global.json');
 var data = JSON.parse(file);
 
 client.once('ready', async () => {
@@ -95,7 +95,7 @@ client.on('messageCreate', message =>{
     if(message.author.bot){
         return;
     }
-    let file = fs.readFileSync('./commands/config/config.json');
+    let file = fs.readFileSync('./config/prefixes.json');
     let data = JSON.parse(file);
     let prefix = undefined;
     let found = 0;
@@ -197,5 +197,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('ODg5NjA0NjY0Mjg1MzU2MDcy.YUjq6A.lfqCFB3hxaa6ioChL_zGRmOou64');    
+client.login(config.get('token'));    
 

@@ -10,8 +10,12 @@ module.exports = {
     async stop(message, serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
         voiceChannel = message.member.voice.channel;
         if (serverQueue){
-            serverQueue.stop = true;
-            serverQueue.player.stop();
+            if (!serverQueue.player) {
+            }
+            else {
+                serverQueue.stop = true;
+                serverQueue.player.stop();
+            }
             queue.delete(message.guildId);
             await writeGlobal('delete queue', null, serverQueue.id);
             writeGlobal('delete dci', null, serverQueue.id);
@@ -21,7 +25,9 @@ module.exports = {
             ;
             message.channel.send({embeds: [stopEmbed]})
             .then(msg => deleteMsg(msg, 60000, false));
-            disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
+            if (serverDisconnectIdle) {
+                disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
+            }
         }else{
             const notPlayingEmbed = new MessageEmbed()
                 .setColor('RED')

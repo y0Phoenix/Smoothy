@@ -14,6 +14,7 @@
     "@discordjs/voice": "^0.6.0",
     "bin-version-check-cli": "^3.0.0",
     "circular-json": "^0.5.9",
+    "config": "^3.3.6",
     "discord-api-types": "^0.23.1",
     "discord.js": "^13.3.1",
     "discord.js-v12": "^2.5.0",
