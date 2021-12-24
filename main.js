@@ -23,6 +23,7 @@ const { previous } = require('./commands/previous');
 const fs = require('fs');
 const config = require('config');
 const { seek } = require('./commands/seek');
+const { deleteMsg } = require('./modules');
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
@@ -124,12 +125,7 @@ client.on('messageCreate', message =>{
                 }
             )
         ;   
-        message.channel.send({embeds: [myprefixEmbed]})
-        .then(msg => {
-            setTimeout(() => {
-                msg.delete(), 30000
-            })
-        });
+        message.channel.send({embeds: [myprefixEmbed]});
         console.log(`Send current prefix ${prefix} to the channel`);
         return;
     }
