@@ -14,6 +14,7 @@ const {
 } = require('@discordjs/voice');
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
+const playdl = require('play-dl');
 var voiceConnection;
 var video;
 var videoURL;
@@ -62,7 +63,7 @@ function validURL(videoName) {
 }
 
 function durationCheck(videoURL) {
-  let totalseconds = parseInt(videoURL.videoDetails.lengthSeconds);
+  let totalseconds = parseInt(videoURL.video_details.durationInSec);
   let minutes = Math.floor(totalseconds / 60);
   let Seconds = Math.abs(minutes * 60 - totalseconds);
   let _seconds;
@@ -273,13 +274,13 @@ async function createServerQueue(
   serverQueue
 ) {
   const duration = durationCheck(videoURL);
-  const durationms = parseInt(videoURL.videoDetails.lengthSeconds) * 1000;
+  const durationms = parseInt(videoURL.video_details.durationInSec) * 1000;
   songobject = {
     video: video,
     videoURL: videoURL,
-    url: videoURL.videoDetails.embed.flashSecureUrl,
-    title: videoURL.videoDetails.title,
-    thumbnail: videoURL.videoDetails.thumbnails[3].url,
+    url: videoURL.video_details.url,
+    title: videoURL.video_details.title,
+    thumbnail: videoURL.video_details.thumbnails[3].url,
     message: message,
     args: args,
     duration: duration,
@@ -289,9 +290,9 @@ async function createServerQueue(
   currentsongobject = {
     video: video,
     videoURL: videoURL,
-    title: videoURL.videoDetails.title,
-    url: videoURL.videoDetails.embed.flashSecureUrl,
-    thumbnail: videoURL.videoDetails.thumbnails[3].url,
+    title: videoURL.video_details.title,
+    url: videoURL.video_details.url,
+    thumbnail: videoURL.video_details.thumbnails[3].url,
     message: message,
     duration: duration,
     durationms: durationms,
@@ -459,14 +460,14 @@ async function executive(
   }
   //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
   duration = durationCheck(videoURL);
-  let durationms = parseInt(videoURL.videoDetails.lengthSeconds) * 1000;
+  let durationms = parseInt(videoURL.video_details.durationInSec) * 1000;
   const queuePush = async () => {
     let songObj = {
       video: video,
       videoURL: videoURL,
-      url: videoURL.videoDetails.embed.flashSecureUrl,
-      title: videoURL.videoDetails.title,
-      thumbnail: videoURL.videoDetails.thumbnails[3].url,
+      url: videoURL.video_details.url,
+      title: videoURL.video_details.title,
+      thumbnail: videoURL.video_details.thumbnails[3].url,
       message: message,
       args: args,
       duration: duration,
@@ -477,7 +478,7 @@ async function executive(
     writeGlobal('update queue', serverQueue, serverQueue.id);
   
     const addQueueEmbed = new MessageEmbed().setColor('YELLOW')
-      .setDescription(`***[${videoURL.videoDetails.title}](${videoURL.videoDetails.embed.flashSecureUrl})***
+      .setDescription(`***[${videoURL.video_details.title}](${videoURL.video_details.embed.flashSecureUrl})***
             Has Been Added To The Queue :arrow_down:`);
     let msg = await message.channel.send({ embeds: [addQueueEmbed] });
     serverDisconnectIdle.msgs.push(msg);
@@ -510,11 +511,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
   if (yturl === true) {
     try {
       // todo fix ytdl-core v4.9.2 errors
-      const stream = ytdl(serverQueue.currentsong[0].url, {
-        highWaterMark: 33554,
-        filter: 'audioonly',
-        quality: 'highestaudio',
-      });
+      const stream = await playdl
       serverQueue.resource = createAudioResource(stream, {
         inputType: StreamType.Arbitrary,
         inlineVolume: true,
@@ -665,22 +662,22 @@ async function findvideo(serverQueue) {
   }
   let URL = validURL(videoName);
   if (URL === true) {
-    videoURL = await ytdl.getInfo(videoName);
+    videoURL = await playdl.video_info(videoName);
   } else {
     video = await videoFinder(videoName);
     if (video) {
-      videoURL = await ytdl.getInfo(video.url);
+      videoURL = await playdl.video_info(video.url);
     }
   }
-  console.log(`Found ${videoURL.videoDetails.title}`);
+  console.log(`Found ${videoURL.video_details.title}`);
   duration = durationCheck(videoURL);
-  let durationms = parseInt(videoURL.videoDetails.lengthSeconds) * 1000;
+  let durationms = parseInt(videoURL.video_details.durationInSec) * 1000;
   const songObj = {
     video: video,
     videoURL: videoURL,
-    title: videoURL.videoDetails.title,
-    url: videoURL.videoDetails.embed.flashSecureUrl,
-    thumbnail: videoURL.videoDetails.thumbnails[3].url,
+    title: videoURL.video_details.title,
+    url: videoURL.video_details.embed.flashSecureUrl,
+    thumbnail: videoURL.video_details.thumbnails[3].url,
     message: message,
     duration: duration,
     durationms: durationms,
@@ -710,10 +707,10 @@ module.exports = {
     }
     let URL = validURL(videoName);
     if (URL === true) {
-      videoURL = await ytdl.getInfo(videoName);
+      videoURL = await playdl.video_info(videoName);
       if (videoURL) {
-        console.log(`Found ${videoURL.videoDetails.title}`);
-        yturl = ytdl.validateURL(videoURL.videoDetails.embed.flashSecureUrl)
+        console.log(`Found ${videoURL.video_details.title}`);
+        yturl = ytdl.validateURL(videoURL.video_details.embed.flashSecureUrl)
           ? true
           : false;
         if (yturl === true) {
@@ -735,9 +732,9 @@ module.exports = {
     } else {
       video = await videoFinder(videoName);
       if (video) {
-        videoURL = await ytdl.getInfo(video.url);
-        console.log(`Found ${videoURL.videoDetails.title}`);
-        yturl = ytdl.validateURL(videoURL.videoDetails.embed.flashSecureUrl)
+        videoURL = await playdl.video_info(video.url);
+        console.log(`Found ${videoURL.video_details.title}`);
+        yturl = ytdl.validateURL(videoURL.video_details.url)
           ? true
           : false;
         if (yturl === true) {
@@ -777,7 +774,7 @@ module.exports = {
       var added = false;
       if (playlist) {
         videoURL = await ytdl.getBasicInfo(playlist.items[0].url);
-        args[0] = videoURL.videoDetails.embed.flashSecureUrl;
+        args[0] = videoURL.video_details.embed.flashSecureUrl;
         const playlistEmbed = new MessageEmbed()
           .setColor('GOLD')
           .setTitle(`Found YouTube Playlist`)
