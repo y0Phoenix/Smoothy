@@ -2,7 +2,7 @@
 //then sends that list inside of an embed message along with some other info
 
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave, writeGlobal} = require('../modules');
+const {deleteMsg, leave, writeGlobal} = require('../modules/modules');
 let queuelist = ``;
 var endqueuelist = 10;
 var i = 0

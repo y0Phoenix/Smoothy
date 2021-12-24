@@ -2,7 +2,7 @@
 const ytSearch = require('yt-search');
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
-const {deleteMsg, leave, distance, topResult, find, writeGlobal, exists } = require('./modules');
+const {deleteMsg, leave, distance, topResult, find, writeGlobal, exists } = require('./modules/modules');
 const {
   AudioPlayerStatus,
   StreamType,

@@ -1,6 +1,6 @@
 //sets serverQueue.loop to true if false, else sets it to false
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave, writeGlobal} = require('../modules');
+const {deleteMsg, leave, writeGlobal} = require('../modules/modules');
 
 module.exports = {
     name: 'loop',

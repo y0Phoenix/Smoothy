@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const fs = require("fs");
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave} = require('../modules/modules');
 const File = './config/prefixes.json';
 
 module.exports = {
