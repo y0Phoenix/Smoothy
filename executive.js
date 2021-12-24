@@ -714,7 +714,7 @@ module.exports = {
       videoURL = await playdl.video_info(videoName);
       if (videoURL) {
         console.log(`Found ${videoURL.video_details.title}`);
-        yturl = ytdl.validateURL(videoURL.video_details.embed.flashSecureUrl)
+        yturl = ytdl.validateURL(videoURL.video_details.url)
           ? true
           : false;
         if (yturl === true) {
