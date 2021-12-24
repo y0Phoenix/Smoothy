@@ -30,7 +30,6 @@ async function find(queue, query) {
                 const bool = arr[j].title.toLowerCase().includes(query);
                 if (bool) { 
                     returnObj.song = queue.songs.map(video => video.title).indexOf(arr[j].title);
-                    queue.songs.splice(returnObj.song, 1);
                     if (shuffle) {
                         returnObj.shuffledSong = arr.map(video => video.title).indexOf(arr[j].title);
                     }
@@ -225,6 +224,7 @@ async function exists(id, str) {
  * @param {} id the id of the discord server
  */
 async function writeGlobal(str, data, id) {
+    // todo implement nowPlaying msg saved to global.json
     const file = './commands/config/global.json';
     let _file = fs.readFileSync(file);
     let _data = JSON.parse(_file);
@@ -275,7 +275,6 @@ async function writeGlobal(str, data, id) {
         Data.disconnectIdles.push(dciObj);
     }
     if (str === 'add queue') {
-        const nowPlaying = data.nowPlaying ? {id: data.nowPlaying.id, guildId: data.nowPlaying.guildId, authorId: data.nowPlaying.author.id, channelId: data.nowPlaying.channelId} : null;
         const queueObj = {
             message: data.message,
             id: data.message.guildId,
@@ -293,7 +292,7 @@ async function writeGlobal(str, data, id) {
             previousbool: data.previousbool,
             resource: null,
             messagesent: data.messagesent,
-            nowPlaying: nowPlaying,
+            nowPlaying: undefined,
             nowPlayingTimer: undefined,
             shuffle: data.shuffle,
             loop: data.loop,
@@ -305,21 +304,20 @@ async function writeGlobal(str, data, id) {
         data.songs.forEach(song => {
             const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
             queueObj.songs.push({title: song.title, url: song.url, message: {id: song.message.id, guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, thumbnail: song.thumbnail});
+            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
         });
         data.shuffledSongs.forEach(song => {
             const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
             queueObj.shuffledSongs.push({title: song.title, url: song.url, message: {id: song.message.id, guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, thumbnail: song.thumbnail});
+            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
         });
         const song = data.currentsong[0];
         const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
         queueObj.currentsong.push({title: song.title, url: song.url, message: {id: song.message.id, guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, thumbnail: song.thumbnail});
+            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
         Data.queues.push(queueObj);
     }
     if (str === 'update queue') {
-        const nowPlaying = data.nowPlaying ? {id: data.nowPlaying.id, guildId: data.nowPlaying.guildId, authorId: data.nowPlaying.author.id, channelId: data.nowPlaying.channelId} : null;
         const queueObj = {
             message: data.message,
             id: data.message.guildId,
@@ -337,7 +335,7 @@ async function writeGlobal(str, data, id) {
             previousbool: data.previousbool,
             resource: null,
             messagesent: data.messagesent,
-            nowPlaying: nowPlaying,
+            nowPlaying: undefined,
             nowPlayingTimer: undefined,
             shuffle: data.shuffle,
             loop: data.loop,
@@ -349,17 +347,17 @@ async function writeGlobal(str, data, id) {
         data.songs.forEach(song => {
             const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
             queueObj.songs.push({title: song.title, url: song.url, message: {guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, thumbnail: song.thumbnail});
+            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
         });
         data.shuffledSongs.forEach(song => {
             const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
             queueObj.shuffledSongs.push({title: song.title, url: song.url, message: {guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, thumbnail: song.thumbnail});
+            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
         });
         const song = data.currentsong[0];
         const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
         queueObj.currentsong.push({title: song.title, url: song.url, message: {guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, thumbnail: song.thumbnail});
+            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
         Data.queues[q] = {...queueObj};
     }
     if (str === 'update dci') {

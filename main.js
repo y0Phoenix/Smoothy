@@ -22,6 +22,7 @@ const {volume} = require('./commands/volume');
 const { previous } = require('./commands/previous');
 const fs = require('fs');
 const { Sequelize, DataTypes, Model } = require('sequelize');
+const { seek } = require('./commands/seek');
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
@@ -180,6 +181,8 @@ client.on('messageCreate', message =>{
         volume(message, args, serverQueue, serverDisconnectIdle)
     }else if (command === 'previous' || command === 'pr') {
         previous(message, args, serverQueue, serverDisconnectIdle);
+    }else if (command === 'seek' || command === 'sk') {
+        seek(message, args, serverQueue, serverDisconnectIdle);
     }else{
         const invalidCommandEmbed = new MessageEmbed()
             .setColor(`RED`)
@@ -194,5 +197,5 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-client.login('');    
+client.login('ODg5NjA0NjY0Mjg1MzU2MDcy.YUjq6A.lfqCFB3hxaa6ioChL_zGRmOou64');    
 

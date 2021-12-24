@@ -13,7 +13,8 @@ module.exports = {
             serverQueue.stop = true;
             serverQueue.player.stop();
             queue.delete(message.guildId);
-            writeGlobal('delete queue', null, serverQueue.id);
+            await writeGlobal('delete queue', null, serverQueue.id);
+            writeGlobal('delete dci', null, serverQueue.id);
             const stopEmbed = new MessageEmbed()
                 .setColor('RED')
                 .setDescription(`:octagonal_sign: I Have ***Stopped*** The Music!`)
