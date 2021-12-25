@@ -1,15 +1,30 @@
 import CircularJSON  from 'circular-json';
 import fs from 'fs';
+import Idle from '../../Classes/Idle';
+import Queue from '../../Classes/Queue';
 
+// todo fix author.id 
 
-export async function writeGlobal(str: String, data: Object, id: String) {
+/**
+ * @param  {} str a string of what needs to happen
+ * @variation str   
+ * add dci,
+ * add queue,
+ * update queue,
+ * update dci,
+ * delete queue,
+ * delete dci   
+ * @param  {} data the data you need to write to the file
+ * @param {} id the id of the discord server
+ */
+export async function writeGlobal(str: String, data: any, id: String) {
     // todo implement nowPlaying msg saved to global.json
     const file = './config/global.json';
-    let _file = fs.readFileSync(file);
+    let _file = fs.readFileSync(file, 'utf-8');
     let _data = JSON.parse(_file);
     let Data = {..._data}
-    var d;
-    var q;
+    var d: number;
+    var q: number;
     const dciGet = async () => {
         for (let i = 0;
             i < Data.disconnectIdles.length;
@@ -56,7 +71,8 @@ export async function writeGlobal(str: String, data: Object, id: String) {
         Data.disconnectIdles.push(dciObj);
     }
     if (str === 'add queue') {
-        const queueObj = {
+        const queueObj = new Queue(data.message);
+        const {
             message: data.message,
             id: data.message.guildId,
             voiceChannel: data.message.member.voice.channel,

@@ -1,15 +1,6 @@
 import {getVoiceConnection} from '@discordjs/voice';
 import {writeGlobal} from './writeglobal';
-
-interface Queue {
-    [key: string], 
-    [value: Object]
-}
-
-interface DisconnectIdle {
-
-}
-
+import {queue, DisconnectIdle} from '../../main';
 interface Message {
     guildId: string,
 }
@@ -19,11 +10,11 @@ interface Message {
  * @param  {} DisconnectIdle the map for idle timer and message arrays
  * @param  {} message any message object from the discord server needed for GuidId
  */
- async function leave(q: Queue , di: DisconnectIdle, msg: Message) {
+ async function leave(msg: Message) {
     const id = msg.guildId
     const vc = getVoiceConnection(id);
-    const sdi = di.get(id);
-    const sq = q.get(id);
+    const sdi = DisconnectIdle.get(id);
+    const sq = queue.get(id);
     if (vc) {
         if (sq) {
             if (sq.nowPlaying) {
@@ -62,11 +53,11 @@ interface Message {
             vc.disconnect()
         }
         if (sq) {
-            q.delete(id);
+            queue.delete(id);
             await writeGlobal('delete queue', null, id);
         }
         if (sdi) {
-            di.delete(id);
+            DisconnectIdle.delete(id);
             await writeGlobal('delete dci', null, id);
         }
 

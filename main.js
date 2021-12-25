@@ -193,5 +193,6 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
+module.exports = {queue, DisconnectIdle};
 client.login(config.get('token'));    
 

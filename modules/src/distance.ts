@@ -3,7 +3,7 @@
  * @param  {} possibleVid the string you want to see the distance between
  * @returns number which is the distance betweent the two strings
  */
- const distance = (name = '', possibleVid = '') => {
+export const distance = (name = '', possibleVid = '') => {
     const track = Array(possibleVid.length + 1)
       .fill(null)
       .map(() => Array(name.length + 1).fill(null));

@@ -1,6 +1,5 @@
-
-
-interface Queue {}
+import Queue from "../../Classes/Queue";
+import { distance } from "../modules";
 
 /**
  * @param  {} queue the object that is the serverQueue with the songs
@@ -8,7 +7,7 @@ interface Queue {}
  * @returns an object with three params song, shuffledSong (null if the queue isn't shuffled), and error (if no good match was found, false if a match is found)
  * @returns null if an error occurred
  */
- async function find(queue, query) {
+export async function find(queue: Queue, query: string) {
     const options = [];
     const returnObj = {
         song: null,
@@ -23,7 +22,7 @@ interface Queue {}
     }
     let arr = queue.shuffle ? [...queue.shuffledSongs] : [...queue.songs];
     try {
-        for (let j = 0;
+        for (let j: number = 0;
             j < arr.length;
             j++) {
                 const bool = arr[j].title.toLowerCase().includes(query);

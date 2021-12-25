@@ -154,7 +154,7 @@ async function audioPlayerIdle(
         await serverQueue.nowPlaying.delete();
         serverQueue.nowPlaying = undefined;
       }
-      if (serverQueue.jump === true) {
+      if (serverQueue.jumpbool === true) {
         serverQueue.jump = 0;
       }
       // song ending while previous is true
@@ -691,9 +691,7 @@ async function findvideo(serverQueue) {
   writeGlobal('update queue', serverQueue, message.guildId);
 }
 
-module.exports = {
-  name: 'executive',
-  description: 'executive functions',
+module.exports = { playNext, disconnectTimervcidle, loopNextSong, findvideo, findSplice
   //this function only gets called from commands/play.js. It finds the song specified in args
   async FindVideoCheck(
     message,

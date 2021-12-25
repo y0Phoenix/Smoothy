@@ -1,12 +1,12 @@
 import fs from "fs";
-import Global from './interfaces/Global'
+import Global from '../../interfaces/_Global'
 
 /**
  * @param  {} id id of the discord server
  * @param  {} str which map you want to check
  * @variation str queue, dci
  */
- async function exists(id: string, str: string) {
+export async function exists(id: string, str: string) {
     const file = fs.readFileSync('./config/global.json', 'utf-8');
     const data: Global = JSON.parse(file);
     if (str === 'queue') {

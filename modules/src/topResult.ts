@@ -3,7 +3,7 @@
  * @requires number with the name dif inside each object entry inside the array 
  * @returns the object that has the lowest dif value
  */
- const topResult = (Array) => {
+ const topResult = (Array: any) => {
     let v = 0;
     let j = 0;
     for (let i = 0;
