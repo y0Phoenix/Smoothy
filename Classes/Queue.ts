@@ -1,7 +1,5 @@
 import { Message } from 'discord.js';
-import {queue} from '../main';
 import _Queue from '../interfaces/_Queue';
-import { distance } from '../modules/modules';
 
 import ytSearch from 'yt-search';
 import ytpl from 'ytpl';
@@ -19,9 +17,8 @@ import {
   AudioResource
 } from '@discordjs/voice';
 import { MessageEmbed } from'discord.js';
-import fs from 'fs';
 import playdl from 'play-dl';
-import _Song from '../interfaces/_Song';
+import {Song} from './Song';
 
 
 export default class Queue {
@@ -29,9 +26,9 @@ export default class Queue {
     id : string
     voiceChannel: any
     voiceConnection: VoiceConnection
-    songs: Partial<_Song>[]
-    shuffledSongs: Partial<_Song>[]
-    currentsong: Partial<_Song>[]
+    songs: Partial<Song>[]
+    shuffledSongs: Partial<Song>[]
+    currentsong: Partial<Song>[]
     stop: boolean
     jump: number = 0
     tries: number = 0
@@ -39,7 +36,7 @@ export default class Queue {
     player: AudioPlayer = null
     resource: AudioResource
     subsciption: PlayerSubscription = null
-    previous: Partial<_Song>[]
+    previous: Partial<Song>[]
     previousbool: boolean = false
     messagesent: boolean = false
     nowPlaying: Message = null
@@ -48,7 +45,6 @@ export default class Queue {
     loop: boolean = false
     loopsong: boolean = false
     repeat: boolean = false
-    playlist: boolean = false
     bool: boolean = false
     jumpbool: boolean = false
     constructor(msg:Message) {

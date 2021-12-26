@@ -1,7 +1,7 @@
 import CircularJSON  from 'circular-json';
 import fs from 'fs';
-import Idle from '../../Classes/Idle';
-import Queue from '../../Classes/Queue';
+import { WriteIdle } from '../../Classes/Idle';
+import WriteQueue from '../../Classes/WriteQueue';
 
 // todo fix author.id 
 
@@ -52,129 +52,20 @@ export async function writeGlobal(str: String, data: any, id: String) {
         q = await queueGet()
     }
     if (str === 'add dci') {
-        const dciObj = {
-            message: data.message,
-            id: data.message.guildId,
-            disconnectTimer: undefined,
-            voiceConnection: null,
-            msgs: [],
-            queueMsgs: [],
-        }
-        data.msgs.forEach(msg => {
-            const authid = !msg.authorId ? msg.author.id : msg.authorId;
-            dciObj.msgs.push({id: msg.id, guildId: msg.guildId, authorId: authid, channelId: msg.channelId});
-        });
-        data.queueMsgs.forEach(msg => {
-            const authid = !msg.authorId ? msg.author.id : msg.authorId;
-            dciObj.queueMsgs.push({id: msg.id, guildId: msg.guildId, authorId: authid, channelId: msg.channelId});
-        });
-        Data.disconnectIdles.push(dciObj);
+        const obj = new WriteIdle({message: data.message, client: data.client, msgs: data.msgs, queueMsgs: data.queueMsgs});
+        Data.disconnectIdles.push(obj);
     }
     if (str === 'add queue') {
-        const queueObj = new Queue(data.message);
-        const {
-            message: data.message,
-            id: data.message.guildId,
-            voiceChannel: data.message.member.voice.channel,
-            voiceConnection: null,
-            songs: [],
-            shuffledSongs: [],
-            currentsong: [],
-            jump: 0,
-            tries: 0,
-            audioPlayerErr: data.audioPlayerErr,
-            player: null,
-            subscription: null,
-            previous: [],
-            previousbool: data.previousbool,
-            resource: null,
-            messagesent: data.messagesent,
-            nowPlaying: undefined,
-            nowPlayingTimer: undefined,
-            shuffle: data.shuffle,
-            loop: data.loop,
-            loopsong: data.loopsong,
-            repeat: data.repeat,
-            playlist: data.playlist,
-            bool: data.bool,
-        }
-        data.songs.forEach(song => {
-            const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
-            queueObj.songs.push({title: song.title, url: song.url, message: {id: song.message.id, guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
-        });
-        data.shuffledSongs.forEach(song => {
-            const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
-            queueObj.shuffledSongs.push({title: song.title, url: song.url, message: {id: song.message.id, guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
-        });
-        const song = data.currentsong[0];
-        const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
-        queueObj.currentsong.push({title: song.title, url: song.url, message: {id: song.message.id, guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
-        Data.queues.push(queueObj);
+        const obj = new WriteQueue(data);
+        Data.queues.push(obj);
     }
     if (str === 'update queue') {
-        const queueObj = {
-            message: data.message,
-            id: data.message.guildId,
-            voiceChannel: data.message.member.voice.channel,
-            voiceConnection: null,
-            songs: [],
-            shuffledSongs: [],
-            currentsong: [],
-            jump: 0,
-            tries: 0,
-            audioPlayerErr: data.audioPlayerErr,
-            player: null,
-            subscription: null,
-            previous: [],
-            previousbool: data.previousbool,
-            resource: null,
-            messagesent: data.messagesent,
-            nowPlaying: undefined,
-            nowPlayingTimer: undefined,
-            shuffle: data.shuffle,
-            loop: data.loop,
-            loopsong: data.loopsong,
-            repeat: data.repeat,
-            playlist: data.playlist,
-            bool: data.bool,
-        }
-        data.songs.forEach(song => {
-            const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
-            queueObj.songs.push({title: song.title, url: song.url, message: {guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
-        });
-        data.shuffledSongs.forEach(song => {
-            const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
-            queueObj.shuffledSongs.push({title: song.title, url: song.url, message: {guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
-        });
-        const song = data.currentsong[0];
-        const authid = !song.message.authorId ? song.message.author.id : song.message.authorId;
-        queueObj.currentsong.push({title: song.title, url: song.url, message: {guildId: song.message.guildId, authorId: authid, channelId: song.message.channelId},
-            duration: song.duration, durationS: song.durationS, thumbnail: song.thumbnail});
-        Data.queues[q] = {...queueObj};
+        const obj = new WriteQueue(data);
+        Data.queues[q] = {...obj};
     }
     if (str === 'update dci') {
-        const dciObj = {
-            message: data.message,
-            id: data.message.guildId,
-            disconnectTimer: undefined,
-            voiceConnection: null,
-            msgs: [],
-            queueMsgs: [],
-        }
-        data.msgs.forEach(msg => {
-            const authid = !msg.authorId ? msg.author.id : msg.authorId;
-            dciObj.msgs.push({id: msg.id, guildId: msg.guildId, authorId: authid, channelId: msg.channelId});
-        });
-        data.queueMsgs.forEach(msg => {
-            const authid = !msg.authorId ? msg.author.id : msg.authorId;
-            dciObj.queueMsgs.push({id: msg.id, guildId: msg.guildId, authorId: authid, channelId: msg.channelId});
-        });
-        Data.disconnectIdles[d] = {...dciObj};
+        const obj = new WriteIdle({message: data.message, client: data.client, msgs: data.msgs, queueMsgs: data.queueMsgs});
+        Data.disconnectIdles[d] = {...obj};
     }
     if (str === 'delete queue') {
         if (q == null) {

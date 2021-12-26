@@ -1,12 +1,47 @@
 import { Client, Message } from 'discord.js';
-import {queue, DisconnectIdle} from '../main';
+import WriteMessage from "./WriteMessage";
 
-
-export default class Idle {
+interface _newIdle {
+    message: Message,
+    client: Client,
+    msgs: Partial<Message>[],
+    queueMsgs: Partial<Message>[]
+}
+export class WriteIdle {
     message: Message
-    id: number
+    id: string
+    client: Client
+    disconnectTimer: any = null
+    msgs: Partial<WriteMessage>[]
+    queueMsgs: Partial<WriteMessage>[]
+    constructor (data: _newIdle) {
+        this.message = data.message;
+        this.id = data.message.guildId;
+        this.client = data.client;
+        data.msgs.forEach(msg => {
+            this.msgs.push(new WriteMessage(msg));
+        });
+        data.queueMsgs.forEach(msg => {
+            this.queueMsgs.push(new WriteMessage(msg));
+        });
+    }
+}
+export class Idle {
+    message: Message
+    id: string
     client: Client
     disconnectTimer: any
-    msgs: []
-    queueMsgs: []
+    msgs: Partial<Message>[]
+    queueMsgs: Partial<Message>[]
+    constructor (data: _newIdle) {
+        this.message = data.message;
+        this.id = data.message.guildId;
+        this.client = data.client;
+        data.msgs.forEach(msg => {
+            this.msgs.push(msg);
+        });
+        data.queueMsgs.forEach(msg => {
+            this.queueMsgs.push(msg);
+        });
+    }
 }

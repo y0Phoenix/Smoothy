@@ -323,7 +323,6 @@ async function createServerQueue(
     loop: false,
     loopsong: false,
     repeat: false,
-    playlist: false,
     bool: false,
   };
 
@@ -810,7 +809,6 @@ module.exports = { playNext, disconnectTimervcidle, loopNextSong, findvideo, fin
           );
           serverQueue = queue.get(message.guildId);
           serverQueue.messagesent = true;
-          serverQueue.playlist = true;
           console.log('Created the serverQueue');
           added = true;
           play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
