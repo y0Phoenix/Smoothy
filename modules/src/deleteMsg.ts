@@ -4,7 +4,7 @@ import { Message } from "discord.js";
  * @param  {} message the message to delete 
  * @param  time number needed for the amount of time before a message delete defaults to 30 sec
  */
-export async function deleteMsg(message: Message, time: number) {
+export default async function deleteMsg(message: Message, time: number) {
     if (!time || isNaN(time)) {
         time = 30000;
     }

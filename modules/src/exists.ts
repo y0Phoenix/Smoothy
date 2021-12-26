@@ -6,7 +6,7 @@ import Global from '../../interfaces/_Global'
  * @param  {} str which map you want to check
  * @variation str queue, dci
  */
-export async function exists(id: string, str: string) {
+export default async function exists(id: string, str: string) {
     const file = fs.readFileSync('./config/global.json', 'utf-8');
     const data: Global = JSON.parse(file);
     if (str === 'queue') {

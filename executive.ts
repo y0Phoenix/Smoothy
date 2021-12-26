@@ -1,8 +1,7 @@
 //executive file holds all the executive functions and is the largest file
-const ytSearch = require('yt-search');
-const ytdl = require('ytdl-core');
-const ytpl = require('ytpl');
-const {deleteMsg, leave, distance, topResult, find, writeGlobal, exists } = require('./modules/modules');
+import ytSearch from 'yt-search';
+import ytpl from 'ytpl';
+import ex from './modules/modules';
 const {
   AudioPlayerStatus,
   StreamType,
@@ -15,11 +14,9 @@ const {
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const playdl = require('play-dl');
-var voiceConnection;
-var video;
-var videoURL;
-var yturl;
-var videoName;
+const { Idle } = require('./Classes/Idle');
+const { PlaylistSong, Song } = require('./Classes/Song');
+const { default: Queue } = require('./Classes/Queue');
 
 const videoFinder = async (query) => {
   const videoResult = await ytSearch(query);
@@ -136,105 +133,6 @@ async function checkIfPlaying(serverQueue) {
     return true;
   } else {
     return false;
-  }
-}
-
-async function audioPlayerIdle(
-  serverQueue,
-  queue,
-  DisconnectIdle,
-  serverDisconnectIdle
-) {
-  console.log('Player Status Is Idle');
-  if (serverQueue.stop === true) {
-  } else {
-    if (serverQueue.player.state.status === AudioPlayerStatus.Idle && !serverQueue.audioPlayerErr) {
-      serverQueue.messagesent = false;
-      if (serverQueue.nowPlaying) {
-        await serverQueue.nowPlaying.delete();
-        serverQueue.nowPlaying = undefined;
-      }
-      if (serverQueue.jumpbool === true) {
-        serverQueue.jump = 0;
-      }
-      // song ending while previous is true
-      if (serverQueue.previousbool) {
-        playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-        serverQueue.currentsong.shift();
-        serverQueue.bool = true;
-      }
-      else {
-        serverQueue.previous.shift();
-        serverQueue.previous.push(serverQueue.currentsong[0]);
-        //normal song ending
-        if (!serverQueue.loop && !serverQueue.loopsong && !serverQueue.shuffle && serverQueue.jump === 0 && !serverQueue.repeat) {
-          serverQueue.bool ? serverQueue.bool = false : serverQueue.songs.shift();
-          if (serverQueue.songs.length > 0) {
-            playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-          } else {
-            serverQueue.message.channel
-              .send({ embeds: [noMoreSongsEmbed] })
-              .then((msg) => deleteMsg(msg, 30000, false)); 
-            serverDisconnectIdle = DisconnectIdle.get(
-              serverQueue.message.guildId
-            );
-            queue.delete(serverQueue.message.guildId);
-            await writeGlobal('delete queue', null, serverQueue.id);
-            writeGlobal('delete dci', null, serverQueue.id);
-            disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
-          }
-        }
-        //song ending while loop is true and loopsong is false
-        else if (serverQueue.loop === true && serverQueue.loopsong === false && serverQueue.shuffle === false && serverQueue.jump === 0 && 
-          serverQueue.repeat === false && serverQueue.previousbool === false) {
-          loopNextSong(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-          console.log('Playing Next Song In Looped Queue');
-        }
-        //song ending whil loopsong is true
-        else if (serverQueue.loopsong === true) {
-          console.log('Playing Looped Current Song');
-          playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-        }
-        //song ending while repeat is true
-        else if (serverQueue.repeat === true) {
-          playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-        }
-        //song ending while jump > 0
-        else if (serverQueue.jump > 0) {
-          playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-        }
-        //song ending while shuffle is true
-        else {
-          if (serverQueue.shuffle === true && serverQueue.loop === true && serverQueue.loopsong === false
-             && serverQueue.jump === 0 && serverQueue.repeat === false && serverQueue.previousbool === false) {
-            loopNextSong(
-              serverQueue,
-              queue,
-              DisconnectIdle,
-              serverDisconnectIdle
-            );
-          } else {
-            const currentsong = serverQueue.shuffledSongs[0];
-            findSplice(serverQueue, currentsong);
-            serverQueue.shuffledSongs.shift();
-            if (serverQueue.shuffledSongs.length > 0) {
-              playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-            } else {
-              serverQueue.message.channel
-                .send({ embeds: [noMoreSongsEmbed] })
-                .then((msg) => deleteMsg(msg, 30000, false));
-              serverDisconnectIdle = DisconnectIdle.get(
-                serverQueue.message.guildId
-              );
-              queue.delete(serverQueue.message.guildId);
-              writeGlobal('delete queue', null, serverQueue.id);
-              disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
-            }
-          }
-        }
-      }
-    } else {
-    }
   }
 }
 
@@ -690,64 +588,37 @@ async function findvideo(serverQueue) {
   writeGlobal('update queue', serverQueue, message.guildId);
 }
 
-module.exports = { playNext, disconnectTimervcidle, loopNextSong, findvideo, findSplice
-  //this function only gets called from commands/play.js. It finds the song specified in args
-  async FindVideoCheck(
-    message,
-    args,
-    queue,
-    DisconnectIdle,
-    serverDisconnectIdle,
-    serverQueue
-  ) {
-    if (Array.isArray(args)) {
-      videoName = args.join(' ');
-    }
-    else {
-      videoName = args;
-    }
-    let URL = validURL(videoName);
-    if (URL === true) {
-      videoURL = await playdl.video_info(videoName);
-      if (videoURL) {
-        console.log(`Found ${videoURL.video_details.title}`);
-        yturl = ytdl.validateURL(videoURL.video_details.url)
-          ? true
-          : false;
-        if (yturl === true) {
-          executive(
-            message,
-            args,
-            queue,
-            DisconnectIdle,
-            serverDisconnectIdle,
-            serverQueue
-          );
-        } else {
-          message.channel
-            .send({ embeds: [noVidEmbed] })
-            .then((msg) => deleteMsg(msg, 30000, false));
-          return;
-        }
-      }
-    } else {
-      video = await videoFinder(videoName);
-      if (video) {
-        videoURL = await playdl.video_info(video.url);
-        console.log(`Found ${videoURL.video_details.title}`);
-        yturl = ytdl.validateURL(videoURL.video_details.url)
-          ? true
-          : false;
-        if (yturl === true) {
-          executive(
-            message,
-            args,
-            queue,
-            DisconnectIdle,
-            serverDisconnectIdle,
-            serverQueue
-          );
-        }
+async function FindVideoCheck(
+  message,
+  args,
+  queue,
+  DisconnectIdle,
+  serverDisconnectIdle,
+  serverQueue
+) {
+  if (Array.isArray(args)) {
+    videoName = args.join(' ');
+  }
+  else {
+    videoName = args;
+  }
+  let URL = validURL(videoName);
+  if (URL === true) {
+    videoURL = await playdl.video_info(videoName);
+    if (videoURL) {
+      console.log(`Found ${videoURL.video_details.title}`);
+      yturl = ytdl.validateURL(videoURL.video_details.url)
+        ? true
+        : false;
+      if (yturl === true) {
+        executive(
+          message,
+          args,
+          queue,
+          DisconnectIdle,
+          serverDisconnectIdle,
+          serverQueue
+        );
       } else {
         message.channel
           .send({ embeds: [noVidEmbed] })
@@ -755,139 +626,132 @@ module.exports = { playNext, disconnectTimervcidle, loopNextSong, findvideo, fin
         return;
       }
     }
-  },
-  async findvideoplaylist(
-    message,
-    args,
-    queue,
-    DisconnectIdle,
-    serverDisconnectIdle,
-    serverQueue
-  ) {
-    serverDisconnectIdle = DisconnectIdle.get(message.guildId);
-    if (serverDisconnectIdle.disconnectTimer !== undefined) {
-      clearTimeout(serverDisconnectIdle.disconnectTimer);
-      console.log('Cleared Timout For disconnectTimer');
-    }
-    videoName = args.join(' ');
-    if (videoName.includes('/playlist')) {
-      const playlist = await ytpl(videoName);
-      var added = false;
-      if (playlist) {
-        videoURL = await playdl.video_info(playlist.items[0].shortUrl);
-        const playlistEmbed = new MessageEmbed()
-          .setColor('GOLD')
-          .setTitle(`Found YouTube Playlist`)
-          .setDescription(
-            `:notes: ***[${playlist.title}](${playlist.url})***
-                    All The Songs Will Be Added To The Queue!`
-          )
-          .addFields(
-            {
-              name: 'Requested By',
-              value: `<@${message.author.id}>`,
-              inline: true,
-            },
-            {
-              name: 'Song Count',
-              value: `**${playlist.estimatedItemCount}**`,
-            }
-          )
-          .setThumbnail(`${playlist.bestThumbnail.url}`)
-          .setTimestamp();
-        console.log(`Found YouTube playlist ${playlist.title}`);
-        if (!serverQueue) {
-          duration = playlist.items[0].duration;
-          await createServerQueue(
-            message,
-            args,
-            queue,
-            DisconnectIdle,
-            serverDisconnectIdle,
-            serverQueue,
-            videoURL
-          );
-          serverQueue = queue.get(message.guildId);
-          serverQueue.messagesent = true;
-          console.log('Created the serverQueue');
-          added = true;
-          play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-        }
-        let msg = await message.channel.send({embeds: [playlistEmbed],});
-        serverDisconnectIdle.msgs.push(msg);
-        writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
-        for (i = 0; i < playlist.items.length; i++) {
-          if (added === true) {
-            added = false;
-          } else {
-            duration = playlist.items[i].duration;
-            let songObj = {
-                video: undefined,
-                videoURL: undefined,
-                url: playlist.items[i].shortUrl,
-                title: playlist.items[i].title,
-                thumbnail: playlist.items[i].bestThumbnail.url,
-                message: message,
-                args: args,
-                duration: duration,
-                playlistsong: true,
-            }
-            serverQueue.songs.push(songObj);
-          }
-        }
-        writeGlobal('update queue', serverQueue, serverQueue.id);
-      } else {
-        const noPlaylistEmbed = new MessageEmbed()
-          .setColor('RED')
-          .setDescription(':rofl: Playlist Either Doesnt Exist Or Is Private');
-        message.channel
-          .send({ embeds: [noPlaylistEmbed] })
-          .then((msg) => deleteMsg(msg, 30000, false));
+  } else {
+    video = await videoFinder(videoName);
+    if (video) {
+      videoURL = await playdl.video_info(video.url);
+      console.log(`Found ${videoURL.video_details.title}`);
+      yturl = ytdl.validateURL(videoURL.video_details.url)
+        ? true
+        : false;
+      if (yturl === true) {
+        executive(
+          message,
+          args,
+          queue,
+          DisconnectIdle,
+          serverDisconnectIdle,
+          serverQueue
+        );
       }
     } else {
-      const wrongEmbed = new MessageEmbed()
-        .setColor('RED')
-        .setDescription(':rofl: You Need To Add A Valid Playlist Link');
       message.channel
-        .send({ embeds: [wrongEmbed] })
+        .send({ embeds: [noVidEmbed] })
+        .then((msg) => deleteMsg(msg, 30000, false));
+      return;
+    }
+  }
+}
+
+async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue) {
+  serverDisconnectIdle = DisconnectIdle.get(message.guildId);
+  if (serverDisconnectIdle.disconnectTimer !== undefined) {
+    clearTimeout(serverDisconnectIdle.disconnectTimer);
+    console.log('Cleared Timout For disconnectTimer');
+  }
+  const videoName = args.join(' ');
+  if (videoName.includes('/playlist')) {
+    const playlist = await ytpl(videoName);
+    var added = false;
+    if (playlist) {
+      const videoURL = await playdl.video_info(playlist.items[0].shortUrl);
+      const playlistEmbed = new MessageEmbed()
+        .setColor('GOLD')
+        .setTitle(`Found YouTube Playlist`)
+        .setDescription(
+          `:notes: ***[${playlist.title}](${playlist.url})***
+                  All The Songs Will Be Added To The Queue!`
+        )
+        .addFields(
+          {
+            name: 'Requested By',
+            value: `<@${message.author.id}>`,
+            inline: true,
+          },
+          {
+            name: 'Song Count',
+            value: `**${playlist.estimatedItemCount}**`,
+          }
+        )
+        .setThumbnail(`${playlist.bestThumbnail.url}`)
+        .setTimestamp();
+      console.log(`Found YouTube playlist ${playlist.title}`);
+      if (!serverQueue) {
+        duration = playlist.items[0].duration;
+        const bool = exists()
+        const setQueue = new Queue(message);
+        queue.set(message.guildId, setQueue);
+        serverQueue = queue.get(message.guildId);
+        serverQueue.songs.push(new Song({message: message, data: videoURL}));
+        serverQueue.messagesent = true;
+        console.log('Created the serverQueue');
+        added = true;
+        play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+      }
+      let msg = await message.channel.send({embeds: [playlistEmbed],});
+      serverDisconnectIdle.msgs.push(msg);
+      writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
+      for (i = 0; i < playlist.items.length; i++) {
+        if (added === true) {
+          added = false;
+        } else {
+          const songObj = new PlaylistSong({message: message, playlist: playlist.items[i]})
+          serverQueue.songs.push(songObj);
+        }
+      }
+      writeGlobal('update queue', serverQueue, serverQueue.id);
+    } else {
+      const noPlaylistEmbed = new MessageEmbed()
+        .setColor('RED')
+        .setDescription(':rofl: Playlist Either Doesnt Exist Or Is Private');
+      message.channel
+        .send({ embeds: [noPlaylistEmbed] })
         .then((msg) => deleteMsg(msg, 30000, false));
     }
-  },
-  //joins the voiceChannel only when voiceConnection is disconnected
-  async joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle, client, bool) {
-    if (VoiceConnectionStatus.Disconnected)
-      voiceConnection = joinVoiceChannel({
-        channelId: vc.id,
-        guildId: vc.guildId,
-        adapterCreator: vc.guild.voiceAdapterCreator,
-      });
-    //sets the DisconnectIdle map
-    if (!serverDisconnectIdle) {
-      if (bool) {
-      }
-      else {
-        DisconnectIdle.set(message.guildId, {
-          message: message,
-          id: message.guildId,
-          client: client,
-          disconnectTimer: undefined,
-          voiceConnection: voiceConnection,
-          msgs: [],
-          queueMsgs: [],
-        });
-        await writeGlobal('add dci', DisconnectIdle.get(message.guildId), message.guildId);
-      }
+  } else {
+    const wrongEmbed = new MessageEmbed()
+      .setColor('RED')
+      .setDescription(':rofl: You Need To Add A Valid Playlist Link');
+    message.channel
+      .send({ embeds: [wrongEmbed] })
+      .then((msg) => deleteMsg(msg, 30000, false));
+  }
+}
+
+async function joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle, client, bool) {
+  if (VoiceConnectionStatus.Disconnected)
+    voiceConnection = joinVoiceChannel({
+      channelId: vc.id,
+      guildId: vc.guildId,
+      adapterCreator: vc.guild.voiceAdapterCreator,
+    });
+  //sets the DisconnectIdle map
+  if (!serverDisconnectIdle) {
+    if (bool) {
     }
-  },
-  //this is the samething above but inside of an export so it can be called from commands/stop.js
-  async disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle) {
-    serverDisconnectIdle.disconnectTimer = setTimeout(
-      disconnectvcidle,
-      1800000,
-      queue,
-      DisconnectIdle,
-      serverDisconnectIdle
-    );
-    console.log('Starting disconnectTimer Timeout');
-  },
-};
+    else {
+      DisconnectIdle.set(message.guildId, new Idle({message: message, client: client}));
+      await writeGlobal('add dci', DisconnectIdle.get(message.guildId), message.guildId);
+    }
+  }
+}
+
+module.exports = { 
+  playNext, 
+  disconnectTimervcidle, 
+  loopNextSong, 
+  findvideo, 
+  findSplice, 
+  FindVideoCheck, 
+  findvideoplaylist, 
+  joinvoicechannel};

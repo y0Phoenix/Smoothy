@@ -22,3 +22,5 @@
     }
     return Array[j];
 }
+
+export default topResult;

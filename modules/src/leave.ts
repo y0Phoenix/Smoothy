@@ -1,5 +1,5 @@
 import {getVoiceConnection} from '@discordjs/voice';
-import {writeGlobal} from './writeglobal';
+import writeGlobal from './writeglobal';
 import {queue, DisconnectIdle} from '../../main';
 interface Message {
     guildId: string,
@@ -10,7 +10,7 @@ interface Message {
  * @param  {} DisconnectIdle the map for idle timer and message arrays
  * @param  {} message any message object from the discord server needed for GuidId
  */
- async function leave(msg: Message) {
+export default async function leave(msg: Message) {
     const id = msg.guildId
     const vc = getVoiceConnection(id);
     const sdi = DisconnectIdle.get(id);

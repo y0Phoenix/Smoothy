@@ -17,7 +17,7 @@ import WriteQueue from '../../Classes/WriteQueue';
  * @param  {} data the data you need to write to the file
  * @param {} id the id of the discord server
  */
-export async function writeGlobal(str: String, data: any, id: String) {
+export default async function writeGlobal(str: String, data: any, id: String) {
     // todo implement nowPlaying msg saved to global.json
     const file = './config/global.json';
     let _file = fs.readFileSync(file, 'utf-8');

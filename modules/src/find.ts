@@ -1,5 +1,5 @@
 import Queue from "../../Classes/Queue";
-import { distance } from "../modules";
+import distance from "./distance";
 
 /**
  * @param  {} queue the object that is the serverQueue with the songs
@@ -7,7 +7,7 @@ import { distance } from "../modules";
  * @returns an object with three params song, shuffledSong (null if the queue isn't shuffled), and error (if no good match was found, false if a match is found)
  * @returns null if an error occurred
  */
-export async function find(queue: Queue, query: string) {
+export default async function find(queue: Queue, query: string) {
     const options = [];
     const returnObj = {
         song: null,

@@ -3,11 +3,10 @@ import { distance, deleteMsg, leave } from '../../modules/modules';
 import { AudioPlayerStatus } from '@discordjs/voice';
 import { MessageEmbed } from 'discord.js';
 import Queue from '../Queue';
-import Idle from '../Idle';
+import {Idle} from '../Idle';
 import getVideo from './getVideo'
 import play from './play';
-import _CurrentSong from '../../interfaces/_CurrentSong';
-import _Song from '../../interfaces/_Song';
+import {Song} from '../Song';
 import InfoData from '../../interfaces/_InfoData';
 /**
  * @param  {string} q the video you wish to search

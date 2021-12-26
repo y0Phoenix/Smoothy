@@ -1,5 +1,6 @@
 import { Message } from 'discord.js';
 import _Queue from '../interfaces/_Queue';
+import audioPlayerIdle from './functions/audioPlayerIdle';
 
 import ytSearch from 'yt-search';
 import ytpl from 'ytpl';
@@ -47,10 +48,10 @@ export default class Queue {
     repeat: boolean = false
     bool: boolean = false
     jumpbool: boolean = false
+    
     constructor(msg:Message) {
         this.message = msg;
         this.id = msg.guildId;
         this.voiceChannel = msg.member.voice.channel;    
     }
-    
 }

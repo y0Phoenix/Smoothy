@@ -1,9 +1,9 @@
-import Idle from "../Idle";
-import Queue from "../Queue";
+import {Idle} from "../Idle";
 import { playNext, findSplice, loopNextSong, disconnectTimervcidle } from "../../executive";
 import { AudioPlayerStatus } from "@discordjs/voice";
 import { deleteMsg, writeGlobal } from "../../modules/modules";
 import { MessageEmbed } from "discord.js";
+import Queue from "../Queue";
 
 /**
  * @param  {Queue} serverQueue the current servers queue
@@ -22,7 +22,7 @@ export default async function audioPlayerIdle(
       .setColor('RED')
       .setDescription(`:x: No More Songs To Play`)
     ;
-    if (serverQueue.stop === true) {
+    if (this.stop === true) {
     } else {
       if (serverQueue.player.state.status === AudioPlayerStatus.Idle && !serverQueue.audioPlayerErr) {
         serverQueue.messagesent = false;

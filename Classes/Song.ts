@@ -1,10 +1,16 @@
 import WriteMessage from "./WriteMessage";
 import { Message } from "discord.js";
 import InfoData from "../interfaces/_InfoData";
+import {Playlist, Item} from "../interfaces/_Playlist";
 
 export interface _newSong {
     message: Message;
     data: InfoData;
+}
+
+export interface _newPlaylistSong {
+    message: Message;
+    playlist: Item;
 }
 
 export interface _newWriteSong {
@@ -30,6 +36,24 @@ export class Song {
         this.message = data.message;
         this.duration = data.data.video_details.durationRaw;
         this.durationS = data.data.video_details.durationInSec;
+    }
+}
+export class PlaylistSong {
+    videoURL: InfoData = null;
+    url: Item["url"];
+    title: Item["title"];
+    thumbnail: Item["bestThumbnail"]["url"];
+    message: Message;
+    duration: Item["duration"];
+    durationS: Item["durationSec"];
+    playlistsong: boolean = false;
+    constructor (data: _newPlaylistSong) {
+        this.url = data.playlist.url;
+        this.title = data.playlist.title;
+        this.thumbnail = data.playlist.bestThumbnail.url;
+        this.message = data.message;
+        this.duration = data.playlist.duration;
+        this.durationS = data.playlist.durationSec;
     }
 }
 
