@@ -4,16 +4,29 @@ import { AudioPlayerStatus } from "@discordjs/voice";
 import { MessageEmbed } from "discord.js";
 import { deleteMsg, find } from "../../modules/modules";
 import getVideo from './getVideo';
+import embedSend from "../../functions/embed";
+import play from './play';
 
-async function checkIfPlaying(serverQueue: Queue) {
-    if (serverQueue.player.state.status === AudioPlayerStatus.Playing) {
+/**
+ * @param  {Queue} serverQueue the current servers queue
+ * @description checks if the serverQueue is playing a song via
+ * AudioPlayerStatus
+ * @returns {boolean} boolean value
+ */
+export async function checkIfPlaying(serverQueue: Queue) {
+  if (serverQueue.player.state.status === AudioPlayerStatus.Playing) {
       return true;
-    } else {
+  } else {
       return false;
-    }
+  }
 }
-
-export default async function retryTimer(serverQueue: Queue, queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
+/**
+ * @param  {Queue} serverQueue the currents servers queue
+ * @param  {any} queue the map that holds all of the server queues
+ * @param  {any} DisconnectIdle the map that holds all of the server Idles
+ * @param  {Idle} serverDisconnectIdle the current servers Idle
+ */
+export async function retryTimer(serverQueue: Queue, queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
     if (serverQueue.player.state.status !== AudioPlayerStatus.Playing && serverQueue.tries < 5 && serverQueue.loop === false) {
       if (serverQueue.jumpbool === true) {
         const result = await find(serverQueue, serverQueue.currentsong[0].title);
@@ -31,8 +44,7 @@ export default async function retryTimer(serverQueue: Queue, queue: any, Disconn
             .setColor('RED')
             .setDescription(`:thumbsdown: [${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url}) failed to play reverting to original queue try again later`)
           ;
-          let msg = await serverQueue.message.channel.send({embeds: [errorEmbed]});
-          deleteMsg(msg, 30000);
+          embedSend(serverQueue.message, errorEmbed, 60000);
         }
       }
       serverQueue.currentsong.shift();

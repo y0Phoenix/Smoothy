@@ -1,4 +1,4 @@
-import Idle from "../Idle";
+import {Idle} from "../Idle";
 import Queue from "../Queue";
 import playdl from 'play-dl';
 import {
@@ -16,8 +16,14 @@ import {
   import { MessageEmbed } from'discord.js';
   import {writeGlobal, deleteMsg} from '../../modules/modules';
   import audioPlayerIdle from './audioPlayerIdle';
+import embedSend from "../../functions/embed";
 
-
+/**
+ * @param  {Queue} serverQueue the current servers queue
+ * @param  {any} queue the map that holds all of the sever queues
+ * @param  {any} DisconnectIdle the map that holds all of the server Idles
+ * @param  {Idle} serverDisconnectIdle the current servers Idle
+ */
 export default async function play(serverQueue: Queue, queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
     let yturl: boolean;
     if (serverQueue.shuffle === true) {
@@ -56,10 +62,7 @@ export default async function play(serverQueue: Queue, queue: any, DisconnectIdl
               }
             )
             .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`);
-          serverQueue.nowPlaying =
-            await serverQueue.message.channel.send({
-              embeds: [playembed],
-            });
+          serverQueue.nowPlaying = await embedSend(serverQueue.message, playembed, null);
           serverQueue.messagesent = true;
           writeGlobal('update queue', serverQueue, serverQueue.id)
         }
@@ -72,9 +75,7 @@ export default async function play(serverQueue: Queue, queue: any, DisconnectIdl
         const noVidEmbed = new MessageEmbed()
             .setColor('RED')
             .setDescription(':rofl: No ***video*** results found');
-        serverQueue.message.channel
-            .send({ embeds: [noVidEmbed] })
-            .then((msg) => deleteMsg(msg, 30000));
+        embedSend(serverQueue.message, noVidEmbed, 30000);
         serverQueue.player.stop();
         audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }

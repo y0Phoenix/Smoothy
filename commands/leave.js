@@ -9,7 +9,7 @@ module.exports = {
     name: 'leave',
     description: 'leaves the voice channel and clear the queue',
     async leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle){
-        const voiceConnection = getVoiceConnection(message.guild.id)
+        const voiceConnection = getVoiceConnection(message.guild.id);
         if(voiceConnection){
             if(voiceConnection.state.status === VoiceConnectionStatus.Ready){
                 const leaveEmbed = new MessageEmbed()

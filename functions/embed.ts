@@ -1,3 +1,4 @@
+import { Message } from "discord.js";
 import { deleteMsg } from "../modules/modules";
 
 /**
@@ -7,11 +8,12 @@ import { deleteMsg } from "../modules/modules";
  */
 export default async function embedSend(message, embed, time) {
     try {
-        let msg = await message.channel.send({embeds: embed});
+        let msg: Partial<Message> = await message.channel.send({embeds: embed});
         if (!time) {
             return;
         }
         deleteMsg(msg, time);
+        return msg;
     } catch (err) {
         console.error(err);
     }

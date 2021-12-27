@@ -43,7 +43,7 @@ export class PlaylistSong {
     url: Item["url"];
     title: Item["title"];
     thumbnail: Item["bestThumbnail"]["url"];
-    message: Message;
+    message: Partial<Message>;
     duration: Item["duration"];
     durationS: Item["durationSec"];
     playlistsong: boolean = false;

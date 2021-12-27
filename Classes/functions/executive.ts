@@ -91,20 +91,6 @@ export function validURL(videoName: string) {
 
 /**
  * @param  {Queue} serverQueue the current servers queue
- * @description checks if the serverQueue is playing a song via
- * AudioPlayerStatus
- * @returns {boolean} boolean value
- */
- export async function checkIfPlaying(serverQueue: Queue) {
-    if (serverQueue.player.state.status === AudioPlayerStatus.Playing) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-/**
- * @param  {Queue} serverQueue the current servers queue
  * @param  {any} queue the map that holds all of the serverQueues
  * @param  {any} DisconnectIdle the map that hold all of the Idles
  * @param  {Idle} serverDisconnectIdle the current servers Idle
