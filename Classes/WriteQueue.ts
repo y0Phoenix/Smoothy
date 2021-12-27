@@ -30,7 +30,7 @@ export default class WriteQueue {
     bool: boolean;
     constructor(data: Queue) {
         this.message = new WriteMessage(data.message);
-        this.id = this.message.guildId;
+        this.id = this.message.guild.id;
         this.voiceChannel = data.message.member.voice.channel;
         for (let i = 0; i < data.songs.length; i++) {
             if (data.shuffledSongs[i]) {

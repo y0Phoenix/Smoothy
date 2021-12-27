@@ -2,7 +2,7 @@
 //then joins the voiceChannel and finds the video. Both functions are inside of executive.js 
 const { MessageEmbed } = require('discord.js');
 const {joinvoicechannel, FindVideoCheck, findvideoplaylist} = require('../executive');
-const {deleteMsg, exists} = require('../modules');
+const {deleteMsg, exists} = require('../modules/modules');
 const needVCEmbed = new MessageEmbed()
     .setColor('RED')
     .setDescription(':nerd: You Need To Be In A ***Voice Channel*** To Execute This Command')

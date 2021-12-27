@@ -4,17 +4,17 @@ import InfoData from "../interfaces/_InfoData";
 import {Playlist, Item} from "../interfaces/_Playlist";
 
 export interface _newSong {
-    message: Message;
+    message: Partial<Message>;
     data: InfoData;
 }
 
 export interface _newPlaylistSong {
-    message: Message;
+    message: Partial<Message>;
     playlist: Item;
 }
 
 export interface _newWriteSong {
-    message: Message;
+    message: Partial<Message>;
     data: Partial<Song>;
 }
 
@@ -24,7 +24,7 @@ export class Song {
     url: InfoData["video_details"]["url"];
     title: InfoData["video_details"]["title"];
     thumbnail: any;
-    message: Message;
+    message: Partial<Message>;
     duration: string;
     durationS: number;
     playlistsong: boolean = false;

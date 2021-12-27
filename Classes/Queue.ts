@@ -23,7 +23,7 @@ import {Song} from './Song';
 
 
 export default class Queue {
-    message: Message
+    message: Partial<Message>
     id : string
     voiceChannel: any
     voiceConnection: VoiceConnection
@@ -40,7 +40,7 @@ export default class Queue {
     previous: Partial<Song>[]
     previousbool: boolean = false
     messagesent: boolean = false
-    nowPlaying: Message = null
+    nowPlaying: Partial<Message> = null
     nowPlayingTimer: any = null
     shuffle: boolean = false
     loop: boolean = false
@@ -51,7 +51,7 @@ export default class Queue {
     
     constructor(msg:Message) {
         this.message = msg;
-        this.id = msg.guildId;
+        this.id = msg.guild.id;
         this.voiceChannel = msg.member.voice.channel;    
     }
 }

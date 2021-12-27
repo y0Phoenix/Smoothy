@@ -3,7 +3,7 @@ const {disconnectTimervcidle} = require('../executive');
 var {AudioPlayerStatus,
     } = require('@discordjs/voice');
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave, writeGlobal} = require('../modules');
+const {deleteMsg, leave, writeGlobal} = require('../modules/modules');
 module.exports = {
     name: 'stop',
     description: 'stops playing and clears the queue',

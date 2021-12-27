@@ -1,5 +1,5 @@
 import playdl from 'play-dl';
-import { distance, deleteMsg, leave } from '../../modules/modules';
+import { distance, deleteMsg, leave, topResult } from '../../modules/modules';
 import { AudioPlayerStatus } from '@discordjs/voice';
 import { MessageEmbed } from 'discord.js';
 import Queue from '../Queue';
@@ -8,6 +8,41 @@ import getVideo from './getVideo'
 import play from './play';
 import {Song} from '../Song';
 import InfoData from '../../interfaces/_InfoData';
+import embedSend from '../../functions/embed';
+
+/**
+ *@param  {} queue the map that holds all of the serverQueues
+ * @param  {} DisconnectIdle the map that holds all of the servers Idles
+ * @param  {} serverDisconnectIdle the current servers Idle
+ * @description //disconnects from voiceConnection after 1800000 ms or 30 min
+ */
+export function disconnectvcidle(queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
+  const vcIdleEmbed = new MessageEmbed()
+    .setColor('RED')
+    .setDescription(':cry: Left VC Due To Idle');
+  embedSend(serverDisconnectIdle.message, vcIdleEmbed, 60000);
+  console.log(`Left VC Due To Idle`);
+  leave(queue, DisconnectIdle, serverDisconnectIdle.message);
+}
+
+/**
+ * @param  {} queue the map that holds all of the serverQueues
+ * @param  {} DisconnectIdle the map that holds all of the servers Idles
+ * @param  {} serverDisconnectIdle the current servers Idle
+ * @description//starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
+ * this timer only starts when the audioPlayer is Idle
+ */
+export function disconnectTimervcidle(queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
+  serverDisconnectIdle.disconnectTimer = setTimeout(
+    disconnectvcidle,
+    1800000,
+    queue,
+    DisconnectIdle,
+    serverDisconnectIdle
+  );
+  console.log('Starting disconnectTimer Timeout');
+}
+
 /**
  * @param  {string} q the video you wish to search
  * @returns {InfoData} the closest match to the search query
@@ -66,42 +101,6 @@ export function validURL(videoName: string) {
     } else {
         return false;
     }
-}
-
-/**
- * @param  {any} queue the map that holds all of the serverQueues
- * @param  {any} DisconnectIdle the map that holds all of the Idles
- * @param  {Idle} serverDisconnectIdle the current servers Idle
- * @description disconnects from voiceConnection after 1800000 ms or 30 min
- */
- export function disconnectvcidle(queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
-    const vcIdleEmbed = new MessageEmbed()
-      .setColor('RED')
-      .setDescription(':cry: Left VC Due To Idle');
-    serverDisconnectIdle.message.channel
-      .send({ embeds: [vcIdleEmbed] })
-      .then((msg) => deleteMsg(msg, 60000, false));
-    console.log(`Left VC Due To Idle`);
-    leave(queue, DisconnectIdle, serverDisconnectIdle.message);
-}
-
-
-/**
- * @param  {any} queue the map that holds all of the serverQueues
- * @param  {any} DisconnectIdle the map that holds all of the Idles
- * @param  {Idle} serverDisconnectIdle the current servers Idle
- * @description starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
- * this timer only starts when the audioPlayer is Idle
- */
- export function disconnectTimervcidle(queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
-    serverDisconnectIdle.disconnectTimer = setTimeout(
-      disconnectvcidle,
-      1800000,
-      queue,
-      DisconnectIdle,
-      serverDisconnectIdle
-    );
-    console.log('Starting disconnectTimer Timeout');
 }
 
 /**

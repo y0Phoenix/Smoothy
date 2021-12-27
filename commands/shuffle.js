@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const {deleteMsg, leave, writeGlobal} = require('../modules');
+const {deleteMsg, leave, writeGlobal} = require('../modules/modules');
 //reordes the queue into a new array
 module.exports = {
     name: 'shuffle',

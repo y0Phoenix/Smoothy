@@ -1,6 +1,6 @@
 //pauses the song at the front of the serverQueue
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave} = require('../modules/modules');
 module.exports = {
     name: 'pause',
     description: 'pauses the current song',

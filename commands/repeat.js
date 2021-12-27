@@ -1,6 +1,6 @@
 const { AudioPlayerStatus } = require("@discordjs/voice");
 const { MessageEmbed } = require("discord.js");
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave} = require('../modules/modules');
 
 //stops the audioPlayer and sets serverQueue.repeat to true, which is used inside of executive.js
 module.exports = {

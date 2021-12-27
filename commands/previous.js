@@ -1,6 +1,6 @@
 const { AudioPlayerStatus } = require("@discordjs/voice");
 const { MessageEmbed } = require("discord.js");
-const { deleteMsg } = require("../modules");
+const { deleteMsg } = require("../modules/modules");
 
 const noSongs = new MessageEmbed()
     .setColor('RED')

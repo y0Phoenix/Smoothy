@@ -1,7 +1,6 @@
 //executive file holds all the executive functions and is the largest file
-import ytSearch from 'yt-search';
-import ytpl from 'ytpl';
-import ex from './modules/modules';
+const ytpl = require('ytpl');
+const {exists, writeGlobal, leave, } = require('./modules/modules');
 const {
   AudioPlayerStatus,
   StreamType,
@@ -17,116 +16,12 @@ const playdl = require('play-dl');
 const { Idle } = require('./Classes/Idle');
 const { PlaylistSong, Song } = require('./Classes/Song');
 const { default: Queue } = require('./Classes/Queue');
+const { validURL, videoFinder } = require('./Classes/functions/executive');
 
-const videoFinder = async (query) => {
-  const videoResult = await ytSearch(query);
-  if (videoResult.videos) {
-    let name = query.toLowerCase();
-    let _possibleVids = [];
-    let vid = videoResult.videos[0].title.toLowerCase();
-    let includes = vid.includes(name);
-    if (includes === true) {
-      return videoResult.videos[0];
-    } else {
-      for (i = 0; i < 6; i++) {
-        let possibleVid = videoResult.videos[i].title.toLowerCase();
-        let dif = distance(name, possibleVid);
-        _possibleVids.push({ dif: dif, video: videoResult.videos[i] });
-      }
-      const returnObj = await topResult(_possibleVids); 
-      return returnObj.video;
-    }
-  }
-  return undefined;
-};
-
-const noMoreSongsEmbed = new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`:x: No More Songs To Play`);
 const noVidEmbed = new MessageEmbed()
   .setColor('RED')
   .setDescription(':rofl: No ***video*** results found');
-function validURL(videoName) {
-  var pattern = new RegExp(
-    '^(https?:\\/\\/)?' + // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-      '(\\#[-a-z\\d_]*)?$',
-    'i'
-  ); // fragment locator
-  return !!pattern.test(videoName);
-}
 
-function durationCheck(dur) {
-  let totalseconds = parseInt(dur);
-  let minutes = Math.floor(totalseconds / 60);
-  let Seconds = Math.abs(minutes * 60 - totalseconds);
-  let _seconds;
-  if (Seconds < 10) {
-    _seconds = `0${Seconds}`;
-  } else {
-    _seconds = `${Seconds}`;
-  }
-  hours = Math.floor(totalseconds / 3600);
-  if (hours > 0) {
-    for (i = 0; minutes > 60; i++) {
-      minutes = Math.floor(minutes - 60);
-    }
-    if (minutes < 10) {
-      minutes = `0${minutes}`;
-    }
-    if (minutes === 60) {
-      return `${hours}:00:${_seconds}`;
-    } else {
-      return `${hours}:${minutes}:${_seconds}`;
-    }
-  } else {
-    return `${minutes}:${_seconds}`;
-  }
-}
-
-async function retryTimer(
-  serverQueue,
-  queue,
-  DisconnectIdle,
-  serverDisconnectIdle
-) {
-  if (serverQueue.player.state.status !== AudioPlayerStatus.Playing && serverQueue.tries < 5 && serverQueue.loop === false) {
-    if (serverQueue.jump === true) {
-      const result = await find(serverQueue, serverQueue.currentsong[0].title);
-      if (result !== null) {
-        if (result.shuffledSong !== null) {
-          serverQueue.jump = result.shuffledSong;
-        }
-        else {
-          serverQueue.jump = result.song;
-        }
-      }
-
-      else {
-        const errorEmbed = new MessageEmbed()
-          .setColor('RED')
-          .setDescription(`:thumbsdown: [${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url}) failed to play reverting to original queue try again later`)
-        ;
-        let msg = await serverQueue.message.channel.send({embeds: [errorEmbed]});
-        deleteMsg(msg, 30000, false);
-      }
-    }
-    serverQueue.currentsong.shift();
-    await findvideo(serverQueue);
-    console.log(
-      `Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`
-    );
-    play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-    if (serverQueue.tries >= 4) {
-      serverQueue.message.channel
-        .send(`Smoothy Is Buffering Please Wait`)
-        .then((msg) => deleteMsg(msg, 30000, false));
-    }
-  }
-}
 
 async function checkIfPlaying(serverQueue) {
   if (serverQueue.player.state.status === AudioPlayerStatus.Playing) {
@@ -134,31 +29,6 @@ async function checkIfPlaying(serverQueue) {
   } else {
     return false;
   }
-}
-
-//disconnects from voiceConnection after 1800000 ms or 30 min
-function disconnectvcidle(queue, DisconnectIdle, serverDisconnectIdle) {
-  const vcIdleEmbed = new MessageEmbed()
-    .setColor('RED')
-    .setDescription(':cry: Left VC Due To Idle');
-  serverDisconnectIdle.message.channel
-    .send({ embeds: [vcIdleEmbed] })
-    .then((msg) => deleteMsg(msg, 60000, false));
-  console.log(`Left VC Due To Idle`);
-  leave(queue, DisconnectIdle, serverDisconnectIdle.message);
-}
-
-//starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
-// this timer only starts when the audioPlayer is Idle
-function disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle) {
-  serverDisconnectIdle.disconnectTimer = setTimeout(
-    disconnectvcidle,
-    1800000,
-    queue,
-    DisconnectIdle,
-    serverDisconnectIdle
-  );
-  console.log('Starting disconnectTimer Timeout');
 }
 
 async function createServerQueue(
@@ -200,7 +70,7 @@ async function createServerQueue(
   console.log('subscribed to Player');
   construct = {
     message: message,
-    id: message.guildId,
+    id: message.guild.id,
     voiceChannel: message.member.voice.channel,
     voiceConnection: voiceConnection,
     songs: [songobject],
@@ -326,62 +196,44 @@ async function createServerQueue(
       }
     }
   });
-  const bool = await exists(message.guildId, 'queue');
+  const bool = await exists(message.guild.id, 'queue');
   if (bool) {
-    serverQueue = queue.get(message.guildId);
+    serverQueue = queue.get(message.guild.id);
     serverQueue.player = construct.player;
     serverQueue.subscription = construct.subscription;
   }
   else {
-    queue.set(message.guildId, construct);
-    writeGlobal('add queue', queue.get(message.guildId), message.guildId);
+    queue.set(message.guild.id, construct);
+    writeGlobal('add queue', queue.get(message.guild.id), message.guild.id);
   }
 }
 
 //creates the serverQueue which stores info about the songs, voiceConnection, audioPlayer, subscription, and textChannel
-async function executive(
-  message,
-  args,
-  queue,
-  DisconnectIdle,
-  serverDisconnectIdle,
-  serverQueue
-) {
-  serverDisconnectIdle = DisconnectIdle.get(message.guildId);
+async function executive(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL) {
+  serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
   if (serverDisconnectIdle.disconnectTimer !== undefined) {
     clearTimeout(serverDisconnectIdle.disconnectTimer);
     console.log('Cleared Timout For disconnectTimer');
-    writeGlobal('update dci', serverDisconnectIdle, message.guildId);
   }
   //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
   duration = durationCheck(videoURL.video_details.durationInSec);
   let durationms = parseInt(videoURL.video_details.durationInSec) * 1000;
   const queuePush = async () => {
-    let songObj = {
-      video: video,
-      videoURL: videoURL,
-      url: videoURL.video_details.url,
-      title: videoURL.video_details.title,
-      thumbnail: videoURL.video_details.thumbnails[3].url,
-      message: message,
-      args: args,
-      duration: duration,
-      durationms: durationms,
-      playlistsong: false,
-    }
+    let songObj = new Song(serverQueue.message, )
     serverQueue.songs.push(songObj);
     writeGlobal('update queue', serverQueue, serverQueue.id);
   
-    const addQueueEmbed = new MessageEmbed().setColor('YELLOW')
+    const addQueueEmbed = new MessageEmbed()
+      .setColor('YELLOW')
       .setDescription(`***[${videoURL.video_details.title}](${videoURL.video_details.url})***
-            Has Been Added To The Queue :arrow_down:`);
+      Has Been Added To The Queue :arrow_down:`);
     let msg = await message.channel.send({ embeds: [addQueueEmbed] });
     serverDisconnectIdle.msgs.push(msg);
     writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
   }
   if (!serverQueue) {
       await createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
-      serverQueue = queue.get(message.guildId);
+      serverQueue = queue.get(message.guild.id);
       play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
   } else {
     if (!serverQueue.currentsong[0].load) {
@@ -390,7 +242,7 @@ async function executive(
     else {
       serverQueue.currentsong[0].load = false;
       await createServerQueue(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
-      serverQueue = queue.get(message.guildId);
+      serverQueue = queue.get(message.guild.id);
       play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }
   }
@@ -585,17 +437,11 @@ async function findvideo(serverQueue) {
     load: false,
   }
   serverQueue.currentsong.push(songObj);
-  writeGlobal('update queue', serverQueue, message.guildId);
+  writeGlobal('update queue', serverQueue, message.guild.id);
 }
 
-async function FindVideoCheck(
-  message,
-  args,
-  queue,
-  DisconnectIdle,
-  serverDisconnectIdle,
-  serverQueue
-) {
+async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue) {
+  let videoName;
   if (Array.isArray(args)) {
     videoName = args.join(' ');
   }
@@ -604,57 +450,32 @@ async function FindVideoCheck(
   }
   let URL = validURL(videoName);
   if (URL === true) {
-    videoURL = await playdl.video_info(videoName);
+    const videoURL = await playdl.video_info(videoName);
     if (videoURL) {
       console.log(`Found ${videoURL.video_details.title}`);
-      yturl = ytdl.validateURL(videoURL.video_details.url)
-        ? true
-        : false;
-      if (yturl === true) {
-        executive(
-          message,
-          args,
-          queue,
-          DisconnectIdle,
-          serverDisconnectIdle,
-          serverQueue
-        );
-      } else {
+      executive(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
+    } else {
         message.channel
           .send({ embeds: [noVidEmbed] })
           .then((msg) => deleteMsg(msg, 30000, false));
         return;
-      }
     }
   } else {
     video = await videoFinder(videoName);
     if (video) {
       videoURL = await playdl.video_info(video.url);
       console.log(`Found ${videoURL.video_details.title}`);
-      yturl = ytdl.validateURL(videoURL.video_details.url)
-        ? true
-        : false;
-      if (yturl === true) {
-        executive(
-          message,
-          args,
-          queue,
-          DisconnectIdle,
-          serverDisconnectIdle,
-          serverQueue
-        );
-      }
+      executive(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue);
     } else {
       message.channel
         .send({ embeds: [noVidEmbed] })
         .then((msg) => deleteMsg(msg, 30000, false));
       return;
     }
-  }
 }
 
 async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue) {
-  serverDisconnectIdle = DisconnectIdle.get(message.guildId);
+  serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
   if (serverDisconnectIdle.disconnectTimer !== undefined) {
     clearTimeout(serverDisconnectIdle.disconnectTimer);
     console.log('Cleared Timout For disconnectTimer');
@@ -688,10 +509,9 @@ async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDis
       console.log(`Found YouTube playlist ${playlist.title}`);
       if (!serverQueue) {
         duration = playlist.items[0].duration;
-        const bool = exists()
         const setQueue = new Queue(message);
-        queue.set(message.guildId, setQueue);
-        serverQueue = queue.get(message.guildId);
+        queue.set(message.guild.id, setQueue);
+        serverQueue = queue.get(message.guild.id);
         serverQueue.songs.push(new Song({message: message, data: videoURL}));
         serverQueue.messagesent = true;
         console.log('Created the serverQueue');
@@ -732,7 +552,7 @@ async function joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdl
   if (VoiceConnectionStatus.Disconnected)
     voiceConnection = joinVoiceChannel({
       channelId: vc.id,
-      guildId: vc.guildId,
+      guild.id: vc.guild.id,
       adapterCreator: vc.guild.voiceAdapterCreator,
     });
   //sets the DisconnectIdle map
@@ -740,8 +560,8 @@ async function joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdl
     if (bool) {
     }
     else {
-      DisconnectIdle.set(message.guildId, new Idle({message: message, client: client}));
-      await writeGlobal('add dci', DisconnectIdle.get(message.guildId), message.guildId);
+      DisconnectIdle.set(message.guild.id, new Idle({message: message, client: client}));
+      await writeGlobal('add dci', DisconnectIdle.get(message.guild.id), message.guild.id);
     }
   }
 }

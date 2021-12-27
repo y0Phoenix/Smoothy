@@ -4,10 +4,14 @@ import playdl from 'play-dl';
 import Queue from "../Queue";
 import {writeGlobal} from '../../modules/modules';
 import {videoFinder, validURL} from './executive';
+import { Song } from "../Song";
 
 //finds the song specified in args
+/**
+ * @param  {Queue} serverQueue the current servers queue
+ */
 export default async function getVideo(serverQueue: Queue) {
-    let message: Message = undefined;
+    let message: Partial<Message>;
     let videoName: string;
     let videoURL: InfoData;
     if (serverQueue.previousbool) {
@@ -78,17 +82,7 @@ export default async function getVideo(serverQueue: Queue) {
       serverQueue.currentsong.shift();
     }
     console.log(`Found ${videoURL.video_details.title}`);
-    let durationS = videoURL.video_details.durationInSec;
-    const songObj = {
-      videoURL: videoURL,
-      title: videoURL.video_details.title,
-      url: videoURL.video_details.url,
-      thumbnail: videoURL.video_details.thumbnails[3].url,
-      message: message,
-      duration: videoURL.video_details.durationRaw,
-      durationS: durationS,
-      load: false,
-    }
+    const songObj = new Song({message: message, data: videoURL});
     serverQueue.currentsong.push(songObj);
-    writeGlobal('update queue', serverQueue, message.guildId);
+    writeGlobal('update queue', serverQueue, message.guild.id);
   }

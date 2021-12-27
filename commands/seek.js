@@ -2,7 +2,7 @@ const { createAudioResource, StreamType, AudioPlayerStatus } = require('@discord
 const { MessageEmbed } = require('discord.js');
 const playdl = require('play-dl');
 const prism = require('prism-media');
-const { deleteMsg } = require('../modules');
+const { deleteMsg } = require('../modules/modules');
 
 async function seek(message, args, serverQueue, serverDisconnectIdle) {
     if (serverQueue) {

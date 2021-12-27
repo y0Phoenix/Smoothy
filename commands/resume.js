@@ -1,7 +1,7 @@
 //resumes the audioPlayer only if the audioPlayer is Paused
 const { MessageEmbed } = require('discord.js');
 var {AudioPlayerStatus,} = require('@discordjs/voice');
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave} = require('../modules/modules');
 module.exports = {
     name: 'resume',
     description: 'resumes the current song',

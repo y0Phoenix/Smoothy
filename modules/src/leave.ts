@@ -10,7 +10,7 @@ interface Message {
  * @param  {} DisconnectIdle the map for idle timer and message arrays
  * @param  {} message any message object from the discord server needed for GuidId
  */
-export default async function leave(msg: Message) {
+export default async function leave(msg: Message, DisconnectIdle: any, queue: any) {
     const id = msg.guildId
     const vc = getVoiceConnection(id);
     const sdi = DisconnectIdle.get(id);

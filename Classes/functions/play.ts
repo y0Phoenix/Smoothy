@@ -74,7 +74,7 @@ export default async function play(serverQueue: Queue, queue: any, DisconnectIdl
             .setDescription(':rofl: No ***video*** results found');
         serverQueue.message.channel
             .send({ embeds: [noVidEmbed] })
-            .then((msg) => deleteMsg(msg, 30000, false));
+            .then((msg) => deleteMsg(msg, 30000));
         serverQueue.player.stop();
         audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }

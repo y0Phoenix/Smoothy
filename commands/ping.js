@@ -1,4 +1,4 @@
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave} = require('../modules/modules');
 
 module.exports = ping = {
     name: 'ping',

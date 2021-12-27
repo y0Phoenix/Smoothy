@@ -1,6 +1,6 @@
 const {VoiceConnectionStatus, getVoiceConnection, AudioPlayerStatus,} = require('@discordjs/voice');
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave} = require('../modules/modules');
 const noVCEmbed = new MessageEmbed()
         .setColor('RED')
         .setDescription(`:rofl: I Am Not In VC`)

@@ -16,7 +16,7 @@ export class WriteIdle {
     queueMsgs: Partial<WriteMessage>[]
     constructor (data: _newIdle) {
         this.message = data.message;
-        this.id = data.message.guildId;
+        this.id = data.message.id;
         this.client = data.client;
         data.msgs.forEach(msg => {
             this.msgs.push(new WriteMessage(msg));
@@ -35,7 +35,7 @@ export class Idle {
     queueMsgs: Partial<Message>[]
     constructor (data: _newIdle) {
         this.message = data.message;
-        this.id = data.message.guildId;
+        this.id = data.message.guild.id;
         this.client = data.client;
         data.msgs.forEach(msg => {
             this.msgs.push(msg);

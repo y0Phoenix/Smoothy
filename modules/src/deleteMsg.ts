@@ -1,4 +1,5 @@
 import { Message } from "discord.js";
+import { DisconnectIdle } from "../../main";
 
 /**
  * @param  {} message the message to delete 
@@ -12,6 +13,14 @@ export default async function deleteMsg(message: Message, time: number) {
         return;
     }
     else {
-        setTimeout( async () => { await message.delete() }, time);
+        setTimeout( async () => { 
+            const Idle = DisconnectIdle.get(message.guild.id);
+            const channel = await Idle.client.channels.fetch(message.channel.id);
+            const msg: Message = await channel.messages.fetch(message.id);
+            if (msg.deleted === true) {
+                return;
+            }
+            await msg.delete() 
+        }, time);
     }
 }

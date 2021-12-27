@@ -1,6 +1,6 @@
 //checks if serverQueue exists if the queue length is > 0 and if the song specified extist if it does serverQueue.jump is set to the specified int
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, distance, topResult, find } = require('../modules');
+const {deleteMsg, distance, topResult, find } = require('../modules/modules');
 
 module.exports = {
     name:'jump',

@@ -1,9 +1,10 @@
 import {Idle} from "../Idle";
-import { playNext, findSplice, loopNextSong, disconnectTimervcidle } from "../../executive";
+import { playNext, findSplice, loopNextSong, disconnectTimervcidle } from "./executive";
 import { AudioPlayerStatus } from "@discordjs/voice";
 import { deleteMsg, writeGlobal } from "../../modules/modules";
 import { MessageEmbed } from "discord.js";
 import Queue from "../Queue";
+import embedSend from "../../functions/embed";
 
 /**
  * @param  {Queue} serverQueue the current servers queue
@@ -48,13 +49,11 @@ export default async function audioPlayerIdle(
             if (serverQueue.songs.length > 0) {
               playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
             } else {
-              serverQueue.message.channel
-                .send({ embeds: [noMoreSongsEmbed] })
-                .then((msg) => deleteMsg(msg, 30000, false)); 
+              embedSend(serverQueue.message, noMoreSongsEmbed, 60000); 
               serverDisconnectIdle = DisconnectIdle.get(
-                serverQueue.message.guildId
+                serverQueue.message.guild.id
               );
-              queue.delete(serverQueue.message.guildId);
+              queue.delete(serverQueue.message.guild.id);
               await writeGlobal('delete queue', null, serverQueue.id);
               writeGlobal('delete dci', null, serverQueue.id);
               disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
@@ -96,13 +95,15 @@ export default async function audioPlayerIdle(
               if (serverQueue.shuffledSongs.length > 0) {
                 playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
               } else {
-                serverQueue.message.channel
-                  .send({ embeds: [noMoreSongsEmbed] })
-                  .then((msg) => deleteMsg(msg, 30000, false));
+                const noMoreSongsEmbed = new MessageEmbed()
+                  .setColor('RED')
+                  .setDescription(`:x: No More Songs To Play`)
+                ;
+                embedSend(serverQueue.message, noMoreSongsEmbed, 60000); 
                 serverDisconnectIdle = DisconnectIdle.get(
-                  serverQueue.message.guildId
+                  serverQueue.message.guild.id
                 );
-                queue.delete(serverQueue.message.guildId);
+                queue.delete(serverQueue.message.guild.id);
                 writeGlobal('delete queue', null, serverQueue.id);
                 disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
               }
