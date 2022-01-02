@@ -8,11 +8,11 @@ import exists from './src/exists';
 
 
 export {
-    exists,
-    writeGlobal,
-    find,
-    topResult,
-    distance,
-    leave,
     deleteMsg,
+    leave,
+    distance,
+    topResult,
+    find,
+    writeGlobal,
+    exists
 };

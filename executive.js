@@ -1,4 +1,5 @@
 //executive file holds all the executive functions and is the largest file
+require('typescript-require');
 const ytpl = require('ytpl');
 const {exists, writeGlobal, leave, } = require('./modules/modules');
 const {

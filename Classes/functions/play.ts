@@ -1,7 +1,7 @@
 import {Idle} from "../Idle";
 import Queue from "../Queue";
 import playdl from 'play-dl';
-import {
+const {
     AudioPlayerStatus,
     StreamType,
     createAudioPlayer,
@@ -12,7 +12,7 @@ import {
     AudioPlayer, 
     PlayerSubscription, 
     VoiceConnection
-  } from '@discordjs/voice';
+  }: any = require('@discordjs/voice');
   import { MessageEmbed } from'discord.js';
   import {writeGlobal, deleteMsg} from '../../modules/modules';
   import audioPlayerIdle from './audioPlayerIdle';
