@@ -1,6 +1,6 @@
 //removes a specified song inside of serverQueue using a number inside of args
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave, find} = require('../modules');
+const {deleteMsg, writeGlobal, find} = require('../modules');
 
 module.exports = {
     name: 'remove',
@@ -37,6 +37,7 @@ module.exports = {
                 message.channel.send({embeds: [removeEmbed]})
                 .then(msg => deleteMsg(msg, 60000, false));   
                 serverQueue.shuffledSongs.splice(i, 1);
+                writeGlobal('update queue', serverQueue, serverQueue.id);
             }
             else{
                 message.channel.send('No Song Specified')
@@ -62,6 +63,7 @@ module.exports = {
                 message.channel.send({embeds: [removeEmbed]})
                 .then(msg => deleteMsg(msg, 60000, false));   
                 serverQueue.songs.splice(i, 1);
+                writeGlobal('update queue', serverQueue, serverQueue.id);
             }
             else{
                 message.channel.send('No Song Specified')

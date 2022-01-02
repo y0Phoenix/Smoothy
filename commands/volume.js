@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave, writeGlobal} = require('../modules');
 
 const noSongEmbed = new MessageEmbed()
     .setColor('RED')
@@ -29,6 +29,7 @@ module.exports = {
                     let embed = volumeE(volume);
                     let msg = await message.channel.send({embeds: [embed]});
                     serverDisconnectIdle.msgs.push(msg);
+                    writeGlobal('update dci', serverDisconnectIdle, serverQueue.id);
                 }
                 else{
                     volume = parseInt(args);
@@ -38,6 +39,7 @@ module.exports = {
                             let embed = volumeE(volume);
                             let msg = await message.channel.send({embeds: [embed]});
                             serverDisconnectIdle.msgs.push(msg);
+                            writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
                         }
                         else{
                             const toHighEmbed = new MessageEmbed()

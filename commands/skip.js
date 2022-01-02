@@ -1,6 +1,6 @@
 //stops the audioPlayer which make AudioPlayerStatus Idle, which then exeuctes the function at ../executive.js(78)
 const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave} = require('../modules');
+const {deleteMsg, leave, writeGlobal} = require('../modules');
 
 module.exports = {
     name: 'skip',
@@ -29,7 +29,6 @@ module.exports = {
                     serverQueue.nowPlaying = undefined;
                     clearTimeout(serverQueue.nowPlayingMsgTimer);
                     serverQueue.player.stop();  
-                    
                     }
                     catch(error) {
                         console.log('Unknown MSG');

@@ -9,22 +9,12 @@ module.exports = {
     repeat(message, serverQueue){
         if(serverQueue){
             if (serverQueue.player.state.status !== AudioPlayerStatus.Paused) {
-                if(serverQueue.shuffledSongs.length > 0){
-                    serverQueue.player.stop();
-                    serverQueue.repeat = true
-                    const restartShuffleEmbed = new MessageEmbed()
-                        .setColor('GREEN')
-                        .setDescription(`:thumbsup: I Am Restarting ***[${serverQueue.shuffledSongs[0].title}](${serverQueue.shuffledSongs[0].url})*** :arrows_counterclockwise:`)
-                    ;
-                    message.channel.send({embeds: [restartShuffleEmbed]})
-                    .then(msg => deleteMsg(msg, 60000, false));
-                }
-                else if(serverQueue.songs.length > 0){
+                if(serverQueue.songs.length > 0){
                     serverQueue.player.stop();
                     serverQueue.repeat = true
                     const restartCurrentEmbed = new MessageEmbed()
                         .setColor('GREEN')
-                        .setDescription(`:thumbsup: I Am Restarting ***[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})*** :arrows_counterclockwise:`)
+                        .setDescription(`:thumbsup: I Am Restarting ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})*** :arrows_counterclockwise:`)
                     ;
                     message.channel.send({embeds: [restartCurrentEmbed]})
                     .then(msg => deleteMsg(msg, 60000, false));

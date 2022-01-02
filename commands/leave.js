@@ -21,6 +21,7 @@ module.exports = {
                 console.log('Left The Voice Channel From Command')
                 if(serverQueue){
                     if(serverQueue.player.state.status === AudioPlayerStatus.Playing){
+                        serverQueue.stop = true;
                         serverQueue.player.stop();    
                     }    
                 }
