@@ -736,7 +736,7 @@ module.exports = {
     } else {
       video = await videoFinder(videoName);
       if (video) {
-        videoURL = await ytdl.getBasicInfo(video.url);
+        videoURL = await ytdl.getBasicInfo(temp.video_details.url);
         console.log(`Found ${videoURL.videoDetails.title}`);
         yturl = ytdl.validateURL(videoURL.videoDetails.embed.flashSecureUrl)
           ? true
