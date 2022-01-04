@@ -120,7 +120,13 @@ async function deleteMsg(message, time, bool) {
         return;
     }
     else {
-        setTimeout( async () => { await message.delete() }, time);
+        setTimeout( async () => { 
+            try {
+                await message.delete();
+            } catch (error) {
+                consol.log('Message Not Found');
+            }    
+        }, time);
     }
 }
 
@@ -144,27 +150,35 @@ async function leave(q, di, msg) {
             for (let i = 0;
                 i < sdi.msgs.length;
                 i++) {
-                    if (!sdi.msgs[i].content) {
-                        const channel = await sdi.client.channels.fetch(sdi.message.channelId);
-                        const message = await channel.messages.fetch(sdi.msgs[i].id);
-                        message.delete();
-                    }
-                    else {
-                        sdi.msgs[i].delete();
-                    }
+                    try {
+                        if (!sdi.msgs[i].content) {
+                            const channel = await sdi.client.channels.fetch(sdi.message.channelId);
+                            const message = await channel.messages.fetch(sdi.msgs[i].id);
+                            message.delete();
+                        }
+                        else {
+                            sdi.msgs[i].delete();
+                        }
+                    } catch (err) {
+                        console.log('Message Not Found');
+                    }   
                 }
         }
         if (sdi.queueMsgs[0]) {
             for (let i = 0;
                 i < sdi.queueMsgs.length;
                 i++) {
-                    if (!sdi.queueMsgs[i].content) {
-                        const channel = await sdi.client.channels.fetch(sdi.message.channelId);
-                        const message = await channel.messages.fetch(sdi.queueMsgs[i].id);
-                        message.delete();
-                    }
-                    else {
-                        sdi.queueMsgs[i].delete();
+                    try {
+                        if (!sdi.queueMsgs[i].content) {
+                            const channel = await sdi.client.channels.fetch(sdi.message.channelId);
+                            const message = await channel.messages.fetch(sdi.queueMsgs[i].id);
+                            message.delete();
+                        }
+                        else {
+                            sdi.queueMsgs[i].delete();
+                        }
+                    } catch (err) {
+                        consol.log('Message Not Found');
                     }
                 }
         }

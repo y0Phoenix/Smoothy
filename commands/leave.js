@@ -20,9 +20,11 @@ module.exports = {
                 .then(msg => deleteMsg(msg, 60000, false));
                 console.log('Left The Voice Channel From Command')
                 if(serverQueue){
-                    if(serverQueue.player.state.status === AudioPlayerStatus.Playing){
-                        serverQueue.stop = true;
-                        serverQueue.player.stop();    
+                    if(serverQueue.player){
+                        if (serverQueue.player.state.status === AudioPlayerStatus.Playing) {
+                            serverQueue.stop = true;
+                            serverQueue.player.stop();    
+                        }
                     }    
                 }
                 if(serverDisconnectIdle.disconnectTimer !== undefined){

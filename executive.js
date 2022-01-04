@@ -22,23 +22,23 @@ var yturl;
 var videoName;
 
 const videoFinder = async (query) => {
-  const videoResult = await ytSearch(query);
-  if (videoResult.videos) {
+  const videoResult = await playdl.search(query);
+  if (videoResult[0]) {
     let name = query.toLowerCase();
     let _possibleVids = [];
-    let vid = videoResult.videos[0].title.toLowerCase();
-    let includes = vid.includes(name);
-    if (includes === true) {
-      return videoResult.videos[0];
-    } else {
+    let vid = videoResult[0].title.toLowerCase();
+    // let includes = vid.includes(name);
+    // if (includes === true) {
+    //   return videoResult.videos[0];
+    // } else {
       for (i = 0; i < 6; i++) {
-        let possibleVid = videoResult.videos[i].title.toLowerCase();
+        let possibleVid = videoResult[i].title.toLowerCase();
         let dif = distance(name, possibleVid);
-        _possibleVids.push({ dif: dif, video: videoResult.videos[i] });
+        _possibleVids.push({ dif: dif, video: videoResult[i] });
       }
       const returnObj = await topResult(_possibleVids); 
       return returnObj.video;
-    }
+    // }
   }
   return undefined;
 };
@@ -271,14 +271,14 @@ async function createServerQueue(
   serverDisconnectIdle,
   serverQueue,
 ) {
-  const duration = durationCheck(videoURL.video_details.durationInSec);
-  const durationS = parseInt(videoURL.video_details.durationInSec);
+  const duration = durationCheck(videoURL.videoDetails.lengthSeconds);
+  const durationS = parseInt(videoURL.videoDetails.lengthSeconds) * 1000;
   songobject = {
     video: video,
     videoURL: videoURL,
-    url: videoURL.video_details.url,
-    title: videoURL.video_details.title,
-    thumbnail: videoURL.video_details.thumbnails[3].url,
+    url: videoURL.videoDetails.embed.flashSecureUrl,
+    title: videoURL.videoDetails.title,
+    thumbnail: videoURL.videoDetails.thumbnails[3].url,
     message: message,
     args: args,
     duration: duration,
@@ -288,9 +288,9 @@ async function createServerQueue(
   currentsongobject = {
     video: video,
     videoURL: videoURL,
-    title: videoURL.video_details.title,
-    url: videoURL.video_details.url,
-    thumbnail: videoURL.video_details.thumbnails[3].url,
+    title: videoURL.videoDetails.title,
+    url: videoURL.videoDetails.embed.flashSecureUrl,
+    thumbnail: videoURL.videoDetails.thumbnails[3].url,
     message: message,
     duration: duration,
     durationS: durationS,
@@ -457,19 +457,19 @@ async function executive(
     writeGlobal('update dci', serverDisconnectIdle, message.guildId);
   }
   //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
-  duration = durationCheck(videoURL.video_details.durationInSec);
-  let durationms = parseInt(videoURL.video_details.durationInSec) * 1000;
+  duration = durationCheck(videoURL.videoDetails.lengthSeconds);
+  let durationS = parseInt(videoURL.videoDetails.lengthSeconds) * 1000;
   const queuePush = async () => {
     let songObj = {
       video: video,
       videoURL: videoURL,
-      url: videoURL.video_details.url,
-      title: videoURL.video_details.title,
-      thumbnail: videoURL.video_details.thumbnails[3].url,
+      url: videoURL.videoDetails.embed.flashSecureUrl,
+      title: videoURL.videoDetails.title,
+      thumbnail: videoURL.videoDetails.thumbnails[3].url,
       message: message,
       args: args,
       duration: duration,
-      durationms: durationms,
+      durationS: durationS,
       playlistsong: false,
     }
     serverQueue.songs.push(songObj);
@@ -663,11 +663,11 @@ async function findvideo(serverQueue) {
   }
   let URL = validURL(videoName);
   if (URL === true) {
-    videoURL = await playdl.video_info(videoName);
+    videoURL = await playdl.video_basic_info(videoName);
   } else {
     video = await videoFinder(videoName);
     if (video) {
-      videoURL = await playdl.video_info(video.url);
+      videoURL = await playdl.video_basic_info(video.url);
     }
   }
   if (serverQueue.currentsong.length > 0) {
@@ -711,10 +711,10 @@ module.exports = {
     }
     let URL = validURL(videoName);
     if (URL === true) {
-      videoURL = await playdl.video_info(videoName);
+      videoURL = await ytdl.getBasicInfo(videoName);
       if (videoURL) {
-        console.log(`Found ${videoURL.video_details.title}`);
-        yturl = ytdl.validateURL(videoURL.video_details.url)
+        console.log(`Found ${videoURL.videoDetails.title}`);
+        yturl = ytdl.validateURL(videoURL.embed.flashSecureUrl)
           ? true
           : false;
         if (yturl === true) {
@@ -736,9 +736,9 @@ module.exports = {
     } else {
       video = await videoFinder(videoName);
       if (video) {
-        videoURL = await playdl.video_info(video.url);
-        console.log(`Found ${videoURL.video_details.title}`);
-        yturl = ytdl.validateURL(videoURL.video_details.url)
+        videoURL = await ytdl.getBasicInfo(video.url);
+        console.log(`Found ${videoURL.videoDetails.title}`);
+        yturl = ytdl.validateURL(videoURL.videoDetails.embed.flashSecureUrl)
           ? true
           : false;
         if (yturl === true) {
@@ -777,7 +777,7 @@ module.exports = {
       const playlist = await ytpl(videoName);
       var added = false;
       if (playlist) {
-        videoURL = await playdl.video_info(playlist.items[0].shortUrl);
+        videoURL = await playdl.video_basic_info(playlist.items[0].shortUrl);
         const playlistEmbed = new MessageEmbed()
           .setColor('GOLD')
           .setTitle(`Found YouTube Playlist`)
