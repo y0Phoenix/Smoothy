@@ -116,13 +116,13 @@ async function deleteMsg(message, time, bool) {
     if (!time || isNaN(time)) {
         time = 30000;
     }
-    if (!message || !isNaN(message)) {
+    if (!message) {
         return;
     }
     else {
         setTimeout( async () => { 
             try {
-                await message.delete();
+                message.delete();
             } catch (error) {
                 consol.log('Message Not Found');
             }    
