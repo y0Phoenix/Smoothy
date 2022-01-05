@@ -25,47 +25,87 @@ var yturl;
 var videoName;
 
 const videoFinder = async (query) => {
-  let name = query.toLowerCase();
-  const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`/ig;
-  name = name.replace(regex, '');
-  const _name = name.split(' ');
-  for (i = 0; i < _name.length; i++) {
-    const check = dictionary.spellCheck(_name[i]);
-    if (!check) {
-      let suggs = dictionary.getSuggestions(_name[i]);
-      _name[i] = suggs[0];
-    }
-    if (check[0]) {
-      
-    }
-  }
-  name = _name.join(' ');
-  const videoResult = await playdl.search(name);
-  if (videoResult[0]) {
-    let _possibleVids = [];
-    let vid = videoResult[0].title.toLowerCase();
-    vid = vid.replace(regex, '');
-    let includes = vid.includes(name);
-    if (includes === true) {
-      return videoResult[0];
-    } else {
-      for (i = 0; i < 10; i++) {
-        let vid = videoResult[i].title.toLowerCase();
-        let includes = vid.includes(name);
-        if (includes === true) {
-          return videoResult[i];
+  try {
+    let name = query.toLowerCase();
+    const videoResult = await playdl.search(name);
+    const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`/ig;
+    if (videoResult[0]) {
+      let _possibleVids = [];
+      let vid = videoResult[0].title.toLowerCase();
+      vid = vid.replace(regex, '');
+      name = name.replace(regex, '');
+      const Name = name.split(' ');
+      let proceed = false;
+      for (let i = 0; i < Name.length; i++) {
+        const re = new RegExp(Name[i], 'g');
+        const includes = re.test(vid);
+        if (!includes) {
+          proceed = true;
+          break;
         }
       }
-      for (i = 0; i < 6; i++) {
-        let possibleVid = videoResult[i].title.toLowerCase();
-        let dif = distance(name, possibleVid);
-        _possibleVids.push({ dif: dif, video: videoResult[i] });
+      if (proceed) {
+        const _name = name.split(' ');
+        for (i = 0; i < _name.length; i++) {
+          const check = dictionary.spellCheck(_name[i]);
+          if (!check) {
+            let suggs = dictionary.getSuggestions(_name[i]);
+            _name[i] = suggs[0];
+          }
+          if (check[0]) {
+            
+          }
+        }
+        name = _name.join(' ');
+        const videoResult = await playdl.search(name);
+          if (videoResult[0]) {
+            let _possibleVids = [];
+            let vid = videoResult[0].title.toLowerCase();
+            vid = vid.replace(regex, '');
+            const Name = name.split(' ');
+            let proceed = false;
+            for (let i = 0; i < Name.length; i++) {
+              const re = new RegExp(Name[i], 'g');
+              const includes = re.test(vid);
+              if (!includes) {
+                proceed = true;
+                break;
+              }
+            }
+            if (!proceed) {
+              return videoResult[0];
+            } else {
+            for (i = 0; i < 10; i++) {
+              let vid = videoResult[i].title.toLowerCase();
+              let includes = vid.includes(name);
+              if (includes === true) {
+                return videoResult[i];
+              }
+            }
+            for (i = 0; i < 6; i++) {
+              let possibleVid = videoResult[i].title.toLowerCase();
+              let dif = distance(name, possibleVid);
+              _possibleVids.push({ dif: dif, video: videoResult[i] });
+            }
+            const returnObj = await topResult(_possibleVids); 
+            return returnObj.video;
+          }
+        }
       }
-      const returnObj = await topResult(_possibleVids); 
-      return returnObj.video;
+      else {
+        return videoResult[0]
+      }
+      return undefined;
+    }
+    return undefined;
+  } catch (error) {
+    console.log(`Videosearch error on ${query}`);
+    let name = query.toLowerCase();
+    const videoResult = await playdl.search(name);
+    if (videoResult[0]) {
+      return videoResult[0];
     }
   }
-  return undefined;
 };
 
 const noMoreSongsEmbed = new MessageEmbed()
