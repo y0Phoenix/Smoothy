@@ -693,7 +693,7 @@ async function findvideo(serverQueue) {
   }
   else if (i > 0) {
       serverQueue.jump = true;
-      const song = serverQueue.shuffle ? serverQueue.songs[i] : serverQueue.shuffledSongs[i];
+      const song = serverQueue.shuffle ? serverQueue.shuffledSongs[i] : serverQueue.songs[i];
       videoName = song.url;
       message = song.message;
       if (serverQueue.shuffle) {
@@ -754,8 +754,8 @@ async function findvideo(serverQueue) {
     serverQueue.currentsong.shift();
   }
   console.log(`Found ${videoURL.videoDetails.title}`);
-  duration = durationCheck(videoURL.videoDetails.durationInSec);
-  let durationS = parseInt(videoURL.videoDetails.durationInSec);
+  duration = durationCheck(videoURL.videoDetails.lengthSeconds);
+  let durationS = parseInt(videoURL.videoDetails.lengthSeconds);
   const songObj = {
     video: video,
     videoURL: videoURL,

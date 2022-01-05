@@ -117,10 +117,6 @@ async function deleteMsg(message, time, bool) {
         time = 30000;
     }
     if (!message) {
-<<<<<<< HEAD
-        console.log('No Message To Delete');
-=======
->>>>>>> 516fec6f9821cbaf87ceeae86d133a34c1d402ec
         return;
     }
     else {
