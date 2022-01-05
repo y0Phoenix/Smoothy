@@ -1,27 +1,16 @@
-[01/04/2022 22:45:16.582] Not Running, Starting up Smoothy...
-[01/04/2022 22:45:16.618] Run Shell Script Started
-[01/04/2022 22:45:17.572] Smoothy is currently running 
-[01/04/2022 22:45:21.577] Smoothy 1.4.6 is online!
-[01/04/2022 22:45:22.526] Smoothy is currently running 
-[01/04/2022 22:45:25.752] Command = pp https://www.youtube.com/playlist?list=PLAcVjxrQDMPo0uhHE4H9G0yPjS1vmhXrE
-[01/04/2022 22:45:25.762] Cleared Timout For disconnectTimer
-[01/04/2022 22:45:26.394] [33mWARNING:[0m ytdl-core is out of date! Update with "npm install ytdl-core@latest".
-[01/04/2022 22:45:26.556] Smoothy is currently running 
-[01/04/2022 22:45:26.794] Found YouTube playlist Discord
-[01/04/2022 22:45:26.796] created the audioplayer
-[01/04/2022 22:45:26.797] subscribed to Player
-[01/04/2022 22:45:26.798] Created the serverQueue
-[01/04/2022 22:45:27.559] Smoothy is currently running 
-[01/04/2022 22:45:27.986] Playing Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
-[01/04/2022 22:45:28.730] Smoothy is currently running 
-[01/04/2022 22:45:31.989] Command = mix 
-[01/04/2022 22:45:31.991] Now shuffling the queue
-[01/04/2022 22:45:32.542] Smoothy is currently running 
-[01/04/2022 22:45:36.265] Command = j radical
-[01/04/2022 22:45:36.367] Player Status Is Idle
-[01/04/2022 22:45:36.561] Smoothy is currently running 
-[01/04/2022 22:45:36.591] Splicing FaZe Ramos: Go On Ramos! - Episode 11 23
-[01/04/2022 22:45:37.132] Found FaZe Ramos: Go On Ramos! - Episode 11
-[01/04/2022 22:45:37.635] Smoothy is currently running 
-[01/04/2022 22:45:37.946] Playing FaZe Ramos: Go On Ramos! - Episode 11!
-[01/04/2022 22:45:38.632] Smoothy is currently running 
+[01/04/2022 22:52:38.599] Not Running, Starting up Smoothy...
+[01/04/2022 22:52:38.618] Run Shell Script Started
+[01/04/2022 22:52:39.630] Smoothy is currently running 
+[01/04/2022 22:52:42.121] Smoothy 1.4.6 is online!
+[01/04/2022 22:52:42.598] Smoothy is currently running 
+[01/04/2022 22:52:42.935] [33mWARNING:[0m ytdl-core is out of date! Update with "npm install ytdl-core@latest".
+[01/04/2022 22:52:43.371] Found BLADEFEAR -  RADICAL
+[01/04/2022 22:52:43.372] Cleared Timout For disconnectTimer
+[01/04/2022 22:52:43.376] created the audioplayer
+[01/04/2022 22:52:43.377] subscribed to Player
+[01/04/2022 22:52:43.659] Smoothy is currently running 
+[01/04/2022 22:52:44.750] Playing BLADEFEAR -  RADICAL!
+[01/04/2022 22:52:44.781] Smoothy is currently running 
+[01/04/2022 22:53:15.448] Command = dc 
+[01/04/2022 22:53:15.452] Left The Voice Channel From Command
+[01/04/2022 22:53:15.655] Smoothy is currently running 
