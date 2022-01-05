@@ -1,8 +1,8 @@
-const { checkIfPlaying, retryTimer } = require ("../Classes/functions/retryPlayer");
-const audioPlayerIdle = require ("../Classes/functions/audioPlayerIdle");
-const { MessageEmbed } = require ("discord.js");
-const { deleteMsg, writeGlobal } = require ("../modules/modules");
-const { AudioPlayerStatus } = require ("@discordjs/voice");
+import { checkIfPlaying, retryTimer } from "../Classes/functions/retryPlayer";
+import audioPlayerIdle from "../Classes/functions/audioPlayerIdle";
+import { MessageEmbed } from "discord.js";
+import { deleteMsg, writeGlobal } from "../modules/modules";
+import { AudioPlayerStatus } from "@discordjs/voice";
 
 /**
  * @param  {} player the player to add events to
@@ -10,7 +10,7 @@ const { AudioPlayerStatus } = require ("@discordjs/voice");
  * @param  {} queue the map that holds all of the server queues
  * @param  {} DisconnectIdle the map that holds all of the server Idles
  */
-async function playerEvents(player, serverDisconnectIdle, queue, DisconnectIdle) {
+export default async function playerEvents(player, serverDisconnectIdle, queue, DisconnectIdle) {
     //this function executes when the player throws an error
     player.on('error', async (err) => {
         const localServerQueue = err.resource.metadata;
@@ -108,5 +108,3 @@ async function playerEvents(player, serverDisconnectIdle, queue, DisconnectIdle)
         }
     });
 }
-
-exports.default = playerEvents;

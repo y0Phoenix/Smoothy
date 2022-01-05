@@ -18,12 +18,16 @@ export class WriteIdle {
         this.message = data.message;
         this.id = data.message.id;
         this.client = data.client;
-        data.msgs.forEach(msg => {
-            this.msgs.push(new WriteMessage(msg));
-        });
-        data.queueMsgs.forEach(msg => {
-            this.queueMsgs.push(new WriteMessage(msg));
-        });
+        if (!data.msgs) {
+        }
+        else {
+            data.msgs.forEach(msg => {
+                this.msgs.push(new WriteMessage(msg));
+            });
+            data.queueMsgs.forEach(msg => {
+                this.queueMsgs.push(new WriteMessage(msg));
+            });
+        }
     }
 }
 export class Idle {
@@ -37,11 +41,5 @@ export class Idle {
         this.message = data.message;
         this.id = data.message.guild.id;
         this.client = data.client;
-        data.msgs.forEach(msg => {
-            this.msgs.push(msg);
-        });
-        data.queueMsgs.forEach(msg => {
-            this.queueMsgs.push(msg);
-        });
     }
 }

@@ -201,12 +201,7 @@ async function joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdl
   }
 }
 
-module.exports = { 
-  playNext, 
-  disconnectTimervcidle, 
-  loopNextSong, 
-  findvideo, 
-  findSplice, 
+module.exports = {  
   FindVideoCheck, 
   findvideoplaylist, 
   joinvoicechannel};

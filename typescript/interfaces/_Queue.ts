@@ -1,8 +1,9 @@
-import { AudioPlayer, PlayerSubscription } from "@discordjs/voice";
-import { Message } from "discord.js";
+declare function require(name:string);
+const { AudioPlayer, PlayerSubscription } = require("@discordjs/voice");
+const { Message } = require("discord.js");
 
 export default interface _Queue {
-    message: Message,
+    message: typeof Message,
     id : string,
     voiceChannel: any,
     songs: [],
@@ -11,12 +12,12 @@ export default interface _Queue {
     jump: number,
     tries: number,
     audioPlayerError: boolean,
-    player: AudioPlayer,
-    subsciption: PlayerSubscription,
+    player: typeof AudioPlayer,
+    subsciption: typeof PlayerSubscription,
     previous: [],
     previousbool: boolean,
     messagesent: boolean,
-    nowPlaying: Message,
+    nowPlaying: typeof Message,
     nowPlayingTimer: any,
     shuffle: boolean,
     loop: boolean,

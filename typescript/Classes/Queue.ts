@@ -27,9 +27,9 @@ export default class Queue {
     id : string
     voiceChannel: any
     voiceConnection: VoiceConnection
-    songs: Partial<Song>[]
-    shuffledSongs: Partial<Song>[]
-    currentsong: Partial<Song>[]
+    songs: Partial<Song>[] = []
+    shuffledSongs: Partial<Song>[] = []
+    currentsong: Partial<Song>[] = []
     stop: boolean
     jump: number = 0
     tries: number = 0
@@ -52,6 +52,6 @@ export default class Queue {
     constructor(msg:Message) {
         this.message = msg;
         this.id = msg.guild.id;
-        this.voiceChannel = msg.member.voice.channel;    
+        this.voiceChannel = msg.member.voice.channel;
     }
 }
