@@ -858,7 +858,7 @@ module.exports = {
       const playlist = await ytpl(videoName);
       var added = false;
       if (playlist) {
-        videoURL = await playdl.video_basic_info(playlist.items[0].shortUrl);
+        videoURL = await ytdl.getBasicInfo(playlist.items[0].shortUrl);
         const playlistEmbed = new MessageEmbed()
           .setColor('GOLD')
           .setTitle(`Found YouTube Playlist`)
