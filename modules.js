@@ -116,7 +116,8 @@ async function deleteMsg(message, time, bool) {
     if (!time || isNaN(time)) {
         time = 30000;
     }
-    if (!message || !isNaN(message)) {
+    if (!message) {
+        console.log('No Message To Delete');
         return;
     }
     else {

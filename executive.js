@@ -654,6 +654,7 @@ function findSplice(serverQueue, currentsong) {
       } else {
         console.log(`Splicing ${serverQueue.songs[i].title} ${i}`);
         serverQueue.songs.splice(i, 1);
+        break;
       }
     }
   }
@@ -684,10 +685,24 @@ async function loopNextSong(
 //finds the song specified in args
 async function findvideo(serverQueue) {
   let message = undefined;
+  let i = serverQueue.jump;
   if (serverQueue.previousbool) {
     videoName = serverQueue.previous[0].url;
     message = serverQueue.previous[0].message;
     serverQueue.previousbool = false;
+  }
+  else if (i > 0) {
+      serverQueue.jump = true;
+      const song = serverQueue.shuffle ? serverQueue.songs[i] : serverQueue.shuffledSongs[i];
+      videoName = song.url;
+      message = song.message;
+      if (serverQueue.shuffle) {
+        serverQueue.shuffledSongs.splice(i, 1);
+        findSplice(serverQueue, song);
+      }
+      else {
+        serverQueue.songs.splice(i, 1);
+      }
   }
   else {
     if (serverQueue.loopsong === true) {
@@ -708,22 +723,6 @@ async function findvideo(serverQueue) {
         message = serverQueue.shuffledSongs[0].message;
     } 
     else if (
-      serverQueue.shuffle === true &&
-      serverQueue.loop === false
-    ) {
-      let i = serverQueue.jump;
-      serverQueue.jump = true;
-      if (i > 0) {
-          videoName = serverQueue.shuffledSongs[i].url;
-          message = serverQueue.shuffledSongs[i].message;
-          serverQueue.shuffledSongs.splice(i, 1);
-          serverQueue.songs.splice(i, 1);
-      }
-      else {
-          videoName = serverQueue.shuffledSongs[0].url;
-          message = serverQueue.shuffledSongs[0].message;
-      }
-    } else if (
       serverQueue.loop === true &&
       serverQueue.shuffle === false &&
       serverQueue.songs.length > 1
@@ -744,11 +743,11 @@ async function findvideo(serverQueue) {
   }
   let URL = validURL(videoName);
   if (URL === true) {
-    videoURL = await playdl.video_basic_info(videoName);
+    videoURL = await ytdl.getBasicInfo(videoName);
   } else {
     video = await videoFinder(videoName);
     if (video) {
-      videoURL = await playdl.video_basic_info(video.url);
+      videoURL = await ytdl.getBasicInfo(video.url);
     }
   }
   if (serverQueue.currentsong.length > 0) {
@@ -858,7 +857,7 @@ module.exports = {
       const playlist = await ytpl(videoName);
       var added = false;
       if (playlist) {
-        videoURL = await playdl.video_basic_info(playlist.items[0].shortUrl);
+        videoURL = await ytdl.getBasicInfo(playlist.items[0].shortUrl);
         const playlistEmbed = new MessageEmbed()
           .setColor('GOLD')
           .setTitle(`Found YouTube Playlist`)

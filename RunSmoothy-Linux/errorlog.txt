@@ -1,21 +1,27 @@
-[01/04/2022 15:09:04.813] Not Running, Starting up Smoothy...
-[01/04/2022 15:09:04.845] Run Shell Script Started
-[01/04/2022 15:09:05.741] Smoothy is currently running 
-[01/04/2022 15:09:08.095] Smoothy 1.4.6 is online!
-[01/04/2022 15:09:08.698] Smoothy is currently running 
-[01/04/2022 15:09:09.001] [33mWARNING:[0m ytdl-core is out of date! Update with "npm install ytdl-core@latest".
-[01/04/2022 15:09:09.460] Found 21 Savage- Rich Nigga Shit ft Metro Boomin' & Young Thug (lyrics)
-[01/04/2022 15:09:09.463] created the audioplayer
-[01/04/2022 15:09:09.464] subscribed to Player
-[01/04/2022 15:09:09.479] TypeError: Cannot read properties of undefined (reading 'split')
-[01/04/2022 15:09:09.480]     at yt_validate (/home/aaron/Documents/Smoothy/node_modules/play-dl/dist/index.js:1:17794)
-[01/04/2022 15:09:09.480]     at video_stream_info (/home/aaron/Documents/Smoothy/node_modules/play-dl/dist/index.js:2:1856)
-[01/04/2022 15:09:09.481]     at stream (/home/aaron/Documents/Smoothy/node_modules/play-dl/dist/index.js:6:11048)
-[01/04/2022 15:09:09.482]     at Object.stream (/home/aaron/Documents/Smoothy/node_modules/play-dl/dist/index.js:14:3140)
-[01/04/2022 15:09:09.482]     at play (/home/aaron/Documents/Smoothy/executive.js:512:35)
-[01/04/2022 15:09:09.483]     at executive (/home/aaron/Documents/Smoothy/executive.js:497:7)
-[01/04/2022 15:09:09.484]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
-[01/04/2022 15:09:09.730] Smoothy is currently running 
-[01/04/2022 15:09:15.640] Command = dc 
-[01/04/2022 15:09:15.654] Left The Voice Channel From Command
-[01/04/2022 15:09:15.851] Smoothy is currently running 
+[01/04/2022 22:45:16.582] Not Running, Starting up Smoothy...
+[01/04/2022 22:45:16.618] Run Shell Script Started
+[01/04/2022 22:45:17.572] Smoothy is currently running 
+[01/04/2022 22:45:21.577] Smoothy 1.4.6 is online!
+[01/04/2022 22:45:22.526] Smoothy is currently running 
+[01/04/2022 22:45:25.752] Command = pp https://www.youtube.com/playlist?list=PLAcVjxrQDMPo0uhHE4H9G0yPjS1vmhXrE
+[01/04/2022 22:45:25.762] Cleared Timout For disconnectTimer
+[01/04/2022 22:45:26.394] [33mWARNING:[0m ytdl-core is out of date! Update with "npm install ytdl-core@latest".
+[01/04/2022 22:45:26.556] Smoothy is currently running 
+[01/04/2022 22:45:26.794] Found YouTube playlist Discord
+[01/04/2022 22:45:26.796] created the audioplayer
+[01/04/2022 22:45:26.797] subscribed to Player
+[01/04/2022 22:45:26.798] Created the serverQueue
+[01/04/2022 22:45:27.559] Smoothy is currently running 
+[01/04/2022 22:45:27.986] Playing Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
+[01/04/2022 22:45:28.730] Smoothy is currently running 
+[01/04/2022 22:45:31.989] Command = mix 
+[01/04/2022 22:45:31.991] Now shuffling the queue
+[01/04/2022 22:45:32.542] Smoothy is currently running 
+[01/04/2022 22:45:36.265] Command = j radical
+[01/04/2022 22:45:36.367] Player Status Is Idle
+[01/04/2022 22:45:36.561] Smoothy is currently running 
+[01/04/2022 22:45:36.591] Splicing FaZe Ramos: Go On Ramos! - Episode 11 23
+[01/04/2022 22:45:37.132] Found FaZe Ramos: Go On Ramos! - Episode 11
+[01/04/2022 22:45:37.635] Smoothy is currently running 
+[01/04/2022 22:45:37.946] Playing FaZe Ramos: Go On Ramos! - Episode 11!
+[01/04/2022 22:45:38.632] Smoothy is currently running 
