@@ -276,7 +276,7 @@ async function createServerQueue(
   songobject = {
     video: video,
     videoURL: videoURL,
-    url: videoURL.videoDetails.embed.flashSecureUrl,
+    url: videoURL.videoDetails.video_url,
     title: videoURL.videoDetails.title,
     thumbnail: videoURL.videoDetails.thumbnails[3].url,
     message: message,
@@ -289,7 +289,7 @@ async function createServerQueue(
     video: video,
     videoURL: videoURL,
     title: videoURL.videoDetails.title,
-    url: videoURL.videoDetails.embed.flashSecureUrl,
+    url: videoURL.videoDetails.video_url,
     thumbnail: videoURL.videoDetails.thumbnails[3].url,
     message: message,
     duration: duration,
@@ -463,7 +463,7 @@ async function executive(
     let songObj = {
       video: video,
       videoURL: videoURL,
-      url: videoURL.videoDetails.embed.flashSecureUrl,
+      url: videoURL.videoDetails.video_url,
       title: videoURL.videoDetails.title,
       thumbnail: videoURL.videoDetails.thumbnails[3].url,
       message: message,
@@ -476,7 +476,7 @@ async function executive(
     writeGlobal('update queue', serverQueue, serverQueue.id);
   
     const addQueueEmbed = new MessageEmbed().setColor('YELLOW')
-      .setDescription(`***[${videoURL.video_details.title}](${videoURL.video_details.url})***
+      .setDescription(`***[${videoURL.videoDetails.title}](${videoURL.videoDetails.url})***
             Has Been Added To The Queue :arrow_down:`);
     let msg = await message.channel.send({ embeds: [addQueueEmbed] });
     serverDisconnectIdle.msgs.push(msg);
@@ -673,15 +673,15 @@ async function findvideo(serverQueue) {
   if (serverQueue.currentsong.length > 0) {
     serverQueue.currentsong.shift();
   }
-  console.log(`Found ${videoURL.video_details.title}`);
-  duration = durationCheck(videoURL.video_details.durationInSec);
-  let durationS = parseInt(videoURL.video_details.durationInSec);
+  console.log(`Found ${videoURL.videoDetails.title}`);
+  duration = durationCheck(videoURL.videoDetails.durationInSec);
+  let durationS = parseInt(videoURL.videoDetails.durationInSec);
   const songObj = {
     video: video,
     videoURL: videoURL,
-    title: videoURL.video_details.title,
-    url: videoURL.video_details.url,
-    thumbnail: videoURL.video_details.thumbnails[3].url,
+    title: videoURL.videoDetails.title,
+    url: videoURL.videoDetails.video_url,
+    thumbnail: videoURL.videoDetails.thumbnails[3].url,
     message: message,
     duration: duration,
     durationS: durationS,
@@ -714,7 +714,7 @@ module.exports = {
       videoURL = await ytdl.getBasicInfo(videoName);
       if (videoURL) {
         console.log(`Found ${videoURL.videoDetails.title}`);
-        yturl = ytdl.validateURL(videoURL.embed.flashSecureUrl)
+        yturl = ytdl.validateURL(videoURL.videoDetails.video_url)
           ? true
           : false;
         if (yturl === true) {
@@ -736,9 +736,9 @@ module.exports = {
     } else {
       video = await videoFinder(videoName);
       if (video) {
-        videoURL = await ytdl.getBasicInfo(temp.video_details.url);
+        videoURL = await ytdl.getBasicInfo(video.url);
         console.log(`Found ${videoURL.videoDetails.title}`);
-        yturl = ytdl.validateURL(videoURL.videoDetails.embed.flashSecureUrl)
+        yturl = ytdl.validateURL(videoURL.videoDetails.video_url)
           ? true
           : false;
         if (yturl === true) {
