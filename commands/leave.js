@@ -27,8 +27,10 @@ module.exports = {
                         }
                     }    
                 }
-                if(serverDisconnectIdle.disconnectTimer !== undefined){
-                    clearTimeout(serverDisconnectIdle.disconnectTimer)
+                if(serverDisconnectIdle){
+                    if(serverDisconnectIdle.disconnectTimer !== null){
+                        clearTimeout(serverDisconnectIdle.disconnectTimer)
+                    }
                 }
                 leave(queue, DisconnectIdle, message);
             }

@@ -15,6 +15,9 @@ const {
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const playdl = require('play-dl');
+const spell = require('simple-spellchecker');
+const dictionary = spell.getDictionarySync('words', './dict');
+dictionary.addRegex(/i/);
 var voiceConnection;
 var video;
 var videoURL;
@@ -22,15 +25,37 @@ var yturl;
 var videoName;
 
 const videoFinder = async (query) => {
-  const videoResult = await playdl.search(query);
+  let name = query.toLowerCase();
+  const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`/ig;
+  name = name.replace(regex, '');
+  const _name = name.split(' ');
+  for (i = 0; i < _name.length; i++) {
+    const check = dictionary.spellCheck(_name[i]);
+    if (!check) {
+      let suggs = dictionary.getSuggestions(_name[i]);
+      _name[i] = suggs[0];
+    }
+    if (check[0]) {
+      
+    }
+  }
+  name = _name.join(' ');
+  const videoResult = await playdl.search(name);
   if (videoResult[0]) {
-    let name = query.toLowerCase();
     let _possibleVids = [];
     let vid = videoResult[0].title.toLowerCase();
-    // let includes = vid.includes(name);
-    // if (includes === true) {
-    //   return videoResult.videos[0];
-    // } else {
+    vid = vid.replace(regex, '');
+    let includes = vid.includes(name);
+    if (includes === true) {
+      return videoResult[0];
+    } else {
+      for (i = 0; i < 10; i++) {
+        let vid = videoResult[i].title.toLowerCase();
+        let includes = vid.includes(name);
+        if (includes === true) {
+          return videoResult[i];
+        }
+      }
       for (i = 0; i < 6; i++) {
         let possibleVid = videoResult[i].title.toLowerCase();
         let dif = distance(name, possibleVid);
@@ -38,7 +63,7 @@ const videoFinder = async (query) => {
       }
       const returnObj = await topResult(_possibleVids); 
       return returnObj.video;
-    // }
+    }
   }
   return undefined;
 };
@@ -451,10 +476,26 @@ async function executive(
   serverQueue
 ) {
   serverDisconnectIdle = DisconnectIdle.get(message.guildId);
-  if (serverDisconnectIdle.disconnectTimer !== undefined) {
-    clearTimeout(serverDisconnectIdle.disconnectTimer);
-    console.log('Cleared Timout For disconnectTimer');
-    writeGlobal('update dci', serverDisconnectIdle, message.guildId);
+  if (!serverDisconnectIdle) {
+    const client = DisconnectIdle.get(1);
+    DisconnectIdle.set(message.guildId, {
+      message: message,
+      id: message.guildId,
+      client: client,
+      disconnectTimer: null,
+      voiceConnection: voiceConnection,
+      msgs: [],
+      queueMsgs: [],
+    });
+    writeGlobal('add dci', DisconnectIdle.get(message.guildId), message.guildId);
+    serverDisconnectIdle = DisconnectIdle.get(message.guildId);
+  }
+  else {
+    if (serverDisconnectIdle.disconnectTimer !== null) {
+      clearTimeout(serverDisconnectIdle.disconnectTimer);
+      console.log('Cleared Timout For disconnectTimer');
+      writeGlobal('update dci', serverDisconnectIdle, message.guildId);  
+    }
   }
   //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
   duration = durationCheck(videoURL.videoDetails.lengthSeconds);
@@ -874,12 +915,12 @@ module.exports = {
           message: message,
           id: message.guildId,
           client: client,
-          disconnectTimer: undefined,
+          disconnectTimer: null,
           voiceConnection: voiceConnection,
           msgs: [],
           queueMsgs: [],
         });
-        await writeGlobal('add dci', DisconnectIdle.get(message.guildId), message.guildId);
+        writeGlobal('add dci', DisconnectIdle.get(message.guildId), message.guildId);
       }
     }
   },

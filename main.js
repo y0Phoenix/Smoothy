@@ -133,6 +133,7 @@ client.on('messageCreate', message =>{
         return;
     }
     var serverDisconnectIdle = DisconnectIdle.get(message.guildId);
+    DisconnectIdle.set(1, client);
     var serverQueue = queue.get(message.guildId);
     var vc = message.member.voice.channel;
     const args = message.content.slice(prefix.length).split(/ +/);
