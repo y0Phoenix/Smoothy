@@ -3,7 +3,6 @@
 const { MessageEmbed } = require('discord.js');
 const {joinvoicechannel, FindVideoCheck, findvideoplaylist} = require('../executive');
 const {deleteMsg, exists} = require('../modules/modules');
-require('typescript-require');
 const needVCEmbed = new MessageEmbed()
     .setColor('RED')
     .setDescription(':nerd: You Need To Be In A ***Voice Channel*** To Execute This Command')

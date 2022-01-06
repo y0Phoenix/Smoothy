@@ -1,5 +1,4 @@
 //executive file holds all the executive functions and is the largest file
-require('typescript-require');
 const ytpl = require('ytpl');
 const {exists, writeGlobal, leave, deleteMsg } = require('./modules/modules');
 const {
@@ -58,7 +57,7 @@ async function executive(message, queue, DisconnectIdle, serverDisconnectIdle, s
     writeGlobal('update queue', serverQueue, serverQueue.id);
     const addQueueEmbed = new MessageEmbed()
       .setColor('YELLOW')
-      .setDescription(`***[${videoURL.video_details.title}](${videoURL.video_details.url})***
+      .setDescription(`***[${videoURL.videoDetails.title}](${videoURL.videoDetails.url})***
       Has Been Added To The Queue :arrow_down:`)
     ;
     let msg = await message.channel.send({ embeds: [addQueueEmbed] });
@@ -94,7 +93,7 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
   if (URL === true) {
     const videoURL = await ytdl.getBasicInfo(videoName);
     if (videoURL) {
-      console.log(`Found ${videoURL.video_details.title}`);
+      console.log(`Found ${videoURL.videoDetails.title}`);
       executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
     } else {
         message.channel
@@ -106,7 +105,7 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
     video = await videoFinder(videoName);
     if (video) {
       const videoURL = await ytdl.getBasicInfo(video.url);
-      console.log(`Found ${videoURL.video_details.title}`);
+      console.log(`Found ${videoURL.videoDetails.title}`);
       executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
     } else {
       message.channel

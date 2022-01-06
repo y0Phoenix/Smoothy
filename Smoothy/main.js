@@ -1,7 +1,6 @@
 // This is the Main File for Smoothy Developed by Eugene aka y0Phoenix 
 // This is where the client is created and messages come in from discord and are converted into commands and args 
 const { Client, Intents, MessageEmbed, MessageManager, TextChannel } = require('discord.js');
-require('typescript-require');
 AbortController = require("node-abort-controller").AbortController;
 const {play} = require('./commands/play');
 const {leave} = require('./commands/leave');

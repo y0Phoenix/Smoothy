@@ -81,7 +81,7 @@ export default async function getVideo(serverQueue: Queue) {
     if (serverQueue.currentsong.length > 0) {
       serverQueue.currentsong.shift();
     }
-    console.log(`Found ${videoURL.video_details.title}`);
+    console.log(`Found ${videoURL.videoDetails.title}`);
     const songObj = new Song({message: message, data: videoURL});
     serverQueue.currentsong.push(songObj);
     writeGlobal('update queue', serverQueue, message.guild.id);
