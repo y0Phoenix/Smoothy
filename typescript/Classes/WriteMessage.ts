@@ -2,13 +2,13 @@ import { Message } from "discord.js";
 
 export default class WriteMessage {
     guild: {
-        id: Partial<Message>["guild"]["id"]
+        id: null; 
     };
     author: {
-        id: Partial<Message>["author"]["id"]
+        id: null;
     };
     channel: {
-        id: Partial<Message>["channel"]["id"]
+        id: null
     } 
     id: Message["id"];
     constructor(message: Partial<Message>) {
