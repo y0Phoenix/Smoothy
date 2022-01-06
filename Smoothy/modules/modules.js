@@ -1,20 +1,17 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.exists = exports.writeGlobal = exports.find = exports.topResult = exports.distance = exports.leave = exports.deleteMsg = void 0;
-const deleteMsg_1 = __importDefault(require("./src/deleteMsg"));
+const deleteMsg_1 = require("./src/deleteMsg");
 exports.deleteMsg = deleteMsg_1.default;
-const leave_1 = __importDefault(require("./src/leave"));
+const leave_1 = require("./src/leave");
 exports.leave = leave_1.default;
-const distance_1 = __importDefault(require("./src/distance"));
+const distance_1 = require("./src/distance");
 exports.distance = distance_1.default;
-const topResult_1 = __importDefault(require("./src/topResult"));
+const topResult_1 = require("./src/topResult");
 exports.topResult = topResult_1.default;
-const find_1 = __importDefault(require("./src/find"));
+const find_1 = require("./src/find");
 exports.find = find_1.default;
-const writeglobal_1 = __importDefault(require("./src/writeglobal"));
+const writeglobal_1 = require("./src/writeglobal");
 exports.writeGlobal = writeglobal_1.default;
-const exists_1 = __importDefault(require("./src/exists"));
+const exists_1 = require("./src/exists");
 exports.exists = exists_1.default;

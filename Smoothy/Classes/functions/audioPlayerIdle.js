@@ -1,13 +1,10 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const executive_1 = require("./executive");
 const voice_1 = require("@discordjs/voice");
 const modules_1 = require("../../modules/modules");
 const discord_js_1 = require("discord.js");
-const embed_1 = __importDefault(require("../../functions/embed"));
+const embed_1 = require("../../functions/embed");
 /**
  * @param  {Queue} serverQueue the current servers queue
  * @param  {any} queue the map that holds all of the serverQueus

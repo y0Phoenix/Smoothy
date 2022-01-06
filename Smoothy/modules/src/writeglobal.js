@@ -1,12 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const circular_json_1 = __importDefault(require("circular-json"));
-const fs_1 = __importDefault(require("fs"));
+const CircularJSON = require("circular-json");
+const fs = require("fs");
 const Idle_1 = require("../../Classes/Idle");
-const WriteQueue_1 = __importDefault(require("../../Classes/WriteQueue"));
+const WriteQueue_1 = require("../../Classes/WriteQueue");
 // todo fix author.id 
 /**
  * @param  {} str a string of what needs to happen
@@ -23,7 +20,7 @@ const WriteQueue_1 = __importDefault(require("../../Classes/WriteQueue"));
 async function writeGlobal(str, data, id) {
     // todo implement nowPlaying msg saved to global.json
     const file = './config/global.json';
-    let _file = fs_1.default.readFileSync(file, 'utf-8');
+    let _file = fs.readFileSync(file, 'utf-8');
     let _data = JSON.parse(_file);
     let Data = Object.assign({}, _data);
     var d;
@@ -78,7 +75,7 @@ async function writeGlobal(str, data, id) {
         }
         Data.disconnectIdles.splice(d, 1);
     }
-    Data = circular_json_1.default.stringify(Data);
-    fs_1.default.writeFileSync(file, Data);
+    Data = CircularJSON.stringify(Data);
+    fs.writeFileSync(file, Data);
 }
 exports.default = writeGlobal;

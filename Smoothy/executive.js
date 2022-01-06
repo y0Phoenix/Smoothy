@@ -17,7 +17,8 @@ const { default: Queue } = require('./Classes/Queue');
 const { validURL, videoFinder } = require('./Classes/functions/executive');
 const { default: playerEvents } = require('./functions/playerEvents');
 const { default: play} = require('./Classes/functions/play');
-const client = require('./main');
+const {client} = require('./main');
+const ytdl = require('ytdl-core');
 
 const noVidEmbed = new MessageEmbed()
   .setColor('RED')
@@ -27,9 +28,15 @@ const noVidEmbed = new MessageEmbed()
 //creates the serverQueue which stores info about the songs, voiceConnection, audioPlayer, subscription, and textChannel
 async function executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL) {
   serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
-  if (serverDisconnectIdle.disconnectTimer !== undefined) {
-    clearTimeout(serverDisconnectIdle.disconnectTimer);
-    console.log('Cleared Timout For disconnectTimer');
+  if (!serverDisconnectIdle) {
+    DisconnectIdle.set(message.guild.id, new Idle({message: message, client: client}));
+    serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
+  }
+  else {
+    if (serverDisconnectIdle.disconnectTimer !== undefined) {
+      clearTimeout(serverDisconnectIdle.disconnectTimer);
+      console.log('Cleared Timout For disconnectTimer');
+    }
   }
   //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
   if (!serverQueue) {
@@ -85,7 +92,7 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
   }
   let URL = validURL(videoName);
   if (URL === true) {
-    const videoURL = await playdl.video_info(videoName);
+    const videoURL = await ytdl.getBasicInfo(videoName);
     if (videoURL) {
       console.log(`Found ${videoURL.video_details.title}`);
       executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
@@ -98,7 +105,7 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
   } else {
     video = await videoFinder(videoName);
     if (video) {
-      const videoURL = await playdl.video_info(video.url);
+      const videoURL = await ytdl.getBasicInfo(video.url);
       console.log(`Found ${videoURL.video_details.title}`);
       executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
     } else {
@@ -121,7 +128,7 @@ async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDis
     const playlist = await ytpl(videoName);
     var added = false;
     if (playlist) {
-      const videoURL = await playdl.video_info(playlist.items[0].shortUrl);
+      const videoURL = await ytdl.getBasicInfo(playlist.items[0].shortUrl);
       const playlistEmbed = new MessageEmbed()
         .setColor('GOLD')
         .setTitle(`Found YouTube Playlist`)

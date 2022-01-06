@@ -1,15 +1,12 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.retryTimer = exports.checkIfPlaying = void 0;
 const voice_1 = require("@discordjs/voice");
 const discord_js_1 = require("discord.js");
 const modules_1 = require("../../modules/modules");
-const getVideo_1 = __importDefault(require("./getVideo"));
-const embed_1 = __importDefault(require("../../functions/embed"));
-const play_1 = __importDefault(require("./play"));
+const getVideo_1 = require("./getVideo");
+const embed_1 = require("../../functions/embed");
+const play_1 = require("./play");
 /**
  * @param  {Queue} serverQueue the current servers queue
  * @description checks if the serverQueue is playing a song via

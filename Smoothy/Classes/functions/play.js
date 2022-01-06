@@ -1,14 +1,11 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const play_dl_1 = __importDefault(require("play-dl"));
-const { AudioPlayerStatus, StreamType, createAudioPlayer, createAudioResource, joinVoiceChannel, getVoiceConnection, VoiceConnectionStatus, AudioPlayer, PlayerSubscription, VoiceConnection } = require('@discordjs/voice');
+const play_dl_1 = require("play-dl");
+const voice_1 = require("@discordjs/voice");
 const discord_js_1 = require("discord.js");
 const modules_1 = require("../../modules/modules");
-const audioPlayerIdle_1 = __importDefault(require("./audioPlayerIdle"));
-const embed_1 = __importDefault(require("../../functions/embed"));
+const audioPlayerIdle_1 = require("./audioPlayerIdle");
+const embed_1 = require("../../functions/embed");
 /**
  * @param  {Queue} serverQueue the current servers queue
  * @param  {any} queue the map that holds all of the sever queues
@@ -27,7 +24,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
         try {
             // todo fix ytdl-core v4.9.2 errors
             const stream = await play_dl_1.default.stream(serverQueue.currentsong[0].url);
-            serverQueue.resource = createAudioResource(stream.stream, {
+            serverQueue.resource = (0, voice_1.createAudioResource)(stream.stream, {
                 inputType: stream.type,
                 inlineVolume: true,
             });

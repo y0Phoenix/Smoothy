@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const play_dl_1 = __importDefault(require("play-dl"));
+const ytdl_core_1 = require("ytdl-core");
 const modules_1 = require("../../modules/modules");
 const executive_1 = require("./executive");
 const Song_1 = require("../Song");
@@ -15,10 +12,24 @@ async function getVideo(serverQueue) {
     let message;
     let videoName;
     let videoURL;
+    let i = serverQueue.jump;
     if (serverQueue.previousbool) {
         videoName = serverQueue.previous[0].url;
         message = serverQueue.previous[0].message;
         serverQueue.previousbool = false;
+    }
+    else if (i > 0) {
+        serverQueue.jumpbool = true;
+        const song = serverQueue.shuffle ? serverQueue.shuffledSongs[i] : serverQueue.songs[i];
+        videoName = song.title;
+        message = song.message;
+        if (serverQueue.shuffle) {
+            serverQueue.shuffledSongs.splice(i, 1);
+            (0, executive_1.findSplice)(serverQueue, song);
+        }
+        else {
+            serverQueue.songs.splice(i, 1);
+        }
     }
     else {
         if (serverQueue.loopsong === true) {
@@ -34,21 +45,6 @@ async function getVideo(serverQueue) {
             serverQueue.loop === false) {
             videoName = serverQueue.shuffledSongs[0].url;
             message = serverQueue.shuffledSongs[0].message;
-        }
-        else if (serverQueue.shuffle === true &&
-            serverQueue.loop === false) {
-            let i = serverQueue.jump;
-            serverQueue.jumpbool = true;
-            if (i > 0) {
-                videoName = serverQueue.shuffledSongs[i].url;
-                message = serverQueue.shuffledSongs[i].message;
-                serverQueue.shuffledSongs.splice(i, 1);
-                serverQueue.songs.splice(i, 1);
-            }
-            else {
-                videoName = serverQueue.shuffledSongs[0].url;
-                message = serverQueue.shuffledSongs[0].message;
-            }
         }
         else if (serverQueue.loop === true &&
             serverQueue.shuffle === false &&
@@ -70,10 +66,11 @@ async function getVideo(serverQueue) {
     }
     let URL = (0, executive_1.validURL)(videoName);
     if (URL === true) {
-        videoURL = await play_dl_1.default.video_info(videoName);
+        videoURL = await ytdl_core_1.default.getBasicInfo(videoName);
     }
     else {
-        videoURL = await (0, executive_1.videoFinder)(videoName);
+        const video = await (0, executive_1.videoFinder)(videoName);
+        videoURL = await ytdl_core_1.default.getBasicInfo(video.url);
     }
     if (serverQueue.currentsong.length > 0) {
         serverQueue.currentsong.shift();

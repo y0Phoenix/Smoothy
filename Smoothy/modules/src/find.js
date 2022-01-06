@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const distance_1 = __importDefault(require("./distance"));
+const distance_1 = require("./distance");
 /**
  * @param  {} queue the object that is the serverQueue with the songs
  * @param  {} query the song you wish to find

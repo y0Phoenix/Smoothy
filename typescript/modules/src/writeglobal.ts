@@ -1,5 +1,5 @@
-import CircularJSON  from 'circular-json';
-import fs from 'fs';
+import * as CircularJSON  from 'circular-json';
+import * as fs from 'fs';
 import { WriteIdle } from '../../Classes/Idle';
 import WriteQueue from '../../Classes/WriteQueue';
 

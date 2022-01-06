@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WriteSong = exports.PlaylistSong = exports.Song = void 0;
-const WriteMessage_1 = __importDefault(require("./WriteMessage"));
+const WriteMessage_1 = require("./WriteMessage");
 class Song {
     constructor(data) {
         this.playlistsong = false;

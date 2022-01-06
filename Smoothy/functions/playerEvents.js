@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const retryPlayer_1 = require("../Classes/functions/retryPlayer");
-const audioPlayerIdle_1 = __importDefault(require("../Classes/functions/audioPlayerIdle"));
+const audioPlayerIdle_1 = require("../Classes/functions/audioPlayerIdle");
 const discord_js_1 = require("discord.js");
 const modules_1 = require("../modules/modules");
 const voice_1 = require("@discordjs/voice");

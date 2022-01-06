@@ -1,4 +1,4 @@
-import playdl from 'play-dl';
+import * as playdl from 'play-dl';
 import { distance, deleteMsg, leave, topResult } from '../../modules/modules';
 import { AudioPlayerStatus } from '@discordjs/voice';
 import { MessageEmbed } from 'discord.js';
@@ -9,8 +9,9 @@ import play from './play';
 import {Song} from '../Song';
 import InfoData from '../../interfaces/_InfoData';
 import embedSend from '../../functions/embed';
-import spell from 'simple-spellchecker';
-
+import * as spell from 'simple-spellchecker';
+const dictionary: any = spell.getDictionarySync('en-US');
+dictionary.addRegex(/i/);
 /**
  *@param  {} queue the map that holds all of the serverQueues
  * @param  {} DisconnectIdle the map that holds all of the servers Idles
@@ -46,14 +47,14 @@ export function disconnectTimervcidle(queue: any, DisconnectIdle: any, serverDis
 
 /**
  * @param  {string} q the video you wish to search
- * @returns {InfoData} the closest match to the search query
+ * @returns {playdl.YouTubeVideo} the closest match to the search query
  * @description searches youtube for videos matching the search query and 
  * checks the distance between both strings and returns the closest match
  */
 export const videoFinder = async (query: string) => {
   try {
     let name = query.toLowerCase();
-    const videoResult = await playdl.search(name);
+    const videoResult: playdl.YouTubeVideo[] = await playdl.search(name);
     const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`/ig;
     if (videoResult[0]) {
       let _possibleVids = [];
@@ -72,7 +73,7 @@ export const videoFinder = async (query: string) => {
       }
       if (proceed) {
         const _name = name.split(' ');
-        for (i: Number = 0; i < _name.length; i++) {
+        for (let i = 0; i < _name.length; i++) {
           const check = dictionary.spellCheck(_name[i]);
           if (!check) {
             let suggs = dictionary.getSuggestions(_name[i]);
@@ -101,14 +102,14 @@ export const videoFinder = async (query: string) => {
             if (!proceed) {
               return videoResult[0];
             } else {
-            for (i = 0; i < 10; i++) {
+            for (let i = 0; i < 10; i++) {
               let vid = videoResult[i].title.toLowerCase();
               let includes = vid.includes(name);
               if (includes === true) {
                 return videoResult[i];
               }
             }
-            for (i = 0; i < 6; i++) {
+            for (let i = 0; i < 6; i++) {
               let possibleVid = videoResult[i].title.toLowerCase();
               let dif = distance(name, possibleVid);
               _possibleVids.push({ dif: dif, video: videoResult[i] });

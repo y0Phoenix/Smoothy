@@ -1,8 +1,6 @@
 import { Message } from 'discord.js';
 import _Queue from '../interfaces/_Queue';
 import audioPlayerIdle from './functions/audioPlayerIdle';
-
-import ytSearch from 'yt-search';
 import ytpl from 'ytpl';
 import {
   AudioPlayerStatus,

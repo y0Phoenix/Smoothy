@@ -1,9 +1,10 @@
 import { Message } from "discord.js";
 import InfoData from "../../interfaces/_InfoData";
+import ytdl from 'ytdl-core';
 import playdl from 'play-dl';
 import Queue from "../Queue";
 import {writeGlobal} from '../../modules/modules';
-import {videoFinder, validURL} from './executive';
+import {videoFinder, validURL, findSplice} from './executive';
 import { Song } from "../Song";
 
 //finds the song specified in args
@@ -14,10 +15,24 @@ export default async function getVideo(serverQueue: Queue) {
     let message: Partial<Message>;
     let videoName: string;
     let videoURL: InfoData;
+    let i = serverQueue.jump;
     if (serverQueue.previousbool) {
       videoName = serverQueue.previous[0].url;
       message = serverQueue.previous[0].message;
       serverQueue.previousbool = false;
+    }
+    else if (i > 0) {
+        serverQueue.jumpbool = true;
+        const song = serverQueue.shuffle ? serverQueue.shuffledSongs[i] : serverQueue.songs[i];
+        videoName = song.title;
+        message = song.message;
+        if (serverQueue.shuffle) {
+          serverQueue.shuffledSongs.splice(i, 1);
+          findSplice(serverQueue, song)
+        }
+        else {
+          serverQueue.songs.splice(i, 1);
+        }
     }
     else {
       if (serverQueue.loopsong === true) {
@@ -36,24 +51,8 @@ export default async function getVideo(serverQueue: Queue) {
       ) {
           videoName = serverQueue.shuffledSongs[0].url;
           message = serverQueue.shuffledSongs[0].message;
-      } 
+      }
       else if (
-        serverQueue.shuffle === true &&
-        serverQueue.loop === false
-      ) {
-        let i = serverQueue.jump;
-        serverQueue.jumpbool = true;
-        if (i > 0) {
-            videoName = serverQueue.shuffledSongs[i].url;
-            message = serverQueue.shuffledSongs[i].message;
-            serverQueue.shuffledSongs.splice(i, 1);
-            serverQueue.songs.splice(i, 1);
-        }
-        else {
-            videoName = serverQueue.shuffledSongs[0].url;
-            message = serverQueue.shuffledSongs[0].message;
-        }
-      } else if (
         serverQueue.loop === true &&
         serverQueue.shuffle === false &&
         serverQueue.songs.length > 1
@@ -74,9 +73,10 @@ export default async function getVideo(serverQueue: Queue) {
     }
     let URL = validURL(videoName);
     if (URL === true) {
-      videoURL = await playdl.video_info(videoName);
+      videoURL = await ytdl.getBasicInfo(videoName);
     } else {
-      videoURL = await videoFinder(videoName);
+      const video = await videoFinder(videoName);
+      videoURL = await ytdl.getBasicInfo(video.url)
     }
     if (serverQueue.currentsong.length > 0) {
       serverQueue.currentsong.shift();
