@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -52,28 +43,89 @@ exports.disconnectTimervcidle = disconnectTimervcidle;
  * @description searches youtube for videos matching the search query and
  * checks the distance between both strings and returns the closest match
  */
-const videoFinder = (q) => __awaiter(void 0, void 0, void 0, function* () {
-    const videoResult = yield play_dl_1.default.search(q);
-    if (videoResult[0]) {
-        let name = q.toLowerCase();
+ const videoFinder = async (query) => {
+    try {
+      let name = query.toLowerCase();
+      const videoResult = await playdl.search(name);
+      const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`/ig;
+      if (videoResult[0]) {
         let _possibleVids = [];
         let vid = videoResult[0].title.toLowerCase();
-        let includes = vid.includes(name);
-        if (includes === true) {
-            return videoResult[0];
+        vid = vid.replace(regex, '');
+        name = name.replace(regex, '');
+        const Name = name.split(' ');
+        let proceed = false;
+        for (let i = 0; i < Name.length; i++) {
+          const re = new RegExp(Name[i], 'g');
+          const includes = re.test(vid);
+          if (!includes) {
+            proceed = true;
+            break;
+          }
+        }
+        if (proceed) {
+          const _name = name.split(' ');
+          for (i = 0; i < _name.length; i++) {
+            const check = dictionary.spellCheck(_name[i]);
+            if (!check) {
+              let suggs = dictionary.getSuggestions(_name[i]);
+              _name[i] = suggs[0];
+            }
+            if (check[0]) {
+              
+            }
+          }
+          name = _name.join(' ');
+          const videoResult = await playdl.search(name);
+            if (videoResult[0]) {
+              let _possibleVids = [];
+              let vid = videoResult[0].title.toLowerCase();
+              vid = vid.replace(regex, '');
+              const Name = name.split(' ');
+              let proceed = false;
+              for (let i = 0; i < Name.length; i++) {
+                const re = new RegExp(Name[i], 'g');
+                const includes = re.test(vid);
+                if (!includes) {
+                  proceed = true;
+                  break;
+                }
+              }
+              if (!proceed) {
+                return videoResult[0];
+              } else {
+              for (i = 0; i < 10; i++) {
+                let vid = videoResult[i].title.toLowerCase();
+                let includes = vid.includes(name);
+                if (includes === true) {
+                  return videoResult[i];
+                }
+              }
+              for (i = 0; i < 6; i++) {
+                let possibleVid = videoResult[i].title.toLowerCase();
+                let dif = distance(name, possibleVid);
+                _possibleVids.push({ dif: dif, video: videoResult[i] });
+              }
+              const returnObj = await topResult(_possibleVids); 
+              return returnObj.video;
+            }
+          }
         }
         else {
-            for (let i = 0; i < 6; i++) {
-                let possibleVid = videoResult[i].title.toLowerCase();
-                let dif = (0, modules_1.distance)(name, possibleVid);
-                _possibleVids.push({ dif: dif, video: videoResult[i] });
-            }
-            const returnObj = yield (0, modules_1.topResult)(_possibleVids);
-            return returnObj.video;
+          return videoResult[0]
         }
+        return undefined;
+      }
+      return undefined;
+    } catch (error) {
+      console.log(`Videosearch error on ${query}`);
+      let name = query.toLowerCase();
+      const videoResult = await playdl.search(name);
+      if (videoResult[0]) {
+        return videoResult[0];
+      }
     }
-    return undefined;
-});
+};
 exports.videoFinder = videoFinder;
 /**
  * @param  {string} videoName the string you wish to check
@@ -98,11 +150,9 @@ exports.validURL = validURL;
  * @description searches for the song again to ensure it exists then plays that song at the play function
  * somewhat of a middleware function
  */
-function playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield (0, getVideo_1.default)(serverQueue);
-        (0, play_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-    });
+async function playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
+    await (0, getVideo_1.default)(serverQueue);
+    (0, play_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
 }
 exports.playNext = playNext;
 /**
@@ -133,22 +183,20 @@ exports.findSplice = findSplice;
  * @description finds the song again to ensure it exists then sets a constant
  * to the song in front of the queue and pushes that song to the back, which makes a looped song queue
  */
-function loopNextSong(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield (0, getVideo_1.default)(serverQueue);
-        if (serverQueue.shuffle === true) {
-            const currentsong = serverQueue.shuffledSongs[0];
-            findSplice(serverQueue, currentsong);
-            serverQueue.shuffledSongs.shift();
-            serverQueue.shuffledSongs.push(currentsong);
-            (0, play_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-        }
-        else {
-            const currentsong = serverQueue.songs[0];
-            serverQueue.songs.shift();
-            serverQueue.songs.push(currentsong);
-            (0, play_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-        }
-    });
+async function loopNextSong(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
+    await (0, getVideo_1.default)(serverQueue);
+    if (serverQueue.shuffle === true) {
+        const currentsong = serverQueue.shuffledSongs[0];
+        findSplice(serverQueue, currentsong);
+        serverQueue.shuffledSongs.shift();
+        serverQueue.shuffledSongs.push(currentsong);
+        (0, play_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+    }
+    else {
+        const currentsong = serverQueue.songs[0];
+        serverQueue.songs.shift();
+        serverQueue.songs.push(currentsong);
+        (0, play_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+    }
 }
 exports.loopNextSong = loopNextSong;

@@ -56,7 +56,7 @@ export async function retryTimer(serverQueue: Queue, queue: any, DisconnectIdle:
       if (serverQueue.tries >= 4) {
         serverQueue.message.channel
           .send(`Smoothy Is Buffering Please Wait`)
-          .then((msg) => deleteMsg(msg, 30000));
+          .then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
       }
     }
   }

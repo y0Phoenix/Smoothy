@@ -38,11 +38,13 @@ module.exports = {
             const bool = await exists(message.guildId, 'dci');
             if(command !== null && command === 'pp' || command === 'playp'){
                 await joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle, client, bool);
-                findvideoplaylist(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue)
+                const sdi = DisconnectIdle.get(message.guild.id);
+                findvideoplaylist(message, args, queue, DisconnectIdle, sdi, serverQueue)
             }
             else{
                 await joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle, client, bool);
-                FindVideoCheck(message, args, queue, DisconnectIdle, serverDisconnectIdle, serverQueue); 
+                const sdi = DisconnectIdle.get(message.guild.id);
+                FindVideoCheck(message, args, queue, DisconnectIdle, sdi, serverQueue); 
             }
             
         }

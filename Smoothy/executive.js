@@ -1,7 +1,7 @@
 //executive file holds all the executive functions and is the largest file
 require('typescript-require');
 const ytpl = require('ytpl');
-const {exists, writeGlobal, leave, } = require('./modules/modules');
+const {exists, writeGlobal, leave, deleteMsg } = require('./modules/modules');
 const {
   createAudioPlayer,
   joinVoiceChannel,
@@ -17,6 +17,7 @@ const { default: Queue } = require('./Classes/Queue');
 const { validURL, videoFinder } = require('./Classes/functions/executive');
 const { default: playerEvents } = require('./functions/playerEvents');
 const { default: play} = require('./Classes/functions/play');
+const client = require('./main');
 
 const noVidEmbed = new MessageEmbed()
   .setColor('RED')
@@ -91,7 +92,7 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
     } else {
         message.channel
           .send({ embeds: [noVidEmbed] })
-          .then((msg) => deleteMsg(msg, 30000, false));
+          .then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
         return;
     }
   } else {
@@ -103,7 +104,7 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
     } else {
       message.channel
         .send({ embeds: [noVidEmbed] })
-        .then((msg) => deleteMsg(msg, 30000, false));
+        .then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
       return;
     }
   }
@@ -171,7 +172,7 @@ async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDis
         .setDescription(':rofl: Playlist Either Doesnt Exist Or Is Private');
       message.channel
         .send({ embeds: [noPlaylistEmbed] })
-        .then((msg) => deleteMsg(msg, 30000, false));
+        .then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
     }
   } else {
     const wrongEmbed = new MessageEmbed()
@@ -179,7 +180,7 @@ async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDis
       .setDescription(':rofl: You Need To Add A Valid Playlist Link');
     message.channel
       .send({ embeds: [wrongEmbed] })
-      .then((msg) => deleteMsg(msg, 30000, false));
+      .then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
   }
 }
 

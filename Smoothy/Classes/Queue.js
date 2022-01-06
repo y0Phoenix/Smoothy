@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class Queue {
     constructor(msg) {
+        this.songs = [];
+        this.shuffledSongs = [];
+        this.currentsong = [];
         this.jump = 0;
         this.tries = 0;
         this.audioPlayerErr = false;
@@ -13,9 +16,6 @@ class Queue {
         this.nowPlayingTimer = null;
         this.shuffle = false;
         this.loop = false;
-        this.songs = [];
-        this.currentsong = [];
-        this.shuffledSongs = [];
         this.loopsong = false;
         this.repeat = false;
         this.bool = false;
