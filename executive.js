@@ -1,5 +1,4 @@
 //executive file holds all the executive functions and is the largest file
-const ytSearch = require('yt-search');
 const ytdl = require('ytdl-core');
 const ytpl = require('ytpl');
 const {deleteMsg, leave, distance, topResult, find, writeGlobal, exists } = require('./modules');
