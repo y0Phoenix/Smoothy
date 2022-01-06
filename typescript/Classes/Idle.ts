@@ -12,8 +12,8 @@ export class WriteIdle {
     id: string
     client: Client
     disconnectTimer: any = null
-    msgs: Partial<WriteMessage>[]
-    queueMsgs: Partial<WriteMessage>[]
+    msgs: Partial<WriteMessage>[] = []
+    queueMsgs: Partial<WriteMessage>[] = []
     constructor (data: _newIdle) {
         this.message = data.message;
         this.id = data.message.id;
@@ -35,8 +35,8 @@ export class Idle {
     id: string
     client: Client
     disconnectTimer: any
-    msgs: Partial<Message>[]
-    queueMsgs: Partial<Message>[]
+    msgs: Partial<Message>[] = []
+    queueMsgs: Partial<Message>[] = []
     constructor (data: _newIdle) {
         this.message = data.message;
         this.id = data.message.guild.id;

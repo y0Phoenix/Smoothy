@@ -35,7 +35,7 @@ export default class Queue {
     player: AudioPlayer = null
     resource: AudioResource
     subsciption: PlayerSubscription = null
-    previous: Partial<Song>[]
+    previous: Partial<Song>[] = []
     previousbool: boolean = false
     messagesent: boolean = false
     nowPlaying: Partial<Message> = null

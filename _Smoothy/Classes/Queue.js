@@ -10,6 +10,7 @@ class Queue {
         this.audioPlayerErr = false;
         this.player = null;
         this.subsciption = null;
+        this.previous = [];
         this.previousbool = false;
         this.messagesent = false;
         this.nowPlaying = null;

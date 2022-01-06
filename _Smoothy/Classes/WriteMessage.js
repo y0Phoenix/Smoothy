@@ -1,10 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+class guildId {
+    constructor(id) {
+        this.id = id;
+    }
+}
+;
+class authId {
+    constructor(id) {
+        this.id = id;
+    }
+}
+class channelId {
+    constructor(id) {
+        this.id = id;
+    }
+}
 class WriteMessage {
     constructor(message) {
-        this.guild.id = message.guild.id;
-        this.author.id = message.author.id;
-        this.channel.id = message.channel.id;
+        this.guild = new guildId(message.guild.id);
+        this.author = new authId(message.author.id);
+        this.channel = new channelId(message.channel.id);
         this.id = message.id;
     }
 }

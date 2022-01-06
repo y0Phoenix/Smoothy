@@ -46,7 +46,7 @@ exports.disconnectTimervcidle = disconnectTimervcidle;
 const videoFinder = async (query) => {
     try {
         let name = query.toLowerCase();
-        const videoResult = await playdl.search(`${name}`);
+        const videoResult = await playdl.search(name);
         const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`/ig;
         if (videoResult[0]) {
             let _possibleVids = [];

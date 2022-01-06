@@ -32,17 +32,21 @@ export default class WriteQueue {
         this.message = new WriteMessage(data.message);
         this.id = this.message.guild.id;
         this.voiceChannel = data.message.member.voice.channel;
+        this.currentsong = [];
+        this.songs = [];
+        this.shuffledSongs = [];
+        this. previous = [];
         for (let i = 0; i < data.songs.length; i++) {
             if (data.shuffledSongs[i]) {
                 const shuffledSong = new WriteSong({message: data.shuffledSongs[i].message, data: data.shuffledSongs[i]});
                 this.shuffledSongs.push(shuffledSong);
             }
             if (data.currentsong[i]) {
-                const currentsong = new WriteSong({message: data.shuffledSongs[i].message, data: data.shuffledSongs[i]});
+                const currentsong = new WriteSong({message: data.currentsong[i].message, data: data.currentsong[i]});
                 this.currentsong.push(currentsong);
             }
             if (data.previous[i]) {
-                const previous = new WriteSong({message: data.shuffledSongs[i].message, data: data.shuffledSongs[i]});
+                const previous = new WriteSong({message: data.previous[i].message, data: data.previous[i]});
                 this.previous.push(previous);
             }
             const song = new WriteSong({message: data.songs[i].message, data: data.songs[i]});

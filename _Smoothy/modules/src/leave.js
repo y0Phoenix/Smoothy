@@ -7,7 +7,7 @@ const writeglobal_1 = require("./writeglobal");
  * @param  {} DisconnectIdle the map for idle timer and message arrays
  * @param  {} message any message object from the discord server needed for GuidId
  */
-async function leave(msg, DisconnectIdle, queue) {
+async function leave(queue, DisconnectIdle, msg) {
     const id = msg.guildId;
     const vc = (0, voice_1.getVoiceConnection)(id);
     const sdi = DisconnectIdle.get(id);

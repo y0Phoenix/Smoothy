@@ -8,6 +8,8 @@ class WriteIdle {
         this.message = data.message;
         this.id = data.message.id;
         this.client = data.client;
+        this.msgs = [];
+        this.queueMsgs = [];
         if (!data.msgs) {
         }
         else {
@@ -23,6 +25,8 @@ class WriteIdle {
 exports.WriteIdle = WriteIdle;
 class Idle {
     constructor(data) {
+        this.msgs = [];
+        this.queueMsgs = [];
         this.message = data.message;
         this.id = data.message.guild.id;
         this.client = data.client;
