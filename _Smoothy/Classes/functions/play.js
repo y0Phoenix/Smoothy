@@ -5,7 +5,6 @@ const voice_1 = require("@discordjs/voice");
 const discord_js_1 = require("discord.js");
 const modules_1 = require("../../modules/modules");
 const audioPlayerIdle_1 = require("./audioPlayerIdle");
-const embed_1 = require("../../functions/embed");
 /**
  * @param  {Queue} serverQueue the current servers queue
  * @param  {any} queue the map that holds all of the sever queues
@@ -60,7 +59,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
         const noVidEmbed = new discord_js_1.MessageEmbed()
             .setColor('RED')
             .setDescription(':rofl: No ***video*** results found');
-        (0, embed_1.default)(serverQueue.message, noVidEmbed, 30000);
+        serverQueue.message.channel.send({embeds: [noVidEmbed]});
         serverQueue.player.stop();
         (0, audioPlayerIdle_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }

@@ -4,7 +4,6 @@ import { AudioPlayerStatus } from "@discordjs/voice";
 import { MessageEmbed } from "discord.js";
 import { deleteMsg, find } from "../../modules/modules";
 import getVideo from './getVideo';
-import embedSend from "../../functions/embed";
 import play from './play';
 
 /**
@@ -44,7 +43,7 @@ export async function retryTimer(serverQueue: Queue, queue: any, DisconnectIdle:
             .setColor('RED')
             .setDescription(`:thumbsdown: [${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url}) failed to play reverting to original queue try again later`)
           ;
-          embedSend(serverQueue.message, errorEmbed, 60000);
+          serverQueue.message.channel.send({embeds: [errorEmbed]});
         }
       }
       serverQueue.currentsong.shift();

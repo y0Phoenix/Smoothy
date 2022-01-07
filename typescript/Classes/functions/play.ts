@@ -16,7 +16,6 @@ import {
   import { MessageEmbed } from 'discord.js';
   import {writeGlobal, deleteMsg} from '../../modules/modules';
   import audioPlayerIdle from './audioPlayerIdle';
-import embedSend from "../../functions/embed";
 
 /**
  * @param  {Queue} serverQueue the current servers queue
@@ -75,7 +74,7 @@ export default async function play(serverQueue: Queue, queue: any, DisconnectIdl
         const noVidEmbed = new MessageEmbed()
             .setColor('RED')
             .setDescription(':rofl: No ***video*** results found');
-        embedSend(serverQueue.message, noVidEmbed, 30000);
+        serverQueue.message.channel.send({embeds: [noVidEmbed]});
         serverQueue.player.stop();
         audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }

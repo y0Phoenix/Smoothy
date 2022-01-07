@@ -4,7 +4,6 @@ import { AudioPlayerStatus } from "@discordjs/voice";
 import { deleteMsg, writeGlobal } from "../../modules/modules";
 import { MessageEmbed } from "discord.js";
 import Queue from "../Queue";
-import embedSend from "../../functions/embed";
 
 /**
  * @param  {Queue} serverQueue the current servers queue

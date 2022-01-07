@@ -8,7 +8,6 @@ import getVideo from './getVideo'
 import play from './play';
 import {Song} from '../Song';
 import InfoData from '../../interfaces/_InfoData';
-import embedSend from '../../functions/embed';
 import * as spell from 'simple-spellchecker';
 const dictionary: any = spell.getDictionarySync('en-US');
 dictionary.addRegex(/i/);

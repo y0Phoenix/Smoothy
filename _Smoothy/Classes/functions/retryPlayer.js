@@ -5,7 +5,6 @@ const voice_1 = require("@discordjs/voice");
 const discord_js_1 = require("discord.js");
 const modules_1 = require("../../modules/modules");
 const getVideo_1 = require("./getVideo");
-const embed_1 = require("../../functions/embed");
 const play_1 = require("./play");
 /**
  * @param  {Queue} serverQueue the current servers queue
