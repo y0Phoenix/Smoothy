@@ -4,7 +4,6 @@ const executive_1 = require("./executive");
 const voice_1 = require("@discordjs/voice");
 const modules_1 = require("../../modules/modules");
 const discord_js_1 = require("discord.js");
-const embed_1 = require("../../functions/embed");
 /**
  * @param  {Queue} serverQueue the current servers queue
  * @param  {any} queue the map that holds all of the serverQueus
@@ -44,7 +43,7 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                         (0, executive_1.playNext)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
                     }
                     else {
-                        (0, embed_1.default)(serverQueue.message, noMoreSongsEmbed, 60000);
+                        serverQueue.message.channel.send({ embeds: [noMoreSongsEmbed] });
                         serverDisconnectIdle = DisconnectIdle.get(serverQueue.message.guild.id);
                         queue.delete(serverQueue.message.guild.id);
                         await (0, modules_1.writeGlobal)('delete queue', null, serverQueue.id);
@@ -88,7 +87,7 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                             const noMoreSongsEmbed = new discord_js_1.MessageEmbed()
                                 .setColor('RED')
                                 .setDescription(`:x: No More Songs To Play`);
-                            (0, embed_1.default)(serverQueue.message, noMoreSongsEmbed, 60000);
+                            serverQueue.message.channel.send({ embeds: [noMoreSongsEmbed] });
                             serverDisconnectIdle = DisconnectIdle.get(serverQueue.message.guild.id);
                             queue.delete(serverQueue.message.guild.id);
                             (0, modules_1.writeGlobal)('delete queue', null, serverQueue.id);

@@ -49,7 +49,7 @@ export default async function audioPlayerIdle(
             if (serverQueue.songs.length > 0) {
               playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
             } else {
-              embedSend(serverQueue.message, noMoreSongsEmbed, 60000); 
+             serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]}); 
               serverDisconnectIdle = DisconnectIdle.get(
                 serverQueue.message.guild.id
               );
@@ -99,7 +99,7 @@ export default async function audioPlayerIdle(
                   .setColor('RED')
                   .setDescription(`:x: No More Songs To Play`)
                 ;
-                embedSend(serverQueue.message, noMoreSongsEmbed, 60000); 
+                serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]});
                 serverDisconnectIdle = DisconnectIdle.get(
                   serverQueue.message.guild.id
                 );

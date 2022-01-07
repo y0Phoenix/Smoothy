@@ -52,6 +52,13 @@ async function getVideo(serverQueue) {
             videoName = serverQueue.songs[0].url;
             message = serverQueue.songs[0].message;
         }
+        else if (serverQueue.jump > 0) {
+            let i = serverQueue.jump;
+            serverQueue.jumpbool = true;
+            videoName = serverQueue.songs[i].url;
+            message = serverQueue.songs[i].message;
+            serverQueue.songs.splice(i, 1);
+        }
         else {
             videoName = serverQueue.songs[0].url;
             message = serverQueue.songs[0].message;

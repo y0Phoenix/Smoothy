@@ -10,20 +10,16 @@ async function exists(id, str) {
     const file = fs.readFileSync('./config/global.json', 'utf-8');
     const data = JSON.parse(file);
     if (str === 'queue') {
-        if (data.queues[0]) {
-            for (let i = 0; i < data.queues.length; i++) {
-                if (data.queues[i].id === id) {
-                    return true;
-                }
+        for (let i = 0; i < data.queues.length; i++) {
+            if (data.queues[i].id === id) {
+                return true;
             }
         }
     }
     if (str === 'dci') {
-        if (data.disconnectIdles[0]) {
-            for (let i = 0; i < data.disconnectIdles.length; i++) {
-                if (data.disconnectIdles[i].id === id) {
-                    return true;
-                }
+        for (let i = 0; i < data.disconnectIdles.length; i++) {
+            if (data.disconnectIdles[i].id === id) {
+                return true;
             }
         }
     }

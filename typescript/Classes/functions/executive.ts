@@ -22,7 +22,7 @@ export function disconnectvcidle(queue: any, DisconnectIdle: any, serverDisconne
   const vcIdleEmbed = new MessageEmbed()
     .setColor('RED')
     .setDescription(':cry: Left VC Due To Idle');
-  embedSend(serverDisconnectIdle.message, vcIdleEmbed, 60000);
+  serverDisconnectIdle.message.channel.send({embeds: [vcIdleEmbed]});
   console.log(`Left VC Due To Idle`);
   leave(queue, DisconnectIdle, serverDisconnectIdle.message);
 }

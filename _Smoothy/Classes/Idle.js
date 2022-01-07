@@ -8,8 +8,8 @@ class WriteIdle {
         this.msgs = [];
         this.queueMsgs = [];
         this.message = data.message;
-        this.id = data.message.id;
-        this.client = data.client;
+        this.id = data.message.guild.id;
+        this.client = null;
         if (!data.msgs) {
         }
         else {

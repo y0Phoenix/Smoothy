@@ -46,7 +46,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
                     inline: true,
                 })
                     .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`);
-                serverQueue.nowPlaying = await (0, embed_1.default)(serverQueue.message, playembed, null);
+                serverQueue.nowPlaying = await serverQueue.message.channel.send({ embeds: [playembed] });
                 serverQueue.messagesent = true;
                 (0, modules_1.writeGlobal)('update queue', serverQueue, serverQueue.id);
             }

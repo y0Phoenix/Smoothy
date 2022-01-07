@@ -6,7 +6,6 @@ const modules_1 = require("../../modules/modules");
 const discord_js_1 = require("discord.js");
 const getVideo_1 = require("./getVideo");
 const play_1 = require("./play");
-const embed_1 = require("../../functions/embed");
 const spell = require("simple-spellchecker");
 const dictionary = spell.getDictionarySync('en-US');
 dictionary.addRegex(/i/);
@@ -20,7 +19,7 @@ function disconnectvcidle(queue, DisconnectIdle, serverDisconnectIdle) {
     const vcIdleEmbed = new discord_js_1.MessageEmbed()
         .setColor('RED')
         .setDescription(':cry: Left VC Due To Idle');
-    (0, embed_1.default)(serverDisconnectIdle.message, vcIdleEmbed, 60000);
+    serverDisconnectIdle.message.channel.send({ embeds: [vcIdleEmbed] });
     console.log(`Left VC Due To Idle`);
     (0, modules_1.leave)(queue, DisconnectIdle, serverDisconnectIdle.message);
 }

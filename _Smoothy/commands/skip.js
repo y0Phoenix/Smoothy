@@ -25,9 +25,6 @@ module.exports = {
                     ;
                     message.channel.send({embeds: [skipEmbed]})
                     .then(msg => deleteMsg(msg, 60000, client));
-                    await serverQueue.nowPlaying.delete();
-                    serverQueue.nowPlaying = undefined;
-                    clearTimeout(serverQueue.nowPlayingMsgTimer);
                     serverQueue.player.stop();  
                     }
                     catch(error) {
