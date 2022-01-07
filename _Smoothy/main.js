@@ -51,11 +51,12 @@ client.once('ready', async () => {
             i++) {
                 const channel = await client.channels.fetch(data.queues[i].message.channelId);
                 const message = await channel.messages.fetch(data.queues[i].message.id);
+                const vc = await client.channels.fetch(data.queues[i].voiceChannel.id);
                 data.queues[i].message = message;
                 if (data.queues[i].nowPlaying) {
                     
                 }
-                data.queues[i].voiceChannel = message.member.voice.channel;
+                data.queues[i].voiceChannel = vc;
                 data.queues[i].currentsong[0].load = true;
                 queue.set(data.queues[i].id, data.queues[i]);
             }
