@@ -22,7 +22,7 @@ async function seek(message, args, serverQueue, serverDisconnectIdle) {
                             .setDescription(':rofl: Please Enter A Valid Seek Request Type -help If You Are Struggling To Figure It Out')
                         ;
                         message.channel.send({embeds: [embed]})
-                        .then(msg => deleteMsg(msg, 30000, false));
+                        .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                         return;
                     }
                     if (index === 0 && req.length > 1) {
@@ -59,7 +59,7 @@ async function seek(message, args, serverQueue, serverDisconnectIdle) {
                         .setDescription(`:rofl: **${req.join(':')}** Is Longer Than The Song Length Of **${serverQueue.currentsong[0].duration}**`)
                     ;
                     let msg = await message.channel.send({embeds: [toLong]});
-                    deleteMsg(msg, 30000, false);
+                    deleteMsg(msg, 30000, serverDisconnectIdle.client);
                     return
                 }
 
@@ -87,7 +87,7 @@ async function seek(message, args, serverQueue, serverDisconnectIdle) {
                     .setDescription(`:thumbsup: Seeking [${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url}) To **${req.join(',')}**`)
                 ;
                 let msg = await message.channel.send({embeds: [seekEmbed]}) ;
-                deleteMsg(msg, 60000, false);
+                deleteMsg(msg, 60000, serverDisconnectIdle.client);
             }
             else {
 

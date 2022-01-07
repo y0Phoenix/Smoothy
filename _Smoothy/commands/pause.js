@@ -4,7 +4,7 @@ const {deleteMsg, leave} = require('../modules/modules');
 module.exports = {
     name: 'pause',
     description: 'pauses the current song',
-    pause(message,serverQueue){
+    pause(message,serverQueue, client){
         if(serverQueue !== undefined){
             serverQueue.player.pause();
             const pauseEmbed = new MessageEmbed()
@@ -21,11 +21,11 @@ module.exports = {
                 )
             ;
             message.channel.send({embeds: [pauseEmbed]})
-            .then(msg => deleteMsg(msg, 60000, false));
+            .then(msg => deleteMsg(msg, 60000, client));
         }
         else{
             message.channel.send(`:rofl: Nothing To Pause :rofl:`)
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, client));
         }
     }
     

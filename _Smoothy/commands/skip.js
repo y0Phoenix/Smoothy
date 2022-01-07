@@ -5,7 +5,7 @@ const {deleteMsg, leave, writeGlobal} = require('../modules/modules');
 module.exports = {
     name: 'skip',
     description: 'skips the current song',
-    async skip(message, serverQueue) {    
+    async skip(message, serverQueue, client) {    
         if(serverQueue !== undefined){
             if (serverQueue.songs.length > 0 ) {
                 try {
@@ -24,7 +24,7 @@ module.exports = {
                         )
                     ;
                     message.channel.send({embeds: [skipEmbed]})
-                    .then(msg => deleteMsg(msg, 60000, false));
+                    .then(msg => deleteMsg(msg, 60000, client));
                     await serverQueue.nowPlaying.delete();
                     serverQueue.nowPlaying = undefined;
                     clearTimeout(serverQueue.nowPlayingMsgTimer);
@@ -35,7 +35,7 @@ module.exports = {
                     }
             }else{
                 message.channel.send(':rofl: Nothing To ***Skip*** :rofl:')
-                .then(msg => deleteMsg(msg, 30000, false, serverQueue));
+                .then(msg => deleteMsg(msg, 30000, client));
             }
         }
     }

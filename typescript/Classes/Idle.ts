@@ -16,8 +16,8 @@ export class WriteIdle {
     queueMsgs: Partial<WriteMessage>[] = []
     constructor (data: _newIdle) {
         this.message = data.message;
-        this.id = data.message.id;
-        this.client = data.client;
+        this.id = data.message.guild.id;
+        this.client = null;
         if (!data.msgs) {
         }
         else {

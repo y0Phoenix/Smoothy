@@ -5,7 +5,7 @@ const {deleteMsg, leave} = require('../modules/modules');
 module.exports = {
     name: 'resume',
     description: 'resumes the current song',
-    async resume(message,serverQueue){
+    async resume(message,serverQueue, client){
         if(serverQueue){
             if(serverQueue.player.state.status === AudioPlayerStatus.Paused){
                 serverQueue.player.unpause();
@@ -22,15 +22,15 @@ module.exports = {
                     )
                 ;
                 message.channel.send({embeds: [resumEmbed]})
-                .then(msg => deleteMsg(msg, 60000, false));
+                .then(msg => deleteMsg(msg, 60000, client));
             }else{
                 message.channel.send(`:rofl: Not Currently Paused :rofl:`)
-                .then(msg => deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, client));
             }
 
         }else{
             message.channel.send(`:rofl: Not Currently Paused :rofl:`)
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, client));
         }
     }
     

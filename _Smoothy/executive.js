@@ -14,9 +14,7 @@ const { Idle } = require('./Classes/Idle');
 const { PlaylistSong, Song } = require('./Classes/Song');
 const { default: Queue } = require('./Classes/Queue');
 const { validURL, videoFinder } = require('./Classes/functions/executive');
-const { default: playerEvents } = require('./functions/playerEvents');
 const { default: play} = require('./Classes/functions/play');
-const {client} = require('./main');
 const ytdl = require('ytdl-core');
 
 const noVidEmbed = new MessageEmbed()
@@ -27,6 +25,7 @@ const noVidEmbed = new MessageEmbed()
 //creates the serverQueue which stores info about the songs, voiceConnection, audioPlayer, subscription, and textChannel
 async function executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL) {
   serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
+  const client = DisconnectIdle.get(1);
   if (!serverDisconnectIdle) {
     DisconnectIdle.set(message.guild.id, new Idle({message: message, client: client}));
     serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
@@ -39,16 +38,14 @@ async function executive(message, queue, DisconnectIdle, serverDisconnectIdle, s
   }
   //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
   if (!serverQueue) {
-    const _queue = new Queue(message);
+    const data = {queue: queue, DisconnectIdle: DisconnectIdle, serverDisconnectIdle: serverDisconnectIdle, msg: message};
+    const _queue = new Queue(data);
     queue.set(message.guild.id, _queue);
     serverQueue = queue.get(message.guild.id);
     const songObj = new Song({message: message, data: videoURL});
     serverQueue.songs.push(songObj);
     serverQueue.currentsong.push(songObj);
-    serverQueue.player = createAudioPlayer();
-    const voiceConnection = getVoiceConnection(message.guild.id);
-    serverQueue.subscription = voiceConnection.subscribe(serverQueue.player);
-    playerEvents(serverQueue.player, serverDisconnectIdle, queue, DisconnectIdle);
+    writeGlobal('add queue', serverQueue, serverQueue.id);
     play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
   }
   else {
@@ -151,13 +148,15 @@ async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDis
       console.log(`Found YouTube playlist ${playlist.title}`);
       if (!serverQueue) {
         duration = playlist.items[0].duration;
-        const setQueue = new Queue(message);
-        queue.set(message.guild.id, setQueue);
+        const data = {queue: queue, DisconnectIdle: DisconnectIdle, serverDisconnectIdle: serverDisconnectIdle, msg: message};
+        queue.set(message.guild.id, new Queue(data));
         serverQueue = queue.get(message.guild.id);
         serverQueue.songs.push(new Song({message: message, data: videoURL}));
+        serverQueue.currentsong.push(new Song({message: message, data: videoURL}));
         serverQueue.messagesent = true;
         console.log('Created the serverQueue');
         added = true;
+        writeGlobal('add queue', serverQueue, serverQueue.id);
         play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
       }
       let msg = await message.channel.send({embeds: [playlistEmbed],});

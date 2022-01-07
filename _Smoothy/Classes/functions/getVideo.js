@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ytdl_core_1 = require("ytdl-core");
+const ytdl = require("ytdl-core");
 const modules_1 = require("../../modules/modules");
 const executive_1 = require("./executive");
 const Song_1 = require("../Song");
@@ -52,13 +52,6 @@ async function getVideo(serverQueue) {
             videoName = serverQueue.songs[0].url;
             message = serverQueue.songs[0].message;
         }
-        else if (serverQueue.jump > 0) {
-            let i = serverQueue.jump;
-            serverQueue.jumpbool = true;
-            videoName = serverQueue.songs[i].url;
-            message = serverQueue.songs[i].message;
-            serverQueue.songs.splice(i, 1);
-        }
         else {
             videoName = serverQueue.songs[0].url;
             message = serverQueue.songs[0].message;
@@ -66,11 +59,11 @@ async function getVideo(serverQueue) {
     }
     let URL = (0, executive_1.validURL)(videoName);
     if (URL === true) {
-        videoURL = await ytdl_core_1.default.getBasicInfo(videoName);
+        videoURL = await ytdl.getBasicInfo(videoName);
     }
     else {
         const video = await (0, executive_1.videoFinder)(videoName);
-        videoURL = await ytdl_core_1.default.getBasicInfo(video.url);
+        videoURL = await ytdl.getBasicInfo(video.url);
     }
     if (serverQueue.currentsong.length > 0) {
         serverQueue.currentsong.shift();

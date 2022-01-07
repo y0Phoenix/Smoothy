@@ -27,6 +27,7 @@ const { seek } = require('./commands/seek');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
 const DisconnectIdle = new Map();
+DisconnectIdle.set(1, client);
 
 // todo implement mySQL or MongoDB into Smoothy instead of plain JSON file
 // const sequelize = new Sequelize('discord', 'root', 'aaron', {
@@ -140,25 +141,25 @@ client.on('messageCreate', message =>{
     console.log(`Command = ${command} ${args.join(' ')}`);
     //commands come in and checks if command ===, else the command was invalid
     if(command === 'ping'){
-        ping(message);
+        ping(message, client);
     }else if (command === 'play' || command === 'p' || command === 'pp' || command === 'playp'){
         play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command, client);
     }else if (command === 'queue' || command === 'list' || command === 'q'){
         queuelist(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'skip' || command === 'next' || command === 's' || command === 'n'){
-        skip(message, serverQueue);
+        skip(message, serverQueue, client);
     }else if (command === 'stop' || command === 'clear'){
         stop(message, serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }else if (command === 'leave' || command === 'disconnect' || command === 'dc' || command === 'die'){
         leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle);
     }else if (command === 'remove' || command === 'r'){
-        remove(message, args, serverQueue);
+        remove(message, args, serverQueue, client);
     }else if (command === 'help'){
         help(message);
     }else if (command === 'pause' || command === 'pa'){
-        pause(message, serverQueue);
+        pause(message, serverQueue, client);
     }else if (command === 'resume' || command === 'un'){
-        resume(message,serverQueue);
+        resume(message,serverQueue, client);
     }else if (command === 'crash' || command === 'c'){
         snoopy_goes_wild.dummy = 'me';
     }else if (command === 'loop' || command === 'l'){
@@ -166,9 +167,9 @@ client.on('messageCreate', message =>{
     }else if (command === 'loopsong' || command === 'ls'){
         loopsong(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'repeat' || command === 'restart' || command === 're'){
-        repeat(message, serverQueue);
+        repeat(message, serverQueue, client);
     }else if (command === 'shuffle' || command === 'mix'){
-        shuffle(message, serverQueue);
+        shuffle(message, serverQueue, client);
     }else if (command === 'jump' || command === 'j'){
         jump(message, args, serverQueue, serverDisconnectIdle);
     }else if (command === 'prefix' || command === 'changeprefix' || command === 'prefixchange'){
@@ -193,6 +194,6 @@ client.on('messageCreate', message =>{
     return;
     }
 }); 
-module.exports = {DisconnectIdle, queue, client};
+module.exports = {DisconnectIdle, queue};
 client.login(config.get('token'));    
 

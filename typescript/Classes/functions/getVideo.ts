@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import InfoData from "../../interfaces/_InfoData";
-import ytdl from 'ytdl-core';
+import * as ytdl from 'ytdl-core';
 import playdl from 'play-dl';
 import Queue from "../Queue";
 import {writeGlobal} from '../../modules/modules';

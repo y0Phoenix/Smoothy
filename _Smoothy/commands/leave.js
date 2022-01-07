@@ -17,7 +17,7 @@ module.exports = {
                     .setDescription(`:cry: Leaving Channel`)
                 ;
                 message.channel.send({embeds: [leaveEmbed]})
-                .then(msg => deleteMsg(msg, 60000, false));
+                .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
                 console.log('Left The Voice Channel From Command')
                 if(serverQueue){
                     if(serverQueue.player.state.status === AudioPlayerStatus.Playing){
@@ -28,17 +28,17 @@ module.exports = {
                 if(serverDisconnectIdle.disconnectTimer !== undefined){
                     clearTimeout(serverDisconnectIdle.disconnectTimer)
                 }
-                leave(queue, DisconnectIdle, message);
+                leave(message, DisconnectIdle, queue);
             }
             else{
                 message.channel.send({embeds: [noVCEmbed]})
-                .then(msg => deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                 return;
             }   
         }
         else{
             message.channel.send({embeds: [noVCEmbed]})
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
             return;
         } 
     }

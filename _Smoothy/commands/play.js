@@ -25,14 +25,14 @@ module.exports = {
     async play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command, client) {
         try{
             if (args.length === 0) return message.channel.send({embeds: [specifyEmbed]})
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
             if (!vc) return message.channel.send({embeds: [needVCEmbed]})
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
             const permissions = vc.permissionsFor(message.client.user);
             if (!permissions.has('CONNECT')) return message.channel.send({embeds: [connectEmbed]})
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
             if (!permissions.has('SPEAK')) return message.channel.send({embeds: [speakEmbed]})
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
             
             const bool = await exists(message.guildId, 'dci');
             if(command !== null && command === 'pp' || command === 'playp'){

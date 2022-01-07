@@ -19,7 +19,7 @@ module.exports = {
                                 .setDescription(':rofl: No Exact Matches Found Please Check Your Spelling')
                             ;
                             message.channel.send({embeds: [noMatch]})
-                                .then(msg => deleteMsg(msg, 30000, false))
+                                .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client))
                             ;
                             return;
                         }
@@ -52,12 +52,12 @@ module.exports = {
                                 .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
                                 .setTimestamp();
                             message.channel.send({embeds: [jumpEmbed]})
-                            .then(msg => deleteMsg(msg, 60000, false));
+                            .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
                             serverQueue.player.stop();
                         }
                         else{
                             message.channel.send(':x: No Song Specified')
-                            .then(msg => deleteMsg(msg, 30000, false));
+                            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                         }
                     }
                     else{
@@ -77,27 +77,27 @@ module.exports = {
                                 .setThumbnail(`${serverQueue.shuffledSongs[i].thumbnail}`)
                                 .setTimestamp();
                             message.channel.send({embeds: [jumpEmbed]})
-                            .then(msg => deleteMsg(msg, 60000, false));
+                            .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
                             serverQueue.player.stop();
                         }
                         else{
                             message.channel.send(':x: No Song Specified')
-                            .then(msg => deleteMsg(msg, 30000, false));
+                            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                         }
                     }
                 }
                 else{
                     message.channel.send(':x: No Other Songs Besides The Current Exist In The Queue :x:')
-                    .then(msg => deleteMsg(msg, 30000, false));
+                    .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                 }
             }
             else{
                 message.channel.send(`:rofl: I Cannot Jump To A Song Wile I Am Looping A Song :rofl:`)
-                .then(msg => deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
             }
         }else{
             message.channel.send(':rofl: I Dont Have A Song Queue :rofl:')
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
         }     
     }
 }

@@ -160,7 +160,7 @@ module.exports = {
                 .setColor('RED')
                 .setDescription(`:rofl: No Songs Currently In Queue`)
             message.channel.send({embeds: [noSongsEmbed]})
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
         }  
     }
 }

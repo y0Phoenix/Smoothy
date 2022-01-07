@@ -25,7 +25,7 @@ const {deleteMsg, leave, writeGlobal} = require('../modules/modules');
                     .setDescription(`:x: No Longer Looping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                 ;
                 message.channel.send({embeds: [endLoopSongEmbed]})
-                .then(msg => deleteMsg(msg, 60000, false));
+                .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
                 writeGlobal('update queue', serverQueue, message.guildId);
             }
         }
@@ -34,7 +34,7 @@ const {deleteMsg, leave, writeGlobal} = require('../modules/modules');
                 .setColor('ORANGE')
                 .setDescription(`:rofl: Nothing Playing Right Now`)
             message.channel.send({embeds: [notPlayingEmbed]})
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
         }
     }
 }

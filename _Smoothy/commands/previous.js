@@ -20,7 +20,7 @@ module.exports = {
                         .setDescription(`:thumbsup: Going Back To [${serverQueue.previous[0].title}](${serverQueue.previous[0].url})`)
                     ;
                     let msg = await message.channel.send({embeds: [previousEmbed]});
-                    deleteMsg(msg, 60000, false);
+                    deleteMsg(msg, 60000, serverDisconnectIdle.client);
                     serverQueue.player.stop();
                 }
                 else {
@@ -29,17 +29,17 @@ module.exports = {
                         .setDescription(':rofl: Cant Play The Previos Song While Paused')
                     ;
                     let msg = await message.channel.send({embeds: [pausedEmbed]});
-                    deleteMsg(msg, 30000, false);
+                    deleteMsg(msg, 30000, serverDisconnectIdle.client);
                 }
             }
             else {
                 let msg = await message.channel.send({embeds: [noSongs]});
-                deleteMsg(msg, 30000, false);
+                deleteMsg(msg, 30000, serverDisconnectIdle.client);
             }
         }
         else {
             let msg = await message.channel.send({embeds: [noSongs]});
-            deleteMsg(msg, 30000, false);
+            deleteMsg(msg, 30000, serverDisconnectIdle.client);
         }
     }
 }

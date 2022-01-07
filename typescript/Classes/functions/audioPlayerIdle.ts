@@ -23,7 +23,7 @@ export default async function audioPlayerIdle(
       .setColor('RED')
       .setDescription(`:x: No More Songs To Play`)
     ;
-    if (this.stop === true) {
+    if (serverQueue.stop === true) {
     } else {
       if (serverQueue.player.state.status === AudioPlayerStatus.Idle && !serverQueue.audioPlayerErr) {
         serverQueue.messagesent = false;
@@ -32,7 +32,7 @@ export default async function audioPlayerIdle(
           serverQueue.nowPlaying = undefined;
         }
         if (serverQueue.jumpbool === true) {
-          serverQueue.jump = 0;
+          serverQueue.jumpbool = false;
         }
         // song ending while previous is true
         if (serverQueue.previousbool) {

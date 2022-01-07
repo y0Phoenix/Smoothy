@@ -4,7 +4,7 @@ const {deleteMsg, leave, writeGlobal} = require('../modules/modules');
 module.exports = {
     name: 'shuffle',
     description: 'shuffles the current serverQueue',
-    async shuffle(message, serverQueue){
+    async shuffle(message, serverQueue, client){
         if(serverQueue.shuffle === false){
             if(serverQueue.songs.length > 1){
                 serverQueue.shuffle = true
@@ -15,7 +15,7 @@ module.exports = {
                     .setDescription(':thumbsup: I Am Now Shuffling The Queue :twisted_rightwards_arrows:')
                 ;
                 message.channel.send({embeds: [shuffleEmbed]})
-                .then(msg => deleteMsg(msg, 60000, false));
+                .then(msg => deleteMsg(msg, 60000, client));
                 var songsLength = parseInt(serverQueue.songs.length);
                 const randomNumber = () => {
                     return Math.floor(Math.random() * songsLength);
@@ -53,7 +53,7 @@ module.exports = {
                     .setDescription(':rofl: I Cannot Shuffle A 1 Song Queue')
                 ;
                 message.channel.send({embeds: [oneEmbed]})
-                .then(msg => deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, client));
             }
         }
         else{
@@ -65,7 +65,7 @@ module.exports = {
                 .setDescription(':thumbsup: I Have Returned The Queue To Its Original Order')
             ;
             message.channel.send({embeds: [noShuffleEmbed]})
-            .then(msg => deleteMsg(msg, 60000, false));
+            .then(msg => deleteMsg(msg, 60000, client));
             writeGlobal('update queue', serverQueue, serverQueue.id);
         }
     }        

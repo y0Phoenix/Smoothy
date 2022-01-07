@@ -47,18 +47,18 @@ module.exports = {
                                 .setDescription(':rofl: Volume is 100 max')
                             ;
                             message.channel.send({embeds: [toHighEmbed]})
-                            .then(msg => deleteMsg(msg, 30000, false));
+                            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                         }
                     }
                     else{
                         message.channel.send({embeds: [noSongEmbed]})
-                        .then(msg => deleteMsg(msg, 30000, false));
+                        .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                     }
                 }
             }
             else{
                 message.channel.send({embeds: [noSongEmbed]})
-                .then(msg => deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
             }
         }
         else{
@@ -67,7 +67,7 @@ module.exports = {
                 .setDescription(':rofl: You Must Specify With A Number')
             ;
             message.channel.send({embeds: [specifyEmbed]})
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
         }
     }
 }

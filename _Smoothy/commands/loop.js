@@ -25,13 +25,13 @@ module.exports = {
                     .setDescription(`:x: No Longer Looping The Queue!`)
                 ;
                 message.channel.send({embeds: [endLoopEmbed]})
-                .then(msg => deleteMsg(msg, 60000, false));
+                .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
                 writeGlobal('update queue', serverQueue, message.guildId);
             } 
         }
         else{
             message.channel.send(':rofl: No Queue To Loop :rofl:')
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
         }
     }
 }

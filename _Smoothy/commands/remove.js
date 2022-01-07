@@ -5,7 +5,7 @@ const {deleteMsg, writeGlobal, find} = require('../modules/modules');
 module.exports = {
     name: 'remove',
     description: 'removes specified song from the serverQueue',
-    async remove(message, args, serverQueue) {
+    async remove(message, args, serverQueue, client) {
         var i = parseInt(args);
         var query = args.join(' ');
         if (isNaN(i)) {
@@ -35,13 +35,13 @@ module.exports = {
                             name: `***Duration***`, value: `${serverQueue.shuffledSongs[i].duration}`, inline: true
                         })
                 message.channel.send({embeds: [removeEmbed]})
-                .then(msg => deleteMsg(msg, 60000, false));   
+                .then(msg => deleteMsg(msg, 60000, client));   
                 serverQueue.shuffledSongs.splice(i, 1);
                 writeGlobal('update queue', serverQueue, serverQueue.id);
             }
             else{
                 message.channel.send('No Song Specified')
-                .then(msg => deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, client));
             }
         }
         else{
@@ -61,13 +61,13 @@ module.exports = {
                     .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
                     .setTimestamp();
                 message.channel.send({embeds: [removeEmbed]})
-                .then(msg => deleteMsg(msg, 60000, false));   
+                .then(msg => deleteMsg(msg, 60000, client));   
                 serverQueue.songs.splice(i, 1);
                 writeGlobal('update queue', serverQueue, serverQueue.id);
             }
             else{
                 message.channel.send('No Song Specified')
-                .then(msg => deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, client));
             }
         }
     }

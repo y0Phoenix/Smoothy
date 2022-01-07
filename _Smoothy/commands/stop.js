@@ -24,7 +24,7 @@ module.exports = {
                 .setDescription(`:octagonal_sign: I Have ***Stopped*** The Music!`)
             ;
             message.channel.send({embeds: [stopEmbed]})
-            .then(msg => deleteMsg(msg, 60000, false));
+            .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
             if (serverDisconnectIdle) {
                 disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
             }
@@ -34,7 +34,7 @@ module.exports = {
                 .setDescription(`:rofl: Nothing ***Playing*** Currently!`)
             ;
             message.channel.send({embeds: [notPlayingEmbed]})
-            .then(msg => deleteMsg(msg, 30000, false));
+            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
         }
     }
 }

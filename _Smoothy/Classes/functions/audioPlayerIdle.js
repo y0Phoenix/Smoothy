@@ -16,7 +16,7 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
     const noMoreSongsEmbed = new discord_js_1.MessageEmbed()
         .setColor('RED')
         .setDescription(`:x: No More Songs To Play`);
-    if (this.stop === true) {
+    if (serverQueue.stop === true) {
     }
     else {
         if (serverQueue.player.state.status === voice_1.AudioPlayerStatus.Idle && !serverQueue.audioPlayerErr) {
@@ -26,7 +26,7 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                 serverQueue.nowPlaying = undefined;
             }
             if (serverQueue.jumpbool === true) {
-                serverQueue.jump = 0;
+                serverQueue.jumpbool = false;
             }
             // song ending while previous is true
             if (serverQueue.previousbool) {

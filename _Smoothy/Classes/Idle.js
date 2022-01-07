@@ -5,11 +5,11 @@ const WriteMessage_1 = require("./WriteMessage");
 class WriteIdle {
     constructor(data) {
         this.disconnectTimer = null;
+        this.msgs = [];
+        this.queueMsgs = [];
         this.message = data.message;
         this.id = data.message.id;
         this.client = data.client;
-        this.msgs = [];
-        this.queueMsgs = [];
         if (!data.msgs) {
         }
         else {

@@ -6,7 +6,7 @@ const File = './config/prefixes.json';
 module.exports = {
     name: 'prefix',
     description: 'sets a prefix for a server',
-    async changeprefix(message, args, serverQueue, data, found){
+    async changeprefix(message, args, serverQueue, data, found, client){
         if(args.length > 0){
             let prefix = args[0];
             if(found === 0){
@@ -26,7 +26,7 @@ module.exports = {
                 )
             ;
             message.channel.send({embeds: [prefixEmbed]})
-            .then(msg => deleteMsg(msg, 60000, false));
+            .then(msg => deleteMsg(msg, 60000, client));
         }
         else{
             const specifyEmbed = new MessageEmbed()
@@ -34,7 +34,7 @@ module.exports = {
                 .setDescription(':thumbsdown: You Must Specify With A New Prefix')
             ;
             message.channel.send({embeds: [specifyEmbed]})
-            .then(msg => deleteMsg(msg, 30000, false, false));
+            .then(msg => deleteMsg(msg, 30000, client));
         }
     }
 }

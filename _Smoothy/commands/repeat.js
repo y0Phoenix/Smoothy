@@ -6,7 +6,7 @@ const {deleteMsg, leave} = require('../modules/modules');
 module.exports = {
     name: 'repeat',
     description: 'repeats the current song',
-    repeat(message, serverQueue){
+    repeat(message, serverQueue, client){
         if(serverQueue){
             if (serverQueue.player.state.status !== AudioPlayerStatus.Paused) {
                 if(serverQueue.songs.length > 0){
@@ -17,7 +17,7 @@ module.exports = {
                         .setDescription(`:thumbsup: I Am Restarting ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})*** :arrows_counterclockwise:`)
                     ;
                     message.channel.send({embeds: [restartCurrentEmbed]})
-                    .then(msg => deleteMsg(msg, 60000, false));
+                    .then(msg => deleteMsg(msg, 60000, client));
                 }
                 else{
                     const notPlayingEmbed = new MessageEmbed()
@@ -25,7 +25,7 @@ module.exports = {
                         .setDescription(`:rofl: Not Currently Playing Anything At The Moment`)
                     ;
                     message.channel.send({embeds: [notPlayingEmbed]})
-                    .then(msg => deleteMsg(msg, 30000, false));
+                    .then(msg => deleteMsg(msg, 30000, client));
                 }
             }
             else {
@@ -34,7 +34,7 @@ module.exports = {
                     .setDescription(':rofl: Please Unpause The Player Before Restarting')
                 ;
                 message.channel.send({embeds: [pausedEmbed]})
-                .then(msg => deleteMsg(msg, 30000, false));
+                .then(msg => deleteMsg(msg, 30000, client));
             }
         }
         else{
@@ -43,7 +43,7 @@ module.exports = {
                 .setDescription(`:rofl: Not Currently Playing Anything At The Moment`)
             ;
             message.channel.send({embeds: [notPlayingEmbed]})   
-            .then(msg => deleteMsg(msg, 30000, false));     
+            .then(msg => deleteMsg(msg, 30000, client));     
         }
     }
 }
