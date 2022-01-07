@@ -1,16 +1,1379 @@
-[01/04/2022 22:52:38.599] Not Running, Starting up Smoothy...
-[01/04/2022 22:52:38.618] Run Shell Script Started
-[01/04/2022 22:52:39.630] Smoothy is currently running 
-[01/04/2022 22:52:42.121] Smoothy 1.4.6 is online!
-[01/04/2022 22:52:42.598] Smoothy is currently running 
-[01/04/2022 22:52:42.935] [33mWARNING:[0m ytdl-core is out of date! Update with "npm install ytdl-core@latest".
-[01/04/2022 22:52:43.371] Found BLADEFEAR -  RADICAL
-[01/04/2022 22:52:43.372] Cleared Timout For disconnectTimer
-[01/04/2022 22:52:43.376] created the audioplayer
-[01/04/2022 22:52:43.377] subscribed to Player
-[01/04/2022 22:52:43.659] Smoothy is currently running 
-[01/04/2022 22:52:44.750] Playing BLADEFEAR -  RADICAL!
-[01/04/2022 22:52:44.781] Smoothy is currently running 
-[01/04/2022 22:53:15.448] Command = dc 
-[01/04/2022 22:53:15.452] Left The Voice Channel From Command
-[01/04/2022 22:53:15.655] Smoothy is currently running 
+[01/06/2022 03:06:09.453] Not Running, Starting up Smoothy...
+[01/06/2022 03:06:09.478] Run Shell Script Started
+[01/06/2022 03:06:10.486] Smoothy is currently running 
+[01/06/2022 03:06:12.854] Smoothy 1.4.6 is online!
+[01/06/2022 03:06:13.446] Smoothy is currently running 
+[01/06/2022 03:06:20.493] Command = p piano man
+[01/06/2022 03:06:21.455] Smoothy is currently running 
+[01/06/2022 03:06:22.905] Found Billy Joel - Piano Man (Official HD Video)
+[01/06/2022 03:06:22.908] created the audioplayer
+[01/06/2022 03:06:22.908] subscribed to Player
+[01/06/2022 03:06:23.452] Smoothy is currently running 
+[01/06/2022 03:06:24.778] Playing Billy Joel - Piano Man (Official HD Video)!
+[01/06/2022 03:06:25.644] Smoothy is currently running 
+[01/06/2022 03:06:31.519] Command = p bad moon rising
+[01/06/2022 03:06:32.480] Smoothy is currently running 
+[01/06/2022 03:06:32.776] Found Bad Moon Rising
+[01/06/2022 03:06:33.461] Smoothy is currently running 
+[01/06/2022 03:06:48.007] Command = dc 
+[01/06/2022 03:06:48.009] Left The Voice Channel From Command
+[01/06/2022 03:06:48.467] Smoothy is currently running 
+[01/06/2022 03:06:51.933] Command = p piano man
+[01/06/2022 03:06:52.611] Smoothy is currently running 
+[01/06/2022 03:06:53.897] Found Billy Joel - Piano Man (Official HD Video)
+[01/06/2022 03:06:53.898] created the audioplayer
+[01/06/2022 03:06:53.898] subscribed to Player
+[01/06/2022 03:06:54.475] Smoothy is currently running 
+[01/06/2022 03:06:55.839] Playing Billy Joel - Piano Man (Official HD Video)!
+[01/06/2022 03:06:56.471] Smoothy is currently running 
+[01/06/2022 03:06:56.928] Command = dc 
+[01/06/2022 03:06:56.930] Left The Voice Channel From Command
+[01/06/2022 03:06:57.475] Smoothy is currently running 
+[01/06/2022 14:32:57.199] Command = pp https://www.youtube.com/playlist?list=PLAcVjxrQDMPo0uhHE4H9G0yPjS1vmhXrE
+[01/06/2022 14:32:57.210] Cleared Timout For disconnectTimer
+[01/06/2022 14:32:57.729] Smoothy is currently running 
+[01/06/2022 14:32:58.065] Found YouTube playlist Discord
+[01/06/2022 14:32:58.065] created the audioplayer
+[01/06/2022 14:32:58.066] subscribed to Player
+[01/06/2022 14:32:58.066] Created the serverQueue
+[01/06/2022 14:32:58.689] Playing Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
+[01/06/2022 14:32:58.881] Smoothy is currently running 
+[01/06/2022 14:33:02.409] Command = mix 
+[01/06/2022 14:33:02.410] Now shuffling the queue
+[01/06/2022 14:33:02.721] Smoothy is currently running 
+[01/06/2022 14:33:04.356] Command = n 
+[01/06/2022 14:33:04.356] Skipping Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
+[01/06/2022 14:33:04.599] Player Status Is Idle
+[01/06/2022 14:33:04.720] Smoothy is currently running 
+[01/06/2022 14:33:05.197] Found the weeknd - blinding lights (slowed + reverb)
+[01/06/2022 14:33:05.760] Smoothy is currently running 
+[01/06/2022 14:33:06.281] Playing the weeknd - blinding lights (slowed + reverb)!
+[01/06/2022 14:33:06.781] Smoothy is currently running 
+[01/06/2022 14:36:58.719] Player Status Is Idle
+[01/06/2022 14:36:58.884] Splicing the weeknd - blinding lights (slowed + reverb) 26
+[01/06/2022 14:36:59.462] Found Sigma Male Theme [1 Hour Loop + 432hz]
+[01/06/2022 14:36:59.735] Smoothy is currently running 
+[01/06/2022 14:37:00.378] Playing Sigma Male Theme [1 Hour Loop + 432hz]!
+[01/06/2022 14:37:00.780] Smoothy is currently running 
+[01/06/2022 15:37:01.160] Player Status Is Idle
+[01/06/2022 15:37:01.431] Splicing Sigma Male Theme [1 Hour Loop + 432hz] 34
+[01/06/2022 15:37:01.928] Smoothy is currently running 
+[01/06/2022 15:37:01.984] Found Iroh Sings Leaves From the Vine (Little Soldier Boy) 🍃| Avatar
+[01/06/2022 15:37:02.549] Playing Iroh Sings Leaves From the Vine (Little Soldier Boy) 🍃| Avatar!
+[01/06/2022 15:37:02.976] Smoothy is currently running 
+[01/06/2022 15:38:13.339] Player Status Is Idle
+[01/06/2022 15:38:13.510] Splicing Iroh Sings Leaves From the Vine (Little Soldier Boy) 🍃| Avatar 20
+[01/06/2022 15:38:13.934] Smoothy is currently running 
+[01/06/2022 15:38:14.303] Found Bob Seger- Night Moves
+[01/06/2022 15:38:14.926] Smoothy is currently running 
+[01/06/2022 15:38:15.414] Playing Bob Seger- Night Moves!
+[01/06/2022 15:38:15.991] Smoothy is currently running 
+[01/06/2022 15:43:41.582] Player Status Is Idle
+[01/06/2022 15:43:41.724] Splicing Bob Seger- Night Moves 18
+[01/06/2022 15:43:42.002] Smoothy is currently running 
+[01/06/2022 15:43:42.316] Found FaZe Ramos: Go On Ramos! - Episode 11
+[01/06/2022 15:43:42.956] Smoothy is currently running 
+[01/06/2022 15:43:43.230] Playing FaZe Ramos: Go On Ramos! - Episode 11!
+[01/06/2022 15:43:44.110] Smoothy is currently running 
+[01/06/2022 15:46:26.779] Player Status Is Idle
+[01/06/2022 15:46:26.958] Splicing FaZe Ramos: Go On Ramos! - Episode 11 20
+[01/06/2022 15:46:26.962] Smoothy is currently running 
+[01/06/2022 15:46:27.610] Found MrTLexify intro song (Hudson Mohawke-Chimes)
+[01/06/2022 15:46:27.978] Smoothy is currently running 
+[01/06/2022 15:46:28.405] Playing MrTLexify intro song (Hudson Mohawke-Chimes)!
+[01/06/2022 15:46:29.085] Smoothy is currently running 
+[01/06/2022 15:50:01.759] Player Status Is Idle
+[01/06/2022 15:50:01.934] Splicing MrTLexify intro song (Hudson Mohawke-Chimes) 9
+[01/06/2022 15:50:01.977] Smoothy is currently running 
+[01/06/2022 15:50:02.547] Found BLESSED MANE - NO SLEEP
+[01/06/2022 15:50:03.002] Smoothy is currently running 
+[01/06/2022 15:50:03.104] Playing BLESSED MANE - NO SLEEP!
+[01/06/2022 15:50:04.066] Smoothy is currently running 
+[01/06/2022 15:53:24.120] Player Status Is Idle
+[01/06/2022 15:53:24.263] Splicing BLESSED MANE - NO SLEEP 21
+[01/06/2022 15:53:24.764] Found LXST CXNTURY - ODIUM (Extended)(Bass Boosted)
+[01/06/2022 15:53:24.993] Smoothy is currently running 
+[01/06/2022 15:53:25.930] Playing LXST CXNTURY - ODIUM (Extended)(Bass Boosted)!
+[01/06/2022 15:53:26.073] Smoothy is currently running 
+[01/06/2022 15:56:40.761] Command = p https://www.youtube.com/watch?v=qrkib_L_oJU
+[01/06/2022 15:56:41.014] Smoothy is currently running 
+[01/06/2022 15:56:41.574] Found Mao zedong propaganda music Trap remix
+[01/06/2022 15:56:41.575] created the audioplayer
+[01/06/2022 15:56:41.575] subscribed to Player
+[01/06/2022 15:56:42.042] Smoothy is currently running 
+[01/06/2022 15:56:42.117] Playing Mao zedong propaganda music Trap remix!
+[01/06/2022 15:56:43.133] Smoothy is currently running 
+[01/06/2022 15:57:51.679] Player Status Is Idle
+[01/06/2022 15:57:51.892] Starting disconnectTimer Timeout
+[01/06/2022 15:57:52.021] Smoothy is currently running 
+[01/06/2022 15:57:58.916] Command = p https://www.youtube.com/watch?v=6ULrr0ktuEM
+[01/06/2022 15:57:59.015] Smoothy is currently running 
+[01/06/2022 15:57:59.462] Found Amogus Remix (Backwards)
+[01/06/2022 15:57:59.462] Cleared Timout For disconnectTimer
+[01/06/2022 15:57:59.464] created the audioplayer
+[01/06/2022 15:57:59.465] subscribed to Player
+[01/06/2022 15:58:00.014] Smoothy is currently running 
+[01/06/2022 15:58:00.219] Playing Amogus Remix (Backwards)!
+[01/06/2022 15:58:01.197] Smoothy is currently running 
+[01/06/2022 15:58:38.259] Player Status Is Idle
+[01/06/2022 15:58:38.371] Splicing LXST CXNTURY - ODIUM (Extended)(Bass Boosted) 20
+[01/06/2022 15:58:39.017] Smoothy is currently running 
+[01/06/2022 15:58:39.027] Found Zack Hemsey - "Vengeance"
+[01/06/2022 15:58:39.997] Playing Zack Hemsey - "Vengeance"!
+[01/06/2022 15:58:40.032] Smoothy is currently running 
+[01/06/2022 15:59:01.059] Player Status Is Idle
+[01/06/2022 15:59:01.231] Starting disconnectTimer Timeout
+[01/06/2022 15:59:02.119] Smoothy is currently running 
+[01/06/2022 15:59:21.811] Command = p https://www.youtube.com/watch?v=VWGetAkax1E
+[01/06/2022 15:59:22.022] Smoothy is currently running 
+[01/06/2022 15:59:22.339] Found Sister Friede
+[01/06/2022 15:59:22.339] Cleared Timout For disconnectTimer
+[01/06/2022 15:59:22.341] created the audioplayer
+[01/06/2022 15:59:22.341] subscribed to Player
+[01/06/2022 15:59:23.021] Smoothy is currently running 
+[01/06/2022 15:59:23.116] Playing Sister Friede!
+[01/06/2022 15:59:24.025] Smoothy is currently running 
+[01/06/2022 16:01:06.932] Command = skip 
+[01/06/2022 16:01:06.932] Skipping Sister Friede!
+[01/06/2022 16:01:07.029] Smoothy is currently running 
+[01/06/2022 16:01:07.461] Player Status Is Idle
+[01/06/2022 16:01:07.481] Starting disconnectTimer Timeout
+[01/06/2022 16:01:08.018] Smoothy is currently running 
+[01/06/2022 16:01:12.149] Command = p https://www.youtube.com/watch?v=CeTdXGFrncM
+[01/06/2022 16:01:12.705] Found Black Spider Man Theme but only the good part
+[01/06/2022 16:01:12.706] Cleared Timout For disconnectTimer
+[01/06/2022 16:01:12.708] created the audioplayer
+[01/06/2022 16:01:12.709] subscribed to Player
+[01/06/2022 16:01:13.041] Smoothy is currently running 
+[01/06/2022 16:01:13.327] Playing Black Spider Man Theme but only the good part!
+[01/06/2022 16:01:14.217] Smoothy is currently running 
+[01/06/2022 16:03:11.879] Player Status Is Idle
+[01/06/2022 16:03:12.032] Smoothy is currently running 
+[01/06/2022 16:03:12.068] Starting disconnectTimer Timeout
+[01/06/2022 16:03:13.030] Smoothy is currently running 
+[01/06/2022 16:05:14.480] Player Status Is Idle
+[01/06/2022 16:05:14.614] Splicing Zack Hemsey - "Vengeance" 8
+[01/06/2022 16:05:15.038] Smoothy is currently running 
+[01/06/2022 16:05:15.333] Found Coldplay - Yellow (FKYA & Khøst Remix)
+[01/06/2022 16:05:16.053] Smoothy is currently running 
+[01/06/2022 16:05:16.134] Playing Coldplay - Yellow (FKYA & Khøst Remix)!
+[01/06/2022 16:05:17.037] Smoothy is currently running 
+[01/06/2022 16:08:38.639] Player Status Is Idle
+[01/06/2022 16:08:38.757] Splicing Coldplay - Yellow (FKYA & Khøst Remix) 4
+[01/06/2022 16:08:39.049] Smoothy is currently running 
+[01/06/2022 16:08:39.304] Found Minecraft Parody on "Reborn" by Kanye West and Kid Cudi - Respawn
+[01/06/2022 16:08:39.885] Playing Minecraft Parody on "Reborn" by Kanye West and Kid Cudi - Respawn!
+[01/06/2022 16:08:40.070] Smoothy is currently running 
+[01/06/2022 16:12:50.359] Player Status Is Idle
+[01/06/2022 16:12:50.547] Splicing Minecraft Parody on "Reborn" by Kanye West and Kid Cudi - Respawn 21
+[01/06/2022 16:12:51.106] Smoothy is currently running 
+[01/06/2022 16:12:51.191] Found Zack Hemsey - "The Way (Instrumental)"
+[01/06/2022 16:12:52.093] Smoothy is currently running 
+[01/06/2022 16:12:52.185] Playing Zack Hemsey - "The Way (Instrumental)"!
+[01/06/2022 16:12:53.055] Smoothy is currently running 
+[01/06/2022 16:19:57.399] Player Status Is Idle
+[01/06/2022 16:19:57.666] Splicing Zack Hemsey - "The Way (Instrumental)" 11
+[01/06/2022 16:19:58.080] Smoothy is currently running 
+[01/06/2022 16:19:58.143] Found Ending Theme - Yoshi's Island
+[01/06/2022 16:19:58.725] Playing Ending Theme - Yoshi's Island!
+[01/06/2022 16:19:59.173] Smoothy is currently running 
+[01/06/2022 16:23:55.059] Player Status Is Idle
+[01/06/2022 16:23:55.087] Smoothy is currently running 
+[01/06/2022 16:23:55.226] Splicing Ending Theme - Yoshi's Island 15
+[01/06/2022 16:23:55.750] Found Kaito Shoma - Scary Garry
+[01/06/2022 16:23:56.104] Smoothy is currently running 
+[01/06/2022 16:23:56.362] Playing Kaito Shoma - Scary Garry!
+[01/06/2022 16:23:57.271] Smoothy is currently running 
+[01/06/2022 16:25:36.519] Player Status Is Idle
+[01/06/2022 16:25:37.090] Smoothy is currently running 
+[01/06/2022 16:25:38.940] Splicing Kaito Shoma - Scary Garry 10
+[01/06/2022 16:25:39.096] Smoothy is currently running 
+[01/06/2022 16:25:39.503] Found BLADEFEAR -  RADICAL
+[01/06/2022 16:25:40.100] Smoothy is currently running 
+[01/06/2022 16:25:40.448] Playing BLADEFEAR -  RADICAL!
+[01/06/2022 16:25:41.112] Smoothy is currently running 
+[01/06/2022 16:27:45.560] Player Status Is Idle
+[01/06/2022 16:27:45.669] Splicing BLADEFEAR -  RADICAL 16
+[01/06/2022 16:27:46.114] Smoothy is currently running 
+[01/06/2022 16:27:46.240] Found The Animals - The House of the Rising Sun - Lyrics
+[01/06/2022 16:27:47.130] Playing The Animals - The House of the Rising Sun - Lyrics!
+[01/06/2022 16:27:47.132] Smoothy is currently running 
+[01/06/2022 16:32:06.059] Player Status Is Idle
+[01/06/2022 16:32:06.115] Smoothy is currently running 
+[01/06/2022 16:32:06.183] Splicing The Animals - The House of the Rising Sun - Lyrics 13
+[01/06/2022 16:32:06.631] Found 🚗 ⛽️ ZOOMING IN THE FOREIGN  🚗 ⛽️ [TYLER1]
+[01/06/2022 16:32:07.127] Smoothy is currently running 
+[01/06/2022 16:32:07.151] Playing 🚗 ⛽️ ZOOMING IN THE FOREIGN  🚗 ⛽️ [TYLER1]!
+[01/06/2022 16:32:08.244] Smoothy is currently running 
+[01/06/2022 16:33:12.069] Left VC Due To Idle
+[01/06/2022 16:33:12.123] Smoothy is currently running 
+[01/06/2022 16:35:00.660] Player Status Is Idle
+[01/06/2022 16:35:00.851] Splicing 🚗 ⛽️ ZOOMING IN THE FOREIGN  🚗 ⛽️ [TYLER1] 16
+[01/06/2022 16:35:01.153] Smoothy is currently running 
+[01/06/2022 16:35:01.536] Found NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3
+[01/06/2022 16:35:02.183] Smoothy is currently running 
+[01/06/2022 16:35:02.456] Playing NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3!
+[01/06/2022 16:35:03.148] Smoothy is currently running 
+[01/06/2022 17:41:15.373] Command = dc 
+[01/06/2022 17:41:15.382] Left The Voice Channel From Command
+[01/06/2022 17:41:16.354] Smoothy is currently running 
+[01/06/2022 20:12:55.644] Command = p https://www.youtube.com/watch?v=CeTdXGFrncM
+[01/06/2022 20:12:55.866] Smoothy is currently running 
+[01/06/2022 20:12:56.268] Found Black Spider Man Theme but only the good part
+[01/06/2022 20:12:56.269] created the audioplayer
+[01/06/2022 20:12:56.270] subscribed to Player
+[01/06/2022 20:12:56.991] Playing Black Spider Man Theme but only the good part!
+[01/06/2022 20:12:56.996] Smoothy is currently running 
+[01/06/2022 20:13:04.907] Command = v 100
+[01/06/2022 20:13:05.853] Smoothy is currently running 
+[01/06/2022 20:13:41.348] Command = skip 
+[01/06/2022 20:13:41.349] Skipping Black Spider Man Theme but only the good part!
+[01/06/2022 20:13:41.578] Player Status Is Idle
+[01/06/2022 20:13:41.590] Starting disconnectTimer Timeout
+[01/06/2022 20:13:41.855] Smoothy is currently running 
+[01/06/2022 20:13:53.823] Command = p https://www.youtube.com/watch?v=OjNpRbNdR7E
+[01/06/2022 20:13:53.845] Smoothy is currently running 
+[01/06/2022 20:13:54.393] Found mao zedong propaganda music Red Sun in the Sky
+[01/06/2022 20:13:54.393] Cleared Timout For disconnectTimer
+[01/06/2022 20:13:54.394] created the audioplayer
+[01/06/2022 20:13:54.394] subscribed to Player
+[01/06/2022 20:13:54.852] Smoothy is currently running 
+[01/06/2022 20:13:54.936] Playing mao zedong propaganda music Red Sun in the Sky!
+[01/06/2022 20:13:55.858] Smoothy is currently running 
+[01/06/2022 20:13:56.073] Command = v 100
+[01/06/2022 20:13:56.863] Smoothy is currently running 
+[01/06/2022 20:18:51.769] Command = skip 
+[01/06/2022 20:18:51.769] Skipping mao zedong propaganda music Red Sun in the Sky!
+[01/06/2022 20:18:51.874] Smoothy is currently running 
+[01/06/2022 20:18:52.000] Player Status Is Idle
+[01/06/2022 20:18:52.021] Starting disconnectTimer Timeout
+[01/06/2022 20:18:52.862] Smoothy is currently running 
+[01/06/2022 20:39:07.878] Command = pp https://www.youtube.com/playlist?list=PLAcVjxrQDMPo0uhHE4H9G0yPjS1vmhXrE
+[01/06/2022 20:39:07.883] Cleared Timout For disconnectTimer
+[01/06/2022 20:39:07.942] Smoothy is currently running 
+[01/06/2022 20:39:08.679] Found YouTube playlist Discord
+[01/06/2022 20:39:08.680] created the audioplayer
+[01/06/2022 20:39:08.681] subscribed to Player
+[01/06/2022 20:39:08.682] Created the serverQueue
+[01/06/2022 20:39:08.955] Smoothy is currently running 
+[01/06/2022 20:39:09.409] Playing Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
+[01/06/2022 20:39:10.219] Smoothy is currently running 
+[01/06/2022 20:39:12.850] Command = mix 
+[01/06/2022 20:39:12.851] Now shuffling the queue
+[01/06/2022 20:39:12.957] Smoothy is currently running 
+[01/06/2022 20:43:33.879] Player Status Is Idle
+[01/06/2022 20:43:33.953] Smoothy is currently running 
+[01/06/2022 20:43:34.567] Found XXXTENTACION & SKI MASK THE SLUMP GOD - FREDDY VS JASON (Prod. Willie G) (OFFICIAL LYRICS)
+[01/06/2022 20:43:34.966] Smoothy is currently running 
+[01/06/2022 20:43:35.398] Playing XXXTENTACION & SKI MASK THE SLUMP GOD - FREDDY VS JASON (Prod. Willie G) (OFFICIAL LYRICS)!
+[01/06/2022 20:43:36.065] Smoothy is currently running 
+[01/06/2022 20:45:14.360] Player Status Is Idle
+[01/06/2022 20:45:14.486] Splicing XXXTENTACION & SKI MASK THE SLUMP GOD - FREDDY VS JASON (Prod. Willie G) (OFFICIAL LYRICS) 5
+[01/06/2022 20:45:14.966] Smoothy is currently running 
+[01/06/2022 20:45:15.238] Found Sigma Male Theme [1 Hour Loop + 432hz]
+[01/06/2022 20:45:15.985] Smoothy is currently running 
+[01/06/2022 20:45:16.000] Playing Sigma Male Theme [1 Hour Loop + 432hz]!
+[01/06/2022 20:45:16.983] Smoothy is currently running 
+[01/06/2022 20:48:52.026] Left VC Due To Idle
+[01/06/2022 20:48:52.979] Smoothy is currently running 
+[01/06/2022 21:45:16.742] Player Status Is Idle
+[01/06/2022 21:45:17.109] Splicing Sigma Male Theme [1 Hour Loop + 432hz] 34
+[01/06/2022 21:45:17.176] Smoothy is currently running 
+[01/06/2022 21:45:17.689] Found Hoedown (Goose) [Chiptune Cover] from Don't Starve Together | Mandrew Music
+[01/06/2022 21:45:18.179] Smoothy is currently running 
+[01/06/2022 21:45:19.052] Playing Hoedown (Goose) [Chiptune Cover] from Don't Starve Together | Mandrew Music!
+[01/06/2022 21:45:19.191] Smoothy is currently running 
+[01/06/2022 21:47:28.278] Player Status Is Idle
+[01/06/2022 21:47:28.381] Splicing Hoedown (Goose) [Chiptune Cover] from Don't Starve Together | Mandrew Music 5
+[01/06/2022 21:47:29.014] Found FRXXMAN - MEMENTO
+[01/06/2022 21:47:29.195] Smoothy is currently running 
+[01/06/2022 21:47:29.560] Playing FRXXMAN - MEMENTO!
+[01/06/2022 21:47:30.194] Smoothy is currently running 
+[01/06/2022 21:47:46.135] Command = pa 
+[01/06/2022 21:47:46.175] Smoothy is currently running 
+[01/06/2022 22:15:04.183] Command = dc 
+[01/06/2022 22:15:04.187] Left The Voice Channel From Command
+[01/06/2022 22:15:04.272] Smoothy is currently running 
+[01/06/2022 22:57:05.610] Command = p https://www.youtube.com/watch?v=CeTdXGFrncM
+[01/06/2022 22:57:06.247] Found Black Spider Man Theme but only the good part
+[01/06/2022 22:57:06.248] created the audioplayer
+[01/06/2022 22:57:06.249] subscribed to Player
+[01/06/2022 22:57:06.440] Smoothy is currently running 
+[01/06/2022 22:57:06.819] Playing Black Spider Man Theme but only the good part!
+[01/06/2022 22:57:07.444] Smoothy is currently running 
+[01/06/2022 22:57:41.742] Command = p no sad no bad
+[01/06/2022 22:57:42.415] Smoothy is currently running 
+[01/06/2022 22:57:43.148] Found KILLY - No Sad No Bad (Official Video)
+[01/06/2022 22:57:43.149] created the audioplayer
+[01/06/2022 22:57:43.150] subscribed to Player
+[01/06/2022 22:57:43.468] Smoothy is currently running 
+[01/06/2022 22:57:44.351] Playing KILLY - No Sad No Bad (Official Video)!
+[01/06/2022 22:57:44.456] Smoothy is currently running 
+[01/06/2022 23:00:21.339] Player Status Is Idle
+[01/06/2022 23:00:21.426] Smoothy is currently running 
+[01/06/2022 23:00:21.482] Starting disconnectTimer Timeout
+[01/06/2022 23:00:22.418] Smoothy is currently running 
+[01/06/2022 23:30:21.483] Left VC Due To Idle
+[01/06/2022 23:30:21.517] Smoothy is currently running 
+[01/06/2022 23:36:46.809] Command = p bo2 main menu theme 1 hour
+[01/06/2022 23:36:47.563] Smoothy is currently running 
+[01/06/2022 23:36:48.514] Found Life is Strange - Main Menu Theme (10 hours)
+[01/06/2022 23:36:48.516] created the audioplayer
+[01/06/2022 23:36:48.516] subscribed to Player
+[01/06/2022 23:36:48.548] Smoothy is currently running 
+[01/06/2022 23:36:49.070] Playing Life is Strange - Main Menu Theme (10 hours)!
+[01/06/2022 23:36:49.637] Smoothy is currently running 
+[01/06/2022 23:36:53.633] Command = dc 
+[01/06/2022 23:36:53.634] Left The Voice Channel From Command
+[01/06/2022 23:36:54.544] Smoothy is currently running 
+[01/06/2022 23:37:02.526] Command = p bo2 main menu theme extended
+[01/06/2022 23:37:02.559] Smoothy is currently running 
+[01/06/2022 23:37:04.488] Found Gladiator - Now We Are Free Super Theme Song
+[01/06/2022 23:37:04.489] created the audioplayer
+[01/06/2022 23:37:04.489] subscribed to Player
+[01/06/2022 23:37:04.552] Smoothy is currently running 
+[01/06/2022 23:37:05.318] Playing Gladiator - Now We Are Free Super Theme Song!
+[01/06/2022 23:37:05.595] Smoothy is currently running 
+[01/06/2022 23:37:11.284] Command = dc 
+[01/06/2022 23:37:11.284] Left The Voice Channel From Command
+[01/06/2022 23:37:11.565] Smoothy is currently running 
+[01/06/2022 23:37:25.482] Command = p bo2 main menu theme
+[01/06/2022 23:37:25.563] Smoothy is currently running 
+[01/06/2022 23:37:27.358] Found The Legend of Bum Bo : Main Menu Theme
+[01/06/2022 23:37:27.358] created the audioplayer
+[01/06/2022 23:37:27.358] subscribed to Player
+[01/06/2022 23:37:27.579] Smoothy is currently running 
+[01/06/2022 23:37:27.929] Playing The Legend of Bum Bo : Main Menu Theme!
+[01/06/2022 23:37:28.656] Smoothy is currently running 
+[01/06/2022 23:37:32.932] Command = dc 
+[01/06/2022 23:37:32.933] Left The Voice Channel From Command
+[01/06/2022 23:37:33.564] Smoothy is currently running 
+[01/06/2022 23:37:44.849] Command = p black ops 2 main menu theme
+[01/06/2022 23:37:45.566] Smoothy is currently running 
+[01/06/2022 23:37:46.540] Found Black Ops 2 Soundtrack: Main Theme
+[01/06/2022 23:37:46.541] created the audioplayer
+[01/06/2022 23:37:46.541] subscribed to Player
+[01/06/2022 23:37:46.573] Smoothy is currently running 
+[01/06/2022 23:37:46.959] Playing Black Ops 2 Soundtrack: Main Theme!
+[01/06/2022 23:37:47.621] Smoothy is currently running 
+[01/06/2022 23:38:29.680] Command = p black ops 2 main menu theme extended
+[01/06/2022 23:38:30.583] Smoothy is currently running 
+[01/06/2022 23:38:30.738] Found COD Black Ops 2 Main Menu Theme Extended 1 hour
+[01/06/2022 23:38:31.731] Smoothy is currently running 
+[01/06/2022 23:38:36.171] Command = n 
+[01/06/2022 23:38:36.172] Skipping Black Ops 2 Soundtrack: Main Theme!
+[01/06/2022 23:38:36.398] Player Status Is Idle
+[01/06/2022 23:38:36.571] Smoothy is currently running 
+[01/06/2022 23:38:36.864] Found COD Black Ops 2 Main Menu Theme Extended 1 hour
+[01/06/2022 23:38:37.358] Playing COD Black Ops 2 Main Menu Theme Extended 1 hour!
+[01/06/2022 23:38:37.614] Smoothy is currently running 
+[01/06/2022 23:38:42.457] Command = ls 
+[01/06/2022 23:38:42.572] Smoothy is currently running 
+[01/07/2022 00:39:17.518] Player Status Is Idle
+[01/07/2022 00:39:17.674] Playing Looped Current Song
+[01/07/2022 00:39:17.776] Smoothy is currently running 
+[01/07/2022 00:39:18.113] Found COD Black Ops 2 Main Menu Theme Extended 1 hour
+[01/07/2022 00:39:18.669] Playing COD Black Ops 2 Main Menu Theme Extended 1 hour!
+[01/07/2022 00:39:18.784] Smoothy is currently running 
+[01/07/2022 00:49:42.263] Command = c 
+[01/07/2022 00:49:42.316] /home/aaron/Documents/Smoothy/main.js:164
+[01/07/2022 00:49:42.317]         snoopy_goes_wild.dummy = 'me';
+[01/07/2022 00:49:42.317]         ^
+[01/07/2022 00:49:42.317] 
+[01/07/2022 00:49:42.318] ReferenceError: snoopy_goes_wild is not defined
+[01/07/2022 00:49:42.318]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:164:9)
+[01/07/2022 00:49:42.318]     at Client.emit (node:events:390:28)
+[01/07/2022 00:49:42.318]     at MessageCreateAction.handle (/home/aaron/Documents/Smoothy/node_modules/discord.js/src/client/actions/MessageCreate.js:26:14)
+[01/07/2022 00:49:42.318]     at Object.module.exports [as MESSAGE_CREATE] (/home/aaron/Documents/Smoothy/node_modules/discord.js/src/client/websocket/handlers/MESSAGE_CREATE.js:4:32)
+[01/07/2022 00:49:42.318]     at WebSocketManager.handlePacket (/home/aaron/Documents/Smoothy/node_modules/discord.js/src/client/websocket/WebSocketManager.js:351:31)
+[01/07/2022 00:49:42.318]     at WebSocketShard.onPacket (/home/aaron/Documents/Smoothy/node_modules/discord.js/src/client/websocket/WebSocketShard.js:444:22)
+[01/07/2022 00:49:42.319]     at WebSocketShard.onMessage (/home/aaron/Documents/Smoothy/node_modules/discord.js/src/client/websocket/WebSocketShard.js:301:10)
+[01/07/2022 00:49:42.369]     at WebSocket.onMessage (/home/aaron/Documents/Smoothy/node_modules/ws/lib/event-target.js:199:18)
+[01/07/2022 00:49:42.370]     at WebSocket.emit (node:events:390:28)
+[01/07/2022 00:49:42.370]     at Receiver.receiverOnMessage (/home/aaron/Documents/Smoothy/node_modules/ws/lib/websocket.js:1098:20)
+[01/07/2022 00:49:42.922] Not Running, Starting up Smoothy...
+[01/07/2022 00:49:42.963] Run Shell Script Started
+[01/07/2022 00:49:43.793] Smoothy is currently running 
+[01/07/2022 00:49:48.583] /home/aaron/Documents/Smoothy/main.js:59
+[01/07/2022 00:49:48.584]                 data.queues[i].voiceChannel = message.member.voice.channel;
+[01/07/2022 00:49:48.584]                                                              ^
+[01/07/2022 00:49:48.584] 
+[01/07/2022 00:49:48.585] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:49:48.585]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:59:62)
+[01/07/2022 00:49:48.585]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:49:48.798] Not Running, Starting up Smoothy...
+[01/07/2022 00:49:48.814] Run Shell Script Started
+[01/07/2022 00:49:49.822] Smoothy is currently running 
+[01/07/2022 00:49:58.671] /home/aaron/Documents/Smoothy/main.js:59
+[01/07/2022 00:49:58.671]                 data.queues[i].voiceChannel = message.member.voice.channel;
+[01/07/2022 00:49:58.671]                                                              ^
+[01/07/2022 00:49:58.671] 
+[01/07/2022 00:49:58.672] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:49:58.672]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:59:62)
+[01/07/2022 00:49:58.672]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:49:58.782] Not Running, Starting up Smoothy...
+[01/07/2022 00:49:58.798] Run Shell Script Started
+[01/07/2022 00:49:59.803] Smoothy is currently running 
+[01/07/2022 00:50:08.742] /home/aaron/Documents/Smoothy/main.js:59
+[01/07/2022 00:50:08.743]                 data.queues[i].voiceChannel = message.member.voice.channel;
+[01/07/2022 00:50:08.743]                                                              ^
+[01/07/2022 00:50:08.743] 
+[01/07/2022 00:50:08.743] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:50:08.743]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:59:62)
+[01/07/2022 00:50:08.743]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:50:08.827] Not Running, Starting up Smoothy...
+[01/07/2022 00:50:08.844] Run Shell Script Started
+[01/07/2022 00:50:09.809] Smoothy is currently running 
+[01/07/2022 00:50:18.754] /home/aaron/Documents/Smoothy/main.js:59
+[01/07/2022 00:50:18.754]                 data.queues[i].voiceChannel = message.member.voice.channel;
+[01/07/2022 00:50:18.755]                                                              ^
+[01/07/2022 00:50:18.755] 
+[01/07/2022 00:50:18.755] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:50:18.755]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:59:62)
+[01/07/2022 00:50:18.755]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:50:18.796] Not Running, Starting up Smoothy...
+[01/07/2022 00:50:18.817] Run Shell Script Started
+[01/07/2022 00:50:19.817] Smoothy is currently running 
+[01/07/2022 00:50:28.790] /home/aaron/Documents/Smoothy/main.js:59
+[01/07/2022 00:50:28.790]                 data.queues[i].voiceChannel = message.member.voice.channel;
+[01/07/2022 00:50:28.795]                                                              ^
+[01/07/2022 00:50:28.795] 
+[01/07/2022 00:50:28.796] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:50:28.796]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:59:62)
+[01/07/2022 00:50:28.796]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:50:29.765] Not Running, Starting up Smoothy...
+[01/07/2022 00:50:29.782] Run Shell Script Started
+[01/07/2022 00:50:30.811] Smoothy is currently running 
+[01/07/2022 00:50:38.848] /home/aaron/Documents/Smoothy/main.js:59
+[01/07/2022 00:50:38.848]                 data.queues[i].voiceChannel = message.member.voice.channel;
+[01/07/2022 00:50:38.849]                                                              ^
+[01/07/2022 00:50:38.849] 
+[01/07/2022 00:50:38.849] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:50:38.849]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:59:62)
+[01/07/2022 00:50:38.849]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:50:39.770] Not Running, Starting up Smoothy...
+[01/07/2022 00:50:39.787] Run Shell Script Started
+[01/07/2022 00:50:40.809] Smoothy is currently running 
+[01/07/2022 00:50:49.000] /home/aaron/Documents/Smoothy/main.js:59
+[01/07/2022 00:50:49.001]                 data.queues[i].voiceChannel = message.member.voice.channel;
+[01/07/2022 00:50:49.001]                                                              ^
+[01/07/2022 00:50:49.003] 
+[01/07/2022 00:50:49.005] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:50:49.006]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:59:62)
+[01/07/2022 00:50:49.008]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:50:49.777] Not Running, Starting up Smoothy...
+[01/07/2022 00:50:49.795] Run Shell Script Started
+[01/07/2022 00:50:51.134] Smoothy is currently running 
+[01/07/2022 00:50:54.733] /home/aaron/Documents/Smoothy/main.js:59
+[01/07/2022 00:50:54.734]                 data.queues[i].voiceChannel = message.member.voice.channel;
+[01/07/2022 00:50:54.734]                                                              ^
+[01/07/2022 00:50:54.735] 
+[01/07/2022 00:50:54.735] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:50:54.735]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:59:62)
+[01/07/2022 00:50:54.735]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:50:54.959] Not Running, Starting up Smoothy...
+[01/07/2022 00:50:54.982] Run Shell Script Started
+[01/07/2022 00:50:55.902] Smoothy is currently running 
+[01/07/2022 00:50:59.951] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:50:59.951]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:50:59.951]                                                    ^
+[01/07/2022 00:50:59.952] 
+[01/07/2022 00:50:59.952] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:50:59.952]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:50:59.952]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:50:59.966] Smoothy is currently running 
+[01/07/2022 00:51:00.954] Not Running, Starting up Smoothy...
+[01/07/2022 00:51:01.118] Run Shell Script Started
+[01/07/2022 00:51:01.857] Smoothy is currently running 
+[01/07/2022 00:51:05.440] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:51:05.441]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:51:05.441]                                                    ^
+[01/07/2022 00:51:05.441] 
+[01/07/2022 00:51:05.441] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:51:05.441]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:51:05.441]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:51:05.888] Not Running, Starting up Smoothy...
+[01/07/2022 00:51:05.916] Run Shell Script Started
+[01/07/2022 00:51:06.890] Smoothy is currently running 
+[01/07/2022 00:51:15.396] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:51:15.396]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:51:15.396]                                                    ^
+[01/07/2022 00:51:15.397] 
+[01/07/2022 00:51:15.397] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:51:15.397]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:51:15.397]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:51:15.788] Not Running, Starting up Smoothy...
+[01/07/2022 00:51:15.804] Run Shell Script Started
+[01/07/2022 00:51:16.862] Smoothy is currently running 
+[01/07/2022 00:51:25.556] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:51:25.557]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:51:25.557]                                                    ^
+[01/07/2022 00:51:25.557] 
+[01/07/2022 00:51:25.557] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:51:25.557]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:51:25.557]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:51:25.818] Not Running, Starting up Smoothy...
+[01/07/2022 00:51:25.836] Run Shell Script Started
+[01/07/2022 00:51:26.814] Smoothy is currently running 
+[01/07/2022 00:51:35.588] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:51:35.588]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:51:35.588]                                                    ^
+[01/07/2022 00:51:35.588] 
+[01/07/2022 00:51:35.588] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:51:35.589]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:51:35.589]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:51:35.770] Not Running, Starting up Smoothy...
+[01/07/2022 00:51:35.787] Run Shell Script Started
+[01/07/2022 00:51:36.809] Smoothy is currently running 
+[01/07/2022 00:51:45.523] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:51:45.523]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:51:45.524]                                                    ^
+[01/07/2022 00:51:45.525] 
+[01/07/2022 00:51:45.525] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:51:45.525]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:51:45.526]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:51:45.775] Not Running, Starting up Smoothy...
+[01/07/2022 00:51:45.791] Run Shell Script Started
+[01/07/2022 00:51:46.807] Smoothy is currently running 
+[01/07/2022 00:51:55.820] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:51:55.821]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:51:55.821]                                                    ^
+[01/07/2022 00:51:55.821] 
+[01/07/2022 00:51:55.822] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:51:55.822]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:51:55.823]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:51:56.767] Not Running, Starting up Smoothy...
+[01/07/2022 00:51:56.784] Run Shell Script Started
+[01/07/2022 00:51:57.806] Smoothy is currently running 
+[01/07/2022 00:52:05.774] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:52:05.774]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:52:05.774]                                                    ^
+[01/07/2022 00:52:05.774] 
+[01/07/2022 00:52:05.775] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:52:05.775]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:52:05.775]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:52:05.783] Smoothy is currently running 
+[01/07/2022 00:52:06.768] Not Running, Starting up Smoothy...
+[01/07/2022 00:52:06.785] Run Shell Script Started
+[01/07/2022 00:52:07.819] Smoothy is currently running 
+[01/07/2022 00:52:15.894] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:52:15.895]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:52:15.895]                                                    ^
+[01/07/2022 00:52:15.895] 
+[01/07/2022 00:52:15.895] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:52:15.895]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:52:15.895]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:52:16.773] Not Running, Starting up Smoothy...
+[01/07/2022 00:52:16.790] Run Shell Script Started
+[01/07/2022 00:52:17.853] Smoothy is currently running 
+[01/07/2022 00:52:26.108] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:52:26.108]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:52:26.109]                                                    ^
+[01/07/2022 00:52:26.109] 
+[01/07/2022 00:52:26.109] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:52:26.109]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:52:26.109]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:52:26.769] Not Running, Starting up Smoothy...
+[01/07/2022 00:52:26.786] Run Shell Script Started
+[01/07/2022 00:52:27.818] Smoothy is currently running 
+[01/07/2022 00:52:36.053] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:52:36.054]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:52:36.054]                                                    ^
+[01/07/2022 00:52:36.054] 
+[01/07/2022 00:52:36.054] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:52:36.054]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:52:36.054]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:52:36.776] Not Running, Starting up Smoothy...
+[01/07/2022 00:52:36.793] Run Shell Script Started
+[01/07/2022 00:52:37.815] Smoothy is currently running 
+[01/07/2022 00:52:46.155] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:52:46.156]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:52:46.156]                                                    ^
+[01/07/2022 00:52:46.156] 
+[01/07/2022 00:52:46.157] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:52:46.157]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:52:46.157]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:52:46.772] Not Running, Starting up Smoothy...
+[01/07/2022 00:52:46.790] Run Shell Script Started
+[01/07/2022 00:52:47.841] Smoothy is currently running 
+[01/07/2022 00:52:56.147] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:52:56.148]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:52:56.148]                                                    ^
+[01/07/2022 00:52:56.148] 
+[01/07/2022 00:52:56.148] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:52:56.149]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:52:56.149]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:52:56.773] Not Running, Starting up Smoothy...
+[01/07/2022 00:52:56.790] Run Shell Script Started
+[01/07/2022 00:52:57.814] Smoothy is currently running 
+[01/07/2022 00:53:06.272] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:53:06.273]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:53:06.273]                                                    ^
+[01/07/2022 00:53:06.273] 
+[01/07/2022 00:53:06.273] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:53:06.274]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:53:06.274]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:53:06.771] Not Running, Starting up Smoothy...
+[01/07/2022 00:53:06.788] Run Shell Script Started
+[01/07/2022 00:53:07.822] Smoothy is currently running 
+[01/07/2022 00:53:16.276] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:53:16.276]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:53:16.277]                                                    ^
+[01/07/2022 00:53:16.277] 
+[01/07/2022 00:53:16.277] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:53:16.277]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:53:16.277]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:53:16.775] Not Running, Starting up Smoothy...
+[01/07/2022 00:53:16.792] Run Shell Script Started
+[01/07/2022 00:53:17.852] Smoothy is currently running 
+[01/07/2022 00:53:26.361] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:53:26.362]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:53:26.362]                                                    ^
+[01/07/2022 00:53:26.362] 
+[01/07/2022 00:53:26.362] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:53:26.362]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:53:26.362]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:53:26.788] Not Running, Starting up Smoothy...
+[01/07/2022 00:53:26.806] Run Shell Script Started
+[01/07/2022 00:53:27.822] Smoothy is currently running 
+[01/07/2022 00:53:36.582] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:53:36.582]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:53:36.582]                                                    ^
+[01/07/2022 00:53:36.583] 
+[01/07/2022 00:53:36.583] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:53:36.583]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:53:36.583]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:53:36.826] Not Running, Starting up Smoothy...
+[01/07/2022 00:53:36.843] Run Shell Script Started
+[01/07/2022 00:53:37.824] Smoothy is currently running 
+[01/07/2022 00:53:46.613] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:53:46.613]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:53:46.613]                                                    ^
+[01/07/2022 00:53:46.614] 
+[01/07/2022 00:53:46.614] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:53:46.614]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:53:46.614]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:53:46.781] Not Running, Starting up Smoothy...
+[01/07/2022 00:53:46.798] Run Shell Script Started
+[01/07/2022 00:53:47.857] Smoothy is currently running 
+[01/07/2022 00:53:56.628] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:53:56.628]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:53:56.628]                                                    ^
+[01/07/2022 00:53:56.629] 
+[01/07/2022 00:53:56.629] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:53:56.629]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:53:56.629]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:53:56.781] Not Running, Starting up Smoothy...
+[01/07/2022 00:53:56.798] Run Shell Script Started
+[01/07/2022 00:53:57.821] Smoothy is currently running 
+[01/07/2022 00:54:06.649] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:54:06.649]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:54:06.650]                                                    ^
+[01/07/2022 00:54:06.650] 
+[01/07/2022 00:54:06.650] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:54:06.650]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:54:06.650]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:54:06.785] Not Running, Starting up Smoothy...
+[01/07/2022 00:54:06.802] Run Shell Script Started
+[01/07/2022 00:54:07.815] Smoothy is currently running 
+[01/07/2022 00:54:16.694] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:54:16.695]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:54:16.695]                                                    ^
+[01/07/2022 00:54:16.695] 
+[01/07/2022 00:54:16.695] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:54:16.696]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:54:16.696]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:54:16.798] Not Running, Starting up Smoothy...
+[01/07/2022 00:54:16.815] Run Shell Script Started
+[01/07/2022 00:54:17.855] Smoothy is currently running 
+[01/07/2022 00:54:26.834] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:54:26.840]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:54:26.840]                                                    ^
+[01/07/2022 00:54:26.841] 
+[01/07/2022 00:54:26.842] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:54:26.843]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:54:26.843]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:54:27.776] Not Running, Starting up Smoothy...
+[01/07/2022 00:54:27.793] Run Shell Script Started
+[01/07/2022 00:54:28.820] Smoothy is currently running 
+[01/07/2022 00:54:36.860] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:54:36.860]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:54:36.860]                                                    ^
+[01/07/2022 00:54:36.860] 
+[01/07/2022 00:54:36.860] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:54:36.860]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:54:36.861]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:54:37.779] Not Running, Starting up Smoothy...
+[01/07/2022 00:54:37.797] Run Shell Script Started
+[01/07/2022 00:54:38.821] Smoothy is currently running 
+[01/07/2022 00:54:47.021] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:54:47.021]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:54:47.021]                                                    ^
+[01/07/2022 00:54:47.022] 
+[01/07/2022 00:54:47.022] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:54:47.022]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:54:47.022]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:54:47.791] Not Running, Starting up Smoothy...
+[01/07/2022 00:54:47.808] Run Shell Script Started
+[01/07/2022 00:54:48.822] Smoothy is currently running 
+[01/07/2022 00:54:57.036] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:54:57.036]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:54:57.036]                                                    ^
+[01/07/2022 00:54:57.037] 
+[01/07/2022 00:54:57.037] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:54:57.037]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:54:57.037]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:54:57.778] Not Running, Starting up Smoothy...
+[01/07/2022 00:54:57.795] Run Shell Script Started
+[01/07/2022 00:54:58.819] Smoothy is currently running 
+[01/07/2022 00:55:07.393] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:55:07.394]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:55:07.395]                                                    ^
+[01/07/2022 00:55:07.395] 
+[01/07/2022 00:55:07.395] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:55:07.395]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:55:07.396]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:55:07.789] Not Running, Starting up Smoothy...
+[01/07/2022 00:55:07.807] Run Shell Script Started
+[01/07/2022 00:55:08.822] Smoothy is currently running 
+[01/07/2022 00:55:17.387] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:55:17.388]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:55:17.389]                                                    ^
+[01/07/2022 00:55:17.389] 
+[01/07/2022 00:55:17.392] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:55:17.392]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:55:17.393]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:55:17.812] Not Running, Starting up Smoothy...
+[01/07/2022 00:55:17.828] Run Shell Script Started
+[01/07/2022 00:55:18.823] Smoothy is currently running 
+[01/07/2022 00:55:27.360] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:55:27.361]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:55:27.361]                                                    ^
+[01/07/2022 00:55:27.361] 
+[01/07/2022 00:55:27.361] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:55:27.362]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:55:27.362]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:55:27.784] Not Running, Starting up Smoothy...
+[01/07/2022 00:55:27.801] Run Shell Script Started
+[01/07/2022 00:55:28.822] Smoothy is currently running 
+[01/07/2022 00:55:37.436] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:55:37.436]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:55:37.436]                                                    ^
+[01/07/2022 00:55:37.436] 
+[01/07/2022 00:55:37.436] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:55:37.437]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:55:37.437]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:55:37.794] Not Running, Starting up Smoothy...
+[01/07/2022 00:55:37.811] Run Shell Script Started
+[01/07/2022 00:55:38.823] Smoothy is currently running 
+[01/07/2022 00:55:47.398] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:55:47.398]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:55:47.398]                                                    ^
+[01/07/2022 00:55:47.399] 
+[01/07/2022 00:55:47.399] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:55:47.399]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:55:47.399]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:55:47.811] Not Running, Starting up Smoothy...
+[01/07/2022 00:55:47.828] Run Shell Script Started
+[01/07/2022 00:55:48.836] Smoothy is currently running 
+[01/07/2022 00:55:57.474] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:55:57.474]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:55:57.475]                                                    ^
+[01/07/2022 00:55:57.475] 
+[01/07/2022 00:55:57.475] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:55:57.476]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:55:57.476]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:55:57.796] Not Running, Starting up Smoothy...
+[01/07/2022 00:55:57.813] Run Shell Script Started
+[01/07/2022 00:55:58.827] Smoothy is currently running 
+[01/07/2022 00:56:07.717] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:56:07.717]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:56:07.717]                                                    ^
+[01/07/2022 00:56:07.717] 
+[01/07/2022 00:56:07.717] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:56:07.718]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:56:07.718]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:56:07.790] Not Running, Starting up Smoothy...
+[01/07/2022 00:56:07.807] Run Shell Script Started
+[01/07/2022 00:56:08.819] Smoothy is currently running 
+[01/07/2022 00:56:17.729] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:56:17.730]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:56:17.730]                                                    ^
+[01/07/2022 00:56:17.730] 
+[01/07/2022 00:56:17.731] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:56:17.731]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:56:17.731]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:56:17.818] Not Running, Starting up Smoothy...
+[01/07/2022 00:56:17.835] Run Shell Script Started
+[01/07/2022 00:56:18.824] Smoothy is currently running 
+[01/07/2022 00:56:27.719] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:56:27.720]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:56:27.720]                                                    ^
+[01/07/2022 00:56:27.720] 
+[01/07/2022 00:56:27.721] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:56:27.721]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:56:27.721]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:56:27.803] Not Running, Starting up Smoothy...
+[01/07/2022 00:56:27.820] Run Shell Script Started
+[01/07/2022 00:56:28.821] Smoothy is currently running 
+[01/07/2022 00:56:38.017] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:56:38.017]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:56:38.018]                                                    ^
+[01/07/2022 00:56:38.018] 
+[01/07/2022 00:56:38.019] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:56:38.019]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:56:38.019]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:56:38.780] Not Running, Starting up Smoothy...
+[01/07/2022 00:56:38.797] Run Shell Script Started
+[01/07/2022 00:56:39.821] Smoothy is currently running 
+[01/07/2022 00:56:47.971] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:56:47.972]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:56:47.972]                                                    ^
+[01/07/2022 00:56:47.973] 
+[01/07/2022 00:56:47.973] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:56:47.973]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:56:47.973]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:56:48.786] Not Running, Starting up Smoothy...
+[01/07/2022 00:56:48.802] Run Shell Script Started
+[01/07/2022 00:56:49.825] Smoothy is currently running 
+[01/07/2022 00:56:57.982] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:56:57.982]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:56:57.983]                                                    ^
+[01/07/2022 00:56:57.983] 
+[01/07/2022 00:56:57.983] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:56:57.983]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:56:57.984]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:56:58.780] Not Running, Starting up Smoothy...
+[01/07/2022 00:56:58.797] Run Shell Script Started
+[01/07/2022 00:56:59.826] Smoothy is currently running 
+[01/07/2022 00:57:08.012] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:57:08.013]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:57:08.013]                                                    ^
+[01/07/2022 00:57:08.013] 
+[01/07/2022 00:57:08.014] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:57:08.014]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:57:08.014]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:57:08.780] Not Running, Starting up Smoothy...
+[01/07/2022 00:57:08.798] Run Shell Script Started
+[01/07/2022 00:57:09.823] Smoothy is currently running 
+[01/07/2022 00:57:18.164] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:57:18.164]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:57:18.165]                                                    ^
+[01/07/2022 00:57:18.165] 
+[01/07/2022 00:57:18.165] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:57:18.165]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:57:18.165]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:57:18.786] Not Running, Starting up Smoothy...
+[01/07/2022 00:57:18.802] Run Shell Script Started
+[01/07/2022 00:57:19.826] Smoothy is currently running 
+[01/07/2022 00:57:28.275] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:57:28.276]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:57:28.276]                                                    ^
+[01/07/2022 00:57:28.277] 
+[01/07/2022 00:57:28.277] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:57:28.277]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:57:28.277]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:57:28.784] Not Running, Starting up Smoothy...
+[01/07/2022 00:57:28.800] Run Shell Script Started
+[01/07/2022 00:57:29.827] Smoothy is currently running 
+[01/07/2022 00:57:38.278] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:57:38.278]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:57:38.278]                                                    ^
+[01/07/2022 00:57:38.279] 
+[01/07/2022 00:57:38.279] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:57:38.279]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:57:38.279]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:57:38.791] Not Running, Starting up Smoothy...
+[01/07/2022 00:57:38.808] Run Shell Script Started
+[01/07/2022 00:57:39.827] Smoothy is currently running 
+[01/07/2022 00:57:48.899] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:57:48.899]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:57:48.900]                                                    ^
+[01/07/2022 00:57:48.900] 
+[01/07/2022 00:57:48.900] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:57:48.900]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:57:48.900]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:57:49.784] Not Running, Starting up Smoothy...
+[01/07/2022 00:57:49.800] Run Shell Script Started
+[01/07/2022 00:57:50.828] Smoothy is currently running 
+[01/07/2022 00:57:58.453] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:57:58.454]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:57:58.454]                                                    ^
+[01/07/2022 00:57:58.454] 
+[01/07/2022 00:57:58.454] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:57:58.454]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:57:58.454]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:57:58.786] Not Running, Starting up Smoothy...
+[01/07/2022 00:57:58.803] Run Shell Script Started
+[01/07/2022 00:57:59.826] Smoothy is currently running 
+[01/07/2022 00:58:08.589] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:58:08.590]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:58:08.590]                                                    ^
+[01/07/2022 00:58:08.590] 
+[01/07/2022 00:58:08.590] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:58:08.591]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:58:08.591]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:58:08.796] Not Running, Starting up Smoothy...
+[01/07/2022 00:58:08.813] Run Shell Script Started
+[01/07/2022 00:58:09.823] Smoothy is currently running 
+[01/07/2022 00:58:18.716] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:58:18.717]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:58:18.717]                                                    ^
+[01/07/2022 00:58:18.717] 
+[01/07/2022 00:58:18.718] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:58:18.718]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:58:18.718]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:58:18.789] Not Running, Starting up Smoothy...
+[01/07/2022 00:58:18.806] Run Shell Script Started
+[01/07/2022 00:58:19.829] Smoothy is currently running 
+[01/07/2022 00:58:28.606] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:58:28.606]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:58:28.606]                                                    ^
+[01/07/2022 00:58:28.606] 
+[01/07/2022 00:58:28.606] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:58:28.606]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:58:28.606]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:58:28.802] Not Running, Starting up Smoothy...
+[01/07/2022 00:58:28.819] Run Shell Script Started
+[01/07/2022 00:58:29.833] Smoothy is currently running 
+[01/07/2022 00:58:38.825] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:58:38.826]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:58:38.827]                                                    ^
+[01/07/2022 00:58:38.827] 
+[01/07/2022 00:58:38.827] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:58:38.828]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:58:38.828]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:58:39.789] Not Running, Starting up Smoothy...
+[01/07/2022 00:58:39.805] Run Shell Script Started
+[01/07/2022 00:58:40.830] Smoothy is currently running 
+[01/07/2022 00:58:48.800] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:58:48.800]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:58:48.800]                                                    ^
+[01/07/2022 00:58:48.800] 
+[01/07/2022 00:58:48.800] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:58:48.800]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:58:48.801]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:58:48.801] Smoothy is currently running 
+[01/07/2022 00:58:49.787] Not Running, Starting up Smoothy...
+[01/07/2022 00:58:49.805] Run Shell Script Started
+[01/07/2022 00:58:50.829] Smoothy is currently running 
+[01/07/2022 00:58:58.879] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:58:58.879]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:58:58.880]                                                    ^
+[01/07/2022 00:58:58.880] 
+[01/07/2022 00:58:58.881] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:58:58.881]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:58:58.881]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:58:59.789] Not Running, Starting up Smoothy...
+[01/07/2022 00:58:59.806] Run Shell Script Started
+[01/07/2022 00:59:00.832] Smoothy is currently running 
+[01/07/2022 00:59:09.112] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:59:09.125]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:59:09.125]                                                    ^
+[01/07/2022 00:59:09.126] 
+[01/07/2022 00:59:09.127] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:59:09.127]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:59:09.128]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:59:09.789] Not Running, Starting up Smoothy...
+[01/07/2022 00:59:09.806] Run Shell Script Started
+[01/07/2022 00:59:10.838] Smoothy is currently running 
+[01/07/2022 00:59:19.289] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:59:19.290]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:59:19.290]                                                    ^
+[01/07/2022 00:59:19.290] 
+[01/07/2022 00:59:19.291] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:59:19.291]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:59:19.291]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:59:19.785] Not Running, Starting up Smoothy...
+[01/07/2022 00:59:19.802] Run Shell Script Started
+[01/07/2022 00:59:20.829] Smoothy is currently running 
+[01/07/2022 00:59:29.094] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:59:29.095]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:59:29.095]                                                    ^
+[01/07/2022 00:59:29.095] 
+[01/07/2022 00:59:29.095] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:59:29.095]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:59:29.095]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:59:29.789] Not Running, Starting up Smoothy...
+[01/07/2022 00:59:29.806] Run Shell Script Started
+[01/07/2022 00:59:30.828] Smoothy is currently running 
+[01/07/2022 00:59:39.200] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:59:39.201]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:59:39.201]                                                    ^
+[01/07/2022 00:59:39.201] 
+[01/07/2022 00:59:39.201] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:59:39.202]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:59:39.202]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:59:39.791] Not Running, Starting up Smoothy...
+[01/07/2022 00:59:39.807] Run Shell Script Started
+[01/07/2022 00:59:40.832] Smoothy is currently running 
+[01/07/2022 00:59:49.232] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:59:49.233]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:59:49.233]                                                    ^
+[01/07/2022 00:59:49.233] 
+[01/07/2022 00:59:49.234] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:59:49.234]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:59:49.234]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:59:49.794] Not Running, Starting up Smoothy...
+[01/07/2022 00:59:49.811] Run Shell Script Started
+[01/07/2022 00:59:50.833] Smoothy is currently running 
+[01/07/2022 00:59:59.327] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 00:59:59.327]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 00:59:59.328]                                                    ^
+[01/07/2022 00:59:59.328] 
+[01/07/2022 00:59:59.328] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 00:59:59.328]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 00:59:59.328]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 00:59:59.789] Not Running, Starting up Smoothy...
+[01/07/2022 00:59:59.806] Run Shell Script Started
+[01/07/2022 01:00:00.837] Smoothy is currently running 
+[01/07/2022 01:00:09.602] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:00:09.603]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:00:09.603]                                                    ^
+[01/07/2022 01:00:09.603] 
+[01/07/2022 01:00:09.603] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:00:09.604]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:00:09.604]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:00:09.795] Not Running, Starting up Smoothy...
+[01/07/2022 01:00:09.812] Run Shell Script Started
+[01/07/2022 01:00:10.847] Smoothy is currently running 
+[01/07/2022 01:00:19.578] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:00:19.579]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:00:19.579]                                                    ^
+[01/07/2022 01:00:19.579] 
+[01/07/2022 01:00:19.579] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:00:19.579]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:00:19.579]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:00:19.798] Not Running, Starting up Smoothy...
+[01/07/2022 01:00:19.816] Run Shell Script Started
+[01/07/2022 01:00:20.841] Smoothy is currently running 
+[01/07/2022 01:00:29.564] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:00:29.565]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:00:29.566]                                                    ^
+[01/07/2022 01:00:29.567] 
+[01/07/2022 01:00:29.567] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:00:29.567]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:00:29.568]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:00:29.797] Not Running, Starting up Smoothy...
+[01/07/2022 01:00:29.814] Run Shell Script Started
+[01/07/2022 01:00:30.836] Smoothy is currently running 
+[01/07/2022 01:00:39.745] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:00:39.752]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:00:39.752]                                                    ^
+[01/07/2022 01:00:39.754] 
+[01/07/2022 01:00:39.754] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:00:39.754]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:00:39.755]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:00:39.800] Not Running, Starting up Smoothy...
+[01/07/2022 01:00:39.817] Run Shell Script Started
+[01/07/2022 01:00:40.837] Smoothy is currently running 
+[01/07/2022 01:00:49.748] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:00:49.748]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:00:49.749]                                                    ^
+[01/07/2022 01:00:49.749] 
+[01/07/2022 01:00:49.750] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:00:49.750]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:00:49.750]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:00:49.818] Not Running, Starting up Smoothy...
+[01/07/2022 01:00:49.836] Run Shell Script Started
+[01/07/2022 01:00:50.836] Smoothy is currently running 
+[01/07/2022 01:00:59.854] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:00:59.855]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:00:59.855]                                                    ^
+[01/07/2022 01:00:59.855] 
+[01/07/2022 01:00:59.855] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:00:59.855]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:00:59.855]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:01:00.797] Not Running, Starting up Smoothy...
+[01/07/2022 01:01:00.815] Run Shell Script Started
+[01/07/2022 01:01:01.841] Smoothy is currently running 
+[01/07/2022 01:01:09.854] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:01:09.854]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:01:09.855]                                                    ^
+[01/07/2022 01:01:09.855] 
+[01/07/2022 01:01:09.856] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:01:09.856]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:01:09.856]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:01:10.800] Not Running, Starting up Smoothy...
+[01/07/2022 01:01:10.817] Run Shell Script Started
+[01/07/2022 01:01:11.837] Smoothy is currently running 
+[01/07/2022 01:01:19.979] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:01:19.979]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:01:19.980]                                                    ^
+[01/07/2022 01:01:19.980] 
+[01/07/2022 01:01:19.980] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:01:19.980]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:01:19.980]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:01:20.796] Not Running, Starting up Smoothy...
+[01/07/2022 01:01:20.814] Run Shell Script Started
+[01/07/2022 01:01:21.838] Smoothy is currently running 
+[01/07/2022 01:01:30.188] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:01:30.188]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:01:30.189]                                                    ^
+[01/07/2022 01:01:30.189] 
+[01/07/2022 01:01:30.189] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:01:30.189]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:01:30.189]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:01:30.801] Not Running, Starting up Smoothy...
+[01/07/2022 01:01:30.817] Run Shell Script Started
+[01/07/2022 01:01:31.843] Smoothy is currently running 
+[01/07/2022 01:01:40.256] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:01:40.256]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:01:40.256]                                                    ^
+[01/07/2022 01:01:40.257] 
+[01/07/2022 01:01:40.257] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:01:40.257]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:01:40.257]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:01:40.798] Not Running, Starting up Smoothy...
+[01/07/2022 01:01:40.815] Run Shell Script Started
+[01/07/2022 01:01:41.839] Smoothy is currently running 
+[01/07/2022 01:01:50.209] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:01:50.210]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:01:50.210]                                                    ^
+[01/07/2022 01:01:50.210] 
+[01/07/2022 01:01:50.210] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:01:50.211]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:01:50.211]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:01:50.797] Not Running, Starting up Smoothy...
+[01/07/2022 01:01:50.814] Run Shell Script Started
+[01/07/2022 01:01:51.836] Smoothy is currently running 
+[01/07/2022 01:02:00.431] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:02:00.431]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:02:00.431]                                                    ^
+[01/07/2022 01:02:00.432] 
+[01/07/2022 01:02:00.432] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:02:00.432]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:02:00.432]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:02:00.802] Not Running, Starting up Smoothy...
+[01/07/2022 01:02:00.819] Run Shell Script Started
+[01/07/2022 01:02:01.840] Smoothy is currently running 
+[01/07/2022 01:02:10.463] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:02:10.464]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:02:10.464]                                                    ^
+[01/07/2022 01:02:10.465] 
+[01/07/2022 01:02:10.465] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:02:10.465]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:02:10.466]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:02:10.811] Not Running, Starting up Smoothy...
+[01/07/2022 01:02:10.828] Run Shell Script Started
+[01/07/2022 01:02:11.840] Smoothy is currently running 
+[01/07/2022 01:02:20.446] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:02:20.446]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:02:20.447]                                                    ^
+[01/07/2022 01:02:20.447] 
+[01/07/2022 01:02:20.447] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:02:20.448]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:02:20.448]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:02:20.803] Not Running, Starting up Smoothy...
+[01/07/2022 01:02:20.820] Run Shell Script Started
+[01/07/2022 01:02:21.838] Smoothy is currently running 
+[01/07/2022 01:02:30.485] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:02:30.486]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:02:30.487]                                                    ^
+[01/07/2022 01:02:30.487] 
+[01/07/2022 01:02:30.488] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:02:30.488]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:02:30.488]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:02:30.814] Not Running, Starting up Smoothy...
+[01/07/2022 01:02:30.832] Run Shell Script Started
+[01/07/2022 01:02:31.846] Smoothy is currently running 
+[01/07/2022 01:02:40.602] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:02:40.602]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:02:40.602]                                                    ^
+[01/07/2022 01:02:40.602] 
+[01/07/2022 01:02:40.602] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:02:40.602]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:02:40.603]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:02:40.804] Not Running, Starting up Smoothy...
+[01/07/2022 01:02:40.822] Run Shell Script Started
+[01/07/2022 01:02:41.848] Smoothy is currently running 
+[01/07/2022 01:02:50.679] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:02:50.680]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:02:50.680]                                                    ^
+[01/07/2022 01:02:50.680] 
+[01/07/2022 01:02:50.681] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:02:50.681]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:02:50.681]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:02:50.805] Not Running, Starting up Smoothy...
+[01/07/2022 01:02:50.822] Run Shell Script Started
+[01/07/2022 01:02:51.846] Smoothy is currently running 
+[01/07/2022 01:03:00.709] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:03:00.710]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:03:00.714]                                                    ^
+[01/07/2022 01:03:00.715] 
+[01/07/2022 01:03:00.715] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:03:00.715]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:03:00.715]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:03:00.823] Not Running, Starting up Smoothy...
+[01/07/2022 01:03:00.840] Run Shell Script Started
+[01/07/2022 01:03:01.844] Smoothy is currently running 
+[01/07/2022 01:03:10.867] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:03:10.868]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:03:10.868]                                                    ^
+[01/07/2022 01:03:10.868] 
+[01/07/2022 01:03:10.869] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:03:10.869]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:03:10.869]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:03:11.801] Not Running, Starting up Smoothy...
+[01/07/2022 01:03:11.818] Run Shell Script Started
+[01/07/2022 01:03:12.846] Smoothy is currently running 
+[01/07/2022 01:03:20.828] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:03:20.828]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:03:20.828]                                                    ^
+[01/07/2022 01:03:20.829] 
+[01/07/2022 01:03:20.829] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:03:20.829]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:03:20.829]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:03:21.806] Not Running, Starting up Smoothy...
+[01/07/2022 01:03:21.823] Run Shell Script Started
+[01/07/2022 01:03:22.843] Smoothy is currently running 
+[01/07/2022 01:03:31.100] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:03:31.100]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:03:31.100]                                                    ^
+[01/07/2022 01:03:31.101] 
+[01/07/2022 01:03:31.101] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:03:31.101]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:03:31.101]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:03:31.805] Not Running, Starting up Smoothy...
+[01/07/2022 01:03:31.823] Run Shell Script Started
+[01/07/2022 01:03:32.855] Smoothy is currently running 
+[01/07/2022 01:03:41.068] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:03:41.069]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:03:41.069]                                                    ^
+[01/07/2022 01:03:41.070] 
+[01/07/2022 01:03:41.070] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:03:41.070]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:03:41.070]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:03:41.806] Not Running, Starting up Smoothy...
+[01/07/2022 01:03:41.823] Run Shell Script Started
+[01/07/2022 01:03:42.845] Smoothy is currently running 
+[01/07/2022 01:03:51.145] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:03:51.145]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:03:51.146]                                                    ^
+[01/07/2022 01:03:51.146] 
+[01/07/2022 01:03:51.146] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:03:51.146]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:03:51.146]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:03:51.805] Not Running, Starting up Smoothy...
+[01/07/2022 01:03:51.822] Run Shell Script Started
+[01/07/2022 01:03:52.850] Smoothy is currently running 
+[01/07/2022 01:04:01.181] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:04:01.181]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:04:01.181]                                                    ^
+[01/07/2022 01:04:01.182] 
+[01/07/2022 01:04:01.182] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:04:01.182]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:04:01.182]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:04:01.809] Not Running, Starting up Smoothy...
+[01/07/2022 01:04:01.826] Run Shell Script Started
+[01/07/2022 01:04:02.860] Smoothy is currently running 
+[01/07/2022 01:04:11.277] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:04:11.277]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:04:11.278]                                                    ^
+[01/07/2022 01:04:11.278] 
+[01/07/2022 01:04:11.278] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:04:11.278]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:04:11.279]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:04:11.807] Not Running, Starting up Smoothy...
+[01/07/2022 01:04:11.824] Run Shell Script Started
+[01/07/2022 01:04:12.848] Smoothy is currently running 
+[01/07/2022 01:04:21.304] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:04:21.305]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:04:21.305]                                                    ^
+[01/07/2022 01:04:21.305] 
+[01/07/2022 01:04:21.306] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:04:21.306]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:04:21.306]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:04:21.806] Not Running, Starting up Smoothy...
+[01/07/2022 01:04:21.823] Run Shell Script Started
+[01/07/2022 01:04:22.853] Smoothy is currently running 
+[01/07/2022 01:04:31.483] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:04:31.484]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:04:31.484]                                                    ^
+[01/07/2022 01:04:31.484] 
+[01/07/2022 01:04:31.484] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:04:31.484]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:04:31.484]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:04:31.814] Not Running, Starting up Smoothy...
+[01/07/2022 01:04:31.831] Run Shell Script Started
+[01/07/2022 01:04:32.865] Smoothy is currently running 
+[01/07/2022 01:04:41.461] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:04:41.461]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:04:41.462]                                                    ^
+[01/07/2022 01:04:41.462] 
+[01/07/2022 01:04:41.463] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:04:41.463]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:04:41.464]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:04:41.807] Not Running, Starting up Smoothy...
+[01/07/2022 01:04:41.824] Run Shell Script Started
+[01/07/2022 01:04:42.849] Smoothy is currently running 
+[01/07/2022 01:04:51.621] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:04:51.621]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:04:51.622]                                                    ^
+[01/07/2022 01:04:51.622] 
+[01/07/2022 01:04:51.622] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:04:51.622]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:04:51.622]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:04:51.813] Not Running, Starting up Smoothy...
+[01/07/2022 01:04:51.831] Run Shell Script Started
+[01/07/2022 01:04:52.848] Smoothy is currently running 
+[01/07/2022 01:05:01.672] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:05:01.672]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:05:01.673]                                                    ^
+[01/07/2022 01:05:01.673] 
+[01/07/2022 01:05:01.674] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:05:01.674]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:05:01.674]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:05:01.811] Not Running, Starting up Smoothy...
+[01/07/2022 01:05:01.829] Run Shell Script Started
+[01/07/2022 01:05:02.868] Smoothy is currently running 
+[01/07/2022 01:05:11.988] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:05:11.988]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:05:11.989]                                                    ^
+[01/07/2022 01:05:11.989] 
+[01/07/2022 01:05:11.989] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:05:11.989]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:05:11.990]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:05:12.814] Not Running, Starting up Smoothy...
+[01/07/2022 01:05:12.831] Run Shell Script Started
+[01/07/2022 01:05:13.850] Smoothy is currently running 
+[01/07/2022 01:05:21.746] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:05:21.746]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:05:21.746]                                                    ^
+[01/07/2022 01:05:21.746] 
+[01/07/2022 01:05:21.746] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:05:21.746]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:05:21.747]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:05:21.829] Not Running, Starting up Smoothy...
+[01/07/2022 01:05:21.847] Run Shell Script Started
+[01/07/2022 01:05:22.854] Smoothy is currently running 
+[01/07/2022 01:05:31.946] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:05:31.946]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:05:31.946]                                                    ^
+[01/07/2022 01:05:31.947] 
+[01/07/2022 01:05:31.947] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:05:31.947]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:05:31.947]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:05:32.819] Not Running, Starting up Smoothy...
+[01/07/2022 01:05:32.836] Run Shell Script Started
+[01/07/2022 01:05:33.856] Smoothy is currently running 
+[01/07/2022 01:05:41.940] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:05:41.940]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:05:41.940]                                                    ^
+[01/07/2022 01:05:41.941] 
+[01/07/2022 01:05:41.941] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:05:41.941]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:05:41.941]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:05:42.809] Not Running, Starting up Smoothy...
+[01/07/2022 01:05:42.827] Run Shell Script Started
+[01/07/2022 01:05:43.854] Smoothy is currently running 
+[01/07/2022 01:05:52.165] /home/aaron/Documents/Smoothy/main.js:80
+[01/07/2022 01:05:52.166]                         serverQueue.message.member.voice.channel, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, null);
+[01/07/2022 01:05:52.167]                                                    ^
+[01/07/2022 01:05:52.168] 
+[01/07/2022 01:05:52.169] TypeError: Cannot read properties of null (reading 'voice')
+[01/07/2022 01:05:52.171]     at Client.<anonymous> (/home/aaron/Documents/Smoothy/main.js:80:52)
+[01/07/2022 01:05:52.172]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/07/2022 01:05:52.886] Not Running, Starting up Smoothy...
+[01/07/2022 01:05:52.904] Run Shell Script Started
+[01/07/2022 01:05:53.869] Smoothy is currently running 

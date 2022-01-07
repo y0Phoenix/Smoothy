@@ -556,7 +556,7 @@ async function executive(
     writeGlobal('update queue', serverQueue, serverQueue.id);
   
     const addQueueEmbed = new MessageEmbed().setColor('YELLOW')
-      .setDescription(`***[${videoURL.videoDetails.title}](${videoURL.videoDetails.url})***
+      .setDescription(`***[${videoURL.videoDetails.title}](${videoURL.videoDetails.video_url})***
             Has Been Added To The Queue :arrow_down:`);
     let msg = await message.channel.send({ embeds: [addQueueEmbed] });
     serverDisconnectIdle.msgs.push(msg);
