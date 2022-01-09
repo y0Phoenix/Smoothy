@@ -6,12 +6,12 @@ const discord_js_1 = require("discord.js");
 const modules_1 = require("../../modules/modules");
 const audioPlayerIdle_1 = require("./audioPlayerIdle");
 /**
- * @param  {Queue} serverQueue the current servers queue
  * @param  {any} queue the map that holds all of the sever queues
  * @param  {any} DisconnectIdle the map that holds all of the server Idles
  * @param  {Idle} serverDisconnectIdle the current servers Idle
  */
-async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
+async function play(queue, DisconnectIdle, serverDisconnectIdle) {
+    const serverQueue = this;
     const yturl = play_dl_1.default.validate(serverQueue.currentsong[0].url) ? true : false;
     if (yturl === true) {
         try {

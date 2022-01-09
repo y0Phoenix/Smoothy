@@ -1,5 +1,4 @@
 import getVideo from "./getVideo";
-import play from "./play";
 import { Idle } from "../Idle";
 
 /**
@@ -11,5 +10,5 @@ import { Idle } from "../Idle";
  */
  export default async function playNext(queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
     await getVideo(this);
-    play(this, queue, DisconnectIdle, serverDisconnectIdle);
+    this.play(queue, DisconnectIdle, serverDisconnectIdle);
 }

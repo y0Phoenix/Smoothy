@@ -4,7 +4,6 @@ import { AudioPlayerStatus } from "@discordjs/voice";
 import { MessageEmbed } from "discord.js";
 import { deleteMsg, find } from "../../modules/modules";
 import getVideo from './getVideo';
-import play from './play';
 
 /**
  * @param  {Queue} serverQueue the current servers queue
@@ -51,7 +50,7 @@ export async function retryTimer(serverQueue: Queue, queue: any, DisconnectIdle:
       console.log(
         `Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`
       );
-      play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+      serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
       if (serverQueue.tries >= 4) {
         serverQueue.message.channel
           .send(`Smoothy Is Buffering Please Wait`)

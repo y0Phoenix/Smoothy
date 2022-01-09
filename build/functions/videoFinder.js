@@ -5,6 +5,7 @@ const dictionary = spell.getDictionarySync('en-US');
 dictionary.addRegex(/i/);
 const playdl = require("play-dl");
 const modules_1 = require("../modules/modules");
+// TODO implement fallback for playdl.search with yt-search, just incase playdl.search doesn't return an array
 /**
  * @param  {string} q the video you wish to search
  * @returns {playdl.YouTubeVideo} the closest match to the search query

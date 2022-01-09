@@ -11,7 +11,6 @@ const Song_1 = require("./Classes/Song");
 const Queue_1 = require("./Classes/Queue");
 const validURL_1 = require("./functions/validURL");
 const videoFinder_1 = require("./functions/videoFinder");
-const play_1 = require("./Classes/functions/play");
 const ytdl = require("ytdl-core");
 const noVidEmbed = new discord_js_1.MessageEmbed()
     .setColor('RED')
@@ -48,7 +47,7 @@ async function executive(message, queue, DisconnectIdle, serverDisconnectIdle, s
         serverQueue.songs.push(songObj);
         serverQueue.currentsong.push(songObj);
         (0, modules_1.writeGlobal)('add queue', serverQueue, serverQueue.id);
-        (0, play_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
     }
     else {
         let songObj = new Song_1.Song({ message: message, data: videoURL });
@@ -157,7 +156,7 @@ async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDis
                 console.log('Created the serverQueue');
                 added = true;
                 (0, modules_1.writeGlobal)('add queue', serverQueue, serverQueue.id);
-                (0, play_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
             }
             let msg = await message.channel.send({ embeds: [playlistEmbed], });
             serverDisconnectIdle.msgs.push(msg);

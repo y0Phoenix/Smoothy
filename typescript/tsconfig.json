@@ -98,14 +98,15 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "lib": ["ES2017"]
+  "lib": ["ES2017"],
   // "include": [
   //   "modules/**/*, interfaces/*, functions/*, classes/**/*"
   // ],
-  // "exclude": [
-  //   "node_modules",
-  //   "./node_modules",
-  //   "./node_modules/*",
-  //   "./node_modules/@types/node/index.d.ts",
-  // ]
+  "exclude": [
+    "node_modules",
+    "./node_modules",
+    "./node_modules/*",
+    "./node_modules/@types/node/index.d.ts",
+    "interfaces/"
+  ]
 }

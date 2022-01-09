@@ -28,8 +28,8 @@ const { joinvoicechannel } = require('./executive');
 const fs = require('fs');
 const config = require('config');
 const { seek } = require('./commands/seek');
-const { default: Queue } = require('./Classes/Queue');
 const { exists } = require('./modules/modules');
+const Queue_1 = require("./Classes/Queue");
 const maps_1 = require("./maps");
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
@@ -70,7 +70,7 @@ client.once('ready', async () => {
             data.queues[i].voiceChannel = vc;
             data.queues[i].currentsong[0].load = true;
             const serverDisconnectIdle = DisconnectIdle.get(data.queues[i].id);
-            let serverQueue = new Queue({ DisconnectIdle: DisconnectIdle, queue: queue, serverDisconnectIdle: serverDisconnectIdle,
+            let serverQueue = new Queue_1.default({ DisconnectIdle: DisconnectIdle, queue: queue, serverDisconnectIdle: serverDisconnectIdle,
                 msg: data.queues[i].message, songs: data.queues[i].songs, shuffledSongs: data.queues[i].shuffledSongs, currentsong: data.queues[i].currentsong });
             serverQueue.shuffle = data.queues[i].shuffle;
             serverQueue.loop = data.queues[i].loop;
@@ -82,7 +82,7 @@ client.once('ready', async () => {
             let serverDisconnectIdle = DisconnectIdle.get(id);
             let serverQueue = queue.get(id);
             const vc = await joinvoicechannel(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle, serverDisconnectIdle, client, null);
-            _play.default(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+            serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
         }
     }
     console.log('Smoothy 1.4.6 is online!');

@@ -15,7 +15,6 @@ import {
   AudioResource
 } from '@discordjs/voice';
 import { MessageEmbed } from'discord.js';
-import playdl from 'play-dl';
 import {Song} from './Song';
 import { retryTimer, checkIfPlaying } from './functions/retryPlayer';
 import { exists, writeGlobal } from '../modules/modules';
@@ -24,7 +23,7 @@ import loopNextSong from './functions/loopNextSong';
 import playNext from './functions/playNext';
 import { joinvoicechannel } from '../executive';
 import getMaps from '../maps';
-import { Idle } from './Idle';
+import play from './functions/play';
 
 
 export default class Queue {
@@ -57,6 +56,7 @@ export default class Queue {
     findSplice: typeof findSplice
     loopNextSong: typeof loopNextSong
     audioPlayerIdle: typeof audioPlayerIdle
+    play: typeof play
     
     constructor(data: any) {
         let {queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs, currentsong} = data;
@@ -185,5 +185,6 @@ export default class Queue {
         this.loopNextSong = loopNextSong;
         this.playNext = playNext;
         this.audioPlayerIdle = audioPlayerIdle;
+        this.play = play
     }
 }

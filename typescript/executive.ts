@@ -1,23 +1,19 @@
 //executive file holds all the executive functions and is the largest file
 import * as ytpl from 'ytpl';
-import {exists, writeGlobal, leave, deleteMsg } from './modules/modules';
+import {writeGlobal, deleteMsg } from './modules/modules';
 import {
-  createAudioPlayer,
   joinVoiceChannel,
-  getVoiceConnection,
   VoiceConnectionStatus,
 } from '@discordjs/voice';
 import { MessageEmbed, Message, Client } from 'discord.js';
-import * as fs from 'fs';
-import playdl from 'play-dl';
 import { Idle } from './Classes/Idle';
 import { PlaylistSong, Song } from './Classes/Song';
 import Queue from './Classes/Queue';
 import validURL from './functions/validURL' ;
 import videoFinder from './functions/videoFinder';
-import play from './Classes/functions/play';
 import * as ytdl from 'ytdl-core';
 import InfoData from './interfaces/_InfoData';
+import play from './Classes/functions/play';
 
 const noVidEmbed = new MessageEmbed()
   .setColor('RED')
@@ -56,7 +52,7 @@ async function executive(message: Message, queue: any, DisconnectIdle: any, serv
     serverQueue.songs.push(songObj);
     serverQueue.currentsong.push(songObj);
     writeGlobal('add queue', serverQueue, serverQueue.id);
-    play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+    serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
   }
   else {
       let songObj = new Song({message: message, data: videoURL});
@@ -167,7 +163,7 @@ async function findvideoplaylist(message: Message, args: any, queue: any, Discon
         console.log('Created the serverQueue');
         added = true;
         writeGlobal('add queue', serverQueue, serverQueue.id);
-        play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
       }
       let msg = await message.channel.send({embeds: [playlistEmbed],});
       serverDisconnectIdle.msgs.push(msg);

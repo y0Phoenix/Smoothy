@@ -18,12 +18,12 @@ import {
   import audioPlayerIdle from './audioPlayerIdle';
 
 /**
- * @param  {Queue} serverQueue the current servers queue
  * @param  {any} queue the map that holds all of the sever queues
  * @param  {any} DisconnectIdle the map that holds all of the server Idles
  * @param  {Idle} serverDisconnectIdle the current servers Idle
  */
-export default async function play(serverQueue: Queue, queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
+export default async function play(queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
+  const serverQueue: Queue = this;
     const yturl: boolean = playdl.validate(serverQueue.currentsong[0].url) ? true : false;
     if (yturl === true) {
       try {

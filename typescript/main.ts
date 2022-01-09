@@ -26,8 +26,9 @@ const { joinvoicechannel} = require('./executive');
 const fs = require('fs');
 const config = require('config');
 const { seek } = require('./commands/seek');
-const { default: Queue } = require('./Classes/Queue');
 const { exists } = require('./modules/modules');
+import { Idle } from "./Classes/Idle";
+import Queue from "./Classes/Queue";
 import getMaps from "./maps";
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
@@ -88,11 +89,11 @@ client.once('ready', async () => {
             i < data.disconnectIdles.length;
             i++) {
                 let id = data.queues[i].id;
-                let serverDisconnectIdle = DisconnectIdle.get(id);
-                let serverQueue = queue.get(id);
+                let serverDisconnectIdle: Idle = DisconnectIdle.get(id);
+                let serverQueue: Queue = queue.get(id);
                 const vc = await joinvoicechannel(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle,
                 serverDisconnectIdle, client, null);
-                _play.default(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
             }
                 
     }

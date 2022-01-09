@@ -1,8 +1,6 @@
 import { Idle } from "../Idle";
 import Queue from "../Queue";
 import getVideo from "./getVideo";
-import findSplice from "./findSplice";
-import play from "./play";
 
 /**
  * @param  {any} queue the map that hold all of the serverQueues
@@ -20,14 +18,14 @@ import play from "./play";
     await getVideo(serverQueue);
     if (serverQueue.shuffle === true) {
       const currentsong = serverQueue.shuffledSongs[0];
-      findSplice(currentsong);
+      serverQueue.findSplice(currentsong);
       serverQueue.shuffledSongs.shift();
       serverQueue.shuffledSongs.push(currentsong);
-      play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+      serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
     } else {
       const currentsong = serverQueue.songs[0];
       serverQueue.songs.shift();
       serverQueue.songs.push(currentsong);
-      play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+      serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
     }
 }

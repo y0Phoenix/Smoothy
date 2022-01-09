@@ -4,6 +4,7 @@ dictionary.addRegex(/i/);
 import * as playdl from 'play-dl';
 import { distance, topResult } from '../modules/modules';
 
+// TODO implement fallback for playdl.search with yt-search, just incase playdl.search doesn't return an array
 /**
  * @param  {string} q the video you wish to search
  * @returns {playdl.YouTubeVideo} the closest match to the search query

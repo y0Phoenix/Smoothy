@@ -10,6 +10,7 @@ const loopNextSong_1 = require("./functions/loopNextSong");
 const playNext_1 = require("./functions/playNext");
 const executive_1 = require("../executive");
 const maps_1 = require("../maps");
+const play_1 = require("./functions/play");
 class Queue {
     constructor(data) {
         this.songs = [];
@@ -126,6 +127,7 @@ class Queue {
         this.loopNextSong = loopNextSong_1.default;
         this.playNext = playNext_1.default;
         this.audioPlayerIdle = audioPlayerIdle_1.default;
+        this.play = play_1.default;
     }
 }
 exports.default = Queue;

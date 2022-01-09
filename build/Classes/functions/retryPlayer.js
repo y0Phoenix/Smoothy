@@ -5,7 +5,6 @@ const voice_1 = require("@discordjs/voice");
 const discord_js_1 = require("discord.js");
 const modules_1 = require("../../modules/modules");
 const getVideo_1 = require("./getVideo");
-const play_1 = require("./play");
 /**
  * @param  {Queue} serverQueue the current servers queue
  * @description checks if the serverQueue is playing a song via
@@ -49,7 +48,7 @@ async function retryTimer(serverQueue, queue, DisconnectIdle, serverDisconnectId
         serverQueue.currentsong.shift();
         await (0, getVideo_1.default)(serverQueue);
         console.log(`Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`);
-        (0, play_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
         if (serverQueue.tries >= 4) {
             serverQueue.message.channel
                 .send(`Smoothy Is Buffering Please Wait`)
