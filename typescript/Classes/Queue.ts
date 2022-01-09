@@ -67,7 +67,6 @@ export default class Queue {
     constructor(data: any) {
         let {msg, songs, shuffledSongs, currentsong} = data;
         const {DisconnectIdle} = getMaps();
-        var serverDisconnectIdle: Idle;
         if (songs){
             if (songs[0]) {
                 this.songs = [...songs];
@@ -84,7 +83,6 @@ export default class Queue {
         this.voiceChannel = msg.member.voice.channel;
         this.player = createAudioPlayer();
         this.voiceConnection = getVoiceConnection(msg.guild.id);
-        serverDisconnectIdle = DisconnectIdle.get(this.id);
         if (!this.voiceConnection) {
             const join = async () => {
                 const temp = getMaps();

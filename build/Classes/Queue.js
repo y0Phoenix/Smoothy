@@ -34,7 +34,6 @@ class Queue {
         this.jumpbool = false;
         let { msg, songs, shuffledSongs, currentsong } = data;
         const { DisconnectIdle } = (0, maps_1.default)();
-        var serverDisconnectIdle;
         if (songs) {
             if (songs[0]) {
                 this.songs = [...songs];
@@ -51,7 +50,6 @@ class Queue {
         this.voiceChannel = msg.member.voice.channel;
         this.player = (0, voice_1.createAudioPlayer)();
         this.voiceConnection = (0, voice_1.getVoiceConnection)(msg.guild.id);
-        serverDisconnectIdle = DisconnectIdle.get(this.id);
         if (!this.voiceConnection) {
             const join = async () => {
                 const temp = (0, maps_1.default)();
