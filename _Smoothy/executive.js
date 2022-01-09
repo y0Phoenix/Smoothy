@@ -9,7 +9,8 @@ const discord_js_1 = require("discord.js");
 const Idle_1 = require("./Classes/Idle");
 const Song_1 = require("./Classes/Song");
 const Queue_1 = require("./Classes/Queue");
-const executive_1 = require("./Classes/functions/executive");
+const validURL_1 = require("./functions/validURL");
+const videoFinder_1 = require("./functions/videoFinder");
 const play_1 = require("./Classes/functions/play");
 const ytdl = require("ytdl-core");
 const noVidEmbed = new discord_js_1.MessageEmbed()
@@ -79,7 +80,7 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
     else {
         videoName = args;
     }
-    let URL = (0, executive_1.validURL)(videoName);
+    let URL = (0, validURL_1.default)(videoName);
     if (URL === true) {
         const videoURL = await ytdl.getBasicInfo(videoName);
         if (videoURL) {
@@ -94,7 +95,7 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
         }
     }
     else {
-        const video = await (0, executive_1.videoFinder)(videoName);
+        const video = await (0, videoFinder_1.default)(videoName);
         if (video) {
             const videoURL = await ytdl.getBasicInfo(video.url);
             console.log(`Found ${videoURL.videoDetails.title}`);

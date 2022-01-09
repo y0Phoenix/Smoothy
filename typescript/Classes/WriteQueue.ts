@@ -14,7 +14,7 @@ export default class WriteQueue {
     currentsong: Partial<WriteSong>[];
     jump: number = 0;
     tries: number = 0;
-    audioPlayerErr: boolean;
+    audioPlayerErr: boolean = false;
     player: AudioPlayer = null;
     subscription: PlayerSubscription = null;
     previous: Partial<WriteSong>[];

@@ -26,6 +26,8 @@ const { joinvoicechannel } = require('./executive');
 const fs = require('fs');
 const config = require('config');
 const { seek } = require('./commands/seek');
+const { default: Queue } = require('./Classes/Queue');
+const { exists } = require('./modules/modules');
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 const queue = new Map();
@@ -55,7 +57,9 @@ client.once('ready', async () => {
             }
             data.queues[i].voiceChannel = vc;
             data.queues[i].currentsong[0].load = true;
-            queue.set(data.queues[i].id, data.queues[i]);
+            const serverDisconnectIdle = DisconnectIdle.get(data.queues[i].id);
+            queue.set(data.queues[i].id, new Queue({ DisconnectIdle: DisconnectIdle, queue: queue, serverDisconnectIdle: serverDisconnectIdle,
+                msg: data.queues[i].message, songs: data.queues[i].songs, shuffledSongs: data.queues[i].shuffledSongs }));
         }
         if (data.disconnectIdles[0]) {
             for (let i = 0; i < data.disconnectIdles.length; i++) {
@@ -70,9 +74,7 @@ client.once('ready', async () => {
                 let serverDisconnectIdle = DisconnectIdle.get(id);
                 let serverQueue = queue.get(id);
                 const vc = await joinvoicechannel(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle, serverDisconnectIdle, client, null);
-                serverQueue.player = createAudioPlayer();
-                serverQueue.subscription = vc.subscribe(serverQueue.player);
-                _play.default(serverQueue);
+                _play.default(temp, queue, DisconnectIdle, serverDisconnectIdle);
             }
         }
     }
@@ -201,5 +203,11 @@ client.on('messageCreate', message => {
         return;
     }
 });
-module.exports = { DisconnectIdle, queue };
+/**
+ * @returns the maps inside the main file
+ */
+async function getMaps() {
+    return { DisconnectIdle: DisconnectIdle, queue: queue };
+}
+module.exports = { getMaps };
 client.login(config.get('token'));

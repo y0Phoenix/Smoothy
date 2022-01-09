@@ -29,7 +29,7 @@ export default async function audioPlayerIdle(
       if (serverQueue.player.state.status === AudioPlayerStatus.Idle && !serverQueue.audioPlayerErr) {
         serverQueue.messagesent = false;
         if (serverQueue.nowPlaying) {
-          await serverQueue.nowPlaying.delete();
+          deleteMsg(serverQueue.message, 0, serverDisconnectIdle.client);
           serverQueue.nowPlaying = undefined;
         }
         if (serverQueue.jumpbool === true) {

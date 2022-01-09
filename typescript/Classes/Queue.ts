@@ -18,10 +18,12 @@ import { MessageEmbed } from'discord.js';
 import playdl from 'play-dl';
 import {Song} from './Song';
 import { retryTimer, checkIfPlaying } from './functions/retryPlayer';
-import { writeGlobal } from '../modules/modules';
+import { exists, writeGlobal } from '../modules/modules';
 import findSplice from './functions/findSplice';
 import loopNextSong from './functions/loopNextSong';
 import playNext from './functions/playNext';
+import { joinvoicechannel } from '../executive';
+import { getMaps } from '../main';
 
 
 export default class Queue {
@@ -50,23 +52,40 @@ export default class Queue {
     repeat: boolean = false
     bool: boolean = false
     jumpbool: boolean = false
-    videoFinder: typeof videoFinder
-    validURL: typeof validURL
     playnext: typeof playNext 
     findSplice: typeof findSplice
     loopNextSong: typeof loopNextSong
     
     constructor(data: any) {
-        const {queue, DisconnectIdle, serverDisconnectIdle, msg} = data;
+        const {queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs} = data;
+        if (songs){
+            if (songs[0]) {
+                this.songs = [...songs];
+                this.currentsong.push(songs[0]);
+            }
+        } 
+        if (shuffledSongs) {
+            if (shuffledSongs[0]) {
+                this.shuffledSongs = [...shuffledSongs];
+            }
+        } 
         this.message = msg;
         this.id = msg.guild.id;
         this.voiceChannel = msg.member.voice.channel;
         this.player = createAudioPlayer();
         this.voiceConnection = getVoiceConnection(msg.guild.id);
+        if (!this.voiceConnection) {
+            const join = async () => {
+                const temp = await getMaps();
+                const bool = await exists(this.id, 'dci')
+                this.voiceConnection = await joinvoicechannel(this.message, this.voiceChannel, temp.DisconnectIdle, DisconnectIdle.get(this.id), DisconnectIdle.get(1), bool);
+            };
+            join();
+        }
         this.subsciption = this.voiceConnection.subscribe(this.player);
 
         this.player.on('error', async (err) => {
-          const localServerQueue: any = err.resource.metadata;
+            const localServerQueue = this
           localServerQueue.audioPlayerErr = true;
           console.log(`Audio Player Threw An Err`);
           setTimeout(async () => {
@@ -119,8 +138,7 @@ export default class Queue {
   
       //when the audioPlayer for this construct inside serverQueue is Idle the function is executed
       this.player.on(AudioPlayerStatus.Idle, async (playerEvent) => {
-          //resource.metadata is set inside of the async play function
-          const localServerQueue = playerEvent.resource.metadata;
+          const localServerQueue = this
           audioPlayerIdle(
           localServerQueue,
           queue,
@@ -129,7 +147,7 @@ export default class Queue {
           );
       });
       this.player.on(AudioPlayerStatus.Playing, async (data) => {
-          const localServerQueue = data.resource.metadata;
+          const localServerQueue = this;
           if (
           localServerQueue.audioPlayerErr === true &&
           localServerQueue.tries > 0
@@ -150,7 +168,7 @@ export default class Queue {
               )
               .addField(
                   `Requested By`,
-                  `<@${localServerQueue.currentsong[0].message.author.id ? localServerQueue.currentsong[0].message.author.id : localServerQueue.currentsong[0].message.authorId}>`
+                  `<@${localServerQueue.currentsong[0].message.author.id}>`
               )
               .setThumbnail(`${localServerQueue.currentsong[0].thumbnail}`)
               .setTimestamp();

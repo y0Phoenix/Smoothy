@@ -5,7 +5,11 @@ const voice_1 = require("@discordjs/voice");
 const discord_js_1 = require("discord.js");
 const retryPlayer_1 = require("./functions/retryPlayer");
 const modules_1 = require("../modules/modules");
-const executive_1 = require("./functions/executive");
+const findSplice_1 = require("./functions/findSplice");
+const loopNextSong_1 = require("./functions/loopNextSong");
+const playNext_1 = require("./functions/playNext");
+const executive_1 = require("../executive");
+const main_1 = require("../main");
 class Queue {
     constructor(data) {
         this.songs = [];
@@ -25,15 +29,34 @@ class Queue {
         this.repeat = false;
         this.bool = false;
         this.jumpbool = false;
-        const { queue, DisconnectIdle, serverDisconnectIdle, msg } = data;
+        const { queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs } = data;
+        if (songs) {
+            if (songs[0]) {
+                this.songs = [...songs];
+                this.currentsong.push(songs[0]);
+            }
+        }
+        if (shuffledSongs) {
+            if (shuffledSongs[0]) {
+                this.shuffledSongs = [...shuffledSongs];
+            }
+        }
         this.message = msg;
         this.id = msg.guild.id;
         this.voiceChannel = msg.member.voice.channel;
         this.player = (0, voice_1.createAudioPlayer)();
         this.voiceConnection = (0, voice_1.getVoiceConnection)(msg.guild.id);
+        if (!this.voiceConnection) {
+            const join = async () => {
+                const temp = await (0, main_1.getMaps)();
+                const bool = await (0, modules_1.exists)(this.id, 'dci');
+                this.voiceConnection = await (0, executive_1.joinvoicechannel)(this.message, this.voiceChannel, temp.DisconnectIdle, DisconnectIdle.get(this.id), DisconnectIdle.get(1), bool);
+            };
+            join();
+        }
         this.subsciption = this.voiceConnection.subscribe(this.player);
         this.player.on('error', async (err) => {
-            const localServerQueue = err.resource.metadata;
+            const localServerQueue = this;
             localServerQueue.audioPlayerErr = true;
             console.log(`Audio Player Threw An Err`);
             setTimeout(async () => {
@@ -70,12 +93,11 @@ class Queue {
         });
         //when the audioPlayer for this construct inside serverQueue is Idle the function is executed
         this.player.on(voice_1.AudioPlayerStatus.Idle, async (playerEvent) => {
-            //resource.metadata is set inside of the async play function
-            const localServerQueue = playerEvent.resource.metadata;
+            const localServerQueue = this;
             (0, audioPlayerIdle_1.default)(localServerQueue, queue, DisconnectIdle, serverDisconnectIdle);
         });
         this.player.on(voice_1.AudioPlayerStatus.Playing, async (data) => {
-            const localServerQueue = data.resource.metadata;
+            const localServerQueue = this;
             if (localServerQueue.audioPlayerErr === true &&
                 localServerQueue.tries > 0) {
                 console.log('Retries Successfull');
@@ -88,7 +110,7 @@ class Queue {
                         .setColor('#0099ff')
                         .setTitle(`:thumbsup: Now Playing`)
                         .setDescription(`:musical_note: ***[${localServerQueue.currentsong[0].title}](${localServerQueue.currentsong[0].url})*** :musical_note:`)
-                        .addField(`Requested By`, `<@${localServerQueue.currentsong[0].message.author.id ? localServerQueue.currentsong[0].message.author.id : localServerQueue.currentsong[0].message.authorId}>`)
+                        .addField(`Requested By`, `<@${localServerQueue.currentsong[0].message.author.id}>`)
                         .setThumbnail(`${localServerQueue.currentsong[0].thumbnail}`)
                         .setTimestamp();
                     localServerQueue.nowPlaying = await localServerQueue.message.channel.send({ embeds: [playembed] });
@@ -97,11 +119,9 @@ class Queue {
                 }
             }
         });
-        this.videoFinder = executive_1.videoFinder;
-        this.validURL = executive_1.validURL;
-        this.findSplice = executive_1.findSplice;
-        this.loopNextSong = executive_1.loopNextSong;
-        this.playnext = executive_1.playNext;
+        this.findSplice = findSplice_1.default;
+        this.loopNextSong = loopNextSong_1.default;
+        this.playnext = playNext_1.default;
     }
 }
 exports.default = Queue;

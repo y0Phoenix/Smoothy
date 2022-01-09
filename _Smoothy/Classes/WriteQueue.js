@@ -7,6 +7,7 @@ class WriteQueue {
         this.voiceConnection = null;
         this.jump = 0;
         this.tries = 0;
+        this.audioPlayerErr = false;
         this.player = null;
         this.subscription = null;
         this.resource = null;

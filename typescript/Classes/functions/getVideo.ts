@@ -4,7 +4,9 @@ import * as ytdl from 'ytdl-core';
 import playdl from 'play-dl';
 import Queue from "../Queue";
 import {writeGlobal} from '../../modules/modules';
-import {videoFinder, validURL, findSplice} from './executive';
+import videoFinder from "../../functions/videoFinder";
+import validURL from '../../functions/validURL';
+import findSplice from './findSplice';
 import { Song } from "../Song";
 
 //finds the song specified in args
@@ -28,7 +30,7 @@ export default async function getVideo(serverQueue: Queue) {
         message = song.message;
         if (serverQueue.shuffle) {
           serverQueue.shuffledSongs.splice(i, 1);
-          findSplice(serverQueue, song)
+          findSplice(song)
         }
         else {
           serverQueue.songs.splice(i, 1);

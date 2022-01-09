@@ -1,6 +1,5 @@
 import {getVoiceConnection} from '@discordjs/voice';
 import writeGlobal from './writeglobal';
-import {queue, DisconnectIdle} from '../../main';
 interface Message {
     guildId: string,
 }
