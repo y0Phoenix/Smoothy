@@ -64,6 +64,7 @@ client.once('ready', async () => {
                 dci.client = client;
                 dci.disconnectTimervcidle = disconnectTimervcidle;
                 dci.disconnectvcidle = disconnectvcidle;
+                console.log(`set dci functions for`);
                 DisconnectIdle.set(dci.id, dci);
             }
         }

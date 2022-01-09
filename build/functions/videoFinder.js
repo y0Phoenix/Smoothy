@@ -53,7 +53,7 @@ async function videoFinder(query, message) {
             const whichEmbed = new discord_js_1.MessageEmbed()
                 .setColor('FUCHSIA')
                 .setTitle('Top 5 Results')
-                .setDescription('No good natches were found for your search please select one via **-play**')
+                .setDescription('No good natches were found for your search please select one via -play')
                 .setFields({
                 name: `${i + 1}: `, value: `**[${video[i].title}](${video[i].url})**`
             });
