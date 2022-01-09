@@ -106,7 +106,7 @@ client.once('disconnect', () => {
     console.log('Disconnected!');
 });
 //creates a message from discord with all the info about the user, server, voicechannel and text channel
-client.on('messageCreate', message =>{
+client.on('messageCreate', async message =>{
     const maps = getMaps();
     const {DisconnectIdle, queue} = maps;
     if(message.author.bot){
@@ -197,7 +197,7 @@ client.on('messageCreate', message =>{
         seek(message, args, serverQueue, serverDisconnectIdle);
     }else if (command === 'nowplaying' || command === 'np') {
         if (serverQueue) {
-            serverQueue.nowPlayingSend();
+            serverQueue.nowPlaying = await serverQueue.nowPlayingSend();
         }
     }else{
         const invalidCommandEmbed = new MessageEmbed()
