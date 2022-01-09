@@ -1,7 +1,7 @@
 import WriteMessage from "./WriteMessage";
 import { Message } from "discord.js";
 import InfoData from "../interfaces/_InfoData";
-import {Playlist, Item} from "../interfaces/_Playlist";
+import {Item} from "../interfaces/_Playlist";
 
 export interface _newSong {
     message: Partial<Message>;

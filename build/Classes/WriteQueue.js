@@ -20,6 +20,9 @@ class WriteQueue {
         this.songs = [];
         this.shuffledSongs = [];
         this.previous = [];
+        if (data.nowPlaying) {
+            this.nowPlaying = new WriteMessage_1.default(data.nowPlaying);
+        }
         for (let i = 0; i < data.songs.length; i++) {
             if (data.shuffledSongs[i]) {
                 const shuffledSong = new Song_1.WriteSong({ message: data.shuffledSongs[i].message, data: data.shuffledSongs[i] });

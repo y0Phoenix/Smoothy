@@ -15,12 +15,17 @@ const play_1 = require("./functions/play");
 const getVideo_1 = require("./functions/getVideo");
 class Queue {
     constructor(data) {
+        this.voiceChannel = null;
         this.songs = [];
         this.shuffledSongs = [];
         this.currentsong = [];
+        this.stop = false;
         this.jump = 0;
         this.tries = 0;
         this.audioPlayerErr = false;
+        this.player = null;
+        this.resource = null;
+        this.subsciption = null;
         this.previous = [];
         this.previousbool = false;
         this.messagesent = false;

@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import _Queue from '../interfaces/_Queue';
 import audioPlayerIdle from './functions/audioPlayerIdle';
 import {
   AudioPlayerStatus,
@@ -32,18 +31,18 @@ import { Idle } from './Idle';
 export default class Queue {
     message: Partial<Message>
     id : string
-    voiceChannel: any
+    voiceChannel: any = null
     voiceConnection: VoiceConnection
     songs: Partial<Song>[] = []
     shuffledSongs: Partial<Song>[] = []
     currentsong: Partial<Song>[] = []
-    stop: boolean
+    stop: boolean = false
     jump: number = 0
     tries: number = 0
     audioPlayerErr: boolean = false
-    player: AudioPlayer
-    resource: AudioResource
-    subsciption: PlayerSubscription
+    player: AudioPlayer = null
+    resource: AudioResource = null
+    subsciption: PlayerSubscription = null
     previous: Partial<Song>[] = []
     previousbool: boolean = false
     messagesent: boolean = false

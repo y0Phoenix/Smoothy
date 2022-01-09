@@ -21,7 +21,7 @@ export default class WriteQueue {
     previousbool: boolean;
     resource: AudioResource = null;
     messagesent: boolean;
-    nowPlaying: Message = null;
+    nowPlaying: WriteMessage = null;
     nowPlayingTimer: any = null;
     shuffle: boolean;
     loop: boolean;
@@ -36,6 +36,9 @@ export default class WriteQueue {
         this.songs = [];
         this.shuffledSongs = [];
         this. previous = [];
+        if (data.nowPlaying) {
+            this.nowPlaying = new WriteMessage(data.nowPlaying);
+        }
         for (let i = 0; i < data.songs.length; i++) {
             if (data.shuffledSongs[i]) {
                 const shuffledSong = new WriteSong({message: data.shuffledSongs[i].message, data: data.shuffledSongs[i]});

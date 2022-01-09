@@ -4,7 +4,6 @@ const CircularJSON = require("circular-json");
 const fs = require("fs");
 const Idle_1 = require("../../Classes/Idle");
 const WriteQueue_1 = require("../../Classes/WriteQueue");
-// todo fix author.id 
 /**
  * @param  {} str a string of what needs to happen
  * @variation str
@@ -18,7 +17,6 @@ const WriteQueue_1 = require("../../Classes/WriteQueue");
  * @param {} id the id of the discord server
  */
 async function writeGlobal(str, data, id) {
-    // todo implement nowPlaying msg saved to global.json
     const file = './config/global.json';
     let _file = fs.readFileSync(file, 'utf-8');
     let _data = JSON.parse(_file);

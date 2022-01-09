@@ -3,8 +3,6 @@ import * as fs from 'fs';
 import { WriteIdle } from '../../Classes/Idle';
 import WriteQueue from '../../Classes/WriteQueue';
 
-// todo fix author.id 
-
 /**
  * @param  {} str a string of what needs to happen
  * @variation str   
@@ -18,7 +16,6 @@ import WriteQueue from '../../Classes/WriteQueue';
  * @param {} id the id of the discord server
  */
 export default async function writeGlobal(str: String, data: any, id: String) {
-    // todo implement nowPlaying msg saved to global.json
     const file = './config/global.json';
     let _file = fs.readFileSync(file, 'utf-8');
     let _data = JSON.parse(_file);
