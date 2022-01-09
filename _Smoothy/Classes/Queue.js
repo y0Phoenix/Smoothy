@@ -5,6 +5,7 @@ const voice_1 = require("@discordjs/voice");
 const discord_js_1 = require("discord.js");
 const retryPlayer_1 = require("./functions/retryPlayer");
 const modules_1 = require("../modules/modules");
+const executive_1 = require("./functions/executive");
 class Queue {
     constructor(data) {
         this.songs = [];
@@ -96,6 +97,11 @@ class Queue {
                 }
             }
         });
+        this.videoFinder = executive_1.videoFinder;
+        this.validURL = executive_1.validURL;
+        this.findSplice = executive_1.findSplice;
+        this.loopNextSong = executive_1.loopNextSong;
+        this.playnext = executive_1.playNext;
     }
 }
 exports.default = Queue;

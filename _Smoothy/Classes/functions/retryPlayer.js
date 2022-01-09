@@ -43,7 +43,7 @@ async function retryTimer(serverQueue, queue, DisconnectIdle, serverDisconnectId
                 const errorEmbed = new discord_js_1.MessageEmbed()
                     .setColor('RED')
                     .setDescription(`:thumbsdown: [${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url}) failed to play reverting to original queue try again later`);
-                (0, embed_1.default)(serverQueue.message, errorEmbed, 60000);
+                serverQueue.message.channel.send({ embeds: [errorEmbed] });
             }
         }
         serverQueue.currentsong.shift();

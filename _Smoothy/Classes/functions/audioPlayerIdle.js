@@ -40,7 +40,7 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                 if (!serverQueue.loop && !serverQueue.loopsong && !serverQueue.shuffle && serverQueue.jump === 0 && !serverQueue.repeat) {
                     serverQueue.bool ? serverQueue.bool = false : serverQueue.songs.shift();
                     if (serverQueue.songs.length > 0) {
-                        (0, executive_1.playNext)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                        serverQueue.playnext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
                     }
                     else {
                         serverQueue.message.channel.send({ embeds: [noMoreSongsEmbed] });
@@ -48,7 +48,7 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                         queue.delete(serverQueue.message.guild.id);
                         await (0, modules_1.writeGlobal)('delete queue', null, serverQueue.id);
                         (0, modules_1.writeGlobal)('delete dci', null, serverQueue.id);
-                        (0, executive_1.disconnectTimervcidle)(queue, DisconnectIdle, serverDisconnectIdle);
+                        serverDisconnectIdle.disconnectTimervcidle(queue, DisconnectIdle);
                     }
                 }
                 //song ending while loop is true and loopsong is false
@@ -91,7 +91,7 @@ async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconn
                             serverDisconnectIdle = DisconnectIdle.get(serverQueue.message.guild.id);
                             queue.delete(serverQueue.message.guild.id);
                             (0, modules_1.writeGlobal)('delete queue', null, serverQueue.id);
-                            (0, executive_1.disconnectTimervcidle)(queue, DisconnectIdle, serverDisconnectIdle);
+                            serverDisconnectIdle.disconnectTimervcidle(queue, DisconnectIdle);
                         }
                     }
                 }

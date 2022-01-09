@@ -1,45 +1,53 @@
-const {VoiceConnectionStatus, getVoiceConnection, AudioPlayerStatus,} = require('@discordjs/voice');
-const { MessageEmbed } = require('discord.js');
-const {deleteMsg, leave} = require('../modules/modules');
-const noVCEmbed = new MessageEmbed()
-        .setColor('RED')
-        .setDescription(`:rofl: I Am Not In VC`)
-    ;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const voice_1 = require("@discordjs/voice");
+const discord_js_1 = require("discord.js");
+const modules_1 = require("../modules/modules");
+const noVCEmbed = new discord_js_1.MessageEmbed()
+    .setColor('RED')
+    .setDescription(`:rofl: I Am Not In VC`);
 module.exports = {
     name: 'leave',
     description: 'leaves the voice channel and clear the queue',
-    async leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle){
-        const voiceConnection = getVoiceConnection(message.guild.id);
-        if(voiceConnection){
-            if(voiceConnection.state.status === VoiceConnectionStatus.Ready){
-                const leaveEmbed = new MessageEmbed()
+    /**
+     * @param  {Message} message the message from the channel
+     * @param  {any} queue the map that holds all of the queues
+     * @param  {Queue} serverQueue the current servers queue
+     * @param  {any} DisconnectIdle the map that holds all of the idles
+     * @param  {Idle} serverDisconnectIdle current servers idle
+     * @description leaves the voice channel, deletes the serverQueue from the queue map and deletes all the messages inside the serverDisconnectIdle msgs and queueMSGs arrays
+     */
+    async leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle) {
+        const voiceConnection = (0, voice_1.getVoiceConnection)(message.guild.id);
+        if (voiceConnection) {
+            if (voiceConnection.state.status === voice_1.VoiceConnectionStatus.Ready) {
+                const leaveEmbed = new discord_js_1.MessageEmbed()
                     .setColor('RED')
-                    .setDescription(`:cry: Leaving Channel`)
-                ;
-                message.channel.send({embeds: [leaveEmbed]})
-                .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
-                console.log('Left The Voice Channel From Command')
-                if(serverQueue){
-                    if(serverQueue.player.state.status === AudioPlayerStatus.Playing){
+                    .setDescription(`:cry: Leaving Channel`);
+                message.channel.send({ embeds: [leaveEmbed] })
+                    .then(msg => (0, modules_1.deleteMsg)(msg, 60000, serverDisconnectIdle.client));
+                console.log('Left The Voice Channel From Command');
+                if (serverQueue) {
+                    if (serverQueue.player.state.status === voice_1.AudioPlayerStatus.Playing) {
                         serverQueue.stop = true;
-                        serverQueue.player.stop();    
-                    }    
+                        serverQueue.player.stop();
+                    }
                 }
-                if(serverDisconnectIdle.disconnectTimer !== undefined){
-                    clearTimeout(serverDisconnectIdle.disconnectTimer)
+                if (serverDisconnectIdle.disconnectTimer !== undefined) {
+                    clearTimeout(serverDisconnectIdle.disconnectTimer);
                 }
-                leave(message, DisconnectIdle, queue);
+                (0, modules_1.leave)(message, DisconnectIdle, queue);
             }
-            else{
-                message.channel.send({embeds: [noVCEmbed]})
-                .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+            else {
+                message.channel.send({ embeds: [noVCEmbed] })
+                    .then(msg => (0, modules_1.deleteMsg)(msg, 30000, serverDisconnectIdle.client));
                 return;
-            }   
+            }
         }
-        else{
-            message.channel.send({embeds: [noVCEmbed]})
-            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+        else {
+            message.channel.send({ embeds: [noVCEmbed] })
+                .then(msg => (0, modules_1.deleteMsg)(msg, 30000, serverDisconnectIdle.client));
             return;
-        } 
+        }
     }
-}
+};

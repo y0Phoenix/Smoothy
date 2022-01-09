@@ -1,41 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loopNextSong = exports.findSplice = exports.playNext = exports.validURL = exports.videoFinder = exports.disconnectTimervcidle = exports.disconnectvcidle = void 0;
+exports.loopNextSong = exports.findSplice = exports.playNext = exports.validURL = exports.videoFinder = void 0;
 const playdl = require("play-dl");
 const modules_1 = require("../../modules/modules");
-const discord_js_1 = require("discord.js");
 const getVideo_1 = require("./getVideo");
 const play_1 = require("./play");
 const spell = require("simple-spellchecker");
 const dictionary = spell.getDictionarySync('en-US');
 dictionary.addRegex(/i/);
-/**
- *@param  {} queue the map that holds all of the serverQueues
- * @param  {} DisconnectIdle the map that holds all of the servers Idles
- * @param  {} serverDisconnectIdle the current servers Idle
- * @description //disconnects from voiceConnection after 1800000 ms or 30 min
- */
-function disconnectvcidle(queue, DisconnectIdle, serverDisconnectIdle) {
-    const vcIdleEmbed = new discord_js_1.MessageEmbed()
-        .setColor('RED')
-        .setDescription(':cry: Left VC Due To Idle');
-    serverDisconnectIdle.message.channel.send({ embeds: [vcIdleEmbed] });
-    console.log(`Left VC Due To Idle`);
-    (0, modules_1.leave)(queue, DisconnectIdle, serverDisconnectIdle.message);
-}
-exports.disconnectvcidle = disconnectvcidle;
-/**
- * @param  {} queue the map that holds all of the serverQueues
- * @param  {} DisconnectIdle the map that holds all of the servers Idles
- * @param  {} serverDisconnectIdle the current servers Idle
- * @description//starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
- * this timer only starts when the audioPlayer is Idle
- */
-function disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle) {
-    serverDisconnectIdle.disconnectTimer = setTimeout(disconnectvcidle, 1800000, queue, DisconnectIdle, serverDisconnectIdle);
-    console.log('Starting disconnectTimer Timeout');
-}
-exports.disconnectTimervcidle = disconnectTimervcidle;
 /**
  * @param  {string} q the video you wish to search
  * @returns {playdl.YouTubeVideo} the closest match to the search query
@@ -150,9 +122,9 @@ exports.validURL = validURL;
  * @description searches for the song again to ensure it exists then plays that song at the play function
  * somewhat of a middleware function
  */
-async function playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
-    await (0, getVideo_1.default)(serverQueue);
-    (0, play_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+async function playNext(queue, DisconnectIdle, serverDisconnectIdle) {
+    await (0, getVideo_1.default)(this);
+    (0, play_1.default)(this, queue, DisconnectIdle, serverDisconnectIdle);
 }
 exports.playNext = playNext;
 /**

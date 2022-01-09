@@ -1,8 +1,7 @@
+import { Idle } from "../Classes/Idle";
+import Queue from "../Classes/Queue";
+
 export default interface Global {
-    queues: [{
-        id: string
-    }],
-    disconnectIdles: [{
-        id: string
-    }]
+    queues: Queue[],
+    disconnectIdles: Idle[];
 }

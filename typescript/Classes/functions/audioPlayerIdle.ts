@@ -1,5 +1,7 @@
 import {Idle} from "../Idle";
-import { playNext, findSplice, loopNextSong, disconnectTimervcidle } from "./executive";
+import playNext from './playNext' ;
+import findSplice from './findSplice' ;
+import loopNextSong from "./loopNextSong";
 import { AudioPlayerStatus } from "@discordjs/voice";
 import { deleteMsg, writeGlobal } from "../../modules/modules";
 import { MessageEmbed } from "discord.js";
@@ -35,7 +37,7 @@ export default async function audioPlayerIdle(
         }
         // song ending while previous is true
         if (serverQueue.previousbool) {
-          playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+          playNext(queue, DisconnectIdle, serverDisconnectIdle);
           serverQueue.currentsong.shift();
           serverQueue.bool = true;
         }
@@ -46,7 +48,7 @@ export default async function audioPlayerIdle(
           if (!serverQueue.loop && !serverQueue.loopsong && !serverQueue.shuffle && serverQueue.jump === 0 && !serverQueue.repeat) {
             serverQueue.bool ? serverQueue.bool = false : serverQueue.songs.shift();
             if (serverQueue.songs.length > 0) {
-              playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+              serverQueue.playnext(queue, DisconnectIdle, serverDisconnectIdle);
             } else {
              serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]}); 
               serverDisconnectIdle = DisconnectIdle.get(
@@ -55,44 +57,39 @@ export default async function audioPlayerIdle(
               queue.delete(serverQueue.message.guild.id);
               await writeGlobal('delete queue', null, serverQueue.id);
               writeGlobal('delete dci', null, serverQueue.id);
-              disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
+              serverDisconnectIdle.disconnectTimervcidle(queue, DisconnectIdle);
             }
           }
           //song ending while loop is true and loopsong is false
           else if (serverQueue.loop === true && serverQueue.loopsong === false && serverQueue.shuffle === false && serverQueue.jump === 0 && 
             serverQueue.repeat === false && serverQueue.previousbool === false) {
-            loopNextSong(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+            loopNextSong(queue, DisconnectIdle, serverDisconnectIdle);
             console.log('Playing Next Song In Looped Queue');
           }
           //song ending whil loopsong is true
           else if (serverQueue.loopsong === true) {
             console.log('Playing Looped Current Song');
-            playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+            playNext(queue, DisconnectIdle, serverDisconnectIdle);
           }
           //song ending while repeat is true
           else if (serverQueue.repeat === true) {
-            playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+            playNext(queue, DisconnectIdle, serverDisconnectIdle);
           }
           //song ending while jump > 0
           else if (serverQueue.jump > 0) {
-            playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+            playNext(queue, DisconnectIdle, serverDisconnectIdle);
           }
           //song ending while shuffle is true
           else {
             if (serverQueue.shuffle === true && serverQueue.loop === true && serverQueue.loopsong === false
                && serverQueue.jump === 0 && serverQueue.repeat === false && serverQueue.previousbool === false) {
-              loopNextSong(
-                serverQueue,
-                queue,
-                DisconnectIdle,
-                serverDisconnectIdle
-              );
+              loopNextSong(queue, DisconnectIdle, serverDisconnectIdle);
             } else {
               const currentsong = serverQueue.shuffledSongs[0];
-              findSplice(serverQueue, currentsong);
+              findSplice(currentsong);
               serverQueue.shuffledSongs.shift();
               if (serverQueue.shuffledSongs.length > 0) {
-                playNext(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                playNext(queue, DisconnectIdle, serverDisconnectIdle);
               } else {
                 const noMoreSongsEmbed = new MessageEmbed()
                   .setColor('RED')
@@ -104,7 +101,7 @@ export default async function audioPlayerIdle(
                 );
                 queue.delete(serverQueue.message.guild.id);
                 writeGlobal('delete queue', null, serverQueue.id);
-                disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
+                serverDisconnectIdle.disconnectTimervcidle(queue, DisconnectIdle);
               }
             }
           }

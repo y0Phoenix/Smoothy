@@ -14,7 +14,7 @@ export default async function exists(id: string, str: string) {
             i < data.queues.length;
             i++) {
                 if (data.queues[i].id === id) {
-                    return true;
+                    return {...data.queues[i]};
                 }
             }
     }
@@ -23,9 +23,9 @@ export default async function exists(id: string, str: string) {
             i < data.disconnectIdles.length;
             i++) {
                 if (data.disconnectIdles[i].id === id) {
-                    return true
+                    return {...data.disconnectIdles[i]};
                 }
             }
     }
-    return false
+    return null
 }

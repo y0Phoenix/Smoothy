@@ -19,6 +19,9 @@ import playdl from 'play-dl';
 import {Song} from './Song';
 import { retryTimer, checkIfPlaying } from './functions/retryPlayer';
 import { writeGlobal } from '../modules/modules';
+import findSplice from './functions/findSplice';
+import loopNextSong from './functions/loopNextSong';
+import playNext from './functions/playNext';
 
 
 export default class Queue {
@@ -47,6 +50,11 @@ export default class Queue {
     repeat: boolean = false
     bool: boolean = false
     jumpbool: boolean = false
+    videoFinder: typeof videoFinder
+    validURL: typeof validURL
+    playnext: typeof playNext 
+    findSplice: typeof findSplice
+    loopNextSong: typeof loopNextSong
     
     constructor(data: any) {
         const {queue, DisconnectIdle, serverDisconnectIdle, msg} = data;
@@ -152,5 +160,8 @@ export default class Queue {
           }
           }
       });
+        this.findSplice = findSplice;
+        this.loopNextSong = loopNextSong;
+        this.playnext = playNext;
     }
 }
