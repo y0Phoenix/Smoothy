@@ -6,11 +6,9 @@ const discord_js_1 = require("discord.js");
 const modules_1 = require("../../modules/modules");
 const audioPlayerIdle_1 = require("./audioPlayerIdle");
 /**
- * @param  {any} queue the map that holds all of the sever queues
- * @param  {any} DisconnectIdle the map that holds all of the server Idles
- * @param  {Idle} serverDisconnectIdle the current servers Idle
+ @description where the song gets played and the nowPlaying message gets set and sent
  */
-async function play(queue, DisconnectIdle, serverDisconnectIdle) {
+async function play() {
     const serverQueue = this;
     const yturl = play_dl_1.default.validate(serverQueue.currentsong[0].url) ? true : false;
     if (yturl === true) {
@@ -54,7 +52,7 @@ async function play(queue, DisconnectIdle, serverDisconnectIdle) {
             .setDescription(':rofl: No ***video*** results found');
         serverQueue.message.channel.send({ embeds: [noVidEmbed] });
         serverQueue.player.stop();
-        (0, audioPlayerIdle_1.default)(queue, DisconnectIdle, serverDisconnectIdle);
+        (0, audioPlayerIdle_1.default)();
     }
 }
 exports.default = play;

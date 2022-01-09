@@ -2,37 +2,34 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // This is the Main File for Smoothy Developed by Eugene aka y0Phoenix 
 // This is where the client is created and messages come in from discord and are converted into commands and args 
-const { Client, Intents, MessageEmbed, MessageManager, TextChannel } = require('discord.js');
-const { createAudioPlayer } = require('@discordjs/voice');
-AbortController = require("node-abort-controller").AbortController;
-const { play } = require('./commands/play');
-const { leave } = require('./commands/leave');
-const { clear } = require('./commands/stop');
-const { skip } = require('./commands/skip');
-const { ping } = require('./commands/ping');
-const { queuelist } = require('./commands/queue');
-const { remove } = require('./commands/remove');
-const { help } = require('./commands/help');
-const { pause } = require('./commands/pause');
-const { resume } = require('./commands/resume');
-const { loop } = require('./commands/loop');
-const { loopsong } = require('./commands/loopsong');
-const { repeat } = require('./commands/repeat');
-const { shuffle } = require('./commands/shuffle');
-const { jump } = require('./commands/jump');
-const { changeprefix } = require('./commands/change prefix');
-const { volume } = require('./commands/volume');
-const { previous } = require('./commands/previous');
-const _play = require('./Classes/functions/play');
-const { joinvoicechannel } = require('./executive');
-const fs = require('fs');
-const config = require('config');
-const { seek } = require('./commands/seek');
-const { exists } = require('./modules/modules');
+const discord_js_1 = require("discord.js");
+const AbortController = require("node-abort-controller").AbortController;
+const play_1 = require("./commands/play");
+const leave_1 = require("./commands/leave");
+const clear_1 = require("./commands/clear");
+const skip_1 = require("./commands/skip");
+const ping_1 = require("./commands/ping");
+const queue_1 = require("./commands/queue");
+const remove_1 = require("./commands/remove");
+const help_1 = require("./commands/help");
+const pause_1 = require("./commands/pause");
+const resume_1 = require("./commands/resume");
+const loop_1 = require("./commands/loop");
+const loopsong_1 = require("./commands/loopsong");
+const repeat_1 = require("./commands/repeat");
+const shuffle_1 = require("./commands/shuffle");
+const jump_1 = require("./commands/jump");
+const change_prefix_1 = require("./commands/change prefix");
+const volume_1 = require("./commands/volume");
+const previous_1 = require("./commands/previous");
+const executive_1 = require("./executive");
+const fs = require("fs");
+const config = require("config");
+const seek_1 = require("./commands/seek");
 const Queue_1 = require("./Classes/Queue");
 const maps_1 = require("./maps");
 //Creates the client
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new discord_js_1.Client({ intents: [discord_js_1.Intents.FLAGS.GUILDS, discord_js_1.Intents.FLAGS.GUILD_VOICE_STATES, discord_js_1.Intents.FLAGS.GUILD_MESSAGES] });
 // todo implement mySQL or MongoDB into Smoothy instead of plain JSON file
 // const sequelize = new Sequelize('discord', 'root', 'aaron', {
 //     host: 'localhost',
@@ -44,7 +41,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 //         type: Sequelize.STRING,
 //     }
 // });
-var file = fs.readFileSync('./config/global.json');
+var file = fs.readFileSync('./config/global.json', 'utf-8');
 var data = JSON.parse(file);
 client.once('ready', async () => {
     const maps = (0, maps_1.default)();
@@ -81,8 +78,8 @@ client.once('ready', async () => {
             let id = data.queues[i].id;
             let serverDisconnectIdle = DisconnectIdle.get(id);
             let serverQueue = queue.get(id);
-            const vc = await joinvoicechannel(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle, serverDisconnectIdle, client, null);
-            serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
+            const vc = await (0, executive_1.joinvoicechannel)(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle, serverDisconnectIdle, client, null);
+            serverQueue.play();
         }
     }
     console.log('Smoothy 1.4.6 is online!');
@@ -101,7 +98,7 @@ client.on('messageCreate', message => {
     if (message.author.bot) {
         return;
     }
-    let file = fs.readFileSync('./config/prefixes.json');
+    let file = fs.readFileSync('./config/prefixes.json', 'utf-8');
     let data = JSON.parse(file);
     let prefix = undefined;
     let found = 0;
@@ -120,7 +117,7 @@ client.on('messageCreate', message => {
         }
     }
     if (message.content === 'myprefix') {
-        const myprefixEmbed = new MessageEmbed()
+        const myprefixEmbed = new discord_js_1.MessageEmbed()
             .setColor('BLUE')
             .addFields({
             name: ':thumbsup: Current Prefix', value: `**${prefix}**`
@@ -140,67 +137,67 @@ client.on('messageCreate', message => {
     console.log(`Command = ${command} ${args.join(' ')}`);
     //commands come in and checks if command ===, else the command was invalid
     if (command === 'ping') {
-        ping(message, client);
+        (0, ping_1.default)(message, client);
     }
     else if (command === 'play' || command === 'p' || command === 'pp' || command === 'playp') {
-        play(message, args, vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command, client);
+        (0, play_1.default)(message, args, vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command, client);
     }
     else if (command === 'queue' || command === 'list' || command === 'q') {
-        queuelist(message, serverQueue, serverDisconnectIdle);
+        (0, queue_1.default)(message, serverQueue, serverDisconnectIdle);
     }
     else if (command === 'skip' || command === 'next' || command === 's' || command === 'n') {
-        skip(message, serverQueue, client);
+        (0, skip_1.default)(message, serverQueue, client);
     }
     else if (command === 'stop' || command === 'clear') {
-        clear(message, serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        (0, clear_1.default)(message, serverQueue, queue, serverDisconnectIdle);
     }
     else if (command === 'leave' || command === 'disconnect' || command === 'dc' || command === 'die') {
-        leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle);
+        (0, leave_1.default)(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle);
     }
     else if (command === 'remove' || command === 'r') {
-        remove(message, args, serverQueue, client);
+        (0, remove_1.default)(message, args, serverQueue, client);
     }
     else if (command === 'help') {
-        help(message);
+        (0, help_1.default)(message);
     }
     else if (command === 'pause' || command === 'pa') {
-        pause(message, serverQueue, client);
+        (0, pause_1.default)(message, serverQueue, client);
     }
     else if (command === 'resume' || command === 'un') {
-        resume(message, serverQueue, client);
+        (0, resume_1.default)(message, serverQueue, client);
     }
     else if (command === 'crash' || command === 'c') {
         throw new Error('Killed from command on Discord');
     }
     else if (command === 'loop' || command === 'l') {
-        loop(message, serverQueue, serverDisconnectIdle);
+        (0, loop_1.default)(message, serverQueue, serverDisconnectIdle);
     }
     else if (command === 'loopsong' || command === 'ls') {
-        loopsong(message, serverQueue, serverDisconnectIdle);
+        (0, loopsong_1.default)(message, serverQueue, serverDisconnectIdle);
     }
     else if (command === 'repeat' || command === 'restart' || command === 're') {
-        repeat(message, serverQueue, client);
+        (0, repeat_1.default)(message, serverQueue, client);
     }
     else if (command === 'shuffle' || command === 'mix') {
-        shuffle(message, serverQueue, client);
+        (0, shuffle_1.default)(message, serverQueue, client);
     }
     else if (command === 'jump' || command === 'j') {
-        jump(message, args, serverQueue, serverDisconnectIdle);
+        (0, jump_1.default)(message, args, serverQueue, serverDisconnectIdle);
     }
     else if (command === 'prefix' || command === 'changeprefix' || command === 'prefixchange') {
-        changeprefix(message, args, serverQueue, data, found);
+        (0, change_prefix_1.default)(message, args, data, found, client);
     }
     else if (command === 'volume' || command === 'v') {
-        volume(message, args, serverQueue, serverDisconnectIdle);
+        (0, volume_1.default)(message, args, serverQueue, serverDisconnectIdle);
     }
     else if (command === 'previous' || command === 'pr') {
-        previous(message, serverQueue, serverDisconnectIdle);
+        (0, previous_1.default)(message, serverQueue, serverDisconnectIdle);
     }
     else if (command === 'seek' || command === 'sk') {
-        seek(message, args, serverQueue, serverDisconnectIdle);
+        (0, seek_1.default)(message, args, serverQueue, serverDisconnectIdle);
     }
     else {
-        const invalidCommandEmbed = new MessageEmbed()
+        const invalidCommandEmbed = new discord_js_1.MessageEmbed()
             .setColor(`RED`)
             .setDescription(`:rofl: Invalid Command Type -help To See Current Commands`);
         message.channel.send({ embeds: [invalidCommandEmbed] })

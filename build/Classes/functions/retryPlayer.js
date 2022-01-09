@@ -4,7 +4,7 @@ exports.retryTimer = exports.checkIfPlaying = void 0;
 const voice_1 = require("@discordjs/voice");
 const discord_js_1 = require("discord.js");
 const modules_1 = require("../../modules/modules");
-const getVideo_1 = require("./getVideo");
+const maps_1 = require("../../maps");
 /**
  * @param  {Queue} serverQueue the current servers queue
  * @description checks if the serverQueue is playing a song via
@@ -21,12 +21,11 @@ async function checkIfPlaying(serverQueue) {
 }
 exports.checkIfPlaying = checkIfPlaying;
 /**
- * @param  {Queue} serverQueue the currents servers queue
- * @param  {any} queue the map that holds all of the server queues
- * @param  {any} DisconnectIdle the map that holds all of the server Idles
- * @param  {Idle} serverDisconnectIdle the current servers Idle
  */
-async function retryTimer(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
+async function retryTimer() {
+    const serverQueue = this;
+    const maps = (0, maps_1.default)();
+    const serverDisconnectIdle = maps.DisconnectIdle.get(serverQueue.id);
     if (serverQueue.player.state.status !== voice_1.AudioPlayerStatus.Playing && serverQueue.tries < 5 && serverQueue.loop === false) {
         if (serverQueue.jumpbool === true) {
             const result = await (0, modules_1.find)(serverQueue, serverQueue.currentsong[0].title);
@@ -46,9 +45,9 @@ async function retryTimer(serverQueue, queue, DisconnectIdle, serverDisconnectId
             }
         }
         serverQueue.currentsong.shift();
-        await (0, getVideo_1.default)(serverQueue);
+        await serverQueue.getVideo();
         console.log(`Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`);
-        serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
+        serverQueue.play(maps.queue, maps.DisconnectIdle, serverDisconnectIdle);
         if (serverQueue.tries >= 4) {
             serverQueue.message.channel
                 .send(`Smoothy Is Buffering Please Wait`)

@@ -1,19 +1,19 @@
 import { Message } from "discord.js";
 import InfoData from "../../interfaces/_InfoData";
 import * as ytdl from 'ytdl-core';
-import playdl from 'play-dl';
 import Queue from "../Queue";
 import {writeGlobal} from '../../modules/modules';
 import videoFinder from "../../functions/videoFinder";
 import validURL from '../../functions/validURL';
-import findSplice from './findSplice';
 import { Song } from "../Song";
 
 //finds the song specified in args
 /**
- * @param  {Queue} serverQueue the current servers queue
+ * @description finds the video based on condition right before playing it, this is to ensure a fresh url, not sure if the url changes
+ * or if anythang changes, however there were issues early on so better safe than sorry 
  */
-export default async function getVideo(serverQueue: Queue) {
+export default async function getVideo() {
+  let serverQueue: Queue = this
     let message: Partial<Message>;
     let videoName: string;
     let videoURL: InfoData;
@@ -36,6 +36,11 @@ export default async function getVideo(serverQueue: Queue) {
         else {
           serverQueue.songs.splice(i, 1);
         }
+    }
+    else if (serverQueue.repeat) {
+      videoName = serverQueue.currentsong[0].url;
+      message = serverQueue.currentsong[0].message;
+      serverQueue.repeat = false
     }
     else {
       if (serverQueue.loopsong === true) {

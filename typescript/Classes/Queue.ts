@@ -21,9 +21,12 @@ import { exists, writeGlobal } from '../modules/modules';
 import findSplice from './functions/findSplice';
 import loopNextSong from './functions/loopNextSong';
 import playNext from './functions/playNext';
+import nowPlayingSend from './functions/nowPlayingSend';
 import { joinvoicechannel } from '../executive';
 import getMaps from '../maps';
 import play from './functions/play';
+import getVideo from './functions/getVideo';
+import { Idle } from './Idle';
 
 
 export default class Queue {
@@ -52,14 +55,19 @@ export default class Queue {
     repeat: boolean = false
     bool: boolean = false
     jumpbool: boolean = false
+    nowPlayingSend: typeof nowPlayingSend
     playNext: typeof playNext 
     findSplice: typeof findSplice
     loopNextSong: typeof loopNextSong
     audioPlayerIdle: typeof audioPlayerIdle
     play: typeof play
+    getVideo: typeof getVideo
+    retryTimer: typeof retryTimer
     
     constructor(data: any) {
-        let {queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs, currentsong} = data;
+        let {msg, songs, shuffledSongs, currentsong} = data;
+        const {DisconnectIdle} = getMaps();
+        var serverDisconnectIdle: Idle;
         if (songs){
             if (songs[0]) {
                 this.songs = [...songs];
@@ -70,7 +78,7 @@ export default class Queue {
             if (shuffledSongs[0]) {
                 this.shuffledSongs = [...shuffledSongs];
             }
-        } 
+        }    
         this.message = msg;
         this.id = msg.guild.id;
         this.voiceChannel = msg.member.voice.channel;
@@ -97,12 +105,7 @@ export default class Queue {
           setTimeout(async () => {
           if (localServerQueue.tries < 5) {
               localServerQueue.player.stop();
-              await retryTimer(
-              localServerQueue,
-              queue,
-              DisconnectIdle,
-              serverDisconnectIdle
-              );
+              await this.retryTimer();
               localServerQueue.tries++;
               const playing = await checkIfPlaying(localServerQueue);
               if (playing === true) {
@@ -132,22 +135,14 @@ export default class Queue {
               .setTimestamp();
               localServerQueue.message.channel.send({ embeds: [audioPlayerErrME] });
               localServerQueue.player.stop();
-              this.audioPlayerIdle(
-              queue,
-              DisconnectIdle,
-              serverDisconnectIdle
-              );
+              this.audioPlayerIdle();
           }
           }, 1500);
       });
   
       //when the audioPlayer for this construct inside serverQueue is Idle the function is executed
       this.player.on(AudioPlayerStatus.Idle, async (playerEvent) => {
-          this.audioPlayerIdle(
-          queue,
-          DisconnectIdle,
-          serverDisconnectIdle
-          );
+          this.audioPlayerIdle();
       });
       this.player.on(AudioPlayerStatus.Playing, async (data) => {
           const localServerQueue: Queue = this;
@@ -185,6 +180,9 @@ export default class Queue {
         this.loopNextSong = loopNextSong;
         this.playNext = playNext;
         this.audioPlayerIdle = audioPlayerIdle;
-        this.play = play
+        this.play = play;
+        this.getVideo = getVideo;
+        this.retryTimer = retryTimer;
+        this.nowPlayingSend = this.nowPlayingSend;
     }
 }

@@ -7,9 +7,11 @@ const validURL_1 = require("../../functions/validURL");
 const Song_1 = require("../Song");
 //finds the song specified in args
 /**
- * @param  {Queue} serverQueue the current servers queue
+ * @description finds the video based on condition right before playing it, this is to ensure a fresh url, not sure if the url changes
+ * or if anythang changes, however there were issues early on so better safe than sorry
  */
-async function getVideo(serverQueue) {
+async function getVideo() {
+    let serverQueue = this;
     let message;
     let videoName;
     let videoURL;
@@ -32,6 +34,11 @@ async function getVideo(serverQueue) {
         else {
             serverQueue.songs.splice(i, 1);
         }
+    }
+    else if (serverQueue.repeat) {
+        videoName = serverQueue.currentsong[0].url;
+        message = serverQueue.currentsong[0].message;
+        serverQueue.repeat = false;
     }
     else {
         if (serverQueue.loopsong === true) {

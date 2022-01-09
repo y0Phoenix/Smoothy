@@ -120,64 +120,61 @@ function longQueueList(message, serverQueue, serverDisconnectIdle) {
         getQueueList(message, serverQueue, serverDisconnectIdle);
     }
 }
-module.exports = {
-    name: 'queue',
-    description: 'Shows queue to the discord text channel',
-    /**
-     * @param  {Message} message the users message
-     * @param  {Queue} serverQueue the current servers Queue
-     * @param  {Idle} serverDisconnectIdle the current servers Idle
-     * @description checks some conditions and either sends a queuelist to the text-channel of less than 10 songs or continues onto the getQueueList function for
-     * longer song queues. The reason for 10 songs being the max is the discord api limits MessageEmbed descriptions to less than 4096 characters
-     */
-    async queuelist(message, serverQueue, serverDisconnectIdle) {
-        if (serverQueue !== undefined) {
-            if (serverDisconnectIdle.queueMsgs[0]) {
-                for (let i = 0; i < serverDisconnectIdle.queueMsgs.length; i++) {
-                    if (!serverDisconnectIdle.queueMsgs[i].content) {
-                        const channel = await serverDisconnectIdle.client.channels.fetch(serverDisconnectIdle.message.channelId);
-                        const message = await channel.messages.fetch(serverDisconnectIdle.queueMsgs[i].id);
-                        message.delete();
-                    }
-                    else {
-                        serverDisconnectIdle.queueMsgs[i].delete();
-                    }
+/**
+ * @param  {Message} message the users message
+ * @param  {Queue} serverQueue the current servers Queue
+ * @param  {Idle} serverDisconnectIdle the current servers Idle
+ * @description checks some conditions and either sends a queuelist to the text-channel of less than 10 songs or continues onto the getQueueList function for
+ * longer song queues. The reason for 10 songs being the max is the discord api limits MessageEmbed descriptions to less than 4096 characters
+ */
+async function queueList(message, serverQueue, serverDisconnectIdle) {
+    if (serverQueue !== undefined) {
+        if (serverDisconnectIdle.queueMsgs[0]) {
+            for (let i = 0; i < serverDisconnectIdle.queueMsgs.length; i++) {
+                if (!serverDisconnectIdle.queueMsgs[i].content) {
+                    const channel = await serverDisconnectIdle.client.channels.fetch(serverDisconnectIdle.message.channelId);
+                    const message = await channel.messages.fetch(serverDisconnectIdle.queueMsgs[i].id);
+                    message.delete();
                 }
-                serverDisconnectIdle.queueMsgs = [];
-                (0, modules_1.writeGlobal)('update dci', serverDisconnectIdle, message.guildId);
+                else {
+                    serverDisconnectIdle.queueMsgs[i].delete();
+                }
             }
-            if (serverQueue.songs.length >= 2) {
-                queuelist = ``;
-                endqueuelist = 10;
-                i = 0;
-                getQueueList(message, serverQueue, serverDisconnectIdle);
-            }
-            else {
-                const queueListEmbed = new discord_js_1.MessageEmbed()
-                    .setColor('LUMINOUS_VIVID_PINK')
-                    .setTitle(':thumbsup: Here Is The Queue')
-                    .addFields({
-                    name: '****Now Playing****',
-                    value: `**[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})**\n***Duration:*** ${serverQueue.songs[0].duration}`
-                }, {
-                    name: 'Requested By',
-                    value: `<@${serverQueue.currentsong[0].message.author.id}>`
-                }, {
-                    name: 'Queue',
-                    value: `No Other Songs`
-                });
-                let msg = await message.channel.send({ embeds: [queueListEmbed] });
-                serverDisconnectIdle.queueMsgs.push(msg);
-                (0, modules_1.writeGlobal)('update dci', serverDisconnectIdle, message.guildId);
-                queuelist = ``;
-            }
+            serverDisconnectIdle.queueMsgs = [];
+            (0, modules_1.writeGlobal)('update dci', serverDisconnectIdle, message.guildId);
+        }
+        if (serverQueue.songs.length >= 2) {
+            queuelist = ``;
+            endqueuelist = 10;
+            i = 0;
+            getQueueList(message, serverQueue, serverDisconnectIdle);
         }
         else {
-            const noSongsEmbed = new discord_js_1.MessageEmbed()
-                .setColor('RED')
-                .setDescription(`:rofl: No Songs Currently In Queue`);
-            message.channel.send({ embeds: [noSongsEmbed] })
-                .then(msg => (0, modules_1.deleteMsg)(msg, 30000, serverDisconnectIdle.client));
+            const queueListEmbed = new discord_js_1.MessageEmbed()
+                .setColor('LUMINOUS_VIVID_PINK')
+                .setTitle(':thumbsup: Here Is The Queue')
+                .addFields({
+                name: '****Now Playing****',
+                value: `**[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})**\n***Duration:*** ${serverQueue.songs[0].duration}`
+            }, {
+                name: 'Requested By',
+                value: `<@${serverQueue.currentsong[0].message.author.id}>`
+            }, {
+                name: 'Queue',
+                value: `No Other Songs`
+            });
+            let msg = await message.channel.send({ embeds: [queueListEmbed] });
+            serverDisconnectIdle.queueMsgs.push(msg);
+            (0, modules_1.writeGlobal)('update dci', serverDisconnectIdle, message.guildId);
+            queuelist = ``;
         }
     }
-};
+    else {
+        const noSongsEmbed = new discord_js_1.MessageEmbed()
+            .setColor('RED')
+            .setDescription(`:rofl: No Songs Currently In Queue`);
+        message.channel.send({ embeds: [noSongsEmbed] })
+            .then(msg => (0, modules_1.deleteMsg)(msg, 30000, serverDisconnectIdle.client));
+    }
+}
+exports.default = queueList;

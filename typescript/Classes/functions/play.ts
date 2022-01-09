@@ -16,13 +16,12 @@ import {
   import { MessageEmbed } from 'discord.js';
   import {writeGlobal, deleteMsg} from '../../modules/modules';
   import audioPlayerIdle from './audioPlayerIdle';
+import getMaps from "../../maps";
 
 /**
- * @param  {any} queue the map that holds all of the sever queues
- * @param  {any} DisconnectIdle the map that holds all of the server Idles
- * @param  {Idle} serverDisconnectIdle the current servers Idle
+ @description where the song gets played and the nowPlaying message gets set and sent
  */
-export default async function play(queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
+export default async function play() {
   const serverQueue: Queue = this;
     const yturl: boolean = playdl.validate(serverQueue.currentsong[0].url) ? true : false;
     if (yturl === true) {
@@ -70,6 +69,6 @@ export default async function play(queue: any, DisconnectIdle: any, serverDiscon
             .setDescription(':rofl: No ***video*** results found');
         serverQueue.message.channel.send({embeds: [noVidEmbed]});
         serverQueue.player.stop();
-        audioPlayerIdle(queue, DisconnectIdle, serverDisconnectIdle);
+        audioPlayerIdle();
     }
   }

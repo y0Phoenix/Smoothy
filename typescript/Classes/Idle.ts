@@ -1,6 +1,7 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import WriteMessage from "./WriteMessage";
 import { leave } from '../modules/modules';
+import getMaps from '../maps';
 
 export class WriteIdle {
     message: WriteMessage
@@ -52,12 +53,12 @@ disconnectvcidle(queue: any, DisconnectIdle: any) {
   }
   
   /**
-   * @param  {} queue the map that holds all of the serverQueues
-   * @param  {} DisconnectIdle the map that holds all of the servers Idles
    * @description starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
    * this timer only starts when the audioPlayer is Idle
    */
-  disconnectTimervcidle(queue: any, DisconnectIdle: any) {
+  disconnectTimervcidle() {
+    const maps = getMaps();
+    const {DisconnectIdle, queue} = maps;
     this.disconnectTimer = setTimeout(
       this.disconnectvcidle,
       1800000,

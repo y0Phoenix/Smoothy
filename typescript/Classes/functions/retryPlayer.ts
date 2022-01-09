@@ -4,6 +4,7 @@ import { AudioPlayerStatus } from "@discordjs/voice";
 import { MessageEmbed } from "discord.js";
 import { deleteMsg, find } from "../../modules/modules";
 import getVideo from './getVideo';
+import getMaps from "../../maps";
 
 /**
  * @param  {Queue} serverQueue the current servers queue
@@ -19,12 +20,11 @@ export async function checkIfPlaying(serverQueue: Queue) {
   }
 }
 /**
- * @param  {Queue} serverQueue the currents servers queue
- * @param  {any} queue the map that holds all of the server queues
- * @param  {any} DisconnectIdle the map that holds all of the server Idles
- * @param  {Idle} serverDisconnectIdle the current servers Idle
  */
-export async function retryTimer(serverQueue: Queue, queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
+export async function retryTimer() {
+    const serverQueue = this;
+    const maps = getMaps();
+    const serverDisconnectIdle = maps.DisconnectIdle.get(serverQueue.id);
     if (serverQueue.player.state.status !== AudioPlayerStatus.Playing && serverQueue.tries < 5 && serverQueue.loop === false) {
       if (serverQueue.jumpbool === true) {
         const result = await find(serverQueue, serverQueue.currentsong[0].title);
@@ -46,11 +46,11 @@ export async function retryTimer(serverQueue: Queue, queue: any, DisconnectIdle:
         }
       }
       serverQueue.currentsong.shift();
-      await getVideo(serverQueue);
+      await serverQueue.getVideo();
       console.log(
         `Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`
       );
-      serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
+      serverQueue.play(maps.queue, maps.DisconnectIdle, serverDisconnectIdle);
       if (serverQueue.tries >= 4) {
         serverQueue.message.channel
           .send(`Smoothy Is Buffering Please Wait`)

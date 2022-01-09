@@ -4,6 +4,7 @@ exports.Idle = exports.WriteIdle = void 0;
 const discord_js_1 = require("discord.js");
 const WriteMessage_1 = require("./WriteMessage");
 const modules_1 = require("../modules/modules");
+const maps_1 = require("../maps");
 class WriteIdle {
     constructor(data) {
         this.disconnectTimer = null;
@@ -47,12 +48,12 @@ class Idle {
         (0, modules_1.leave)(queue, DisconnectIdle, this.message);
     }
     /**
-     * @param  {} queue the map that holds all of the serverQueues
-     * @param  {} DisconnectIdle the map that holds all of the servers Idles
      * @description starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
      * this timer only starts when the audioPlayer is Idle
      */
-    disconnectTimervcidle(queue, DisconnectIdle) {
+    disconnectTimervcidle() {
+        const maps = (0, maps_1.default)();
+        const { DisconnectIdle, queue } = maps;
         this.disconnectTimer = setTimeout(this.disconnectvcidle, 1800000, queue, DisconnectIdle);
         console.log('Starting disconnectTimer Timeout');
     }

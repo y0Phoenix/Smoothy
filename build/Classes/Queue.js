@@ -11,6 +11,7 @@ const playNext_1 = require("./functions/playNext");
 const executive_1 = require("../executive");
 const maps_1 = require("../maps");
 const play_1 = require("./functions/play");
+const getVideo_1 = require("./functions/getVideo");
 class Queue {
     constructor(data) {
         this.songs = [];
@@ -67,7 +68,7 @@ class Queue {
             setTimeout(async () => {
                 if (localServerQueue.tries < 5) {
                     localServerQueue.player.stop();
-                    await (0, retryPlayer_1.retryTimer)(localServerQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                    await this.retryTimer();
                     localServerQueue.tries++;
                     const playing = await (0, retryPlayer_1.checkIfPlaying)(localServerQueue);
                     if (playing === true) {
@@ -92,13 +93,13 @@ class Queue {
                         .setTimestamp();
                     localServerQueue.message.channel.send({ embeds: [audioPlayerErrME] });
                     localServerQueue.player.stop();
-                    this.audioPlayerIdle(queue, DisconnectIdle, serverDisconnectIdle);
+                    this.audioPlayerIdle();
                 }
             }, 1500);
         });
         //when the audioPlayer for this construct inside serverQueue is Idle the function is executed
         this.player.on(voice_1.AudioPlayerStatus.Idle, async (playerEvent) => {
-            this.audioPlayerIdle(queue, DisconnectIdle, serverDisconnectIdle);
+            this.audioPlayerIdle();
         });
         this.player.on(voice_1.AudioPlayerStatus.Playing, async (data) => {
             const localServerQueue = this;
@@ -128,6 +129,9 @@ class Queue {
         this.playNext = playNext_1.default;
         this.audioPlayerIdle = audioPlayerIdle_1.default;
         this.play = play_1.default;
+        this.getVideo = getVideo_1.default;
+        this.retryTimer = retryPlayer_1.retryTimer;
+        this.nowPlayingSend = this.nowPlayingSend;
     }
 }
 exports.default = Queue;

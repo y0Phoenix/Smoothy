@@ -44,15 +44,14 @@ async function executive(message: Message, queue: any, DisconnectIdle: any, serv
   }
   //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
   if (!serverQueue) {
-    const data = {queue: queue, DisconnectIdle: DisconnectIdle, serverDisconnectIdle: serverDisconnectIdle, msg: message};
-    const _queue = new Queue(data);
+    const _queue = new Queue({msg: message});
     queue.set(message.guild.id, _queue);
     serverQueue = queue.get(message.guild.id);
     const songObj = new Song({message: message, data: videoURL});
     serverQueue.songs.push(songObj);
     serverQueue.currentsong.push(songObj);
     writeGlobal('add queue', serverQueue, serverQueue.id);
-    serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
+    serverQueue.play();
   }
   else {
       let songObj = new Song({message: message, data: videoURL});
@@ -154,8 +153,8 @@ async function findvideoplaylist(message: Message, args: any, queue: any, Discon
         .setTimestamp();
       console.log(`Found YouTube playlist ${playlist.title}`);
       if (!serverQueue) {
-        const data = {queue: queue, DisconnectIdle: DisconnectIdle, serverDisconnectIdle: serverDisconnectIdle, msg: message};
-        queue.set(message.guild.id, new Queue(data));
+        
+        queue.set(message.guild.id, new Queue({msg: message}));
         serverQueue = queue.get(message.guild.id);
         serverQueue.songs.push(new Song({message: message, data: videoURL}));
         serverQueue.currentsong.push(new Song({message: message, data: videoURL}));
@@ -163,7 +162,7 @@ async function findvideoplaylist(message: Message, args: any, queue: any, Discon
         console.log('Created the serverQueue');
         added = true;
         writeGlobal('add queue', serverQueue, serverQueue.id);
-        serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
+        serverQueue.play();
       }
       let msg = await message.channel.send({embeds: [playlistEmbed],});
       serverDisconnectIdle.msgs.push(msg);

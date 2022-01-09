@@ -1,32 +1,31 @@
 // This is the Main File for Smoothy Developed by Eugene aka y0Phoenix 
 // This is where the client is created and messages come in from discord and are converted into commands and args 
-const { Client, Intents, MessageEmbed, MessageManager, TextChannel } = require('discord.js');
-const { createAudioPlayer } = require('@discordjs/voice');
-AbortController = require("node-abort-controller").AbortController;
-const {play} = require('./commands/play');
-const {leave} = require('./commands/leave');
-const {clear} = require('./commands/stop');
-const {skip} = require('./commands/skip');
-const {ping} = require('./commands/ping');
-const {queuelist} = require('./commands/queue');
-const {remove} = require('./commands/remove');
-const {help} = require('./commands/help');
-const {pause}= require('./commands/pause');
-const {resume} = require('./commands/resume');
-const {loop} = require('./commands/loop');
-const {loopsong} = require('./commands/loopsong');
-const {repeat} = require('./commands/repeat');
-const {shuffle} = require('./commands/shuffle');
-const {jump} = require('./commands/jump');
-const {changeprefix} = require('./commands/change prefix')
-const {volume} = require('./commands/volume');
-const { previous } = require('./commands/previous');
-const _play = require('./Classes/functions/play');
-const { joinvoicechannel} = require('./executive');
-const fs = require('fs');
-const config = require('config');
-const { seek } = require('./commands/seek');
-const { exists } = require('./modules/modules');
+import { Client, Intents, MessageEmbed} from 'discord.js';
+const AbortController = require ("node-abort-controller").AbortController;
+import Play from './commands/play';
+import leave from './commands/leave';
+import clear from './commands/clear';
+import skip from './commands/skip';
+import ping from './commands/ping';
+import queuelist from './commands/queue';
+import remove from './commands/remove';
+import help from './commands/help';
+import pause from './commands/pause';
+import resume from './commands/resume';
+import loop from './commands/loop';
+import loopsong from './commands/loopsong';
+import repeat from './commands/repeat';
+import shuffle from './commands/shuffle';
+import jump from './commands/jump';
+import changeprefix from './commands/change prefix'
+import volume from './commands/volume';
+import previous  from './commands/previous';
+import _play from './Classes/functions/play';
+import { joinvoicechannel} from './executive';
+import * as fs from 'fs';
+import * as config from 'config';
+import seek from './commands/seek';
+import { exists } from './modules/modules';
 import { Idle } from "./Classes/Idle";
 import Queue from "./Classes/Queue";
 import getMaps from "./maps";
@@ -46,7 +45,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 //     }
 // });
 
-var file = fs.readFileSync('./config/global.json');
+var file = fs.readFileSync('./config/global.json', 'utf-8');
 var data = JSON.parse(file);
 
 client.once('ready', async () => {
@@ -58,7 +57,7 @@ client.once('ready', async () => {
         for (let i = 0;
             i < data.disconnectIdles.length;
             i++) {
-                const channel = await client.channels.fetch(data.disconnectIdles[i].message.channelId);
+                const channel: any = await client.channels.fetch(data.disconnectIdles[i].message.channelId);
                 const message = await channel.messages.fetch(data.disconnectIdles[i].message.id);
                 data.disconnectIdles[i].message = message;
                 data.disconnectIdles[i].client = client;
@@ -68,18 +67,14 @@ client.once('ready', async () => {
         for (let i = 0;
             i < data.queues.length;
             i++) {
-                const channel = await client.channels.fetch(data.queues[i].message.channelId);
+                const channel: any = await client.channels.fetch(data.queues[i].message.channelId);
                 const message = await channel.messages.fetch(data.queues[i].message.id);
                 const vc = await client.channels.fetch(data.queues[i].voiceChannel.id);
                 data.queues[i].message = message;
-                if (data.queues[i].nowPlaying) {
-                    
-                }
                 data.queues[i].voiceChannel = vc;
                 data.queues[i].currentsong[0].load = true;
-                const serverDisconnectIdle = DisconnectIdle.get(data.queues[i].id);
-                let serverQueue = new Queue({ DisconnectIdle: DisconnectIdle, queue: queue, serverDisconnectIdle: serverDisconnectIdle, 
-                    msg: data.queues[i].message, songs: data.queues[i].songs, shuffledSongs: data.queues[i].shuffledSongs, currentsong: data.queues[i].currentsong });
+                let serverQueue = new Queue({ msg: data.queues[i].message, songs: data.queues[i].songs, 
+                    shuffledSongs: data.queues[i].shuffledSongs, currentsong: data.queues[i].currentsong });
                 serverQueue.shuffle = data.queues[i].shuffle;
                 serverQueue.loop = data.queues[i].loop;
                 serverQueue.loopsong = data.queues[i].loopsong;
@@ -91,9 +86,9 @@ client.once('ready', async () => {
                 let id = data.queues[i].id;
                 let serverDisconnectIdle: Idle = DisconnectIdle.get(id);
                 let serverQueue: Queue = queue.get(id);
-                const vc = await joinvoicechannel(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle,
+                await joinvoicechannel(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle,
                 serverDisconnectIdle, client, null);
-                serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
+                serverQueue.play();
             }
                 
     }
@@ -113,7 +108,7 @@ client.on('messageCreate', message =>{
     if(message.author.bot){
         return;
     }
-    let file = fs.readFileSync('./config/prefixes.json');
+    let file = fs.readFileSync('./config/prefixes.json', 'utf-8');
     let data = JSON.parse(file);
     let prefix = undefined;
     let found = 0;
@@ -159,13 +154,13 @@ client.on('messageCreate', message =>{
     if(command === 'ping'){
         ping(message, client);
     }else if (command === 'play' || command === 'p' || command === 'pp' || command === 'playp'){
-        play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command, client);
+        Play(message, args,  vc, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, command, client);
     }else if (command === 'queue' || command === 'list' || command === 'q'){
         queuelist(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'skip' || command === 'next' || command === 's' || command === 'n'){
         skip(message, serverQueue, client);
     }else if (command === 'stop' || command === 'clear'){
-        clear(message, serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        clear(message, serverQueue, queue, serverDisconnectIdle);
     }else if (command === 'leave' || command === 'disconnect' || command === 'dc' || command === 'die'){
         leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle);
     }else if (command === 'remove' || command === 'r'){
@@ -189,7 +184,7 @@ client.on('messageCreate', message =>{
     }else if (command === 'jump' || command === 'j'){
         jump(message, args, serverQueue, serverDisconnectIdle);
     }else if (command === 'prefix' || command === 'changeprefix' || command === 'prefixchange'){
-        changeprefix(message, args, serverQueue, data, found)
+        changeprefix(message, args, data, found, client)
     }else if (command === 'volume' || command === 'v'){
         volume(message, args, serverQueue, serverDisconnectIdle)
     }else if (command === 'previous' || command === 'pr') {

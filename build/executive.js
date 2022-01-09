@@ -47,7 +47,7 @@ async function executive(message, queue, DisconnectIdle, serverDisconnectIdle, s
         serverQueue.songs.push(songObj);
         serverQueue.currentsong.push(songObj);
         (0, modules_1.writeGlobal)('add queue', serverQueue, serverQueue.id);
-        serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
+        serverQueue.play();
     }
     else {
         let songObj = new Song_1.Song({ message: message, data: videoURL });
@@ -156,7 +156,7 @@ async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDis
                 console.log('Created the serverQueue');
                 added = true;
                 (0, modules_1.writeGlobal)('add queue', serverQueue, serverQueue.id);
-                serverQueue.play(queue, DisconnectIdle, serverDisconnectIdle);
+                serverQueue.play();
             }
             let msg = await message.channel.send({ embeds: [playlistEmbed], });
             serverDisconnectIdle.msgs.push(msg);

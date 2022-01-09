@@ -13,7 +13,7 @@ import { deleteMsg } from '../modules/modules';
  * @description does some string manipulation which turns it into a number, creates an new ffmpeg instance with the seek number and plays the ffmpeg stream 
  * onto the audioplayer inside the serverQueue 
  */
-async function seek(message: Message, args: any, serverQueue: Queue, serverDisconnectIdle: Idle) {
+export default async function seek(message: Message, args: any, serverQueue: Queue, serverDisconnectIdle: Idle) {
     if (serverQueue) {
         if (serverQueue.songs.length > 0) {
             if (serverQueue.player.state.status === AudioPlayerStatus.Playing) {
@@ -111,5 +111,3 @@ async function seek(message: Message, args: any, serverQueue: Queue, serverDisco
 
     }
 }
-
-module.exports = { seek };

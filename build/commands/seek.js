@@ -95,4 +95,4 @@ async function seek(message, args, serverQueue, serverDisconnectIdle) {
     else {
     }
 }
-module.exports = { seek };
+exports.default = seek;
