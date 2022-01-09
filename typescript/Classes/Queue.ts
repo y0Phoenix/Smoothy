@@ -47,7 +47,7 @@ export default class Queue {
     previous: Partial<Song>[] = []
     previousbool: boolean = false
     messagesent: boolean = false
-    nowPlaying: Partial<Message> = null
+    nowPlaying: Message = null
     nowPlayingTimer: any = null
     shuffle: boolean = false
     loop: boolean = false
@@ -183,6 +183,6 @@ export default class Queue {
         this.play = play;
         this.getVideo = getVideo;
         this.retryTimer = retryTimer;
-        this.nowPlayingSend = this.nowPlayingSend;
+        this.nowPlayingSend = nowPlayingSend;
     }
 }

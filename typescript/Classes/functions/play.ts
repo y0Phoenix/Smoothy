@@ -35,26 +35,7 @@ export default async function play() {
         serverQueue.player.play(serverQueue.resource);
         console.log('Playing ' + serverQueue.currentsong[0].title + '!');
         if (serverQueue.audioPlayerErr === false) {
-          const playembed = new MessageEmbed()
-            .setColor('#0099ff')
-            .setTitle(`:thumbsup: Now Playing`)
-            .setDescription(
-              `:musical_note: ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`
-            )
-            .addFields(
-              {
-                name: `Requested By`,
-                value: `<@${serverQueue.currentsong[0].message.author.id}>`,
-                inline: true,
-              },
-              {
-                name: `***Duration***`,
-                value: `${serverQueue.currentsong[0].duration}`,
-                inline: true,
-              }
-            )
-            .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`);
-          serverQueue.nowPlaying = await serverQueue.message.channel.send({embeds: [playembed]});
+          serverQueue.nowPlaying = await serverQueue.nowPlayingSend();
           serverQueue.messagesent = true;
           writeGlobal('update queue', serverQueue, serverQueue.id)
         }

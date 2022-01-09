@@ -11,7 +11,7 @@ async function deleteMsg(message, time, client) {
     }
     const getMSG = async () => {
         try {
-            const channel = await client.channels.fetch(message.channelId);
+            const channel = await client.channels.fetch(message.channel.id);
             const msg = await channel.messages.fetch(message.id);
             return msg;
         }

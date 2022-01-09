@@ -62,13 +62,10 @@ client.once('ready', async () => {
             const message = await channel.messages.fetch(data.queues[i].message.id);
             const vc = await client.channels.fetch(data.queues[i].voiceChannel.id);
             data.queues[i].message = message;
-            if (data.queues[i].nowPlaying) {
-            }
             data.queues[i].voiceChannel = vc;
             data.queues[i].currentsong[0].load = true;
-            const serverDisconnectIdle = DisconnectIdle.get(data.queues[i].id);
-            let serverQueue = new Queue_1.default({ DisconnectIdle: DisconnectIdle, queue: queue, serverDisconnectIdle: serverDisconnectIdle,
-                msg: data.queues[i].message, songs: data.queues[i].songs, shuffledSongs: data.queues[i].shuffledSongs, currentsong: data.queues[i].currentsong });
+            let serverQueue = new Queue_1.default({ msg: data.queues[i].message, songs: data.queues[i].songs,
+                shuffledSongs: data.queues[i].shuffledSongs, currentsong: data.queues[i].currentsong });
             serverQueue.shuffle = data.queues[i].shuffle;
             serverQueue.loop = data.queues[i].loop;
             serverQueue.loopsong = data.queues[i].loopsong;
@@ -78,7 +75,7 @@ client.once('ready', async () => {
             let id = data.queues[i].id;
             let serverDisconnectIdle = DisconnectIdle.get(id);
             let serverQueue = queue.get(id);
-            const vc = await (0, executive_1.joinvoicechannel)(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle, serverDisconnectIdle, client, null);
+            await (0, executive_1.joinvoicechannel)(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle, serverDisconnectIdle, client, null);
             serverQueue.play();
         }
     }
@@ -195,6 +192,11 @@ client.on('messageCreate', message => {
     }
     else if (command === 'seek' || command === 'sk') {
         (0, seek_1.default)(message, args, serverQueue, serverDisconnectIdle);
+    }
+    else if (command === 'nowplaying' || command === 'np') {
+        if (serverQueue) {
+            serverQueue.nowPlayingSend();
+        }
     }
     else {
         const invalidCommandEmbed = new discord_js_1.MessageEmbed()

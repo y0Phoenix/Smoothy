@@ -8,6 +8,7 @@ const modules_1 = require("../modules/modules");
 const findSplice_1 = require("./functions/findSplice");
 const loopNextSong_1 = require("./functions/loopNextSong");
 const playNext_1 = require("./functions/playNext");
+const nowPlayingSend_1 = require("./functions/nowPlayingSend");
 const executive_1 = require("../executive");
 const maps_1 = require("../maps");
 const play_1 = require("./functions/play");
@@ -31,7 +32,9 @@ class Queue {
         this.repeat = false;
         this.bool = false;
         this.jumpbool = false;
-        let { queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs, currentsong } = data;
+        let { msg, songs, shuffledSongs, currentsong } = data;
+        const { DisconnectIdle } = (0, maps_1.default)();
+        var serverDisconnectIdle;
         if (songs) {
             if (songs[0]) {
                 this.songs = [...songs];
@@ -131,7 +134,7 @@ class Queue {
         this.play = play_1.default;
         this.getVideo = getVideo_1.default;
         this.retryTimer = retryPlayer_1.retryTimer;
-        this.nowPlayingSend = this.nowPlayingSend;
+        this.nowPlayingSend = nowPlayingSend_1.default;
     }
 }
 exports.default = Queue;

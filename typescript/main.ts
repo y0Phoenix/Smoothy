@@ -144,8 +144,8 @@ client.on('messageCreate', message =>{
     if(!message.content.startsWith(prefix)){
         return;
     }
-    var serverDisconnectIdle = DisconnectIdle.get(message.guildId);
-    var serverQueue = queue.get(message.guildId);
+    var serverDisconnectIdle: Idle = DisconnectIdle.get(message.guildId);
+    var serverQueue: Queue = queue.get(message.guildId);
     var vc = message.member.voice.channel;
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
@@ -191,6 +191,10 @@ client.on('messageCreate', message =>{
         previous(message, serverQueue, serverDisconnectIdle);
     }else if (command === 'seek' || command === 'sk') {
         seek(message, args, serverQueue, serverDisconnectIdle);
+    }else if (command === 'nowplaying' || command === 'np') {
+        if (serverQueue) {
+            serverQueue.nowPlayingSend();
+        }
     }else{
         const invalidCommandEmbed = new MessageEmbed()
             .setColor(`RED`)

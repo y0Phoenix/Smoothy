@@ -39,8 +39,7 @@ async function executive(message, queue, DisconnectIdle, serverDisconnectIdle, s
     }
     //checks if a serverQueue exists if it doesn't it creates the queue, else the song is pushed into serverQueue.songs
     if (!serverQueue) {
-        const data = { queue: queue, DisconnectIdle: DisconnectIdle, serverDisconnectIdle: serverDisconnectIdle, msg: message };
-        const _queue = new Queue_1.default(data);
+        const _queue = new Queue_1.default({ msg: message });
         queue.set(message.guild.id, _queue);
         serverQueue = queue.get(message.guild.id);
         const songObj = new Song_1.Song({ message: message, data: videoURL });
@@ -147,8 +146,7 @@ async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDis
                 .setTimestamp();
             console.log(`Found YouTube playlist ${playlist.title}`);
             if (!serverQueue) {
-                const data = { queue: queue, DisconnectIdle: DisconnectIdle, serverDisconnectIdle: serverDisconnectIdle, msg: message };
-                queue.set(message.guild.id, new Queue_1.default(data));
+                queue.set(message.guild.id, new Queue_1.default({ msg: message }));
                 serverQueue = queue.get(message.guild.id);
                 serverQueue.songs.push(new Song_1.Song({ message: message, data: videoURL }));
                 serverQueue.currentsong.push(new Song_1.Song({ message: message, data: videoURL }));
