@@ -6,6 +6,9 @@ import { Message } from "discord.js";
  * @param client the discord client in order to fetch the messages to check if they were deleted
  */
 export default async function deleteMsg(message: Message | Partial<Message>, time: number, client: any) {
+    if (!message) {
+        return;
+    }
     const getMSG = async () => {
         try {
             const channel = await client.channels.fetch(message.channel.id);
@@ -23,7 +26,7 @@ export default async function deleteMsg(message: Message | Partial<Message>, tim
                     await msg.delete();
                 }
                 else {
-                    console.log('MSG isnt deletable at deleteMsg');
+                    console.log(`MSG isnt deletable at deleteMsg ${msg.embeds[0].description}`);
                     return
                 }    
             } catch (error) {
@@ -34,15 +37,12 @@ export default async function deleteMsg(message: Message | Partial<Message>, tim
             time = 30000;
         }
     }
-    if (!message) {
-        return;
-    }
     else {
         setTimeout( async () => { 
             try {
                 const msg = await getMSG();
-                if (msg.deletable === true) {
-                    console.log('MSG isnt deletable at deleteMsg');
+                if (!msg.deletable) {
+                    console.log(`MSG isnt deletable at deleteMsg ${msg.embeds[0].description}`);
                     return;
                 }
                 await msg.delete() 

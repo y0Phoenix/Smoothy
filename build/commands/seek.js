@@ -76,7 +76,7 @@ async function seek(message, args, serverQueue, serverDisconnectIdle) {
                 });
                 serverQueue.resource = (0, voice_1.createAudioResource)(ffmpeg, {
                     // ignore error
-                    imputType: voice_1.StreamType.OggOpus
+                    inputType: voice_1.StreamType.OggOpus
                 });
                 serverQueue.resource.metadata = serverQueue;
                 serverQueue.player.play(serverQueue.resource);

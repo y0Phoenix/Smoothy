@@ -70,8 +70,12 @@ client.once('ready', async () => {
             data.queues[i].voiceChannel = vc;
             data.queues[i].currentsong[0].load = true;
             const serverDisconnectIdle = DisconnectIdle.get(data.queues[i].id);
-            queue.set(data.queues[i].id, new Queue({ DisconnectIdle: DisconnectIdle, queue: queue, serverDisconnectIdle: serverDisconnectIdle,
-                msg: data.queues[i].message, songs: data.queues[i].songs, shuffledSongs: data.queues[i].shuffledSongs }));
+            let serverQueue = new Queue({ DisconnectIdle: DisconnectIdle, queue: queue, serverDisconnectIdle: serverDisconnectIdle,
+                msg: data.queues[i].message, songs: data.queues[i].songs, shuffledSongs: data.queues[i].shuffledSongs, currentsong: data.queues[i].currentsong });
+            serverQueue.shuffle = data.queues[i].shuffle;
+            serverQueue.loop = data.queues[i].loop;
+            serverQueue.loopsong = data.queues[i].loopsong;
+            queue.set(data.queues[i].id, serverQueue);
         }
         for (let i = 0; i < data.disconnectIdles.length; i++) {
             let id = data.queues[i].id;

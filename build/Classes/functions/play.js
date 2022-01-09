@@ -12,16 +12,9 @@ const audioPlayerIdle_1 = require("./audioPlayerIdle");
  * @param  {Idle} serverDisconnectIdle the current servers Idle
  */
 async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
-    let yturl;
-    if (serverQueue.shuffle === true) {
-        yturl = play_dl_1.default.validate(serverQueue.shuffledSongs[0].url) ? true : false;
-    }
-    else {
-        yturl = play_dl_1.default.validate(serverQueue.currentsong[0].url) ? true : false;
-    }
+    const yturl = play_dl_1.default.validate(serverQueue.currentsong[0].url) ? true : false;
     if (yturl === true) {
         try {
-            // todo fix ytdl-core v4.9.2 errors
             const stream = await play_dl_1.default.stream(serverQueue.currentsong[0].url);
             serverQueue.resource = (0, voice_1.createAudioResource)(stream.stream, {
                 inputType: stream.type,
@@ -61,7 +54,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
             .setDescription(':rofl: No ***video*** results found');
         serverQueue.message.channel.send({ embeds: [noVidEmbed] });
         serverQueue.player.stop();
-        (0, audioPlayerIdle_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        (0, audioPlayerIdle_1.default)(queue, DisconnectIdle, serverDisconnectIdle);
     }
 }
 exports.default = play;

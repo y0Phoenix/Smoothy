@@ -56,13 +56,14 @@ export default class Queue {
     playNext: typeof playNext 
     findSplice: typeof findSplice
     loopNextSong: typeof loopNextSong
+    audioPlayerIdle: typeof audioPlayerIdle
     
     constructor(data: any) {
-        let {queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs} = data;
+        let {queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs, currentsong} = data;
         if (songs){
             if (songs[0]) {
                 this.songs = [...songs];
-                this.currentsong.push(songs[0]);
+                this.currentsong.push(currentsong[0]);
             }
         } 
         if (shuffledSongs) {
@@ -90,7 +91,7 @@ export default class Queue {
         }
 
         this.player.on('error', async (err) => {
-            const localServerQueue: Queue = err.resource.metadata;
+            const localServerQueue: Queue = this;
           localServerQueue.audioPlayerErr = true;
           console.log(`Audio Player Threw An Err`);
           setTimeout(async () => {
@@ -131,8 +132,7 @@ export default class Queue {
               .setTimestamp();
               localServerQueue.message.channel.send({ embeds: [audioPlayerErrME] });
               localServerQueue.player.stop();
-              audioPlayerIdle(
-              localServerQueue,
+              this.audioPlayerIdle(
               queue,
               DisconnectIdle,
               serverDisconnectIdle
@@ -143,16 +143,14 @@ export default class Queue {
   
       //when the audioPlayer for this construct inside serverQueue is Idle the function is executed
       this.player.on(AudioPlayerStatus.Idle, async (playerEvent) => {
-          const localServerQueue: Queue = playerEvent.resource.metadata;
-          audioPlayerIdle(
-          localServerQueue,
+          this.audioPlayerIdle(
           queue,
           DisconnectIdle,
           serverDisconnectIdle
           );
       });
       this.player.on(AudioPlayerStatus.Playing, async (data) => {
-          const localServerQueue: Queue = data.resource.metadata;
+          const localServerQueue: Queue = this;
           if (
           localServerQueue.audioPlayerErr === true &&
           localServerQueue.tries > 0
@@ -186,5 +184,6 @@ export default class Queue {
         this.findSplice = findSplice;
         this.loopNextSong = loopNextSong;
         this.playNext = playNext;
+        this.audioPlayerIdle = audioPlayerIdle;
     }
 }

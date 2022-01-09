@@ -14,11 +14,11 @@ import Queue from "../Queue";
  * @param  {Idle} serverDisconnectIdle the current servers Idle
  */
 export default async function audioPlayerIdle(
-    serverQueue: Queue,
     queue: any,
     DisconnectIdle: any,
     serverDisconnectIdle: Idle
   ) {
+    let serverQueue = this;
     console.log('Player Status Is Idle');
     const noMoreSongsEmbed = new MessageEmbed()
       .setColor('RED')

@@ -4,7 +4,6 @@ const ytdl = require("ytdl-core");
 const modules_1 = require("../../modules/modules");
 const videoFinder_1 = require("../../functions/videoFinder");
 const validURL_1 = require("../../functions/validURL");
-const findSplice_1 = require("./findSplice");
 const Song_1 = require("../Song");
 //finds the song specified in args
 /**
@@ -15,6 +14,7 @@ async function getVideo(serverQueue) {
     let videoName;
     let videoURL;
     let i = serverQueue.jump;
+    serverQueue.jump = 0;
     if (serverQueue.previousbool) {
         videoName = serverQueue.previous[0].url;
         message = serverQueue.previous[0].message;
@@ -23,11 +23,11 @@ async function getVideo(serverQueue) {
     else if (i > 0) {
         serverQueue.jumpbool = true;
         const song = serverQueue.shuffle ? serverQueue.shuffledSongs[i] : serverQueue.songs[i];
-        videoName = song.title;
+        videoName = song.url;
         message = song.message;
         if (serverQueue.shuffle) {
             serverQueue.shuffledSongs.splice(i, 1);
-            (0, findSplice_1.default)(song);
+            serverQueue.findSplice(song);
         }
         else {
             serverQueue.songs.splice(i, 1);

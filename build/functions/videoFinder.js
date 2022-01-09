@@ -15,7 +15,7 @@ async function videoFinder(query) {
     try {
         let name = query.toLowerCase();
         const videoResult = await playdl.search(name);
-        const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`/ig;
+        const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`|\s/ig;
         if (videoResult[0]) {
             let _possibleVids = [];
             let vid = videoResult[0].title.toLowerCase();

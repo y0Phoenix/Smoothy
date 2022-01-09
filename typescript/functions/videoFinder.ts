@@ -14,7 +14,7 @@ export default async function videoFinder(query: string) {
   try {
     let name = query.toLowerCase();
     const videoResult: playdl.YouTubeVideo[] = await playdl.search(name);
-    const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`/ig;
+    const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`|\s/ig;
     if (videoResult[0]) {
       let _possibleVids = [];
       let vid = videoResult[0].title.toLowerCase();

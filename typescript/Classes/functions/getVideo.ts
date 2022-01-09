@@ -18,6 +18,7 @@ export default async function getVideo(serverQueue: Queue) {
     let videoName: string;
     let videoURL: InfoData;
     let i = serverQueue.jump;
+    serverQueue.jump = 0;
     if (serverQueue.previousbool) {
       videoName = serverQueue.previous[0].url;
       message = serverQueue.previous[0].message;
@@ -26,11 +27,11 @@ export default async function getVideo(serverQueue: Queue) {
     else if (i > 0) {
         serverQueue.jumpbool = true;
         const song = serverQueue.shuffle ? serverQueue.shuffledSongs[i] : serverQueue.songs[i];
-        videoName = song.title;
+        videoName = song.url;
         message = song.message;
         if (serverQueue.shuffle) {
           serverQueue.shuffledSongs.splice(i, 1);
-          findSplice(song)
+          serverQueue.findSplice(song)
         }
         else {
           serverQueue.songs.splice(i, 1);

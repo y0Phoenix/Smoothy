@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param client the discord client in order to fetch the messages to check if they were deleted
  */
 async function deleteMsg(message, time, client) {
+    if (!message) {
+        return;
+    }
     const getMSG = async () => {
         try {
             const channel = await client.channels.fetch(message.channel.id);
@@ -24,7 +27,7 @@ async function deleteMsg(message, time, client) {
                     await msg.delete();
                 }
                 else {
-                    console.log('MSG isnt deletable at deleteMsg');
+                    console.log(`MSG isnt deletable at deleteMsg ${msg.embeds[0].description}`);
                     return;
                 }
             }
@@ -36,15 +39,12 @@ async function deleteMsg(message, time, client) {
             time = 30000;
         }
     }
-    if (!message) {
-        return;
-    }
     else {
         setTimeout(async () => {
             try {
                 const msg = await getMSG();
-                if (msg.deletable === true) {
-                    console.log('MSG isnt deletable at deleteMsg');
+                if (!msg.deletable) {
+                    console.log(`MSG isnt deletable at deleteMsg ${msg.embeds[0].description}`);
                     return;
                 }
                 await msg.delete();

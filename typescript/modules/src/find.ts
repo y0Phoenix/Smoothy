@@ -17,6 +17,8 @@ export default async function find(queue: Queue, query: string) {
     let proceed = true;
     let result;
     const shuffle = queue.shuffle ? true : false;
+    const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`|\s/ig;
+    query = query.replace(regex, '');
     if (!shuffle) {
         returnObj.shuffledSong = null;
     }
@@ -25,7 +27,8 @@ export default async function find(queue: Queue, query: string) {
         for (let j: number = 0;
             j < arr.length;
             j++) {
-                const bool = arr[j].title.toLowerCase().includes(query);
+                const title = arr[j].title.replace(regex, '');
+                const bool = title.toLowerCase().includes(query);
                 if (bool) { 
                     returnObj.song = queue.songs.map(video => video.title).indexOf(arr[j].title);
                     if (shuffle) {

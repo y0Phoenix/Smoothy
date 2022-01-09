@@ -29,11 +29,11 @@ class Queue {
         this.repeat = false;
         this.bool = false;
         this.jumpbool = false;
-        let { queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs } = data;
+        let { queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs, currentsong } = data;
         if (songs) {
             if (songs[0]) {
                 this.songs = [...songs];
-                this.currentsong.push(songs[0]);
+                this.currentsong.push(currentsong[0]);
             }
         }
         if (shuffledSongs) {
@@ -60,7 +60,7 @@ class Queue {
             this.subsciption = this.voiceConnection.subscribe(this.player);
         }
         this.player.on('error', async (err) => {
-            const localServerQueue = err.resource.metadata;
+            const localServerQueue = this;
             localServerQueue.audioPlayerErr = true;
             console.log(`Audio Player Threw An Err`);
             setTimeout(async () => {
@@ -91,17 +91,16 @@ class Queue {
                         .setTimestamp();
                     localServerQueue.message.channel.send({ embeds: [audioPlayerErrME] });
                     localServerQueue.player.stop();
-                    (0, audioPlayerIdle_1.default)(localServerQueue, queue, DisconnectIdle, serverDisconnectIdle);
+                    this.audioPlayerIdle(queue, DisconnectIdle, serverDisconnectIdle);
                 }
             }, 1500);
         });
         //when the audioPlayer for this construct inside serverQueue is Idle the function is executed
         this.player.on(voice_1.AudioPlayerStatus.Idle, async (playerEvent) => {
-            const localServerQueue = playerEvent.resource.metadata;
-            (0, audioPlayerIdle_1.default)(localServerQueue, queue, DisconnectIdle, serverDisconnectIdle);
+            this.audioPlayerIdle(queue, DisconnectIdle, serverDisconnectIdle);
         });
         this.player.on(voice_1.AudioPlayerStatus.Playing, async (data) => {
-            const localServerQueue = data.resource.metadata;
+            const localServerQueue = this;
             if (localServerQueue.audioPlayerErr === true &&
                 localServerQueue.tries > 0) {
                 console.log('Retries Successfull');
@@ -126,6 +125,7 @@ class Queue {
         this.findSplice = findSplice_1.default;
         this.loopNextSong = loopNextSong_1.default;
         this.playNext = playNext_1.default;
+        this.audioPlayerIdle = audioPlayerIdle_1.default;
     }
 }
 exports.default = Queue;

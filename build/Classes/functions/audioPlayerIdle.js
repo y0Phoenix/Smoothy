@@ -9,7 +9,8 @@ const discord_js_1 = require("discord.js");
  * @param  {any} DisconnectIdle the map that holds all of the Idles
  * @param  {Idle} serverDisconnectIdle the current servers Idle
  */
-async function audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
+async function audioPlayerIdle(queue, DisconnectIdle, serverDisconnectIdle) {
+    let serverQueue = this;
     console.log('Player Status Is Idle');
     const noMoreSongsEmbed = new discord_js_1.MessageEmbed()
         .setColor('RED')

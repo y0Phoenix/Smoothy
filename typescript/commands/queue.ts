@@ -144,7 +144,7 @@ module.exports = {
                     i < serverDisconnectIdle.queueMsgs.length;
                     i++) {
                         if (!serverDisconnectIdle.queueMsgs[i].content) {
-                            const channel = await serverDisconnectIdle.client.channels.fetch(serverDisconnectIdle.message.channelId);
+                            const channel: any = await serverDisconnectIdle.client.channels.fetch(serverDisconnectIdle.message.channelId);
                             const message = await channel.messages.fetch(serverDisconnectIdle.queueMsgs[i].id);
                             message.delete();
                         }

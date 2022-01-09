@@ -24,15 +24,9 @@ import {
  * @param  {Idle} serverDisconnectIdle the current servers Idle
  */
 export default async function play(serverQueue: Queue, queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
-    let yturl: boolean;
-    if (serverQueue.shuffle === true) {
-      yturl = playdl.validate(serverQueue.shuffledSongs[0].url) ? true : false;
-    } else {
-      yturl = playdl.validate(serverQueue.currentsong[0].url) ? true : false;
-    }
+    const yturl: boolean = playdl.validate(serverQueue.currentsong[0].url) ? true : false;
     if (yturl === true) {
       try {
-        // todo fix ytdl-core v4.9.2 errors
         const stream = await playdl.stream(serverQueue.currentsong[0].url);
         serverQueue.resource = createAudioResource(stream.stream, {
           inputType: stream.type,
@@ -76,6 +70,6 @@ export default async function play(serverQueue: Queue, queue: any, DisconnectIdl
             .setDescription(':rofl: No ***video*** results found');
         serverQueue.message.channel.send({embeds: [noVidEmbed]});
         serverQueue.player.stop();
-        audioPlayerIdle(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
+        audioPlayerIdle(queue, DisconnectIdle, serverDisconnectIdle);
     }
   }
