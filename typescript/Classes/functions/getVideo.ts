@@ -83,7 +83,7 @@ export default async function getVideo() {
     if (URL === true) {
       videoURL = await ytdl.getBasicInfo(videoName);
     } else {
-      const video = await videoFinder(videoName);
+      const video: any = await videoFinder(videoName, message);
       videoURL = await ytdl.getBasicInfo(video.url)
     }
     if (serverQueue.currentsong.length > 0) {

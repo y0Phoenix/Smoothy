@@ -16,8 +16,8 @@ async function skip(message, serverQueue, client) {
                 console.log("Skipping " + serverQueue.currentsong[0].title + "!");
                 const skipEmbed = new discord_js_1.MessageEmbed()
                     .setColor('AQUA')
-                    .setDescription(`:next_track: Skipping 
-                    ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
+                    .setTitle(`:next_track: Skipping`)
+                    .setDescription(` ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                     .addFields({
                     name: `Requested By`, value: `<@${message.author.id}>`, inline: true,
                 }, {

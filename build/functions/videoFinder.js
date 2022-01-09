@@ -5,6 +5,9 @@ const dictionary = spell.getDictionarySync('en-US');
 dictionary.addRegex(/i/);
 const playdl = require("play-dl");
 const modules_1 = require("../modules/modules");
+const discord_js_1 = require("discord.js");
+const ytsearch = require("yt-search");
+const maps_1 = require("../maps");
 // TODO implement fallback for playdl.search with yt-search, just incase playdl.search doesn't return an array
 /**
  * @param  {string} q the video you wish to search
@@ -12,80 +15,102 @@ const modules_1 = require("../modules/modules");
  * @description searches youtube for videos matching the search query and
  * checks the distance between both strings and returns the closest match
  */
-async function videoFinder(query) {
+async function videoFinder(query, message) {
+    const { DisconnectIdle } = (0, maps_1.default)();
+    let sdi = DisconnectIdle.get(message.guild.id);
+    if (sdi.top5Results[0]) {
+        const i = parseInt(query);
+        if (isNaN(i)) {
+            const msg = await message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
+                        .setColor('RED')
+                        .setDescription('Please Enter A Number 1-5 From The Top5 Results')] });
+            (0, modules_1.deleteMsg)(msg, 30000, sdi.client);
+            return false;
+        }
+        const temp = Object.assign({}, sdi.top5Results[i - 1]);
+        sdi.top5Results = [];
+        return temp;
+    }
+    let name = query.toLowerCase();
+    const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`|\s/ig;
+    name = name.replace(regex, '');
+    let Name = name.split(' ');
+    const loop = (test) => {
+        for (let i = 0; i < Name.length; i++) {
+            const re = new RegExp(Name[i], 'g');
+            const includes = re.test(test);
+            if (!includes) {
+                return false;
+            }
+        }
+        return true;
+    };
+    const emebdPush = async (video) => {
+        let embeds = [];
+        const length = video.length >= 5 ? 5 : video.length;
+        for (let i = 0; i < length; i++) {
+            sdi.top5Results.push(video[i]);
+            const whichEmbed = new discord_js_1.MessageEmbed()
+                .setColor('FUCHSIA')
+                .setTitle('Top 5 Results')
+                .setDescription('No good natches were found for your search please select one via **-play**')
+                .setFields({
+                name: `${i + 1}: `, value: `**[${video[i].title}](${video[i].url})**`
+            });
+            embeds.push(whichEmbed);
+        }
+        sdi.top5Msg = await message.channel.send({ embeds: embeds });
+    };
     try {
-        let name = query.toLowerCase();
         const videoResult = await playdl.search(name);
-        const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`|\s/ig;
         if (videoResult[0]) {
-            let _possibleVids = [];
             let vid = videoResult[0].title.toLowerCase();
             vid = vid.replace(regex, '');
-            name = name.replace(regex, '');
-            const Name = name.split(' ');
-            let proceed = false;
-            for (let i = 0; i < Name.length; i++) {
-                const re = new RegExp(Name[i], 'g');
-                const includes = re.test(vid);
-                if (!includes) {
-                    proceed = true;
-                    break;
-                }
-            }
-            if (proceed) {
-                const _name = name.split(' ');
-                for (let i = 0; i < _name.length; i++) {
-                    const check = dictionary.spellCheck(_name[i]);
+            const bool = loop(vid);
+            if (!bool) {
+                for (let i = 0; i < Name.length; i++) {
+                    const check = dictionary.spellCheck(Name[i]);
                     if (!check) {
-                        let suggs = dictionary.getSuggestions(_name[i]);
-                        _name[i] = suggs[0];
-                    }
-                    if (check[0]) {
+                        let suggs = dictionary.getSuggestions(Name[i]);
+                        Name[i] = suggs[0];
                     }
                 }
-                name = _name.join(' ');
+                name = Name.join(' ');
                 const videoResult = await playdl.search(name);
                 if (videoResult[0]) {
-                    let _possibleVids = [];
                     let vid = videoResult[0].title.toLowerCase();
                     vid = vid.replace(regex, '');
-                    const Name = name.split(' ');
-                    let proceed = false;
-                    for (let i = 0; i < Name.length; i++) {
-                        const re = new RegExp(Name[i], 'g');
-                        const includes = re.test(vid);
-                        if (!includes) {
-                            proceed = true;
-                            break;
-                        }
-                    }
-                    if (!proceed) {
+                    const bool = loop(vid);
+                    if (bool) {
                         return videoResult[0];
                     }
                     else {
-                        for (let i = 0; i < 10; i++) {
-                            let vid = videoResult[i].title.toLowerCase();
-                            let includes = vid.includes(name);
-                            if (includes === true) {
-                                return videoResult[i];
-                            }
-                        }
-                        for (let i = 0; i < 6; i++) {
-                            let possibleVid = videoResult[i].title.toLowerCase();
-                            let dif = (0, modules_1.distance)(name, possibleVid);
-                            _possibleVids.push({ dif: dif, video: videoResult[i] });
-                        }
-                        const returnObj = await (0, modules_1.topResult)(_possibleVids);
-                        return returnObj.video;
+                        emebdPush(videoResult);
+                        return false;
                     }
                 }
             }
             else {
                 return videoResult[0];
             }
-            return undefined;
+            return null;
         }
-        return undefined;
+        else {
+            const videoResult = await ytsearch(name);
+            if (videoResult.videos[0]) {
+                let vid = videoResult.videos[0].title;
+                vid.replace(regex, '');
+                vid.toLowerCase();
+                const bool = loop(vid);
+                if (bool) {
+                    return videoResult.videos[0];
+                }
+                else {
+                    emebdPush(videoResult.videos);
+                    return false;
+                }
+            }
+        }
     }
     catch (error) {
         console.log(`Videosearch error on ${query}`);
@@ -97,4 +122,3 @@ async function videoFinder(query) {
     }
 }
 exports.default = videoFinder;
-;

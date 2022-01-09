@@ -25,8 +25,8 @@ import { joinvoicechannel} from './executive';
 import * as fs from 'fs';
 import * as config from 'config';
 import seek from './commands/seek';
-import { exists } from './modules/modules';
-import { Idle } from "./Classes/Idle";
+import { disconnectTimervcidle, disconnectvcidle } from './Classes/functions/disconnectIdle';
+import { Idle, WriteIdle } from "./Classes/Idle";
 import Queue from "./Classes/Queue";
 import getMaps from "./maps";
 //Creates the client
@@ -57,11 +57,14 @@ client.once('ready', async () => {
         for (let i = 0;
             i < data.disconnectIdles.length;
             i++) {
-                const channel: any = await client.channels.fetch(data.disconnectIdles[i].message.channelId);
-                const message = await channel.messages.fetch(data.disconnectIdles[i].message.id);
-                data.disconnectIdles[i].message = message;
-                data.disconnectIdles[i].client = client;
-                DisconnectIdle.set(data.disconnectIdles[i].id, data.disconnectIdles[i]);
+                const dci: WriteIdle = data.disconnectIdles[i];
+                const channel: any = await client.channels.fetch(dci.message.channelId);
+                const message = await channel.messages.fetch(dci.message.id);
+                dci.message = message;
+                dci.client = client;
+                dci.disconnectTimervcidle = disconnectTimervcidle;
+                dci.disconnectvcidle = disconnectvcidle;
+                DisconnectIdle.set(dci.id, dci);
             }
         }
         for (let i = 0;

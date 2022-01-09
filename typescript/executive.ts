@@ -97,12 +97,15 @@ async function FindVideoCheck(message: Message, args: any, queue: any, Disconnec
         return;
     }
   } else {
-    const video = await videoFinder(videoName);
+    const video: any = await videoFinder(videoName, message);
     if (video) {
       const videoURL = await ytdl.getBasicInfo(video.url);
       console.log(`Found ${videoURL.videoDetails.title}`);
       executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
     } else {
+      if (video === false) {
+        return;
+      }
       message.channel
         .send({ embeds: [noVidEmbed] })
         .then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));

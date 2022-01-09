@@ -1,8 +1,7 @@
 //stops the audioPlayer which make AudioPlayerStatus Idle, which then exeuctes the function at ../executive.js(78)
 import { MessageEmbed, Message, Client } from 'discord.js';
 import Queue from '../Classes/Queue';
-import {deleteMsg, leave, writeGlobal} from '../modules/modules';
-import audioPlayerIdle from '../Classes/functions/audioPlayerIdle';
+import {deleteMsg} from '../modules/modules';
 
 /**
  * @param  {Message} message the users Messgae
@@ -17,7 +16,7 @@ import audioPlayerIdle from '../Classes/functions/audioPlayerIdle';
                 console.log("Skipping " + serverQueue.currentsong[0].title + "!");
                 const skipEmbed = new MessageEmbed()
                     .setColor('AQUA')
-                    .setTitle('`:next_track: Skipping')
+                    .setTitle(`:next_track: Skipping`)
                     .setDescription(` ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                     .addFields(
                         {

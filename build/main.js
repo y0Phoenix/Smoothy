@@ -26,6 +26,7 @@ const executive_1 = require("./executive");
 const fs = require("fs");
 const config = require("config");
 const seek_1 = require("./commands/seek");
+const disconnectIdle_1 = require("./Classes/functions/disconnectIdle");
 const Queue_1 = require("./Classes/Queue");
 const maps_1 = require("./maps");
 //Creates the client
@@ -50,11 +51,14 @@ client.once('ready', async () => {
     if (data.queues[0]) {
         if (data.disconnectIdles[0]) {
             for (let i = 0; i < data.disconnectIdles.length; i++) {
-                const channel = await client.channels.fetch(data.disconnectIdles[i].message.channelId);
-                const message = await channel.messages.fetch(data.disconnectIdles[i].message.id);
-                data.disconnectIdles[i].message = message;
-                data.disconnectIdles[i].client = client;
-                DisconnectIdle.set(data.disconnectIdles[i].id, data.disconnectIdles[i]);
+                const dci = data.disconnectIdles[i];
+                const channel = await client.channels.fetch(dci.message.channelId);
+                const message = await channel.messages.fetch(dci.message.id);
+                dci.message = message;
+                dci.client = client;
+                dci.disconnectTimervcidle = disconnectIdle_1.disconnectTimervcidle;
+                dci.disconnectvcidle = disconnectIdle_1.disconnectvcidle;
+                DisconnectIdle.set(dci.id, dci);
             }
         }
         for (let i = 0; i < data.queues.length; i++) {

@@ -93,13 +93,16 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
         }
     }
     else {
-        const video = await (0, videoFinder_1.default)(videoName);
+        const video = await (0, videoFinder_1.default)(videoName, message);
         if (video) {
             const videoURL = await ytdl.getBasicInfo(video.url);
             console.log(`Found ${videoURL.videoDetails.title}`);
             executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
         }
         else {
+            if (video === false) {
+                return;
+            }
             message.channel
                 .send({ embeds: [noVidEmbed] })
                 .then((msg) => (0, modules_1.deleteMsg)(msg, 30000, serverDisconnectIdle.client));

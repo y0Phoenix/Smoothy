@@ -27,7 +27,11 @@
     "simple-spellchecker": "^1.0.2",
     "tweetnacl": "^1.0.3",
     "typescript": "^4.5.4",
+    "yt-search": "^2.10.3",
     "ytdl-core": "^4.9.2",
     "ytpl": "^2.2.3"
+  },
+  "devDependencies": {
+    "@types/yt-search": "^2.3.2"
   }
 }

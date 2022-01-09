@@ -78,7 +78,7 @@ async function getVideo() {
         videoURL = await ytdl.getBasicInfo(videoName);
     }
     else {
-        const video = await (0, videoFinder_1.default)(videoName);
+        const video = await (0, videoFinder_1.default)(videoName, message);
         videoURL = await ytdl.getBasicInfo(video.url);
     }
     if (serverQueue.currentsong.length > 0) {
