@@ -59,7 +59,7 @@ async function play(serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
         const noVidEmbed = new discord_js_1.MessageEmbed()
             .setColor('RED')
             .setDescription(':rofl: No ***video*** results found');
-        serverQueue.message.channel.send({embeds: [noVidEmbed]});
+        serverQueue.message.channel.send({ embeds: [noVidEmbed] });
         serverQueue.player.stop();
         (0, audioPlayerIdle_1.default)(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
     }

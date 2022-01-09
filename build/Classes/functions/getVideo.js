@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const ytdl = require("ytdl-core");
 const modules_1 = require("../../modules/modules");
-const executive_1 = require("./executive");
+const videoFinder_1 = require("../../functions/videoFinder");
+const validURL_1 = require("../../functions/validURL");
+const findSplice_1 = require("./findSplice");
 const Song_1 = require("../Song");
 //finds the song specified in args
 /**
@@ -25,7 +27,7 @@ async function getVideo(serverQueue) {
         message = song.message;
         if (serverQueue.shuffle) {
             serverQueue.shuffledSongs.splice(i, 1);
-            (0, executive_1.findSplice)(serverQueue, song);
+            (0, findSplice_1.default)(song);
         }
         else {
             serverQueue.songs.splice(i, 1);
@@ -64,12 +66,12 @@ async function getVideo(serverQueue) {
             message = serverQueue.songs[0].message;
         }
     }
-    let URL = (0, executive_1.validURL)(videoName);
+    let URL = (0, validURL_1.default)(videoName);
     if (URL === true) {
         videoURL = await ytdl.getBasicInfo(videoName);
     }
     else {
-        const video = await (0, executive_1.videoFinder)(videoName);
+        const video = await (0, videoFinder_1.default)(videoName);
         videoURL = await ytdl.getBasicInfo(video.url);
     }
     if (serverQueue.currentsong.length > 0) {

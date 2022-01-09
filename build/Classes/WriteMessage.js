@@ -11,16 +11,11 @@ class authId {
         this.id = id;
     }
 }
-class channelId {
-    constructor(id) {
-        this.id = id;
-    }
-}
 class WriteMessage {
     constructor(message) {
         this.guild = new guildId(message.guild.id);
         this.author = new authId(message.author.id);
-        this.channel = new channelId(message.channel.id);
+        this.channelId = message.channelId;
         this.id = message.id;
     }
 }

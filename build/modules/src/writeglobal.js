@@ -48,7 +48,7 @@ async function writeGlobal(str, data, id) {
         q = await queueGet();
     }
     if (str === 'add dci') {
-        const obj = new Idle_1.WriteIdle({ message: data.message, msgs: data.msgs, queueMsgs: data.queueMsgs });
+        const obj = new Idle_1.WriteIdle({ message: data.message, client: data.client, msgs: data.msgs, queueMsgs: data.queueMsgs });
         Data.disconnectIdles.push(obj);
     }
     if (str === 'add queue') {
@@ -60,7 +60,7 @@ async function writeGlobal(str, data, id) {
         Data.queues[q] = Object.assign({}, obj);
     }
     if (str === 'update dci') {
-        const obj = new Idle_1.WriteIdle({ message: data.message, msgs: data.msgs, queueMsgs: data.queueMsgs });
+        const obj = new Idle_1.WriteIdle({ message: data.message, client: data.client, msgs: data.msgs, queueMsgs: data.queueMsgs });
         Data.disconnectIdles[d] = Object.assign({}, obj);
     }
     if (str === 'delete queue') {

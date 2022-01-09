@@ -1,40 +1,46 @@
-const { MessageEmbed } = require("discord.js");
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
 const fs = require("fs");
-const {deleteMsg, leave} = require('../modules/modules');
+const modules_1 = require("../modules/modules");
 const File = './config/prefixes.json';
-
 module.exports = {
     name: 'prefix',
     description: 'sets a prefix for a server',
-    async changeprefix(message, args, serverQueue, data, found, client){
-        if(args.length > 0){
+    /**
+     * @param  {Message} message the users message
+     * @param  {any} args the users message without the command and prefix
+     * @param  {Queue} serverQueue the current servers queue
+     * @param  {any} data the data from the prefixes file
+     * @param  {number} found the index of the currents servers prefix
+     * @param  {Client} client the Smoothy client
+     * @description changes the current servers prefix in the data param with the found index and writes the new data back to the file
+     */
+    async changeprefix(message, args, serverQueue, data, found, client) {
+        if (args.length > 0) {
             let prefix = args[0];
-            if(found === 0){
-                data.push({guildId: message.guildId,prefix: prefix});
+            if (found === 0) {
+                data.push({ guildId: message.guildId, prefix: prefix });
                 fs.writeFileSync(File, JSON.stringify(data));
             }
-            else if(found > 0){
+            else if (found > 0) {
                 data[found].prefix = prefix;
                 fs.writeFileSync(File, JSON.stringify(data));
             }
-            const prefixEmbed = new MessageEmbed()
+            const prefixEmbed = new discord_js_1.MessageEmbed()
                 .setColor('RED')
-                .addFields(
-                    {
-                        name: ':thumbsup: New Prefix', value:`**${prefix}**`
-                    }
-                )
-            ;
-            message.channel.send({embeds: [prefixEmbed]})
-            .then(msg => deleteMsg(msg, 60000, client));
+                .addFields({
+                name: ':thumbsup: New Prefix', value: `**${prefix}**`
+            });
+            message.channel.send({ embeds: [prefixEmbed] })
+                .then(msg => (0, modules_1.deleteMsg)(msg, 60000, client));
         }
-        else{
-            const specifyEmbed = new MessageEmbed()
+        else {
+            const specifyEmbed = new discord_js_1.MessageEmbed()
                 .setColor('RED')
-                .setDescription(':thumbsdown: You Must Specify With A New Prefix')
-            ;
-            message.channel.send({embeds: [specifyEmbed]})
-            .then(msg => deleteMsg(msg, 30000, client));
+                .setDescription(':thumbsdown: You Must Specify With A New Prefix');
+            message.channel.send({ embeds: [specifyEmbed] })
+                .then(msg => (0, modules_1.deleteMsg)(msg, 30000, client));
         }
     }
-}
+};

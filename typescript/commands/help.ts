@@ -12,7 +12,7 @@ module.exports = {
         .setColor('DARK_PURPLE')
         .setTitle('List Of Useful Info, Commands And Contact Info Associated With Smoothy')
         .setDescription(`https://github.com/y0Phoenix/Smoothy/blob/main/Help.md`)
-        .setThumbnail('https://github.com/y0Phoenix/Smoothy/blob/main/Smoothy%20Logo.png?raw=true')
+        .setThumbnail('https://github.com/y0Phoenix/Smoothy/blob/development/pictures/Smoothy%20Logo.png?raw=true')
         
         message.channel.send({embeds: [helpMessageEmbed]})
     }

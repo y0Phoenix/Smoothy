@@ -53,6 +53,17 @@ client.once('ready', async () => {
     const {DisconnectIdle, queue} = maps;
     DisconnectIdle.set(1, client);
     if (data.queues[0]) {
+        if (data.disconnectIdles[0]) {
+        for (let i = 0;
+            i < data.disconnectIdles.length;
+            i++) {
+                const channel = await client.channels.fetch(data.disconnectIdles[i].message.channelId);
+                const message = await channel.messages.fetch(data.disconnectIdles[i].message.id);
+                data.disconnectIdles[i].message = message;
+                data.disconnectIdles[i].client = client;
+                DisconnectIdle.set(data.disconnectIdles[i].id, data.disconnectIdles[i]);
+            }
+        }
         for (let i = 0;
             i < data.queues.length;
             i++) {
@@ -68,29 +79,18 @@ client.once('ready', async () => {
                 const serverDisconnectIdle = DisconnectIdle.get(data.queues[i].id);
                 queue.set(data.queues[i].id, new Queue({ DisconnectIdle: DisconnectIdle, queue: queue, serverDisconnectIdle: serverDisconnectIdle, 
                     msg: data.queues[i].message, songs: data.queues[i].songs, shuffledSongs: data.queues[i].shuffledSongs }));
+                }
+        for (let i = 0;
+            i < data.disconnectIdles.length;
+            i++) {
+                let id = data.queues[i].id;
+                let serverDisconnectIdle = DisconnectIdle.get(id);
+                let serverQueue = queue.get(id);
+                const vc = await joinvoicechannel(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle,
+                serverDisconnectIdle, client, null);
+                _play.default(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
             }
-            if (data.disconnectIdles[0]) {
-            for (let i = 0;
-                i < data.disconnectIdles.length;
-                i++) {
-                    const channel = await client.channels.fetch(data.disconnectIdles[i].message.channelId);
-                    const message = await channel.messages.fetch(data.disconnectIdles[i].message.id);
-                    data.disconnectIdles[i].message = message;
-                    data.disconnectIdles[i].client = client;
-                    DisconnectIdle.set(data.disconnectIdles[i].id, data.disconnectIdles[i]);
-                }
-            for (let i = 0;
-                i < data.disconnectIdles.length;
-                i++) {
-                    let id = data.queues[i].id;
-                    let serverDisconnectIdle = DisconnectIdle.get(id);
-                    let serverQueue = queue.get(id);
-                    const vc = await joinvoicechannel(serverQueue.message, serverQueue.voiceChannel, DisconnectIdle,
-                    serverDisconnectIdle, client, null);
-                    _play.default(serverQueue, queue, DisconnectIdle, serverDisconnectIdle);
-                }
-        }
-    
+                
     }
     console.log('Smoothy 1.4.6 is online!');
     client.user.setActivity('-help', { type: 'LISTENING' })

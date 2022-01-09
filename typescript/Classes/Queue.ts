@@ -24,6 +24,7 @@ import loopNextSong from './functions/loopNextSong';
 import playNext from './functions/playNext';
 import { joinvoicechannel } from '../executive';
 import getMaps from '../maps';
+import { Idle } from './Idle';
 
 
 export default class Queue {
@@ -57,7 +58,7 @@ export default class Queue {
     loopNextSong: typeof loopNextSong
     
     constructor(data: any) {
-        const {queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs} = data;
+        let {queue, DisconnectIdle, serverDisconnectIdle, msg, songs, shuffledSongs} = data;
         if (songs){
             if (songs[0]) {
                 this.songs = [...songs];
@@ -74,6 +75,7 @@ export default class Queue {
         this.voiceChannel = msg.member.voice.channel;
         this.player = createAudioPlayer();
         this.voiceConnection = getVoiceConnection(msg.guild.id);
+        serverDisconnectIdle = DisconnectIdle.get(this.id);
         if (!this.voiceConnection) {
             const join = async () => {
                 const temp = getMaps();
@@ -88,7 +90,7 @@ export default class Queue {
         }
 
         this.player.on('error', async (err) => {
-            const localServerQueue = this
+            const localServerQueue: Queue = err.resource.metadata;
           localServerQueue.audioPlayerErr = true;
           console.log(`Audio Player Threw An Err`);
           setTimeout(async () => {
@@ -141,7 +143,7 @@ export default class Queue {
   
       //when the audioPlayer for this construct inside serverQueue is Idle the function is executed
       this.player.on(AudioPlayerStatus.Idle, async (playerEvent) => {
-          const localServerQueue = this
+          const localServerQueue: Queue = playerEvent.resource.metadata;
           audioPlayerIdle(
           localServerQueue,
           queue,
@@ -150,7 +152,7 @@ export default class Queue {
           );
       });
       this.player.on(AudioPlayerStatus.Playing, async (data) => {
-          const localServerQueue = this;
+          const localServerQueue: Queue = data.resource.metadata;
           if (
           localServerQueue.audioPlayerErr === true &&
           localServerQueue.tries > 0
