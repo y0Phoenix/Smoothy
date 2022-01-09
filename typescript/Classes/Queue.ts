@@ -23,7 +23,7 @@ import findSplice from './functions/findSplice';
 import loopNextSong from './functions/loopNextSong';
 import playNext from './functions/playNext';
 import { joinvoicechannel } from '../executive';
-import { getMaps } from '../main';
+import getMaps from '../maps';
 
 
 export default class Queue {
@@ -76,13 +76,16 @@ export default class Queue {
         this.voiceConnection = getVoiceConnection(msg.guild.id);
         if (!this.voiceConnection) {
             const join = async () => {
-                const temp = await getMaps();
+                const temp = getMaps();
                 const bool = await exists(this.id, 'dci')
                 this.voiceConnection = await joinvoicechannel(this.message, this.voiceChannel, temp.DisconnectIdle, DisconnectIdle.get(this.id), DisconnectIdle.get(1), bool);
+                this.subsciption = this.voiceConnection.subscribe(this.player);
             };
             join();
         }
-        this.subsciption = this.voiceConnection.subscribe(this.player);
+        else {
+            this.subsciption = this.voiceConnection.subscribe(this.player);
+        }
 
         this.player.on('error', async (err) => {
             const localServerQueue = this

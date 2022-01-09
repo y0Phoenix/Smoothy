@@ -1,24 +1,14 @@
 //stops the audioPlayer deletes serverQueue and starts the disconnecttimer
-import {AudioPlayerStatus,
-    } from '@discordjs/voice';
-import { MessageEmbed, Message } from 'discord.js';
-import {deleteMsg, leave, writeGlobal} from '../modules/modules';
-import Queue from '../Classes/Queue';
-import { Idle } from '../Classes/Idle';
+const {disconnectTimervcidle} = require('../executive');
+var {AudioPlayerStatus,
+    } = require('@discordjs/voice');
+const { MessageEmbed } = require('discord.js');
+const {deleteMsg, leave, writeGlobal} = require('../modules/modules');
 module.exports = {
     name: 'stop',
     description: 'stops playing and clears the queue',
-    /**
-     * @param  {Message} message the users Message
-     * @param  {Queue} serverQueue the current servers Queue
-     * @param  {any} queue the map that holds all of the Queues
-     * @param  {any} DisconnectIdle the map that holds all of the Idles
-     * @param  {Idle} serverDisconnectIdle the current servers Idles
-     * @description sets the serverQueue.stop bool to true, deletes the serverQueue from the 
-     * queue map and starts the {@link serverDisconnectIdle.disconnectTimervcidle}
-     */
-    async clear(message: Message, serverQueue: Queue, queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
-        const voiceChannel = message.member.voice.channel;
+    async stop(message, serverQueue, queue, DisconnectIdle, serverDisconnectIdle) {
+        voiceChannel = message.member.voice.channel;
         if (serverQueue){
             if (!serverQueue.player) {
             }
@@ -36,7 +26,7 @@ module.exports = {
             message.channel.send({embeds: [stopEmbed]})
             .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
             if (serverDisconnectIdle) {
-                serverDisconnectIdle.disconnectTimervcidle(queue, DisconnectIdle);
+                disconnectTimervcidle(queue, DisconnectIdle, serverDisconnectIdle);
             }
         }else{
             const notPlayingEmbed = new MessageEmbed()
