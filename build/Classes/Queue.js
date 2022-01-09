@@ -125,7 +125,7 @@ class Queue {
         });
         this.findSplice = findSplice_1.default;
         this.loopNextSong = loopNextSong_1.default;
-        this.playnext = playNext_1.default;
+        this.playNext = playNext_1.default;
     }
 }
 exports.default = Queue;

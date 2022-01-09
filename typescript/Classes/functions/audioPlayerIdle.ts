@@ -29,7 +29,7 @@ export default async function audioPlayerIdle(
       if (serverQueue.player.state.status === AudioPlayerStatus.Idle && !serverQueue.audioPlayerErr) {
         serverQueue.messagesent = false;
         if (serverQueue.nowPlaying) {
-          deleteMsg(serverQueue.message, 0, serverDisconnectIdle.client);
+          deleteMsg(serverQueue.nowPlaying, 0, serverDisconnectIdle.client);
           serverQueue.nowPlaying = undefined;
         }
         if (serverQueue.jumpbool === true) {
@@ -37,7 +37,7 @@ export default async function audioPlayerIdle(
         }
         // song ending while previous is true
         if (serverQueue.previousbool) {
-          playNext(queue, DisconnectIdle, serverDisconnectIdle);
+          serverQueue.playNext(queue, DisconnectIdle, serverDisconnectIdle);
           serverQueue.currentsong.shift();
           serverQueue.bool = true;
         }
@@ -48,7 +48,7 @@ export default async function audioPlayerIdle(
           if (!serverQueue.loop && !serverQueue.loopsong && !serverQueue.shuffle && serverQueue.jump === 0 && !serverQueue.repeat) {
             serverQueue.bool ? serverQueue.bool = false : serverQueue.songs.shift();
             if (serverQueue.songs.length > 0) {
-              serverQueue.playnext(queue, DisconnectIdle, serverDisconnectIdle);
+              serverQueue.playNext(queue, DisconnectIdle, serverDisconnectIdle);
             } else {
              serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]}); 
               serverDisconnectIdle = DisconnectIdle.get(
@@ -63,33 +63,33 @@ export default async function audioPlayerIdle(
           //song ending while loop is true and loopsong is false
           else if (serverQueue.loop === true && serverQueue.loopsong === false && serverQueue.shuffle === false && serverQueue.jump === 0 && 
             serverQueue.repeat === false && serverQueue.previousbool === false) {
-            loopNextSong(queue, DisconnectIdle, serverDisconnectIdle);
+            serverQueue.loopNextSong(queue, DisconnectIdle, serverDisconnectIdle);
             console.log('Playing Next Song In Looped Queue');
           }
           //song ending whil loopsong is true
           else if (serverQueue.loopsong === true) {
             console.log('Playing Looped Current Song');
-            playNext(queue, DisconnectIdle, serverDisconnectIdle);
+            serverQueue.playNext(queue, DisconnectIdle, serverDisconnectIdle);
           }
           //song ending while repeat is true
           else if (serverQueue.repeat === true) {
-            playNext(queue, DisconnectIdle, serverDisconnectIdle);
+            serverQueue.playNext(queue, DisconnectIdle, serverDisconnectIdle);
           }
           //song ending while jump > 0
           else if (serverQueue.jump > 0) {
-            playNext(queue, DisconnectIdle, serverDisconnectIdle);
+            serverQueue.playNext(queue, DisconnectIdle, serverDisconnectIdle);
           }
           //song ending while shuffle is true
           else {
             if (serverQueue.shuffle === true && serverQueue.loop === true && serverQueue.loopsong === false
                && serverQueue.jump === 0 && serverQueue.repeat === false && serverQueue.previousbool === false) {
-              loopNextSong(queue, DisconnectIdle, serverDisconnectIdle);
+              serverQueue.loopNextSong(queue, DisconnectIdle, serverDisconnectIdle);
             } else {
               const currentsong = serverQueue.shuffledSongs[0];
-              findSplice(currentsong);
+              serverQueue.findSplice(currentsong);
               serverQueue.shuffledSongs.shift();
               if (serverQueue.shuffledSongs.length > 0) {
-                playNext(queue, DisconnectIdle, serverDisconnectIdle);
+                serverQueue.playNext(queue, DisconnectIdle, serverDisconnectIdle);
               } else {
                 const noMoreSongsEmbed = new MessageEmbed()
                   .setColor('RED')

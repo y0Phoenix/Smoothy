@@ -53,7 +53,7 @@ export default class Queue {
     repeat: boolean = false
     bool: boolean = false
     jumpbool: boolean = false
-    playnext: typeof playNext 
+    playNext: typeof playNext 
     findSplice: typeof findSplice
     loopNextSong: typeof loopNextSong
     
@@ -185,6 +185,6 @@ export default class Queue {
       });
         this.findSplice = findSplice;
         this.loopNextSong = loopNextSong;
-        this.playnext = playNext;
+        this.playNext = playNext;
     }
 }

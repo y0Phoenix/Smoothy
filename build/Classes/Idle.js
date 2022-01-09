@@ -9,7 +9,7 @@ class WriteIdle {
         this.disconnectTimer = null;
         this.msgs = [];
         this.queueMsgs = [];
-        this.message = data.message;
+        this.message = new WriteMessage_1.default(data.message);
         this.id = data.message.guild.id;
         this.client = null;
         if (!data.msgs) {

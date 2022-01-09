@@ -3,14 +3,14 @@ import WriteMessage from "./WriteMessage";
 import { leave } from '../modules/modules';
 
 export class WriteIdle {
-    message: Message
+    message: WriteMessage
     id: string
     client: Client
     disconnectTimer: any = null
     msgs: Partial<WriteMessage>[] = []
     queueMsgs: Partial<WriteMessage>[] = []
     constructor (data) {
-        this.message = data.message;
+        this.message = new WriteMessage(data.message);
         this.id = data.message.guild.id;
         this.client = null;
         if (!data.msgs) {

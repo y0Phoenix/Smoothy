@@ -7,16 +7,20 @@ import { Message } from "discord.js";
  */
 export default async function deleteMsg(message: Message | Partial<Message>, time: number, client: any) {
     const getMSG = async () => {
-        const channel = await client.channels.fetch(message.channel.id);
-        const msg: Message = await channel.messages.fetch(message.id);
-        return msg;    
+        try {
+            const channel = await client.channels.fetch(message.channel.id);
+            const msg: Message = await channel.messages.fetch(message.id);
+            return msg;    
+        } catch (error) {
+            console.log('MSG Not found at deleteMSG');
+        }
     }
     if (!time || isNaN(time)) {
         if (time === 0) {
             try {
                 const msg = await getMSG();
                 if (msg.deletable) {
-                    msg.delete();
+                    await msg.delete();
                 }
                 else {
                     console.log('MSG isnt deletable at deleteMsg');
