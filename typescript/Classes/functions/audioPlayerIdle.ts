@@ -6,7 +6,7 @@ import Queue from "../Queue";
 import getMaps from "../../maps";
 
 /**
- * @description sets of functions and/or events based off of conditions
+ * @description sets of functions and/or events based off of conditions inorder to play a new song
  */
 export default async function audioPlayerIdle() {
     let serverQueue: Queue = this;
