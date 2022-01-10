@@ -14,7 +14,7 @@ namespace Run_Smoothy
         private static System.Timers.Timer aTimer;
         static ProcessStartInfo procstartinfo;
         static Process process = null;
-        static string rundirectory = "/home/aaron/Documents/Smoothy/";
+        static string rundirectory = "/home/aaron/Documents/Smoothy/build";
         static string filename = "./run.sh";
         static string logfilename = "errorlog.txt";
         static StreamWriter log;
