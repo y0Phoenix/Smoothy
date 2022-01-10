@@ -1,7 +1,12 @@
-import * as CircularJSON  from 'circular-json';
+import * as flatted  from 'flatted';
 import * as fs from 'fs';
 import { WriteIdle } from '../../Classes/Idle';
 import WriteQueue from '../../Classes/WriteQueue';
+
+interface GlobalData {
+    disconnectIdles: WriteIdle[];
+    queues: WriteQueue[];
+};
 
 /**
  * @param  {} str a string of what needs to happen
@@ -15,10 +20,10 @@ import WriteQueue from '../../Classes/WriteQueue';
  * @param  {} data the data you need to write to the file
  * @param {} id the id of the discord server
  */
-export default async function writeGlobal(str: String, data: any, id: String) {
+export default async function writeGlobal(str: string, data: any, id: string) {
     const file = './config/global.json';
     let _file = fs.readFileSync(file, 'utf-8');
-    let _data = JSON.parse(_file);
+    let _data: GlobalData = JSON.parse(_file);
     let Data = {..._data}
     var d: number;
     var q: number;
@@ -76,6 +81,6 @@ export default async function writeGlobal(str: String, data: any, id: String) {
         }
         Data.disconnectIdles.splice(d, 1);
     }
-    Data = CircularJSON.stringify(Data);
-    fs.writeFileSync(file, Data);
+    const writeData = flatted.stringify(Data);
+    fs.writeFileSync(file, writeData);
 }
