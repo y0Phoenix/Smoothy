@@ -17,6 +17,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 2. [Current Functionalities](#currentfunctionalities)
 3. [Run Smoothy.exe](#runsmoothy.exe)
 4. [Using Smoothy](#usingsmoothy)
+4. [Smoothy Roadmap](#roadmap)
 
 ## Dependencies <a name="dependencies"></a>
 * [node.js LTS version](https://nodejs.org/dist/v14.18.1/node-v14.18.1-x64.msi): ytdl-core currently doesn't work correctly with the latest nodejs.
@@ -32,6 +33,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 ## Current Fuctionalities <a name="currentfunctionalities"></a>
 1. Message embeds for a cleaner more professional look when Smoothy replies to a command
 2. Smoothy will automatically disconnect after 30 minutes on idle to save bandwith
+3. If Smoothy Crashes it will join back the VC if disconnected and play the song that was playing with any other songs and info
 ### Plese note that the `-` is the default prefix. In order to check your servers prefix if it was changed type `myprefix` without the `-` and use that instead of `-`.
 | Command      | Description 								         | Usage                        |
 | ------------ | ------------------------------------------------------------------------------- | ---------------------------- |
@@ -49,6 +51,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 | Leave        | Leaves the voice channel and clears the song queue 			         | `-dc`, `-die`, `-disconnect` |
 | Jump         | Jumps to a song via number or name and removes that song from the queue 	         | `-j`, `-jump` 	        |
 | PlayPlaylist | Plays a YouTube playlist thats either public or unlisted via link 	         | `-pp`, `-playplaylist`       |
+| NowPlaying   | Sends a now playing message to the channel									| `-np`, `-nowplaying` |
 | MyPrefix     | Displays the server current set prefix (default is `-`) 		         | `myprefix`                   |	
 | ChangePrefix | Changes the individual servers prefix 					         | `-prefix`, `-changeprefix`,  |
 
@@ -77,4 +80,9 @@ client.login('');
 ```
 * You will also need to install the required [Dependencies](#dependencies) in order to use the wide range of functions avalible with Smoothy. If you don't install all of them Smoothy will throw an erorr.
 
+## Smoothy Roadmap <a name="roadmap"></a>
+1. Audio Filters like bass boost, low quality, pich-control etc.
 
+2. Full Spotify Support
+
+3. Full SoundCloud Support
