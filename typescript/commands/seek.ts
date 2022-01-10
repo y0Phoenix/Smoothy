@@ -14,6 +14,8 @@ import { deleteMsg } from '../modules/modules';
  * onto the audioplayer inside the serverQueue 
  */
 export default async function seek(message: Message, args: any, serverQueue: Queue, serverDisconnectIdle: Idle) {
+    // TODO fix message please enter a valid seek on a valid seek
+    // TODO add varitation to seek, if a song is less than 1 min the user shoudln't need to enter 0.30 they should be able to just do 30
     if (serverQueue) {
         if (serverQueue.songs.length > 0) {
             if (serverQueue.player.state.status === AudioPlayerStatus.Playing) {

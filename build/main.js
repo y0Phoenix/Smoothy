@@ -70,7 +70,7 @@ client.once('ready', async () => {
             data.queues[i].voiceChannel = vc;
             data.queues[i].currentsong[0].load = true;
             let serverQueue = new Queue_1.default({ msg: data.queues[i].message, songs: data.queues[i].songs,
-                shuffledSongs: data.queues[i].shuffledSongs, currentsong: data.queues[i].currentsong });
+                shuffledSongs: data.queues[i].shuffledSongs, currentsong: data.queues[i].currentsong, previous: data.queues[i].previous });
             serverQueue.shuffle = data.queues[i].shuffle;
             serverQueue.loop = data.queues[i].loop;
             serverQueue.loopsong = data.queues[i].loopsong;

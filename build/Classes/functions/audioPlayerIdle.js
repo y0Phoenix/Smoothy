@@ -33,6 +33,7 @@ async function audioPlayerIdle() {
                 serverQueue.playNext();
                 serverQueue.currentsong.shift();
                 serverQueue.bool = true;
+                return;
             }
             else {
                 serverQueue.previous.shift();
@@ -44,7 +45,8 @@ async function audioPlayerIdle() {
                         serverQueue.playNext();
                     }
                     else {
-                        serverQueue.message.channel.send({ embeds: [noMoreSongsEmbed] });
+                        const msg = await serverQueue.message.channel.send({ embeds: [noMoreSongsEmbed] });
+                        (0, modules_1.deleteMsg)(msg, 60000, serverDisconnectIdle.client);
                         queue.delete(serverQueue.message.guild.id);
                         await (0, modules_1.writeGlobal)('delete queue', null, serverQueue.id);
                         (0, modules_1.writeGlobal)('delete dci', null, serverQueue.id);

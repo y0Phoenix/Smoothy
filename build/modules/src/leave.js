@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const voice_1 = require("@discordjs/voice");
+const deleteMsg_1 = require("./deleteMsg");
 const writeglobal_1 = require("./writeglobal");
 /**
  * @param  {} queue the queue map for songs
@@ -8,40 +9,23 @@ const writeglobal_1 = require("./writeglobal");
  * @param  {} message any message object from the discord server needed for GuidId
  */
 async function leave(msg, DisconnectIdle, queue) {
-    const id = msg.guildId;
+    const id = msg.guild.id;
     const vc = (0, voice_1.getVoiceConnection)(id);
     const sdi = DisconnectIdle.get(id);
     const sq = queue.get(id);
+    const client = DisconnectIdle.get(1);
     if (vc) {
         if (sq) {
             if (sq.nowPlaying) {
-                sq.nowPlaying.delete();
+                (0, deleteMsg_1.default)(sq.nowPlaying, 0, client);
             }
         }
-        if (sdi.msgs[0]) {
-            for (let i = 0; i < sdi.msgs.length; i++) {
-                if (!sdi.msgs[i].content) {
-                    const channel = await sdi.client.channels.fetch(sdi.message.channelId);
-                    const message = await channel.messages.fetch(sdi.msgs[i].id);
-                    message.delete();
-                }
-                else {
-                    sdi.msgs[i].delete();
-                }
-            }
-        }
-        if (sdi.queueMsgs[0]) {
-            for (let i = 0; i < sdi.queueMsgs.length; i++) {
-                if (!sdi.queueMsgs[i].content) {
-                    const channel = await sdi.client.channels.fetch(sdi.message.channelId);
-                    const message = await channel.messages.fetch(sdi.queueMsgs[i].id);
-                    message.delete();
-                }
-                else {
-                    sdi.queueMsgs[i].delete();
-                }
-            }
-        }
+        sdi.msgs.forEach(msg => {
+            (0, deleteMsg_1.default)(msg, 0, client);
+        });
+        sdi.queueMsgs.forEach(msg => {
+            (0, deleteMsg_1.default)(msg, 0, client);
+        });
         if (vc) {
             vc.disconnect();
         }

@@ -64,12 +64,15 @@ export default class Queue {
     retryTimer: typeof retryTimer
     
     constructor(data: any) {
-        let {msg, songs, shuffledSongs, currentsong} = data;
+        let {msg, songs, shuffledSongs, currentsong, previous} = data;
         const {DisconnectIdle} = getMaps();
         if (songs){
             if (songs[0]) {
                 this.songs = [...songs];
                 this.currentsong.push(currentsong[0]);
+                if (previous[0]) {
+                    this.previous.push(previous[0]);
+                }
             }
         } 
         if (shuffledSongs) {

@@ -14,6 +14,8 @@ const modules_1 = require("../modules/modules");
  * onto the audioplayer inside the serverQueue
  */
 async function seek(message, args, serverQueue, serverDisconnectIdle) {
+    // TODO fix message please enter a valid seek on a valid seek
+    // TODO add varitation to seek, if a song is less than 1 min the user shoudln't need to enter 0.30 they should be able to just do 30
     if (serverQueue) {
         if (serverQueue.songs.length > 0) {
             if (serverQueue.player.state.status === voice_1.AudioPlayerStatus.Playing) {

@@ -5,6 +5,7 @@
 // TODO implement checking for the message being sent to ensure the description is less than 4096 characters
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+const maps_1 = require("../maps");
 const modules_1 = require("../modules/modules");
 let queuelist = ``;
 var endqueuelist = 10;
@@ -173,8 +174,9 @@ async function queueList(message, serverQueue, serverDisconnectIdle) {
         const noSongsEmbed = new discord_js_1.MessageEmbed()
             .setColor('RED')
             .setDescription(`:rofl: No Songs Currently In Queue`);
+        const { DisconnectIdle } = (0, maps_1.default)();
         message.channel.send({ embeds: [noSongsEmbed] })
-            .then(msg => (0, modules_1.deleteMsg)(msg, 30000, serverDisconnectIdle.client));
+            .then(msg => (0, modules_1.deleteMsg)(msg, 30000, DisconnectIdle.get(1)));
     }
 }
 exports.default = queueList;

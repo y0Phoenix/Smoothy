@@ -6,6 +6,7 @@
 import { MessageEmbed, Message } from 'discord.js';
 import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
+import getMaps from '../maps';
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
 let queuelist = ``;
 var endqueuelist = 10;
@@ -185,8 +186,9 @@ export default async function queueList(message: Message, serverQueue: Queue, se
     }else{
         const noSongsEmbed = new MessageEmbed()
             .setColor('RED')
-            .setDescription(`:rofl: No Songs Currently In Queue`)
+            .setDescription(`:rofl: No Songs Currently In Queue`);
+        const {DisconnectIdle} = getMaps();
         message.channel.send({embeds: [noSongsEmbed]})
-        .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+        .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
     }  
 }

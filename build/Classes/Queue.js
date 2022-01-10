@@ -37,12 +37,15 @@ class Queue {
         this.repeat = false;
         this.bool = false;
         this.jumpbool = false;
-        let { msg, songs, shuffledSongs, currentsong } = data;
+        let { msg, songs, shuffledSongs, currentsong, previous } = data;
         const { DisconnectIdle } = (0, maps_1.default)();
         if (songs) {
             if (songs[0]) {
                 this.songs = [...songs];
                 this.currentsong.push(currentsong[0]);
+                if (previous[0]) {
+                    this.previous.push(previous[0]);
+                }
             }
         }
         if (shuffledSongs) {

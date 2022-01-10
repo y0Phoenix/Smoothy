@@ -8,7 +8,6 @@ import * as ytsearch from 'yt-search';
 import getMaps from '../maps';
 import { Idle } from '../Classes/Idle';
 
-// TODO implement fallback for playdl.search with yt-search, just incase playdl.search doesn't return an array
 /**
  * @param  {string} q the video you wish to search
  * @returns {playdl.YouTubeVideo} the closest match to the search query
@@ -40,29 +39,34 @@ export default async function videoFinder(query: string, message: any) {
 		}
 		const temp = {...sdi.top5Results[i - 1]};
 		sdi.top5Results = [];
-		deleteMsg(sdi.top5Msg, 0, sdi.client);
+		await deleteMsg(sdi.top5Msg, 0, sdi.client);
 		return temp;
 	}
 	let name = query.toLowerCase();
-	const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`|\s/ig;
+	const regex = /;|,|\.|>|<|'|"|:|}|{|\]|\[|=|-|_|\(|\)|&|^|%|$|#|@|!|~|`/ig;
 	name = name.replace(regex, '');
 	let Name = name.split(' ');
+
 	const loop = (videos: any, length: number) => {
 		let i = 0
 		for (i; i < length; i++) {
-			const re = new RegExp(Name[i], 'g');
-			const includes = re.test(videos[i].title);
-			if (!includes) {
-				return 0
+			for (let j = 0; j < Name.length; j++) {
+				const re = new RegExp(Name[j], 'g');
+				const title = videos[i].title.replace(regex, '').toLowerCase();
+				const includes = re.test(title);
+				if (!includes) {
+					return -1;
+				}
 			}
 		}
-		return i
+		return i;
 	}
+
 	const emebdPush = async (video: any, bool: boolean) => {
 		let embeds = [];
 		const length: number = video.length >= 5 ? 5 : video.length;
 		for (let i = 0; i < length; i++) {
-			const thumbnail: string = bool ? video[i].thumbnails[2].url : video[i].thumbnail
+			const thumbnail: string = bool ? video[i].thumbnails[0].url : video[i].thumbnail
 			sdi.top5Results.push(video[i]);
 			let title: MessageEmbed;
 			let whichEmbed: MessageEmbed;
@@ -88,15 +92,16 @@ export default async function videoFinder(query: string, message: any) {
 		}
 		sdi.top5Msg = await message.channel.send({embeds: embeds});
 	}
+
 	try {
 		const videoResult: playdl.YouTubeVideo[] = await playdl.search(name);
 		if (videoResult[0]) {
 			let vid = videoResult[0].title.toLowerCase();
 			vid = vid.replace(regex, '');
-			const bool = loop(vid, 1);
-			if (!bool) {
+			const bool = loop(videoResult, 1);
+			if (bool === -1) {
 				const bool = loop(videoResult, 5);
-				if (bool) {
+				if (bool !== -1) {
 					return videoResult[bool];
 				} else {
 				emebdPush(videoResult, true);
@@ -104,7 +109,7 @@ export default async function videoFinder(query: string, message: any) {
 				}
 			}
 			else {
-				return videoResult[0].thumbnails[0].url
+				return videoResult[0]
 			}
 		}
 		else {

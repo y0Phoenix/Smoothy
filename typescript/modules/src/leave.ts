@@ -1,8 +1,9 @@
 import {getVoiceConnection} from '@discordjs/voice';
+import { Message, Client } from 'discord.js';
+import { Idle } from '../../Classes/Idle';
+import Queue from '../../Classes/Queue';
+import deleteMsg from './deleteMsg';
 import writeGlobal from './writeglobal';
-interface Message {
-    guildId: string,
-}
 
 /**
  * @param  {} queue the queue map for songs 
@@ -10,44 +11,24 @@ interface Message {
  * @param  {} message any message object from the discord server needed for GuidId
  */
 export default async function leave(msg: Message, DisconnectIdle: any, queue: any) {
-    const id = msg.guildId
+    const id = msg.guild.id
     const vc = getVoiceConnection(id);
-    const sdi = DisconnectIdle.get(id);
-    const sq = queue.get(id);
+    const sdi: Idle = DisconnectIdle.get(id);
+    const sq: Queue = queue.get(id);
+    const client: Client = DisconnectIdle.get(1);
+    
     if (vc) {
         if (sq) {
             if (sq.nowPlaying) {
-                sq.nowPlaying.delete();
+                deleteMsg(sq.nowPlaying, 0, client);
             }
         }
-        if (sdi.msgs[0]) {
-            for (let i = 0;
-                i < sdi.msgs.length;
-                i++) {
-                    if (!sdi.msgs[i].content) {
-                        const channel = await sdi.client.channels.fetch(sdi.message.channelId);
-                        const message = await channel.messages.fetch(sdi.msgs[i].id);
-                        message.delete();
-                    }
-                    else {
-                        sdi.msgs[i].delete();
-                    }
-                }
-        }
-        if (sdi.queueMsgs[0]) {
-            for (let i = 0;
-                i < sdi.queueMsgs.length;
-                i++) {
-                    if (!sdi.queueMsgs[i].content) {
-                        const channel = await sdi.client.channels.fetch(sdi.message.channelId);
-                        const message = await channel.messages.fetch(sdi.queueMsgs[i].id);
-                        message.delete();
-                    }
-                    else {
-                        sdi.queueMsgs[i].delete();
-                    }
-                }
-        }
+        sdi.msgs.forEach(msg => {
+            deleteMsg(msg, 0, client);
+        })
+        sdi.queueMsgs.forEach(msg => {
+            deleteMsg(msg, 0, client);
+        })
         if (vc) {
             vc.disconnect()
         }

@@ -62,7 +62,7 @@ export class Song {
         this.thumbnail = data.data.videoDetails.thumbnails[3].url;
         this.message = data.message;
         this.duration = durationCheck(data.data.videoDetails.lengthSeconds);
-        this.durationS = parseInt(data.data.videoDetails.lengthSeconds) * 1000;
+        this.durationS = parseInt(data.data.videoDetails.lengthSeconds);
     }
 }
 export class PlaylistSong {
