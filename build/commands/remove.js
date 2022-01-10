@@ -15,7 +15,7 @@ async function remove(message, args, serverQueue, client) {
     var query = args.join(' ');
     if (isNaN(i)) {
         const result = await (0, modules_1.find)(serverQueue, query);
-        if (result !== null) {
+        if (!result.error) {
             if (result.shuffledSong) {
                 i = result.shuffledSong;
                 serverQueue.songs.splice(result.song, 1);
@@ -23,6 +23,13 @@ async function remove(message, args, serverQueue, client) {
             else {
                 i = result.song;
             }
+        }
+        else {
+            const msg = await message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
+                        .setColor('RED')
+                        .setDescription(`:rofl: No Good Matches found for **${query}** please check your spelling or remove a song via a number from the -queue`)] });
+            (0, modules_1.deleteMsg)(msg, 60000, client);
+            return;
         }
     }
     if (serverQueue.shuffle === true) {
