@@ -1,11 +1,102 @@
-[01/09/2022 22:11:12.560] Not Running, Starting up Smoothy...
-[01/09/2022 22:11:12.582] Run Shell Script Started
-[01/09/2022 22:11:13.581] Smoothy is currently running 
-[01/09/2022 22:11:15.433] set dci functions for
-[01/09/2022 22:11:15.452] Smoothy 1.4.6 is online!
-[01/09/2022 22:11:15.566] Smoothy is currently running 
-[01/09/2022 22:11:16.818] Playing The Animals - The House of the Rising Sun - Lyrics!
-[01/09/2022 22:11:17.567] Smoothy is currently running 
-[01/09/2022 22:11:23.030] Command = dc 
-[01/09/2022 22:11:23.033] Left The Voice Channel From Command
-[01/09/2022 22:11:23.558] Smoothy is currently running 
+[01/09/2022 22:14:27.310] Smoothy is already running so killing it!
+[01/09/2022 22:14:28.291] Not Running, Starting up Smoothy...
+[01/09/2022 22:14:28.314] Run Shell Script Started
+[01/09/2022 22:14:29.382] Smoothy is currently running 
+[01/09/2022 22:14:31.719] set dci functions for
+[01/09/2022 22:14:31.736] Smoothy 1.4.6 is online!
+[01/09/2022 22:14:32.262] Smoothy is currently running 
+[01/09/2022 22:14:32.907] Playing Trance - 009 Sound System Dreamscape (HD)!
+[01/09/2022 22:14:33.266] Smoothy is currently running 
+[01/09/2022 22:14:42.234] Command = j memento
+[01/09/2022 22:14:42.250] Smoothy is currently running 
+[01/09/2022 22:14:42.353] Player Status Is Idle
+[01/09/2022 22:14:43.073] Found FRXXMAN - MEMENTO
+[01/09/2022 22:14:43.260] Smoothy is currently running 
+[01/09/2022 22:14:43.600] Playing FRXXMAN - MEMENTO!
+[01/09/2022 22:14:44.251] Smoothy is currently running 
+[01/09/2022 22:17:12.725] Player Status Is Idle
+[01/09/2022 22:17:13.244] Smoothy is currently running 
+[01/09/2022 22:17:13.323] Found I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music
+[01/09/2022 22:17:13.927] Playing I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music!
+[01/09/2022 22:17:14.282] Smoothy is currently running 
+[01/09/2022 22:17:25.085] Command = pr 
+[01/09/2022 22:17:25.258] Smoothy is currently running 
+[01/09/2022 22:17:25.388] Player Status Is Idle
+[01/09/2022 22:17:25.893] Found FRXXMAN - MEMENTO
+[01/09/2022 22:17:26.246] Smoothy is currently running 
+[01/09/2022 22:17:26.400] Playing FRXXMAN - MEMENTO!
+[01/09/2022 22:17:27.256] Smoothy is currently running 
+[01/09/2022 22:19:55.523] Player Status Is Idle
+[01/09/2022 22:19:56.086] Found I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music
+[01/09/2022 22:19:56.270] Smoothy is currently running 
+[01/09/2022 22:19:56.650] Playing I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music!
+[01/09/2022 22:19:57.260] Smoothy is currently running 
+[01/09/2022 22:20:01.627] Command = n 
+[01/09/2022 22:20:01.628] Skipping I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music!
+[01/09/2022 22:20:01.731] Player Status Is Idle
+[01/09/2022 22:20:02.156] Found CopperCab's response to Schmoyoho songifying him [REMIX] (FUNNY)
+[01/09/2022 22:20:02.262] Smoothy is currently running 
+[01/09/2022 22:20:02.551] Playing CopperCab's response to Schmoyoho songifying him [REMIX] (FUNNY)!
+[01/09/2022 22:20:03.262] Smoothy is currently running 
+[01/09/2022 22:21:43.734] Command = mix 
+[01/09/2022 22:21:43.736] Now shuffling the queue
+[01/09/2022 22:21:44.266] Smoothy is currently running 
+[01/09/2022 22:22:05.693] Player Status Is Idle
+[01/09/2022 22:22:06.256] Smoothy is currently running 
+[01/09/2022 22:22:06.327] Found Dear Mr. Fantasy
+[01/09/2022 22:22:07.282] Playing Dear Mr. Fantasy!
+[01/09/2022 22:22:07.285] Smoothy is currently running 
+[01/09/2022 22:22:14.387] Command = j no sleep
+[01/09/2022 22:22:14.503] Player Status Is Idle
+[01/09/2022 22:22:14.504] Splicing BLESSED MANE - NO SLEEP 22
+[01/09/2022 22:22:15.085] Found BLESSED MANE - NO SLEEP
+[01/09/2022 22:22:15.271] Smoothy is currently running 
+[01/09/2022 22:22:15.850] Playing BLESSED MANE - NO SLEEP!
+[01/09/2022 22:22:16.280] Smoothy is currently running 
+[01/09/2022 22:22:38.900] Command = r odium
+[01/09/2022 22:22:39.269] Smoothy is currently running 
+[01/09/2022 22:23:19.379] Command = np 
+[01/09/2022 22:23:20.271] Smoothy is currently running 
+[01/09/2022 22:25:02.706] Command = dc 
+[01/09/2022 22:25:02.712] Left The Voice Channel From Command
+[01/09/2022 22:25:03.275] Smoothy is currently running 
+[01/09/2022 22:25:16.733] Command = pp https://www.youtube.com/playlist?list=PLAcVjxrQDMPo0uhHE4H9G0yPjS1vmhXrE
+[01/09/2022 22:25:17.279] Smoothy is currently running 
+[01/09/2022 22:25:17.738] Found YouTube playlist Discord
+[01/09/2022 22:25:17.740] Created the serverQueue
+[01/09/2022 22:25:18.285] Playing Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
+[01/09/2022 22:25:18.287] Smoothy is currently running 
+[01/09/2022 22:25:20.101] Command = mix 
+[01/09/2022 22:25:20.101] Now shuffling the queue
+[01/09/2022 22:25:20.287] Smoothy is currently running 
+[01/09/2022 22:25:22.609] Command = l 
+[01/09/2022 22:25:23.287] Smoothy is currently running 
+[01/09/2022 22:25:37.402] Command = r cat carmedalian
+[01/09/2022 22:25:37.416] /home/aaron/Documents/Smoothy/build/commands/remove.js:29
+[01/09/2022 22:25:37.416]         const result = await (0, modules_1.find)(serverQueue, serverQueue.shuffledSongs[i].title);
+[01/09/2022 22:25:37.416]                                                                                            ^
+[01/09/2022 22:25:37.416] 
+[01/09/2022 22:25:37.416] TypeError: Cannot read properties of undefined (reading 'title')
+[01/09/2022 22:25:37.417]     at remove (/home/aaron/Documents/Smoothy/build/commands/remove.js:29:92)
+[01/09/2022 22:25:37.417]     at runMicrotasks (<anonymous>)
+[01/09/2022 22:25:37.417]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[01/09/2022 22:25:38.267] Not Running, Starting up Smoothy...
+[01/09/2022 22:25:38.277] Run Shell Script Started
+[01/09/2022 22:25:39.294] Smoothy is currently running 
+[01/09/2022 22:25:41.052] set dci functions for
+[01/09/2022 22:25:41.069] Smoothy 1.4.6 is online!
+[01/09/2022 22:25:41.273] Smoothy is currently running 
+[01/09/2022 22:25:41.842] Playing Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
+[01/09/2022 22:25:42.292] Smoothy is currently running 
+[01/09/2022 22:26:45.473] Command = dc 
+[01/09/2022 22:26:45.476] Left The Voice Channel From Command
+[01/09/2022 22:26:46.286] Smoothy is currently running 
+[01/09/2022 22:39:57.011] Command = p piano man
+[01/09/2022 22:39:57.340] Smoothy is currently running 
+[01/09/2022 22:39:59.213] Found Billy Joel - Piano Man (Official HD Video)
+[01/09/2022 22:39:59.359] Smoothy is currently running 
+[01/09/2022 22:40:00.936] Playing Billy Joel - Piano Man (Official HD Video)!
+[01/09/2022 22:40:01.380] Smoothy is currently running 
+[01/09/2022 22:40:03.054] Command = dc 
+[01/09/2022 22:40:03.055] Left The Voice Channel From Command
+[01/09/2022 22:40:03.345] Smoothy is currently running 
