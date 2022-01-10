@@ -141,10 +141,11 @@ export default class Queue {
           }, 1500);
       });
   
-      //when the audioPlayer for this construct inside serverQueue is Idle the function is executed
+      //when the audioPlayer for this class inside is Idle the function is executed
       this.player.on(AudioPlayerStatus.Idle, async (playerEvent) => {
           this.audioPlayerIdle();
       });
+    // this is meant for when the player throws an error and the error is corrected, its needed to send a nowplaying message   
       this.player.on(AudioPlayerStatus.Playing, async (data) => {
           const localServerQueue: Queue = this;
           if (
@@ -159,19 +160,7 @@ export default class Queue {
               localServerQueue.audioPlayerErr === false &&
               localServerQueue.messagesent === false
           ) {
-              const playembed = new MessageEmbed()
-              .setColor('#0099ff')
-              .setTitle(`:thumbsup: Now Playing`)
-              .setDescription(
-                  `:musical_note: ***[${localServerQueue.currentsong[0].title}](${localServerQueue.currentsong[0].url})*** :musical_note:`
-              )
-              .addField(
-                  `Requested By`,
-                  `<@${localServerQueue.currentsong[0].message.author.id}>`
-              )
-              .setThumbnail(`${localServerQueue.currentsong[0].thumbnail}`)
-              .setTimestamp();
-              localServerQueue.nowPlaying = await localServerQueue.message.channel.send({ embeds: [playembed] });
+              localServerQueue.nowPlaying = await this.nowPlayingSend();
               localServerQueue.messagesent = true;
               writeGlobal('update queue', localServerQueue, localServerQueue.id)
           }

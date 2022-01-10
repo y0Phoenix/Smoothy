@@ -1,4 +1,3 @@
-import { Idle } from "../Idle";
 import Queue from "../Queue";
 import { AudioPlayerStatus } from "@discordjs/voice";
 import { MessageEmbed } from "discord.js";
