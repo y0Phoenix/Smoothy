@@ -6,12 +6,12 @@ const discord_js_1 = require("discord.js");
 const modules_1 = require("../../modules/modules");
 const maps_1 = require("../../maps");
 /**
- * @param  {Queue} serverQueue the current servers queue
  * @description checks if the serverQueue is playing a song via
  * AudioPlayerStatus
  * @returns {boolean} boolean value
  */
-async function checkIfPlaying(serverQueue) {
+function checkIfPlaying() {
+    const serverQueue = this;
     if (serverQueue.player.state.status === voice_1.AudioPlayerStatus.Playing) {
         return true;
     }
@@ -21,6 +21,7 @@ async function checkIfPlaying(serverQueue) {
 }
 exports.checkIfPlaying = checkIfPlaying;
 /**
+ * @description retry function for serverQueue.player on an error
  */
 async function retryTimer() {
     const serverQueue = this;

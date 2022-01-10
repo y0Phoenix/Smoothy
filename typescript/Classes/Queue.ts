@@ -62,6 +62,7 @@ export default class Queue {
     play: typeof play
     getVideo: typeof getVideo
     retryTimer: typeof retryTimer
+    checkIfPlaying: typeof checkIfPlaying
     
     constructor(data: any) {
         let {msg, songs, shuffledSongs, currentsong, previous} = data;
@@ -107,8 +108,8 @@ export default class Queue {
               localServerQueue.player.stop();
               await this.retryTimer();
               localServerQueue.tries++;
-              const playing = await checkIfPlaying(localServerQueue);
-              if (playing === true) {
+              const playing = this.checkIfPlaying;
+              if (playing) {
               localServerQueue.tries = 0;
               localServerQueue.audioPlayerErr = false;
               console.log('Retries Sucessfull');
@@ -184,5 +185,6 @@ export default class Queue {
         this.getVideo = getVideo;
         this.retryTimer = retryTimer;
         this.nowPlayingSend = nowPlayingSend;
+        this.checkIfPlaying = checkIfPlaying;
     }
 }

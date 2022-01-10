@@ -3,16 +3,15 @@ import Queue from "../Queue";
 import { AudioPlayerStatus } from "@discordjs/voice";
 import { MessageEmbed } from "discord.js";
 import { deleteMsg, find } from "../../modules/modules";
-import getVideo from './getVideo';
 import getMaps from "../../maps";
 
 /**
- * @param  {Queue} serverQueue the current servers queue
  * @description checks if the serverQueue is playing a song via
  * AudioPlayerStatus
  * @returns {boolean} boolean value
  */
-export async function checkIfPlaying(serverQueue: Queue) {
+export function checkIfPlaying() {
+  const serverQueue: Queue = this;
   if (serverQueue.player.state.status === AudioPlayerStatus.Playing) {
       return true;
   } else {
@@ -20,6 +19,7 @@ export async function checkIfPlaying(serverQueue: Queue) {
   }
 }
 /**
+ * @description retry function for serverQueue.player on an error 
  */
 export async function retryTimer() {
     const serverQueue = this;

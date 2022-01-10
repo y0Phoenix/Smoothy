@@ -79,8 +79,8 @@ class Queue {
                     localServerQueue.player.stop();
                     await this.retryTimer();
                     localServerQueue.tries++;
-                    const playing = await (0, retryPlayer_1.checkIfPlaying)(localServerQueue);
-                    if (playing === true) {
+                    const playing = this.checkIfPlaying;
+                    if (playing) {
                         localServerQueue.tries = 0;
                         localServerQueue.audioPlayerErr = false;
                         console.log('Retries Sucessfull');
@@ -141,6 +141,7 @@ class Queue {
         this.getVideo = getVideo_1.default;
         this.retryTimer = retryPlayer_1.retryTimer;
         this.nowPlayingSend = nowPlayingSend_1.default;
+        this.checkIfPlaying = retryPlayer_1.checkIfPlaying;
     }
 }
 exports.default = Queue;
