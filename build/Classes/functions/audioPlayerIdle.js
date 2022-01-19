@@ -5,7 +5,7 @@ const modules_1 = require("../../modules/modules");
 const discord_js_1 = require("discord.js");
 const maps_1 = require("../../maps");
 /**
- * @description sets of functions and/or events based off of conditions
+ * @description sets of functions and/or events based off of conditions inorder to play a new song
  */
 async function audioPlayerIdle() {
     let serverQueue = this;

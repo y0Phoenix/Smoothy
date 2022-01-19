@@ -148,18 +148,11 @@ export default class Queue {
     // this is meant for when the player throws an error and the error is corrected, its needed to send a nowplaying message   
       this.player.on(AudioPlayerStatus.Playing, async (data) => {
           const localServerQueue: Queue = this;
-          if (
-          localServerQueue.audioPlayerErr === true &&
-          localServerQueue.tries > 0
-          ) {
+          if (localServerQueue.audioPlayerErr === true && localServerQueue.tries > 0) {
           console.log('Retries Successfull');
           localServerQueue.audioPlayerErr = false;
           localServerQueue.tries = 0;
-          if (
-              localServerQueue.loopsong === false &&
-              localServerQueue.audioPlayerErr === false &&
-              localServerQueue.messagesent === false
-          ) {
+          if (localServerQueue.loopsong === false && localServerQueue.audioPlayerErr === false && localServerQueue.messagesent === false) {
               localServerQueue.nowPlaying = await this.nowPlayingSend();
               localServerQueue.messagesent = true;
               writeGlobal('update queue', localServerQueue, localServerQueue.id)

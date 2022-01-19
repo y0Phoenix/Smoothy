@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const CircularJSON = require("circular-json");
+const flatted = require("flatted");
 const fs = require("fs");
 const Idle_1 = require("../../Classes/Idle");
 const WriteQueue_1 = require("../../Classes/WriteQueue");
+;
 /**
  * @param  {} str a string of what needs to happen
  * @variation str
@@ -73,7 +74,7 @@ async function writeGlobal(str, data, id) {
         }
         Data.disconnectIdles.splice(d, 1);
     }
-    Data = CircularJSON.stringify(Data);
-    fs.writeFileSync(file, Data);
+    const writeData = flatted.stringify(Data);
+    fs.writeFileSync(file, writeData);
 }
 exports.default = writeGlobal;

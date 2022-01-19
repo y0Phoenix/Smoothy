@@ -64,7 +64,7 @@ export default async function videoFinder(query: string, message: any) {
 
 	const emebdPush = async (video: any, bool: boolean) => {
 		let embeds = [];
-		const length: number = video.length >= 5 ? 5 : video.length;
+		const length: number = 3;
 		for (let i = 0; i < length; i++) {
 			const thumbnail: string = bool ? video[i].thumbnails[0].url : video[i].thumbnail
 			sdi.top5Results.push(video[i]);
