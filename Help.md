@@ -9,7 +9,7 @@ Discord Music Bot using Discord.js v13 and Node.js LTS with node-abort-controlle
 
 Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, it works quite well and does what you need it to.
 
-![alt text](https://github.com/y0Phoenix/Smoothy/blob/main/Smoothy%20Logo.png?raw=true)
+![alt text](https://github.com/y0Phoenix/Smoothy/blob/development/pictures/Smoothy%20Logo.png?raw=true)
 
 # Table of Contents
 1. [Helpful Info](#helpfulinfo)
@@ -19,7 +19,13 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 ## Helpful Info <a name="helpfulinfo"></a>
 * Smoothy will automatically disconnect from the VC in `30 minutes` on Idle
 
+<<<<<<< HEAD
 * Smoothy is being developed by `Eugene` alone, and will occasionally crash .Please be patient with crashes and help by DMing `Eugene#3399` or by creating an issue at https://github.com/y0Phoenix/Smoothy with context. Any help is much appreciated! :sweat_smile:
+=======
+* If Smoothy Crashes it will join back the VC if disconnected and play the song that was playing with any other songs and info
+
+* Smoothy is being developed by `Eugene` alone, and will occasionally crash .Please be patient with crashes and help by DMing `Eugene#3399` or by creating an issue at https://github.com/y0Phoenix/Smoothy with context. Any help is much appreciated! :)
+>>>>>>> development
 
 * Smoothy has a variety of different commands associated with playing music you can check them out at [Commands](#commands)
 
@@ -46,6 +52,7 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 | Leave        | Leaves the voice channel and clears the song queue 			                       | `-dc`, `-die`, `-disconnect` |
 | Jump         | Jumps to a song via number or song name and removes that song from the queue 	               | `-j`, `-jump` 	              |
 | PlayPlaylist | Plays a YouTube playlist thats either public or unlisted via link 	             | `-pp`, `-playplaylist`       |
+| NowPlaying   | Sends a now playing message to the channel									| `-np`, `-nowplaying` |
 | MyPrefix     | Displays the server current set prefix (default is `-`) 		                     | `myprefix`                   |	
 | ChangePrefix | Changes the individual servers prefix 					                                 | `-prefix`, `-changeprefix`,  |
 

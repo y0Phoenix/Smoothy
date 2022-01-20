@@ -1,0 +1,309 @@
+[12/19/2021 12:25:33.911] Not Running, Starting up Smoothy
+[12/19/2021 12:25:34.408] Smoothy is currently running 
+[12/19/2021 12:25:34.940] Smoothy 1.4.5 is online!
+[12/19/2021 12:25:35.411] Smoothy is currently running 
+[12/19/2021 12:25:56.673] Command = pp https://www.youtube.com/playlist?list=PLAcVjxrQDMPo0uhHE4H9G0yPjS1vmhXrE
+[12/19/2021 12:25:56.906] Smoothy is currently running 
+[12/19/2021 12:25:57.383] [33mWARNING:[0m ytdl-core is out of date! Update with "npm install ytdl-core@latest".
+[12/19/2021 12:25:57.414] Smoothy is currently running 
+[12/19/2021 12:25:58.242] Found YouTube playlist Discord
+[12/19/2021 12:25:58.243] created the audioplayer
+[12/19/2021 12:25:58.243] subscribed to Player
+[12/19/2021 12:25:58.404] Smoothy is currently running 
+[12/19/2021 12:25:58.441] Created the serverQueue
+[12/19/2021 12:25:58.574] Playing Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
+[12/19/2021 12:25:58.913] Smoothy is currently running 
+[12/19/2021 12:26:02.800] Command = mix 
+[12/19/2021 12:26:02.800] Now shuffling the queue
+[12/19/2021 12:26:02.902] Smoothy is currently running 
+[12/19/2021 12:26:04.611] Command = q 
+[12/19/2021 12:26:04.910] Smoothy is currently running 
+[12/19/2021 12:26:13.932] Command = j 28
+[12/19/2021 12:26:14.049] Player Status Is Idle
+[12/19/2021 12:26:14.405] Smoothy is currently running 
+[12/19/2021 12:26:15.544] Found Han's RX 7 - Orange Demon  | Tokyo Drift  | Dark Light [FULL HD]
+[12/19/2021 12:26:15.547] Playing Han's RX 7 - Orange Demon  | Tokyo Drift  | Dark Light [FULL HD]!
+[12/19/2021 12:26:15.911] Smoothy is currently running 
+[12/19/2021 12:29:38.673] Player Status Is Idle
+[12/19/2021 12:29:38.909] Smoothy is currently running 
+[12/19/2021 12:29:39.943] Found the weeknd - blinding lights (slowed + reverb)
+[12/19/2021 12:29:39.948] Playing the weeknd - blinding lights (slowed + reverb)!
+[12/19/2021 12:29:40.411] Smoothy is currently running 
+[12/19/2021 12:29:40.531] Audio Player Threw An Err
+[12/19/2021 12:29:40.531] Player Status Is Idle
+[12/19/2021 12:29:40.910] Smoothy is currently running 
+[12/19/2021 12:29:43.327] Found the weeknd - blinding lights (slowed + reverb)
+[12/19/2021 12:29:43.327] Retrying the weeknd - blinding lights (slowed + reverb) at https://www.youtube.com/v/iDVKMdnvgl8?version=3&autohide=1
+[12/19/2021 12:29:43.330] Playing the weeknd - blinding lights (slowed + reverb)!
+[12/19/2021 12:29:43.412] Smoothy is currently running 
+[12/19/2021 12:29:44.166] Retries Successfull
+[12/19/2021 12:29:44.409] Smoothy is currently running 
+[12/19/2021 12:33:36.058] Player Status Is Idle
+[12/19/2021 12:33:36.191] Splicing the weeknd - blinding lights (slowed + reverb) 26
+[12/19/2021 12:33:36.404] Smoothy is currently running 
+[12/19/2021 12:33:37.195] Found LXST CXNTURY - ODIUM (Extended)(Bass Boosted)
+[12/19/2021 12:33:37.222] Playing LXST CXNTURY - ODIUM (Extended)(Bass Boosted)!
+[12/19/2021 12:33:37.408] Smoothy is currently running 
+[12/19/2021 12:38:49.534] Player Status Is Idle
+[12/19/2021 12:38:49.797] Splicing LXST CXNTURY - ODIUM (Extended)(Bass Boosted) 24
+[12/19/2021 12:38:49.911] Smoothy is currently running 
+[12/19/2021 12:38:50.806] Found Bob Seger- Night Moves
+[12/19/2021 12:38:50.812] Playing Bob Seger- Night Moves!
+[12/19/2021 12:38:50.908] Smoothy is currently running 
+[12/19/2021 12:44:17.581] Player Status Is Idle
+[12/19/2021 12:44:17.696] Splicing Bob Seger- Night Moves 18
+[12/19/2021 12:44:17.907] Smoothy is currently running 
+[12/19/2021 12:44:18.618] Found Minecraft Parody on "Reborn" by Kanye West and Kid Cudi - Respawn
+[12/19/2021 12:44:18.623] Playing Minecraft Parody on "Reborn" by Kanye West and Kid Cudi - Respawn!
+[12/19/2021 12:44:18.904] Smoothy is currently running 
+[12/19/2021 12:48:29.155] Player Status Is Idle
+[12/19/2021 12:48:29.266] Splicing Minecraft Parody on "Reborn" by Kanye West and Kid Cudi - Respawn 26
+[12/19/2021 12:48:29.404] Smoothy is currently running 
+[12/19/2021 12:48:30.864] Found BLADEFEAR -  RADICAL
+[12/19/2021 12:48:30.869] Playing BLADEFEAR -  RADICAL!
+[12/19/2021 12:48:30.909] Smoothy is currently running 
+[12/19/2021 12:50:36.752] Player Status Is Idle
+[12/19/2021 12:50:36.894] Splicing BLADEFEAR -  RADICAL 24
+[12/19/2021 12:50:36.910] Smoothy is currently running 
+[12/19/2021 12:50:37.839] Found Hoedown (Goose) [Chiptune Cover] from Don't Starve Together | Mandrew Music
+[12/19/2021 12:50:37.845] Playing Hoedown (Goose) [Chiptune Cover] from Don't Starve Together | Mandrew Music!
+[12/19/2021 12:50:37.907] Smoothy is currently running 
+[12/19/2021 12:52:47.081] Player Status Is Idle
+[12/19/2021 12:52:47.214] Splicing Hoedown (Goose) [Chiptune Cover] from Don't Starve Together | Mandrew Music 6
+[12/19/2021 12:52:47.411] Smoothy is currently running 
+[12/19/2021 12:52:48.273] Found Dear Mr. Fantasy
+[12/19/2021 12:52:48.279] Playing Dear Mr. Fantasy!
+[12/19/2021 12:52:48.406] Smoothy is currently running 
+[12/19/2021 12:58:23.219] Player Status Is Idle
+[12/19/2021 12:58:23.409] Smoothy is currently running 
+[12/19/2021 12:58:24.341] Found FRXXMAN - MEMENTO
+[12/19/2021 12:58:24.346] Playing FRXXMAN - MEMENTO!
+[12/19/2021 12:58:24.413] Smoothy is currently running 
+[12/19/2021 13:00:53.595] Player Status Is Idle
+[12/19/2021 13:00:53.826] Splicing FRXXMAN - MEMENTO 23
+[12/19/2021 13:00:53.908] Smoothy is currently running 
+[12/19/2021 13:00:56.282] Found Problem With My Dawgs (Original Mix)
+[12/19/2021 13:00:56.288] Playing Problem With My Dawgs (Original Mix)!
+[12/19/2021 13:00:56.408] Smoothy is currently running 
+[12/19/2021 13:01:02.372] Command = n 
+[12/19/2021 13:01:02.373] Skipping Problem With My Dawgs (Original Mix)!
+[12/19/2021 13:01:02.401] Smoothy is currently running 
+[12/19/2021 13:01:02.673] Player Status Is Idle
+[12/19/2021 13:01:02.674] Splicing Problem With My Dawgs (Original Mix) 6
+[12/19/2021 13:01:02.903] Smoothy is currently running 
+[12/19/2021 13:01:05.889] Found Right Above It (Explicit)
+[12/19/2021 13:01:05.892] Playing Right Above It (Explicit)!
+[12/19/2021 13:01:05.915] Smoothy is currently running 
+[12/19/2021 13:05:41.736] Player Status Is Idle
+[12/19/2021 13:05:41.878] Splicing Right Above It (Explicit) 24
+[12/19/2021 13:05:41.910] Smoothy is currently running 
+[12/19/2021 13:05:42.854] Found BLESSED MANE - NO SLEEP
+[12/19/2021 13:05:42.859] Playing BLESSED MANE - NO SLEEP!
+[12/19/2021 13:05:42.904] Smoothy is currently running 
+[12/19/2021 13:09:03.391] Player Status Is Idle
+[12/19/2021 13:09:03.410] Smoothy is currently running 
+[12/19/2021 13:09:03.497] Splicing BLESSED MANE - NO SLEEP 21
+[12/19/2021 13:09:03.908] Smoothy is currently running 
+[12/19/2021 13:09:04.760] Found Trance - 009 Sound System Dreamscape (HD)
+[12/19/2021 13:09:04.766] Playing Trance - 009 Sound System Dreamscape (HD)!
+[12/19/2021 13:09:04.906] Smoothy is currently running 
+[12/19/2021 13:17:45.037] Player Status Is Idle
+[12/19/2021 13:17:45.410] Smoothy is currently running 
+[12/19/2021 13:17:46.257] Found Chick
+[12/19/2021 13:17:46.262] Playing Chick!
+[12/19/2021 13:17:46.408] Smoothy is currently running 
+[12/19/2021 13:21:26.849] Player Status Is Idle
+[12/19/2021 13:21:26.912] Smoothy is currently running 
+[12/19/2021 13:21:26.951] Splicing Chick 22
+[12/19/2021 13:21:27.412] Smoothy is currently running 
+[12/19/2021 13:21:27.756] Found ≡ƒÜù Γ¢╜∩╕Å ZOOMING IN THE FOREIGN  ≡ƒÜù Γ¢╜∩╕Å [TYLER1]
+[12/19/2021 13:21:27.761] Playing ≡ƒÜù Γ¢╜∩╕Å ZOOMING IN THE FOREIGN  ≡ƒÜù Γ¢╜∩╕Å [TYLER1]!
+[12/19/2021 13:21:27.910] Smoothy is currently running 
+[12/19/2021 13:23:47.211] Command = re 
+[12/19/2021 13:23:47.330] Player Status Is Idle
+[12/19/2021 13:23:47.411] Smoothy is currently running 
+[12/19/2021 13:23:48.214] Found ≡ƒÜù Γ¢╜∩╕Å ZOOMING IN THE FOREIGN  ≡ƒÜù Γ¢╜∩╕Å [TYLER1]
+[12/19/2021 13:23:48.219] Playing ≡ƒÜù Γ¢╜∩╕Å ZOOMING IN THE FOREIGN  ≡ƒÜù Γ¢╜∩╕Å [TYLER1]!
+[12/19/2021 13:23:48.409] Smoothy is currently running 
+[12/19/2021 13:26:41.801] Player Status Is Idle
+[12/19/2021 13:26:41.911] Smoothy is currently running 
+[12/19/2021 13:26:41.951] Splicing ≡ƒÜù Γ¢╜∩╕Å ZOOMING IN THE FOREIGN  ≡ƒÜù Γ¢╜∩╕Å [TYLER1] 20
+[12/19/2021 13:26:42.410] Smoothy is currently running 
+[12/19/2021 13:26:43.086] Found I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music
+[12/19/2021 13:26:43.092] Playing I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music!
+[12/19/2021 13:26:43.410] Smoothy is currently running 
+[12/19/2021 13:30:24.643] Player Status Is Idle
+[12/19/2021 13:30:24.909] Smoothy is currently running 
+[12/19/2021 13:30:25.973] Found hozier - take me to church ( slowed + reverb )
+[12/19/2021 13:30:25.979] Playing hozier - take me to church ( slowed + reverb )!
+[12/19/2021 13:30:26.411] Smoothy is currently running 
+[12/19/2021 13:34:56.409] Player Status Is Idle
+[12/19/2021 13:34:56.410] Smoothy is currently running 
+[12/19/2021 13:34:56.824] Splicing hozier - take me to church ( slowed + reverb ) 6
+[12/19/2021 13:34:56.910] Smoothy is currently running 
+[12/19/2021 13:34:57.962] Found Creedence Clearwater Revival: Bad Moon Rising
+[12/19/2021 13:34:57.968] Playing Creedence Clearwater Revival: Bad Moon Rising!
+[12/19/2021 13:34:58.409] Smoothy is currently running 
+[12/19/2021 13:37:20.659] Player Status Is Idle
+[12/19/2021 13:37:20.769] Splicing Creedence Clearwater Revival: Bad Moon Rising 12
+[12/19/2021 13:37:20.912] Smoothy is currently running 
+[12/19/2021 13:37:22.748] Found Ending Theme - Yoshi's Island
+[12/19/2021 13:37:22.754] Playing Ending Theme - Yoshi's Island!
+[12/19/2021 13:37:22.908] Smoothy is currently running 
+[12/19/2021 13:41:19.847] Player Status Is Idle
+[12/19/2021 13:41:19.910] Smoothy is currently running 
+[12/19/2021 13:41:20.008] Splicing Ending Theme - Yoshi's Island 14
+[12/19/2021 13:41:20.407] Smoothy is currently running 
+[12/19/2021 13:41:22.130] Found FaZe Ramos: Go On Ramos! - Episode 11
+[12/19/2021 13:41:22.135] Playing FaZe Ramos: Go On Ramos! - Episode 11!
+[12/19/2021 13:41:22.409] Smoothy is currently running 
+[12/19/2021 13:44:07.501] Player Status Is Idle
+[12/19/2021 13:44:07.672] Splicing FaZe Ramos: Go On Ramos! - Episode 11 14
+[12/19/2021 13:44:07.909] Smoothy is currently running 
+[12/19/2021 13:44:09.952] Found Iroh Sings Leaves From the Vine (Little Soldier Boy) ≡ƒìâ| Avatar
+[12/19/2021 13:44:09.957] Playing Iroh Sings Leaves From the Vine (Little Soldier Boy) ≡ƒìâ| Avatar!
+[12/19/2021 13:44:10.409] Smoothy is currently running 
+[12/19/2021 13:45:21.582] Player Status Is Idle
+[12/19/2021 13:45:21.712] Splicing Iroh Sings Leaves From the Vine (Little Soldier Boy) ≡ƒìâ| Avatar 13
+[12/19/2021 13:45:21.911] Smoothy is currently running 
+[12/19/2021 13:45:22.899] Found MrTLexify intro song (Hudson Mohawke-Chimes)
+[12/19/2021 13:45:22.904] Playing MrTLexify intro song (Hudson Mohawke-Chimes)!
+[12/19/2021 13:45:22.911] Smoothy is currently running 
+[12/19/2021 13:45:23.550] Audio Player Threw An Err
+[12/19/2021 13:45:23.550] Player Status Is Idle
+[12/19/2021 13:45:23.910] Smoothy is currently running 
+[12/19/2021 13:45:26.227] Found MrTLexify intro song (Hudson Mohawke-Chimes)
+[12/19/2021 13:45:26.227] Retrying MrTLexify intro song (Hudson Mohawke-Chimes) at https://www.youtube.com/v/ZRebigia0Jc?version=3&autohide=1
+[12/19/2021 13:45:26.230] Playing MrTLexify intro song (Hudson Mohawke-Chimes)!
+[12/19/2021 13:45:26.406] Smoothy is currently running 
+[12/19/2021 13:45:27.166] Retries Successfull
+[12/19/2021 13:45:27.409] Smoothy is currently running 
+[12/19/2021 13:49:00.279] Player Status Is Idle
+[12/19/2021 13:49:00.406] Smoothy is currently running 
+[12/19/2021 13:49:00.561] Splicing MrTLexify intro song (Hudson Mohawke-Chimes) 5
+[12/19/2021 13:49:00.907] Smoothy is currently running 
+[12/19/2021 13:49:02.307] Found Sigma Male Theme [1 Hour Loop + 432hz]
+[12/19/2021 13:49:02.312] Playing Sigma Male Theme [1 Hour Loop + 432hz]!
+[12/19/2021 13:49:02.412] Smoothy is currently running 
+[12/19/2021 14:49:03.640] Player Status Is Idle
+[12/19/2021 14:49:03.773] Splicing Sigma Male Theme [1 Hour Loop + 432hz] 14
+[12/19/2021 14:49:03.908] Smoothy is currently running 
+[12/19/2021 14:49:05.003] Found Coldplay - Yellow (FKYA & Kh├╕st Remix)
+[12/19/2021 14:49:05.026] Playing Coldplay - Yellow (FKYA & Kh├╕st Remix)!
+[12/19/2021 14:49:05.407] Smoothy is currently running 
+[12/19/2021 14:52:28.097] Player Status Is Idle
+[12/19/2021 14:52:28.281] Splicing Coldplay - Yellow (FKYA & Kh├╕st Remix) 2
+[12/19/2021 14:52:28.407] Smoothy is currently running 
+[12/19/2021 14:52:29.751] Found cat caramelldansen 1 hour
+[12/19/2021 14:52:29.756] Playing cat caramelldansen 1 hour!
+[12/19/2021 14:52:29.909] Smoothy is currently running 
+[12/19/2021 15:37:32.043] Command = n 
+[12/19/2021 15:37:32.043] Skipping cat caramelldansen 1 hour!
+[12/19/2021 15:37:32.340] Player Status Is Idle
+[12/19/2021 15:37:32.340] Splicing cat caramelldansen 1 hour 12
+[12/19/2021 15:37:32.405] Smoothy is currently running 
+[12/19/2021 15:37:33.415] Found DBZ Soundtrack - The Fearsome Ginyu Special Corps [Extended]
+[12/19/2021 15:37:33.421] Playing DBZ Soundtrack - The Fearsome Ginyu Special Corps [Extended]!
+[12/19/2021 15:37:33.910] Smoothy is currently running 
+[12/19/2021 15:50:17.376] Player Status Is Idle
+[12/19/2021 15:50:17.407] Smoothy is currently running 
+[12/19/2021 15:50:17.507] Splicing DBZ Soundtrack - The Fearsome Ginyu Special Corps [Extended] 9
+[12/19/2021 15:50:17.909] Smoothy is currently running 
+[12/19/2021 15:50:18.806] Found The Animals - The House of the Rising Sun - Lyrics
+[12/19/2021 15:50:18.811] Playing The Animals - The House of the Rising Sun - Lyrics!
+[12/19/2021 15:50:18.907] Smoothy is currently running 
+[12/19/2021 15:50:19.675] Audio Player Threw An Err
+[12/19/2021 15:50:19.675] Player Status Is Idle
+[12/19/2021 15:50:19.906] Smoothy is currently running 
+[12/19/2021 15:50:22.343] Found The Animals - The House of the Rising Sun - Lyrics
+[12/19/2021 15:50:22.343] Retrying The Animals - The House of the Rising Sun - Lyrics at https://www.youtube.com/v/3ZYBHFv9Z14?version=3&autohide=1
+[12/19/2021 15:50:22.346] Playing The Animals - The House of the Rising Sun - Lyrics!
+[12/19/2021 15:50:22.408] Smoothy is currently running 
+[12/19/2021 15:50:23.339] Retries Successfull
+[12/19/2021 15:50:23.408] Smoothy is currently running 
+[12/19/2021 15:54:42.050] Player Status Is Idle
+[12/19/2021 15:54:42.139] Splicing The Animals - The House of the Rising Sun - Lyrics 9
+[12/19/2021 15:54:42.409] Smoothy is currently running 
+[12/19/2021 15:54:43.049] Found NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3
+[12/19/2021 15:54:43.054] Playing NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3!
+[12/19/2021 15:54:43.409] Smoothy is currently running 
+[12/19/2021 16:06:52.587] Command = pa 
+[12/19/2021 16:06:52.906] Smoothy is currently running 
+[12/19/2021 16:11:45.464] Command = un 
+[12/19/2021 16:11:45.907] Smoothy is currently running 
+[12/19/2021 16:12:14.211] Audio Player Threw An Err
+[12/19/2021 16:12:14.211] Player Status Is Idle
+[12/19/2021 16:12:14.409] Smoothy is currently running 
+[12/19/2021 16:12:16.754] Found NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3
+[12/19/2021 16:12:16.754] Retrying NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3 at https://www.youtube.com/v/ndizAUAR_Cs?version=3&autohide=1
+[12/19/2021 16:12:16.759] Playing NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3!
+[12/19/2021 16:12:16.910] Smoothy is currently running 
+[12/19/2021 16:12:17.645] Retries Successfull
+[12/19/2021 16:12:17.909] Smoothy is currently running 
+[12/19/2021 16:12:30.693] Command = n 
+[12/19/2021 16:12:30.693] Skipping NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3!
+[12/19/2021 16:12:30.907] Smoothy is currently running 
+[12/19/2021 16:12:30.922] Player Status Is Idle
+[12/19/2021 16:12:30.922] Splicing NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3 8
+[12/19/2021 16:12:31.411] Smoothy is currently running 
+[12/19/2021 16:12:32.036] Found Call of Duty: Black Ops 3 - Main Extended Theme
+[12/19/2021 16:12:32.040] Playing Call of Duty: Black Ops 3 - Main Extended Theme!
+[12/19/2021 16:12:32.407] Smoothy is currently running 
+[12/19/2021 17:14:17.393] Player Status Is Idle
+[12/19/2021 17:14:17.410] Smoothy is currently running 
+[12/19/2021 17:14:17.513] Splicing Call of Duty: Black Ops 3 - Main Extended Theme 4
+[12/19/2021 17:14:17.910] Smoothy is currently running 
+[12/19/2021 17:14:18.624] Found Zack Hemsey - "The Way (Instrumental)"
+[12/19/2021 17:14:18.629] Playing Zack Hemsey - "The Way (Instrumental)"!
+[12/19/2021 17:14:18.908] Smoothy is currently running 
+[12/19/2021 17:21:24.504] Player Status Is Idle
+[12/19/2021 17:21:24.750] Splicing Zack Hemsey - "The Way (Instrumental)" 6
+[12/19/2021 17:21:24.911] Smoothy is currently running 
+[12/19/2021 17:21:25.518] Found Capital Cities - Safe and Sound (slowed + reverb)
+[12/19/2021 17:21:25.523] Playing Capital Cities - Safe and Sound (slowed + reverb)!
+[12/19/2021 17:21:25.909] Smoothy is currently running 
+[12/19/2021 17:25:23.566] Player Status Is Idle
+[12/19/2021 17:25:23.663] Splicing Capital Cities - Safe and Sound (slowed + reverb) 1
+[12/19/2021 17:25:23.908] Smoothy is currently running 
+[12/19/2021 17:25:24.478] Found Zack Hemsey - "Vengeance"
+[12/19/2021 17:25:24.484] Playing Zack Hemsey - "Vengeance"!
+[12/19/2021 17:25:24.909] Smoothy is currently running 
+[12/19/2021 17:31:58.190] Player Status Is Idle
+[12/19/2021 17:31:58.345] Splicing Zack Hemsey - "Vengeance" 2
+[12/19/2021 17:31:58.409] Smoothy is currently running 
+[12/19/2021 17:31:59.067] Found Cheykeys - finish him
+[12/19/2021 17:31:59.072] Playing Cheykeys - finish him!
+[12/19/2021 17:31:59.111] Audio Player Threw An Err
+[12/19/2021 17:31:59.111] Player Status Is Idle
+[12/19/2021 17:31:59.405] Smoothy is currently running 
+[12/19/2021 17:32:01.333] Found Cheykeys - finish him
+[12/19/2021 17:32:01.333] Retrying Cheykeys - finish him at https://www.youtube.com/v/c1oXg-AAwwA?version=3&autohide=1
+[12/19/2021 17:32:01.336] Playing Cheykeys - finish him!
+[12/19/2021 17:32:01.411] Smoothy is currently running 
+[12/19/2021 17:32:01.506] Retries Successfull
+[12/19/2021 17:32:01.912] Smoothy is currently running 
+[12/19/2021 17:33:54.800] Player Status Is Idle
+[12/19/2021 17:33:54.910] Smoothy is currently running 
+[12/19/2021 17:33:54.957] Splicing Cheykeys - finish him 2
+[12/19/2021 17:33:55.411] Smoothy is currently running 
+[12/19/2021 17:33:55.879] Found Kaito Shoma - Scary Garry
+[12/19/2021 17:33:55.884] Playing Kaito Shoma - Scary Garry!
+[12/19/2021 17:33:55.911] Smoothy is currently running 
+[12/19/2021 17:35:36.097] Player Status Is Idle
+[12/19/2021 17:35:36.297] Splicing Kaito Shoma - Scary Garry 2
+[12/19/2021 17:35:36.411] Smoothy is currently running 
+[12/19/2021 17:35:37.399] Found XXXTENTACION & SKI MASK THE SLUMP GOD - FREDDY VS JASON (Prod. Willie G) (OFFICIAL LYRICS)
+[12/19/2021 17:35:37.404] Playing XXXTENTACION & SKI MASK THE SLUMP GOD - FREDDY VS JASON (Prod. Willie G) (OFFICIAL LYRICS)!
+[12/19/2021 17:35:37.410] Smoothy is currently running 
+[12/19/2021 17:37:17.033] Player Status Is Idle
+[12/19/2021 17:37:17.147] Splicing XXXTENTACION & SKI MASK THE SLUMP GOD - FREDDY VS JASON (Prod. Willie G) (OFFICIAL LYRICS) 1
+[12/19/2021 17:37:17.408] Smoothy is currently running 
+[12/19/2021 17:37:17.918] Found CopperCab's response to Schmoyoho songifying him [REMIX] (FUNNY)
+[12/19/2021 17:37:17.923] Playing CopperCab's response to Schmoyoho songifying him [REMIX] (FUNNY)!
+[12/19/2021 17:37:18.410] Smoothy is currently running 
+[12/19/2021 17:39:21.170] Player Status Is Idle
+[12/19/2021 17:39:21.283] Starting disconnectTimer Timeout
+[12/19/2021 17:39:21.407] Smoothy is currently running 
+[12/19/2021 18:09:21.286] Left VC Due To Idle
+[12/19/2021 18:09:21.412] Smoothy is currently running 
+[12/19/2021 20:19:28.709] ^C
