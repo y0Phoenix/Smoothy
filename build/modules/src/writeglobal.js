@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const flatted = require("flatted");
 const fs = require("fs");
 const Idle_1 = require("../../Classes/Idle");
 const WriteQueue_1 = require("../../Classes/WriteQueue");
@@ -74,7 +73,7 @@ async function writeGlobal(str, data, id) {
         }
         Data.disconnectIdles.splice(d, 1);
     }
-    const writeData = flatted.stringify(Data);
+    const writeData = JSON.stringify(Data);
     fs.writeFileSync(file, writeData);
 }
 exports.default = writeGlobal;

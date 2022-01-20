@@ -153,8 +153,14 @@ client.on('messageCreate', async message =>{
     if(!message.content.startsWith(prefix)){
         return;
     }
+<<<<<<< HEAD:main.js
+    var serverDisconnectIdle = DisconnectIdle.get(message.guildId);
+    DisconnectIdle.set(1, client);
+    var serverQueue = queue.get(message.guildId);
+=======
     var serverDisconnectIdle: Idle = DisconnectIdle.get(message.guildId);
     var serverQueue: Queue = queue.get(message.guildId);
+>>>>>>> development:typescript/main.ts
     var vc = message.member.voice.channel;
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();

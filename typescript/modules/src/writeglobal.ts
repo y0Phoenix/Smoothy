@@ -1,4 +1,3 @@
-import * as flatted  from 'flatted';
 import * as fs from 'fs';
 import { WriteIdle } from '../../Classes/Idle';
 import WriteQueue from '../../Classes/WriteQueue';
@@ -81,6 +80,6 @@ export default async function writeGlobal(str: string, data: any, id: string) {
         }
         Data.disconnectIdles.splice(d, 1);
     }
-    const writeData = flatted.stringify(Data);
+    const writeData = JSON.stringify(Data);
     fs.writeFileSync(file, writeData);
 }
