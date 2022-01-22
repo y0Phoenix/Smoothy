@@ -15,7 +15,7 @@ function disconnectvcidle(queue, DisconnectIdle, serverDisconnectIdle) {
         .setDescription(':cry: Left VC Due To Idle');
     serverDisconnectIdle.message.channel.send({ embeds: [vcIdleEmbed] });
     console.log(`Left VC Due To Idle`);
-    (0, modules_1.leave)(queue, DisconnectIdle, this.message);
+    (0, modules_1.leave)(queue, DisconnectIdle, serverDisconnectIdle.message);
 }
 exports.disconnectvcidle = disconnectvcidle;
 /**
