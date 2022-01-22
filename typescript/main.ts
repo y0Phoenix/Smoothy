@@ -29,6 +29,7 @@ import { disconnectTimervcidle, disconnectvcidle } from './Classes/functions/dis
 import { Idle, WriteIdle } from "./Classes/Idle";
 import Queue from "./Classes/Queue";
 import getMaps from "./maps";
+import Global from './interfaces/_Global';
 //Creates the client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
 
@@ -46,7 +47,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 // });
 
 var file = fs.readFileSync('./config/global.json', 'utf-8');
-var data = JSON.parse(file);
+var data: Global = JSON.parse(file);
 
 client.once('ready', async () => {
     const maps = getMaps();
@@ -73,10 +74,9 @@ client.once('ready', async () => {
             i++) {
                 const channel: any = await client.channels.fetch(data.queues[i].message.channelId);
                 const message = await channel.messages.fetch(data.queues[i].message.id);
-                const vc = await client.channels.fetch(data.queues[i].voiceChannel.id);
+                const vc: any = await client.channels.fetch(data.queues[i].voiceChannel.id);
                 data.queues[i].message = message;
                 data.queues[i].voiceChannel = vc;
-                data.queues[i].currentsong[0].load = true;
                 let serverQueue = new Queue({ 
                     msg: data.queues[i].message, 
                     songs: data.queues[i].songs, 
@@ -88,7 +88,7 @@ client.once('ready', async () => {
                 serverQueue.loop = data.queues[i].loop;
                 serverQueue.loopsong = data.queues[i].loopsong;
                 queue.set(data.queues[i].id, serverQueue);
-                }
+        }
         for (let i = 0;
             i < data.disconnectIdles.length;
             i++) {
@@ -153,14 +153,8 @@ client.on('messageCreate', async message =>{
     if(!message.content.startsWith(prefix)){
         return;
     }
-<<<<<<< HEAD:main.js
-    var serverDisconnectIdle = DisconnectIdle.get(message.guildId);
-    DisconnectIdle.set(1, client);
-    var serverQueue = queue.get(message.guildId);
-=======
     var serverDisconnectIdle: Idle = DisconnectIdle.get(message.guildId);
     var serverQueue: Queue = queue.get(message.guildId);
->>>>>>> development:typescript/main.ts
     var vc = message.member.voice.channel;
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();

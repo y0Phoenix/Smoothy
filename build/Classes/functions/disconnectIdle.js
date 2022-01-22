@@ -9,11 +9,11 @@ const modules_1 = require("../../modules/modules");
  *  @param  {} DisconnectIdle the map that holds all of the servers Idles
  *  @description disconnects from voiceConnection after 1800000 ms or 30 min
  */
-function disconnectvcidle(queue, DisconnectIdle) {
+function disconnectvcidle(queue, DisconnectIdle, serverDisconnectIdle) {
     const vcIdleEmbed = new discord_js_1.MessageEmbed()
         .setColor('RED')
         .setDescription(':cry: Left VC Due To Idle');
-    this.message.channel.send({ embeds: [vcIdleEmbed] });
+    serverDisconnectIdle.message.channel.send({ embeds: [vcIdleEmbed] });
     console.log(`Left VC Due To Idle`);
     (0, modules_1.leave)(queue, DisconnectIdle, this.message);
 }
@@ -25,7 +25,7 @@ exports.disconnectvcidle = disconnectvcidle;
 function disconnectTimervcidle() {
     const maps = (0, maps_1.default)();
     const { DisconnectIdle, queue } = maps;
-    this.disconnectTimer = setTimeout(this.disconnectvcidle, 1800000, queue, DisconnectIdle);
+    this.disconnectTimer = setTimeout(this.disconnectvcidle, 1800000, queue, DisconnectIdle, this);
     console.log('Starting disconnectTimer Timeout');
 }
 exports.disconnectTimervcidle = disconnectTimervcidle;

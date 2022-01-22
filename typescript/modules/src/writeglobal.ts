@@ -1,11 +1,7 @@
 import * as fs from 'fs';
 import { WriteIdle } from '../../Classes/Idle';
 import WriteQueue from '../../Classes/WriteQueue';
-
-interface GlobalData {
-    disconnectIdles: WriteIdle[];
-    queues: WriteQueue[];
-};
+import Global from '../../interfaces/_Global';
 
 /**
  * @param  {} str a string of what needs to happen
@@ -22,7 +18,7 @@ interface GlobalData {
 export default async function writeGlobal(str: string, data: any, id: string) {
     const file = './config/global.json';
     let _file = fs.readFileSync(file, 'utf-8');
-    let _data: GlobalData = JSON.parse(_file);
+    let _data: Global = JSON.parse(_file);
     let Data = {..._data}
     var d: number;
     var q: number;

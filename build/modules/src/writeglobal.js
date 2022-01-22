@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const Idle_1 = require("../../Classes/Idle");
 const WriteQueue_1 = require("../../Classes/WriteQueue");
-;
 /**
  * @param  {} str a string of what needs to happen
  * @variation str

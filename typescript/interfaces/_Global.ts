@@ -1,7 +1,7 @@
-import { Idle } from "../Classes/Idle";
-import Queue from "../Classes/Queue";
+import { WriteIdle } from "../Classes/Idle";
+import WriteQueue from "../Classes/WriteQueue";
 
 export default interface Global {
-    queues: Queue[],
-    disconnectIdles: Idle[];
+    queues: WriteQueue[],
+    disconnectIdles: WriteIdle[];
 }
