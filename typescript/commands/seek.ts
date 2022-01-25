@@ -78,8 +78,6 @@ export default async function seek(message: Message, args: any, serverQueue: Que
                 const finalArgs = [];
             
                 finalArgs.push('-ss', `${seek}`, '-accurate_seek');
-
-                finalArgs.push('-af', 'asubboost=f=')
             
                 finalArgs.push('-i', highestaudio);
             

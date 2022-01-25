@@ -13,8 +13,8 @@ async function nowPlayingSend() {
         }
         const msg = serverQueue.message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
                     .setColor('#0099ff')
-                    .setTitle(`:thumbsup: Now Playing`)
-                    .setDescription(`:musical_note: ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
+                    .setDescription(`***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
+                    .setAuthor({ name: `Now Playing`, iconURL: 'https://cdn.discordapp.com/attachments/778600026280558617/781024479623118878/ezgif.com-gif-maker_1.gif' })
                     .addFields({
                     name: `Requested By`,
                     value: `<@${serverQueue.currentsong[0].message.author.id}>`,

@@ -69,7 +69,6 @@ async function seek(message, args, serverQueue, serverDisconnectIdle) {
                 const highestaudio = video.format[video.format.length - 1].url;
                 const finalArgs = [];
                 finalArgs.push('-ss', `${seek}`, '-accurate_seek');
-                finalArgs.push('-af', 'asubboost=f=');
                 finalArgs.push('-i', highestaudio);
                 finalArgs.push(...FFMPEG_OPUS_ARGUMENTS);
                 ;
