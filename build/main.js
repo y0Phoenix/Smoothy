@@ -23,6 +23,7 @@ const change_prefix_1 = require("./commands/change prefix");
 const volume_1 = require("./commands/volume");
 const previous_1 = require("./commands/previous");
 const executive_1 = require("./executive");
+const figlet = require('figlet');
 const fs = require("fs");
 const config = require("config");
 const seek_1 = require("./commands/seek");
@@ -88,7 +89,17 @@ client.once('ready', async () => {
             serverQueue.play();
         }
     }
-    console.log('Smoothy 1.4.6 is online!');
+    figlet.text(`${client.user.username} v1.4.7`, (err, data) => {
+        if (err) {
+            console.log('figlet not working');
+            console.dir(err);
+        }
+        else {
+            console.log(`═════════════════════════════════════════════════════════════════════════════`);
+            console.log(data);
+            console.log(`═════════════════════════════════════════════════════════════════════════════`);
+        }
+    });
     client.user.setActivity('-help', { type: 'LISTENING' });
 });
 client.once('recconnecting', () => {

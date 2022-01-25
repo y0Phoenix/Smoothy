@@ -22,6 +22,7 @@ import volume from './commands/volume';
 import previous  from './commands/previous';
 import _play from './Classes/functions/play';
 import { joinvoicechannel} from './executive';
+const figlet = require('figlet');
 import * as fs from 'fs';
 import * as config from 'config';
 import seek from './commands/seek';
@@ -101,7 +102,17 @@ client.once('ready', async () => {
             }
                 
     }
-    console.log('Smoothy 1.4.6 is online!');
+    figlet.text(`${client.user.username} v1.4.7`, (err, data) => {
+        if (err) {
+            console.log('figlet not working');
+            console.dir(err);
+        }
+        else {
+            console.log(`═════════════════════════════════════════════════════════════════════════════`);
+            console.log(data)
+            console.log(`═════════════════════════════════════════════════════════════════════════════`);
+        }
+    })
     client.user.setActivity('-help', { type: 'LISTENING' })
 });
 client.once('recconnecting', () => {
