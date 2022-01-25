@@ -1,10 +1,13 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import WriteMessage from "./WriteMessage";
-import { leave } from '../modules/modules';
 import getMaps from '../maps';
 import * as playdl from 'play-dl';
 import * as ytsearch from 'yt-search';
 import { disconnectTimervcidle, disconnectvcidle } from './functions/disconnectIdle';
+import { getVoiceConnection, VoiceConnection } from '@discordjs/voice';
+import { joinvoicechannel } from '../executive';
+import { exists, leave } from '../modules/modules';
+import { VoiceConnectionStatus } from '@discordjs/voice';
 
 export class WriteIdle {
     message: WriteMessage
@@ -38,6 +41,7 @@ export class Idle {
     id: string
     client: Client
     disconnectTimer: any
+    voiceConnection: VoiceConnection = null;
     msgs: Partial<Message>[] = []
     queueMsgs: Partial<Message>[] = []
     top5Msg: Message = null
@@ -50,5 +54,17 @@ export class Idle {
         this.client = data.client;
         this.disconnectTimervcidle = disconnectTimervcidle;
         this.disconnectvcidle = disconnectvcidle;
+        this.voiceConnection = getVoiceConnection(this.id);
+        const {DisconnectIdle, queue} = getMaps();
+        if (!this.voiceConnection) {
+            const join = async () => {
+                const bool = await exists(this.id, 'dci')
+                this.voiceConnection = await joinvoicechannel(this.message, this.message.member.voice.channel, DisconnectIdle, DisconnectIdle.get(this.id), DisconnectIdle.get(1), bool);
+            };
+            join();
+        }
+        this.voiceConnection.on(VoiceConnectionStatus.Disconnected, () => {
+            leave(this.message, DisconnectIdle, queue);
+        })
     }
 }

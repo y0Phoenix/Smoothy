@@ -5,7 +5,7 @@ import {
   joinVoiceChannel,
   VoiceConnectionStatus,
 } from '@discordjs/voice';
-import { MessageEmbed, Message, Client } from 'discord.js';
+import { MessageEmbed, Message, Client, VoiceChannel } from 'discord.js';
 import { Idle } from './Classes/Idle';
 import { PlaylistSong, Song } from './Classes/Song';
 import Queue from './Classes/Queue';
@@ -197,7 +197,7 @@ async function findvideoplaylist(message: Message, args: any, queue: any, Discon
   }
 }
 
-async function joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle, client, bool) {
+async function joinvoicechannel(message: Partial<Message>, vc: Message['member']['voice']['channel'], DisconnectIdle: Map<any, any>, serverDisconnectIdle: Idle, client: Client, bool: any) {
   if (VoiceConnectionStatus.Disconnected) {
       const VoiceConnection = joinVoiceChannel({
         channelId: vc.id,

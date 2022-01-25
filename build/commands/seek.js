@@ -24,8 +24,7 @@ async function seek(message, args, serverQueue, serverDisconnectIdle) {
                 req = req.replace(specChars, ',');
                 req = req.split(',');
                 var seek = 0;
-                req.forEach(element => {
-                    const index = req.map(num => num).indexOf(element);
+                req.forEach((element, index) => {
                     element = parseInt(element);
                     if (isNaN(element)) {
                         const embed = new discord_js_1.MessageEmbed()
@@ -70,6 +69,7 @@ async function seek(message, args, serverQueue, serverDisconnectIdle) {
                 const highestaudio = video.format[video.format.length - 1].url;
                 const finalArgs = [];
                 finalArgs.push('-ss', `${seek}`, '-accurate_seek');
+                finalArgs.push('-af', 'asubboost=f=');
                 finalArgs.push('-i', highestaudio);
                 finalArgs.push(...FFMPEG_OPUS_ARGUMENTS);
                 ;

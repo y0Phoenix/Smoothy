@@ -24,8 +24,7 @@ export default async function seek(message: Message, args: any, serverQueue: Que
                 req = req.replace(specChars, ',');
                 req = req.split(',');
                 var seek = 0;
-                req.forEach(element => {
-                    const index = req.map(num => num).indexOf(element);
+                req.forEach((element, index) => {
                     element = parseInt(element);
                     if (isNaN(element)) {
                         const embed = new MessageEmbed()
@@ -79,6 +78,8 @@ export default async function seek(message: Message, args: any, serverQueue: Que
                 const finalArgs = [];
             
                 finalArgs.push('-ss', `${seek}`, '-accurate_seek');
+
+                finalArgs.push('-af', 'asubboost=f=')
             
                 finalArgs.push('-i', highestaudio);
             
