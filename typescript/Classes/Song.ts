@@ -2,6 +2,7 @@ import WriteMessage from "./WriteMessage";
 import { Message } from "discord.js";
 import InfoData from "../interfaces/_InfoData";
 import {Item} from "../interfaces/_Playlist";
+import _ErrorInfoData from '../interfaces/_ErrorInfoData';
 
 export interface _newSong {
     message: Partial<Message>;
@@ -98,5 +99,23 @@ export class WriteSong {
         this.duration = data.data.duration;
         this.durationS = data.data.durationS;
         this.thumbnail = data.data.thumbnail;
+    }
+}
+
+export class ErrorSong {
+    url: string;
+    title: string;
+    thumbnail: string;
+    message: Partial<Message>;
+    duration: string;
+    durationS: number;
+    playlistsong: boolean = false;
+    constructor (data: _ErrorInfoData) {
+      this.url = data.song.video_details.url;
+      this.title = data.song.video_details.title;
+      this.thumbnail = data.song.video_details.thumbnails[3].url;
+      this.message = data.message;
+      this.duration = data.song.video_details.durationRaw;
+      this.durationS = data.song.video_details.durationInSec;
     }
 }

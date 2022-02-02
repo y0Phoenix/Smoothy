@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WriteSong = exports.PlaylistSong = exports.Song = void 0;
+exports.ErrorSong = exports.WriteSong = exports.PlaylistSong = exports.Song = void 0;
 const WriteMessage_1 = require("./WriteMessage");
 class Song {
     constructor(data) {
@@ -69,3 +69,15 @@ class WriteSong {
     }
 }
 exports.WriteSong = WriteSong;
+class ErrorSong {
+    constructor(data) {
+        this.playlistsong = false;
+        this.url = data.song.video_details.url;
+        this.title = data.song.video_details.title;
+        this.thumbnail = data.song.video_details.thumbnails[3].url;
+        this.message = data.message;
+        this.duration = data.song.video_details.durationRaw;
+        this.durationS = data.song.video_details.durationInSec;
+    }
+}
+exports.ErrorSong = ErrorSong;

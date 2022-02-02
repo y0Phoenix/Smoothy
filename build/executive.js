@@ -14,7 +14,7 @@ const videoFinder_1 = require("./functions/videoFinder");
 const ytdl = require("ytdl-core");
 const noVidEmbed = new discord_js_1.MessageEmbed()
     .setColor('RED')
-    .setDescription(':rofl: No ***video*** results found');
+    .setDescription(':rofl: No ***video*** results found or cant play');
 /**
  * @param  {} message the users message
  * @param  {} queue the map that hols all of the Queue
@@ -80,7 +80,22 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
     }
     let URL = (0, validURL_1.default)(videoName);
     if (URL === true) {
-        const videoURL = await ytdl.getBasicInfo(videoName);
+        var videoURL;
+        try {
+            videoURL = await ytdl.getBasicInfo(videoName);
+        }
+        catch (err) {
+            console.log(`Error On ytdl-core url ${videoName}`);
+            return message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
+                        .setColor('RED')
+                        .setDescription('Sorry Cannot Play This Video As It Is Age Restricted')
+                ] }).then(msg => {
+                (0, modules_1.deleteMsg)(msg, 30000, DisconnectIdle.get(1));
+            });
+            // TODO add age restricted video functionality
+            // const temp = await playdl.video_basic_info(videoName);
+            // videoURL = new Song_1.ErrorSong({ song: temp, message: message });
+        }
         if (videoURL) {
             console.log(`Found ${videoURL.videoDetails.title}`);
             executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);

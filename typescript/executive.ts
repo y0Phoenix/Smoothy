@@ -7,17 +7,17 @@ import {
 } from '@discordjs/voice';
 import { MessageEmbed, Message, Client, VoiceChannel } from 'discord.js';
 import { Idle } from './Classes/Idle';
-import { PlaylistSong, Song } from './Classes/Song';
+import { ErrorSong, PlaylistSong, Song } from './Classes/Song';
 import Queue from './Classes/Queue';
 import validURL from './functions/validURL' ;
 import videoFinder from './functions/videoFinder';
 import * as ytdl from 'ytdl-core';
 import InfoData from './interfaces/_InfoData';
-import play from './Classes/functions/play';
+import * as playdl from 'play-dl';
 
 const noVidEmbed = new MessageEmbed()
   .setColor('RED')
-  .setDescription(':rofl: No ***video*** results found');
+  .setDescription(':rofl: No ***video*** results found or cant play');
 
 
 /**
@@ -86,7 +86,21 @@ async function FindVideoCheck(message: Message, args: any, queue: any, Disconnec
   }
   let URL = validURL(videoName);
   if (URL === true) {
-    const videoURL = await ytdl.getBasicInfo(videoName);
+    var videoURL;
+    try {
+      videoURL = await ytdl.getBasicInfo(videoName);
+    } catch (err) {
+      console.log(`Error On ytdl-core url ${videoName}`);
+      return message.channel.send({embeds: [new MessageEmbed() 
+      .setColor('RED')
+      .setDescription('Sorry Cannot Play This Video As It Is Age Restricted')
+    ]}).then(msg => {
+      deleteMsg(msg, 30000, DisconnectIdle.get(1));
+    })
+      // TODO add age restricted video functionality
+      // const temp = await playdl.video_basic_info(videoName);
+      // videoURL = new Song_1.ErrorSong({ song: temp, message: message });
+    }
     if (videoURL) {
       console.log(`Found ${videoURL.videoDetails.title}`);
       executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
