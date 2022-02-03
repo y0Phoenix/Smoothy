@@ -38,14 +38,14 @@ export default async function play(message: Message, args: any,  vc: Message['me
 DisconnectIdle: any, serverDisconnectIdle: Idle, serverQueue: Queue, command: string, client: Client) {
     try{
         if (args.length === 0) return message.channel.send({embeds: [specifyEmbed]})
-        .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+        .then(msg => deleteMsg(msg, 30000, client));
         if (!vc) return message.channel.send({embeds: [needVCEmbed]})
-        .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+        .then(msg => deleteMsg(msg, 30000, client));
         const permissions = vc.permissionsFor(message.client.user);
         if (!permissions.has('CONNECT')) return message.channel.send({embeds: [connectEmbed]})
-        .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+        .then(msg => deleteMsg(msg, 30000, client));
         if (!permissions.has('SPEAK')) return message.channel.send({embeds: [speakEmbed]})
-        .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+        .then(msg => deleteMsg(msg, 30000, client));
         
         const bool = await exists(message.guildId, 'dci');
         if(command !== null && command === 'pp' || command === 'playp'){
