@@ -5,7 +5,7 @@ import {
   joinVoiceChannel,
   VoiceConnectionStatus,
 } from '@discordjs/voice';
-import { MessageEmbed, Message, Client, VoiceChannel } from 'discord.js';
+import { MessageEmbed, Message, Client, VoiceChannel, CommandInteractionOptionResolver } from 'discord.js';
 import { Idle } from './Classes/Idle';
 import { ErrorSong, PlaylistSong, Song } from './Classes/Song';
 import Queue from './Classes/Queue';
@@ -77,7 +77,7 @@ async function executive(message: Message, queue: any, DisconnectIdle: any, serv
  * @description find the video via ytdl-core and args and continues onto {@link executive}
  */
 async function FindVideoCheck(message: Message, args: any, queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle, serverQueue: Queue) {
-  let videoName;
+  let videoName: string;
   if (Array.isArray(args)) {
     videoName = args.join(' ');
   }
@@ -86,6 +86,11 @@ async function FindVideoCheck(message: Message, args: any, queue: any, Disconnec
   }
   let URL = validURL(videoName);
   if (URL === true) {
+    const bool = videoName.includes('spotify');
+    if (bool) {
+      const temp = playdl.spotify(videoName);
+      console.log('spotify');
+    }
     var videoURL;
     try {
       videoURL = await ytdl.getBasicInfo(videoName);
@@ -99,7 +104,7 @@ async function FindVideoCheck(message: Message, args: any, queue: any, Disconnec
     })
       // TODO add age restricted video functionality
       // const temp = await playdl.video_basic_info(videoName);
-      // videoURL = new Song_1.ErrorSong({ song: temp, message: message });
+      // videoURL = new ErrorSong({ song: temp, message: message });
     }
     if (videoURL) {
       console.log(`Found ${videoURL.videoDetails.title}`);

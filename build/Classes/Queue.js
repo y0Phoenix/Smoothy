@@ -37,6 +37,15 @@ class Queue {
         this.repeat = false;
         this.bool = false;
         this.jumpbool = false;
+        this.nowPlayingSend = nowPlayingSend_1.default;
+        this.playNext = playNext_1.default;
+        this.findSplice = findSplice_1.default;
+        this.loopNextSong = loopNextSong_1.default;
+        this.audioPlayerIdle = audioPlayerIdle_1.default;
+        this.play = play_1.default;
+        this.getVideo = getVideo_1.default;
+        this.retryTimer = retryPlayer_1.retryTimer;
+        this.checkIfPlaying = retryPlayer_1.checkIfPlaying;
         let { msg, songs, shuffledSongs, currentsong, previous } = data;
         const { DisconnectIdle } = (0, maps_1.default)();
         if (songs) {
@@ -60,9 +69,9 @@ class Queue {
         this.voiceConnection = (0, voice_1.getVoiceConnection)(msg.guild.id);
         if (!this.voiceConnection) {
             const join = async () => {
-                const temp = (0, maps_1.default)();
+                const maps = (0, maps_1.default)();
                 const bool = await (0, modules_1.exists)(this.id, 'dci');
-                this.voiceConnection = await (0, executive_1.joinvoicechannel)(this.message, this.voiceChannel, temp.DisconnectIdle, DisconnectIdle.get(this.id), DisconnectIdle.get(1), bool);
+                this.voiceConnection = await (0, executive_1.joinvoicechannel)(this.message, this.voiceChannel, maps.DisconnectIdle, DisconnectIdle.get(this.id), DisconnectIdle.get(1), bool);
                 this.subsciption = this.voiceConnection.subscribe(this.player);
             };
             join();
@@ -124,15 +133,6 @@ class Queue {
                 }
             }
         });
-        this.findSplice = findSplice_1.default;
-        this.loopNextSong = loopNextSong_1.default;
-        this.playNext = playNext_1.default;
-        this.audioPlayerIdle = audioPlayerIdle_1.default;
-        this.play = play_1.default;
-        this.getVideo = getVideo_1.default;
-        this.retryTimer = retryPlayer_1.retryTimer;
-        this.nowPlayingSend = nowPlayingSend_1.default;
-        this.checkIfPlaying = retryPlayer_1.checkIfPlaying;
     }
 }
 exports.default = Queue;

@@ -1,6 +1,3 @@
-import * as spell from 'simple-spellchecker';
-const dictionary: any = spell.getDictionarySync('en-US');
-dictionary.addRegex(/i/);
 import * as playdl from 'play-dl';
 import { deleteMsg, distance, topResult } from '../modules/modules';
 import {MessageEmbed, Message} from 'discord.js';

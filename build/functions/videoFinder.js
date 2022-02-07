@@ -1,8 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const spell = require("simple-spellchecker");
-const dictionary = spell.getDictionarySync('en-US');
-dictionary.addRegex(/i/);
 const playdl = require("play-dl");
 const modules_1 = require("../modules/modules");
 const discord_js_1 = require("discord.js");

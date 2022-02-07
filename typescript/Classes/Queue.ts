@@ -29,40 +29,40 @@ import { Idle } from './Idle';
 
 
 export default class Queue {
-    message: Partial<Message>
-    id : string
-    voiceChannel: any = null
-    voiceConnection: VoiceConnection
-    songs: Partial<Song>[] = []
-    shuffledSongs: Partial<Song>[] = []
-    currentsong: Partial<Song>[] = []
-    stop: boolean = false
-    jump: number = 0
-    tries: number = 0
-    audioPlayerErr: boolean = false
-    player: AudioPlayer = null
-    resource: AudioResource = null
-    subsciption: PlayerSubscription = null
-    previous: Partial<Song>[] = []
-    previousbool: boolean = false
-    messagesent: boolean = false
-    nowPlaying: Message = null
-    nowPlayingTimer: any = null
-    shuffle: boolean = false
-    loop: boolean = false
-    loopsong: boolean = false
-    repeat: boolean = false
-    bool: boolean = false
-    jumpbool: boolean = false
-    nowPlayingSend: typeof nowPlayingSend
-    playNext: typeof playNext 
-    findSplice: typeof findSplice
-    loopNextSong: typeof loopNextSong
-    audioPlayerIdle: typeof audioPlayerIdle
-    play: typeof play
-    getVideo: typeof getVideo
-    retryTimer: typeof retryTimer
-    checkIfPlaying: typeof checkIfPlaying
+    message: Partial<Message>;
+    id : string;
+    voiceChannel: any = null;
+    voiceConnection: VoiceConnection;
+    songs: Partial<Song>[] = [];
+    shuffledSongs: Partial<Song>[] = [];
+    currentsong: Partial<Song>[] = [];
+    stop: boolean = false;
+    jump: number = 0;
+    tries: number = 0;
+    audioPlayerErr: boolean = false;
+    player: AudioPlayer = null;
+    resource: AudioResource = null;
+    subsciption: PlayerSubscription = null;
+    previous: Partial<Song>[] = [];
+    previousbool: boolean = false;
+    messagesent: boolean = false;
+    nowPlaying: Message = null;
+    nowPlayingTimer: any = null;
+    shuffle: boolean = false;
+    loop: boolean = false;
+    loopsong: boolean = false;
+    repeat: boolean = false;
+    bool: boolean = false;
+    jumpbool: boolean = false;
+    nowPlayingSend: typeof nowPlayingSend = nowPlayingSend;
+    playNext: typeof playNext = playNext;
+    findSplice: typeof findSplice = findSplice;
+    loopNextSong: typeof loopNextSong = loopNextSong;
+    audioPlayerIdle: typeof audioPlayerIdle = audioPlayerIdle;
+    play: typeof play = play;
+    getVideo: typeof getVideo = getVideo;
+    retryTimer: typeof retryTimer = retryTimer;
+    checkIfPlaying: typeof checkIfPlaying = checkIfPlaying
     
     constructor(data: any) {
         let {msg, songs, shuffledSongs, currentsong, previous} = data;
@@ -88,9 +88,9 @@ export default class Queue {
         this.voiceConnection = getVoiceConnection(msg.guild.id);
         if (!this.voiceConnection) {
             const join = async () => {
-                const temp = getMaps();
+                const maps = getMaps();
                 const bool = await exists(this.id, 'dci')
-                this.voiceConnection = await joinvoicechannel(this.message, this.voiceChannel, temp.DisconnectIdle, DisconnectIdle.get(this.id), DisconnectIdle.get(1), bool);
+                this.voiceConnection = await joinvoicechannel(this.message, this.voiceChannel, maps.DisconnectIdle, DisconnectIdle.get(this.id), DisconnectIdle.get(1), bool);
                 this.subsciption = this.voiceConnection.subscribe(this.player);
             };
             join();
@@ -159,14 +159,5 @@ export default class Queue {
           }
           }
       });
-        this.findSplice = findSplice;
-        this.loopNextSong = loopNextSong;
-        this.playNext = playNext;
-        this.audioPlayerIdle = audioPlayerIdle;
-        this.play = play;
-        this.getVideo = getVideo;
-        this.retryTimer = retryTimer;
-        this.nowPlayingSend = nowPlayingSend;
-        this.checkIfPlaying = checkIfPlaying;
     }
 }

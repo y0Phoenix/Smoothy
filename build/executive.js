@@ -12,6 +12,7 @@ const Queue_1 = require("./Classes/Queue");
 const validURL_1 = require("./functions/validURL");
 const videoFinder_1 = require("./functions/videoFinder");
 const ytdl = require("ytdl-core");
+const playdl = require("play-dl");
 const noVidEmbed = new discord_js_1.MessageEmbed()
     .setColor('RED')
     .setDescription(':rofl: No ***video*** results found or cant play');
@@ -80,6 +81,11 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
     }
     let URL = (0, validURL_1.default)(videoName);
     if (URL === true) {
+        const bool = videoName.includes('spotify');
+        if (bool) {
+            const temp = playdl.spotify(videoName);
+            console.log('spotify');
+        }
         var videoURL;
         try {
             videoURL = await ytdl.getBasicInfo(videoName);
@@ -94,7 +100,7 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
             });
             // TODO add age restricted video functionality
             // const temp = await playdl.video_basic_info(videoName);
-            // videoURL = new Song_1.ErrorSong({ song: temp, message: message });
+            // videoURL = new ErrorSong({ song: temp, message: message });
         }
         if (videoURL) {
             console.log(`Found ${videoURL.videoDetails.title}`);
