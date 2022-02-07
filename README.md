@@ -11,6 +11,8 @@ Smoothy is a Discord Music Bot, rich with usefull and easy to follow functions, 
 
 ![alt text](https://github.com/y0Phoenix/Smoothy/blob/development/pictures/Smoothy%20Logo.png?raw=true)
 
+Logo Made By BajaBlastin
+
 
 # Table of Contents
 1. [Dependencies](#dependencies)
