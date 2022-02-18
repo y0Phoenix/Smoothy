@@ -22,6 +22,7 @@ import getMaps from "../../maps";
  @description where the song gets played and the nowPlaying message gets set and sent
  */
 export default async function play() {
+  const {DisconnectIdle} = getMaps();
   const serverQueue: Queue = this;
     const yturl: boolean = playdl.validate(serverQueue.currentsong[0].url) ? true : false;
     if (yturl === true) {
@@ -42,6 +43,10 @@ export default async function play() {
         serverQueue.repeat = false;
   
       } catch (err) {
+        const msg = await serverQueue.message.channel.send({embeds: [new MessageEmbed()
+          .setDescription(`Sorry There Was An Issue Playing ${serverQueue.currentsong[0].title} Playing Next Song`)
+          .setColor('RED')]});
+        deleteMsg(msg, 30000, DisconnectIdle.get(1));
         console.log(err);
       }
     } else {

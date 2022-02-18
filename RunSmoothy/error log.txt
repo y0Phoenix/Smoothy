@@ -1,146 +1,118 @@
-[02/17/2022 21:37:45.475] Smoothy is already running so killing it!
-[02/17/2022 21:37:46.490] Not Running, Starting up Smoothy...
-[02/17/2022 21:37:46.516] 
-[02/17/2022 21:37:46.516] C:\Users\Admin\Desktop\Smoothy\build>echo Run.bat File Started 
-[02/17/2022 21:37:46.516] Run.bat File Started
-[02/17/2022 21:37:46.516] 
-[02/17/2022 21:37:46.516] C:\Users\Admin\Desktop\Smoothy\build>node . 
-[02/17/2022 21:37:47.473] Smoothy is currently running 
-[02/17/2022 21:37:49.904] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-[02/17/2022 21:37:49.904]   ____                        _   _                   _  _  _   _____ 
-[02/17/2022 21:37:49.904]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
-[02/17/2022 21:37:49.905]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
-[02/17/2022 21:37:49.905]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
-[02/17/2022 21:37:49.905]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
-[02/17/2022 21:37:49.905]                                         |___/                         
-[02/17/2022 21:37:49.905] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-[02/17/2022 21:37:50.484] Smoothy is currently running 
-[02/17/2022 21:37:59.128] Command = p piano man
-[02/17/2022 21:37:59.470] Smoothy is currently running 
-[02/17/2022 21:37:59.903] Videosearch error on piano man
-[02/17/2022 21:38:00.463] Smoothy is currently running 
-[02/17/2022 21:38:01.141] C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1
-[02/17/2022 21:38:01.147] !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.ytSearch=e()}}(function(){return function(){function e(t,n,r){function o(u,l){if(!n[u]){if(!t[u]){var s="function"==typeof require&&require;if(!l&&s)return s(u,!0);if(i)return i(u,!0);var a=new Error("Cannot find module '"+u+"'");throw a.code="MODULE_NOT_FOUND",a}var c=n[u]={exports:{}};t[u][0].call(c.exports,function(e){var n=t[u][1][e];return o(n?n:e)},c,c.exports,e,t,n,r)}return n[u].exports}for(var i="function"==typeof require&&require,u=0;u<r.length;u++)o(r[u]);return o}return e}()({1:[function(e,t,n){"use strict";function r(e,t){function n(){for(var n=e.split(/\s+/),s=v+n.join("+"),a=[],c=function(e){var t=e;a.push(function(e){o(s,t,function(t,n){t?e(t):e(null,n)})})},f=r.pageStart;f<r.pageEnd;f++)c(f);d(a,function(e,n){if(e)t(e);else{n=[].concat.apply([],n);var r=n.filter(i),o=n.filter(u),s=n.filter(l);t(null,{videos:r,playlists:o,accounts:s})}})}var r=Object.assign({},h);r="string"==typeof e?Object.assign(r,{query:e}):Object.assign(r,e),e=r.query||r.search,n()}function o(e,t,n){e+="&page="+t;var r=g.parse(e);p.req(r,function(e,t,r){e?n(e):s(r,n)})}function i(e){return e.url.indexOf("watch")>=0}function u(e){return e.url.indexOf("list")>=0}function l(e){return e.url.indexOf("user")>=0}function s(e,t){for(var n=f.load(e),r=n(".yt-lockup-content"),o=[],i=0;i<r.length;i++){var u=r[i],l=n(".yt-lockup-title",u),s=n("a",l),c=n("span",l),p=a(c.text()),d=s.attr("href")||"",g=d.split("=")[1],v=n(".yt-lockup-meta-info",u),h=n("li",v),y=n(h[0]).text(),m=n(h[1]).text(),x=Number(m.split(" ")[0].split(",").join("").trim()),w={title:s.text(),url:d,videoId:g,seconds:Number(p.seconds),timestamp:p.timestamp,duration:p,ago:y,views:Number(x)};o.push(w)}t(null,o)}function a(e){for(var t=e.split(" "),n=t[t.length-1].replace(/[^:\d]/g,""),r=n.split(":"),o=0,i=0,u=r.length-1;u>=0;u--)if(!(r[u].length<=0)){var l=r[u].replace(/\D/g,"");if(o+=parseInt(l)*(i>0?Math.pow(60,i):1),i++,i>2)break}return{toString:function(){return o+" seconds ("+n+")"},seconds:o,timestamp:n}}function c(e){console.log("doing list search"),r(e,function(e,t){if(e)throw e;var n=t.videos,r=t.playlists,o=t.accounts;console.log("videos: "+n.length),console.log("playlists: "+r.length),console.log("accounts: "+o.length);for(var i=0;i<3;i++){var u=n[i],l=" ("+u.timestamp+")";console.log(u.title+l)}})}var f=e("cheerio"),p=e("dasu"),d=e("async.parallel"),g=e("url"),v="https://www.youtube.com/results?hl=en&gl=US&category=music&search_query=",h={pageStart:1,pageEnd:3};t.exports=function(e,t){r(e,t)},t.exports.search=r,e.main===t&&c("superman theme")},{"async.parallel":void 0,cheerio:void 0,dasu:void 0,url:void 0}]},{},[1])(1)});
-[02/17/2022 21:38:01.149]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-[02/17/2022 21:38:01.150] 
-[02/17/2022 21:38:01.150] TypeError: t is not a function
-[02/17/2022 21:38:01.150]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1087
-[02/17/2022 21:38:01.151]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:20:9
-[02/17/2022 21:38:01.151]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.once\index.js:6:12
-[02/17/2022 21:38:01.152]     at done (C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.eachof\index.js:30:13)
-[02/17/2022 21:38:01.152]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.onlyonce\index.js:6:12
-[02/17/2022 21:38:01.152]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:17:13
-[02/17/2022 21:38:01.153]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.restparam\index.js:14:29
-[02/17/2022 21:38:01.153]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:934
-[02/17/2022 21:38:01.153]     at s (C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1934)
-[02/17/2022 21:38:01.154]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1329
-[02/17/2022 21:38:01.483] Not Running, Starting up Smoothy...
-[02/17/2022 21:38:01.502] 
-[02/17/2022 21:38:01.503] C:\Users\Admin\Desktop\Smoothy\build>echo Run.bat File Started 
-[02/17/2022 21:38:01.503] Run.bat File Started
-[02/17/2022 21:38:01.504] 
-[02/17/2022 21:38:01.504] C:\Users\Admin\Desktop\Smoothy\build>node . 
-[02/17/2022 21:38:02.481] Smoothy is currently running 
-[02/17/2022 21:38:04.872] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-[02/17/2022 21:38:04.873]   ____                        _   _                   _  _  _   _____ 
-[02/17/2022 21:38:04.873]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
-[02/17/2022 21:38:04.874]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
-[02/17/2022 21:38:04.875]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
-[02/17/2022 21:38:04.875]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
-[02/17/2022 21:38:04.876]                                         |___/                         
-[02/17/2022 21:38:04.876] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-[02/17/2022 21:38:05.476] Smoothy is currently running 
-[02/17/2022 21:38:12.790] Command = p piano man
-[02/17/2022 21:38:13.477] Smoothy is currently running 
-[02/17/2022 21:38:13.562] Videosearch error on piano man
-[02/17/2022 21:38:14.483] Smoothy is currently running 
-[02/17/2022 21:38:14.641] C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1
-[02/17/2022 21:38:14.647] !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.ytSearch=e()}}(function(){return function(){function e(t,n,r){function o(u,l){if(!n[u]){if(!t[u]){var s="function"==typeof require&&require;if(!l&&s)return s(u,!0);if(i)return i(u,!0);var a=new Error("Cannot find module '"+u+"'");throw a.code="MODULE_NOT_FOUND",a}var c=n[u]={exports:{}};t[u][0].call(c.exports,function(e){var n=t[u][1][e];return o(n?n:e)},c,c.exports,e,t,n,r)}return n[u].exports}for(var i="function"==typeof require&&require,u=0;u<r.length;u++)o(r[u]);return o}return e}()({1:[function(e,t,n){"use strict";function r(e,t){function n(){for(var n=e.split(/\s+/),s=v+n.join("+"),a=[],c=function(e){var t=e;a.push(function(e){o(s,t,function(t,n){t?e(t):e(null,n)})})},f=r.pageStart;f<r.pageEnd;f++)c(f);d(a,function(e,n){if(e)t(e);else{n=[].concat.apply([],n);var r=n.filter(i),o=n.filter(u),s=n.filter(l);t(null,{videos:r,playlists:o,accounts:s})}})}var r=Object.assign({},h);r="string"==typeof e?Object.assign(r,{query:e}):Object.assign(r,e),e=r.query||r.search,n()}function o(e,t,n){e+="&page="+t;var r=g.parse(e);p.req(r,function(e,t,r){e?n(e):s(r,n)})}function i(e){return e.url.indexOf("watch")>=0}function u(e){return e.url.indexOf("list")>=0}function l(e){return e.url.indexOf("user")>=0}function s(e,t){for(var n=f.load(e),r=n(".yt-lockup-content"),o=[],i=0;i<r.length;i++){var u=r[i],l=n(".yt-lockup-title",u),s=n("a",l),c=n("span",l),p=a(c.text()),d=s.attr("href")||"",g=d.split("=")[1],v=n(".yt-lockup-meta-info",u),h=n("li",v),y=n(h[0]).text(),m=n(h[1]).text(),x=Number(m.split(" ")[0].split(",").join("").trim()),w={title:s.text(),url:d,videoId:g,seconds:Number(p.seconds),timestamp:p.timestamp,duration:p,ago:y,views:Number(x)};o.push(w)}t(null,o)}function a(e){for(var t=e.split(" "),n=t[t.length-1].replace(/[^:\d]/g,""),r=n.split(":"),o=0,i=0,u=r.length-1;u>=0;u--)if(!(r[u].length<=0)){var l=r[u].replace(/\D/g,"");if(o+=parseInt(l)*(i>0?Math.pow(60,i):1),i++,i>2)break}return{toString:function(){return o+" seconds ("+n+")"},seconds:o,timestamp:n}}function c(e){console.log("doing list search"),r(e,function(e,t){if(e)throw e;var n=t.videos,r=t.playlists,o=t.accounts;console.log("videos: "+n.length),console.log("playlists: "+r.length),console.log("accounts: "+o.length);for(var i=0;i<3;i++){var u=n[i],l=" ("+u.timestamp+")";console.log(u.title+l)}})}var f=e("cheerio"),p=e("dasu"),d=e("async.parallel"),g=e("url"),v="https://www.youtube.com/results?hl=en&gl=US&category=music&search_query=",h={pageStart:1,pageEnd:3};t.exports=function(e,t){r(e,t)},t.exports.search=r,e.main===t&&c("superman theme")},{"async.parallel":void 0,cheerio:void 0,dasu:void 0,url:void 0}]},{},[1])(1)});
-[02/17/2022 21:38:14.648]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-[02/17/2022 21:38:14.648] 
-[02/17/2022 21:38:14.649] TypeError: t is not a function
-[02/17/2022 21:38:14.649]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1087
-[02/17/2022 21:38:14.649]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:20:9
-[02/17/2022 21:38:14.650]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.once\index.js:6:12
-[02/17/2022 21:38:14.650]     at done (C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.eachof\index.js:30:13)
-[02/17/2022 21:38:14.651]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.onlyonce\index.js:6:12
-[02/17/2022 21:38:14.651]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:17:13
-[02/17/2022 21:38:14.651]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.restparam\index.js:14:29
-[02/17/2022 21:38:14.652]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:934
-[02/17/2022 21:38:14.652]     at s (C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1934)
-[02/17/2022 21:38:14.652]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1329
-[02/17/2022 21:38:15.476] Not Running, Starting up Smoothy...
-[02/17/2022 21:38:15.496] 
-[02/17/2022 21:38:15.496] C:\Users\Admin\Desktop\Smoothy\build>echo Run.bat File Started 
-[02/17/2022 21:38:15.497] Run.bat File Started
-[02/17/2022 21:38:15.497] 
-[02/17/2022 21:38:15.497] C:\Users\Admin\Desktop\Smoothy\build>node . 
-[02/17/2022 21:38:16.480] Smoothy is currently running 
-[02/17/2022 21:38:18.872] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-[02/17/2022 21:38:18.873]   ____                        _   _                   _  _  _   _____ 
-[02/17/2022 21:38:18.873]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
-[02/17/2022 21:38:18.874]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
-[02/17/2022 21:38:18.874]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
-[02/17/2022 21:38:18.875]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
-[02/17/2022 21:38:18.875]                                         |___/                         
-[02/17/2022 21:38:18.876] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-[02/17/2022 21:38:19.473] Smoothy is currently running 
-[02/17/2022 21:39:10.650] Command = dc 
-[02/17/2022 21:39:10.947] C:\Users\Admin\Desktop\Smoothy\build\commands\leave.js:46
-[02/17/2022 21:39:10.948]             .then(msg => (0, modules_1.deleteMsg)(msg, 30000, serverDisconnectIdle.client));
-[02/17/2022 21:39:10.948]                                                                                    ^
-[02/17/2022 21:39:10.949] 
-[02/17/2022 21:39:10.950] TypeError: Cannot read properties of undefined (reading 'client')
-[02/17/2022 21:39:10.950]     at C:\Users\Admin\Desktop\Smoothy\build\commands\leave.js:46:84
-[02/17/2022 21:39:10.951]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
-[02/17/2022 21:39:11.472] Not Running, Starting up Smoothy...
-[02/17/2022 21:39:11.492] 
-[02/17/2022 21:39:11.492] C:\Users\Admin\Desktop\Smoothy\build>echo Run.bat File Started 
-[02/17/2022 21:39:11.493] Run.bat File Started
-[02/17/2022 21:39:11.493] 
-[02/17/2022 21:39:11.493] C:\Users\Admin\Desktop\Smoothy\build>node . 
-[02/17/2022 21:39:12.472] Smoothy is currently running 
-[02/17/2022 21:39:14.934] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-[02/17/2022 21:39:14.935]   ____                        _   _                   _  _  _   _____ 
-[02/17/2022 21:39:14.935]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
-[02/17/2022 21:39:14.936]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
-[02/17/2022 21:39:14.936]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
-[02/17/2022 21:39:14.937]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
-[02/17/2022 21:39:14.937]                                         |___/                         
-[02/17/2022 21:39:14.938] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-[02/17/2022 21:39:15.487] Smoothy is currently running 
-[02/17/2022 21:40:20.737] Command = p piano man
-[02/17/2022 21:40:21.416] Videosearch error on piano man
-[02/17/2022 21:40:21.489] Smoothy is currently running 
-[02/17/2022 21:40:22.376] C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1
-[02/17/2022 21:40:22.382] !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.ytSearch=e()}}(function(){return function(){function e(t,n,r){function o(u,l){if(!n[u]){if(!t[u]){var s="function"==typeof require&&require;if(!l&&s)return s(u,!0);if(i)return i(u,!0);var a=new Error("Cannot find module '"+u+"'");throw a.code="MODULE_NOT_FOUND",a}var c=n[u]={exports:{}};t[u][0].call(c.exports,function(e){var n=t[u][1][e];return o(n?n:e)},c,c.exports,e,t,n,r)}return n[u].exports}for(var i="function"==typeof require&&require,u=0;u<r.length;u++)o(r[u]);return o}return e}()({1:[function(e,t,n){"use strict";function r(e,t){function n(){for(var n=e.split(/\s+/),s=v+n.join("+"),a=[],c=function(e){var t=e;a.push(function(e){o(s,t,function(t,n){t?e(t):e(null,n)})})},f=r.pageStart;f<r.pageEnd;f++)c(f);d(a,function(e,n){if(e)t(e);else{n=[].concat.apply([],n);var r=n.filter(i),o=n.filter(u),s=n.filter(l);t(null,{videos:r,playlists:o,accounts:s})}})}var r=Object.assign({},h);r="string"==typeof e?Object.assign(r,{query:e}):Object.assign(r,e),e=r.query||r.search,n()}function o(e,t,n){e+="&page="+t;var r=g.parse(e);p.req(r,function(e,t,r){e?n(e):s(r,n)})}function i(e){return e.url.indexOf("watch")>=0}function u(e){return e.url.indexOf("list")>=0}function l(e){return e.url.indexOf("user")>=0}function s(e,t){for(var n=f.load(e),r=n(".yt-lockup-content"),o=[],i=0;i<r.length;i++){var u=r[i],l=n(".yt-lockup-title",u),s=n("a",l),c=n("span",l),p=a(c.text()),d=s.attr("href")||"",g=d.split("=")[1],v=n(".yt-lockup-meta-info",u),h=n("li",v),y=n(h[0]).text(),m=n(h[1]).text(),x=Number(m.split(" ")[0].split(",").join("").trim()),w={title:s.text(),url:d,videoId:g,seconds:Number(p.seconds),timestamp:p.timestamp,duration:p,ago:y,views:Number(x)};o.push(w)}t(null,o)}function a(e){for(var t=e.split(" "),n=t[t.length-1].replace(/[^:\d]/g,""),r=n.split(":"),o=0,i=0,u=r.length-1;u>=0;u--)if(!(r[u].length<=0)){var l=r[u].replace(/\D/g,"");if(o+=parseInt(l)*(i>0?Math.pow(60,i):1),i++,i>2)break}return{toString:function(){return o+" seconds ("+n+")"},seconds:o,timestamp:n}}function c(e){console.log("doing list search"),r(e,function(e,t){if(e)throw e;var n=t.videos,r=t.playlists,o=t.accounts;console.log("videos: "+n.length),console.log("playlists: "+r.length),console.log("accounts: "+o.length);for(var i=0;i<3;i++){var u=n[i],l=" ("+u.timestamp+")";console.log(u.title+l)}})}var f=e("cheerio"),p=e("dasu"),d=e("async.parallel"),g=e("url"),v="https://www.youtube.com/results?hl=en&gl=US&category=music&search_query=",h={pageStart:1,pageEnd:3};t.exports=function(e,t){r(e,t)},t.exports.search=r,e.main===t&&c("superman theme")},{"async.parallel":void 0,cheerio:void 0,dasu:void 0,url:void 0}]},{},[1])(1)});
-[02/17/2022 21:40:22.383]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-[02/17/2022 21:40:22.384] 
-[02/17/2022 21:40:22.384] TypeError: t is not a function
-[02/17/2022 21:40:22.385]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1087
-[02/17/2022 21:40:22.385]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:20:9
-[02/17/2022 21:40:22.386]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.once\index.js:6:12
-[02/17/2022 21:40:22.386]     at done (C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.eachof\index.js:30:13)
-[02/17/2022 21:40:22.386]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.onlyonce\index.js:6:12
-[02/17/2022 21:40:22.387]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:17:13
-[02/17/2022 21:40:22.387]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.restparam\index.js:14:29
-[02/17/2022 21:40:22.388]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:934
-[02/17/2022 21:40:22.388]     at s (C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1934)
-[02/17/2022 21:40:22.389]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1329
-[02/17/2022 21:40:22.477] Not Running, Starting up Smoothy...
-[02/17/2022 21:40:22.497] 
-[02/17/2022 21:40:22.497] C:\Users\Admin\Desktop\Smoothy\build>echo Run.bat File Started 
-[02/17/2022 21:40:22.498] Run.bat File Started
-[02/17/2022 21:40:22.498] 
-[02/17/2022 21:40:22.499] C:\Users\Admin\Desktop\Smoothy\build>node . 
-[02/17/2022 21:40:23.479] Smoothy is currently running 
-[02/17/2022 21:40:25.816] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-[02/17/2022 21:40:25.816]   ____                        _   _                   _  _  _   _____ 
-[02/17/2022 21:40:25.817]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
-[02/17/2022 21:40:25.818]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
-[02/17/2022 21:40:25.818]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
-[02/17/2022 21:40:25.819]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
-[02/17/2022 21:40:25.819]                                         |___/                         
-[02/17/2022 21:40:25.820] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
-[02/17/2022 21:40:26.474] Smoothy is currently running 
-[02/17/2022 21:40:42.675] ^C
+[02/17/2022 21:41:36.449] Not Running, Starting up Smoothy
+[02/17/2022 21:41:36.489] 
+[02/17/2022 21:41:36.494] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build>echo Run.bat File Started 
+[02/17/2022 21:41:36.497] Run.bat File Started
+[02/17/2022 21:41:36.497] 
+[02/17/2022 21:41:36.497] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build>node . 
+[02/17/2022 21:41:37.454] Smoothy is currently running 
+[02/17/2022 21:41:37.670] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:41:37.670]   ____                        _   _               _____         _           _  _  _   _____ 
+[02/17/2022 21:41:37.670]  / ___| _ __ ___   ___   ___ | |_| |__  _   _    |_   _|__  ___| |_  __   _/ || || | |___  |
+[02/17/2022 21:41:37.670]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | |_____| |/ _ \/ __| __| \ \ / / || || |_   / / 
+[02/17/2022 21:41:37.670]   ___) | | | | | | (_) | (_) | |_| | | | |_| |_____| |  __/\__ \ |_   \ V /| ||__   _| / /  
+[02/17/2022 21:41:37.670]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |     |_|\___||___/\__|   \_/ |_(_) |_|(_)_/   
+[02/17/2022 21:41:37.670]                                         |___/                                               
+[02/17/2022 21:41:37.670] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:41:38.436] Smoothy is currently running 
+[02/17/2022 21:41:53.594] Command = p piano man
+[02/17/2022 21:41:54.429] Smoothy is currently running 
+[02/17/2022 21:41:55.884] [33mWARNING:[0m ytdl-core is out of date! Update with "npm install ytdl-core@latest".
+[02/17/2022 21:41:56.431] Smoothy is currently running 
+[02/17/2022 21:41:57.421] Found Billy Joel - Piano Man (Official HD Video)
+[02/17/2022 21:41:57.422] Cleared Timout For disconnectTimer
+[02/17/2022 21:41:57.431] Smoothy is currently running 
+[02/17/2022 21:41:59.944] Playing Billy Joel - Piano Man (Official HD Video)!
+[02/17/2022 21:42:00.437] Smoothy is currently running 
+[02/17/2022 21:42:09.833] Command = c 
+[02/17/2022 21:42:09.836] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\main.js:187
+[02/17/2022 21:42:09.836]         throw new Error('Killed from command on Discord');
+[02/17/2022 21:42:09.836]               ^
+[02/17/2022 21:42:09.837] 
+[02/17/2022 21:42:09.837] Error: Killed from command on Discord
+[02/17/2022 21:42:09.837]     at Client.<anonymous> (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\main.js:187:15)
+[02/17/2022 21:42:09.838]     at Client.emit (node:events:390:28)
+[02/17/2022 21:42:09.838]     at MessageCreateAction.handle (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\client\actions\MessageCreate.js:26:14)
+[02/17/2022 21:42:09.838]     at Object.module.exports [as MESSAGE_CREATE] (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\client\websocket\handlers\MESSAGE_CREATE.js:4:32)
+[02/17/2022 21:42:09.839]     at WebSocketManager.handlePacket (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\client\websocket\WebSocketManager.js:351:31)
+[02/17/2022 21:42:09.839]     at WebSocketShard.onPacket (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\client\websocket\WebSocketShard.js:444:22)
+[02/17/2022 21:42:09.839]     at WebSocketShard.onMessage (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\client\websocket\WebSocketShard.js:301:10)
+[02/17/2022 21:42:09.840]     at WebSocket.onMessage (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\ws\lib\event-target.js:199:18)
+[02/17/2022 21:42:09.840]     at WebSocket.emit (node:events:390:28)
+[02/17/2022 21:42:09.841]     at Receiver.receiverOnMessage (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\ws\lib\websocket.js:1098:20)
+[02/17/2022 21:42:10.433] Not Running, Starting up Smoothy
+[02/17/2022 21:42:10.442] 
+[02/17/2022 21:42:10.442] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build>echo Run.bat File Started 
+[02/17/2022 21:42:10.443] Run.bat File Started
+[02/17/2022 21:42:10.443] 
+[02/17/2022 21:42:10.443] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build>node . 
+[02/17/2022 21:42:11.443] Smoothy is currently running 
+[02/17/2022 21:42:11.607] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\rest\RequestHandler.js:350
+[02/17/2022 21:42:11.607]       throw new DiscordAPIError(data, res.status, request);
+[02/17/2022 21:42:11.608]             ^
+[02/17/2022 21:42:11.608] 
+[02/17/2022 21:42:11.608] DiscordAPIError: Missing Access
+[02/17/2022 21:42:11.609]     at RequestHandler.execute (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\rest\RequestHandler.js:350:13)
+[02/17/2022 21:42:11.609]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[02/17/2022 21:42:11.609]     at async RequestHandler.push (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\rest\RequestHandler.js:51:14)
+[02/17/2022 21:42:11.610]     at async MessageManager._fetchId (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\managers\MessageManager.js:219:18)
+[02/17/2022 21:42:11.610]     at async Client.<anonymous> (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\main.js:57:33) {
+[02/17/2022 21:42:11.610]   method: 'get',
+[02/17/2022 21:42:11.610]   path: '/channels/481591680680591378/messages/944073528196599889',
+[02/17/2022 21:42:11.611]   code: 50001,
+[02/17/2022 21:42:11.611]   httpStatus: 403,
+[02/17/2022 21:42:11.611]   requestData: { json: undefined, files: [] }
+[02/17/2022 21:42:11.611] }
+[02/17/2022 21:42:12.434] Not Running, Starting up Smoothy
+[02/17/2022 21:42:12.441] 
+[02/17/2022 21:42:12.442] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build>echo Run.bat File Started 
+[02/17/2022 21:42:12.442] Run.bat File Started
+[02/17/2022 21:42:12.443] 
+[02/17/2022 21:42:12.443] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build>node . 
+[02/17/2022 21:42:13.434] Smoothy is currently running 
+[02/17/2022 21:42:21.723] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\rest\RequestHandler.js:350
+[02/17/2022 21:42:21.723]       throw new DiscordAPIError(data, res.status, request);
+[02/17/2022 21:42:21.723]             ^
+[02/17/2022 21:42:21.724] 
+[02/17/2022 21:42:21.724] DiscordAPIError: Missing Access
+[02/17/2022 21:42:21.724]     at RequestHandler.execute (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\rest\RequestHandler.js:350:13)
+[02/17/2022 21:42:21.725]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[02/17/2022 21:42:21.725]     at async RequestHandler.push (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\rest\RequestHandler.js:51:14)
+[02/17/2022 21:42:21.725]     at async MessageManager._fetchId (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\managers\MessageManager.js:219:18)
+[02/17/2022 21:42:21.725]     at async Client.<anonymous> (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\main.js:57:33) {
+[02/17/2022 21:42:21.726]   method: 'get',
+[02/17/2022 21:42:21.726]   path: '/channels/481591680680591378/messages/944073528196599889',
+[02/17/2022 21:42:21.726]   code: 50001,
+[02/17/2022 21:42:21.726]   httpStatus: 403,
+[02/17/2022 21:42:21.727]   requestData: { json: undefined, files: [] }
+[02/17/2022 21:42:21.727] }
+[02/17/2022 21:42:22.440] Not Running, Starting up Smoothy
+[02/17/2022 21:42:22.448] 
+[02/17/2022 21:42:22.448] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build>echo Run.bat File Started 
+[02/17/2022 21:42:22.449] Run.bat File Started
+[02/17/2022 21:42:22.450] 
+[02/17/2022 21:42:22.450] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build>node . 
+[02/17/2022 21:42:23.442] Smoothy is currently running 
+[02/17/2022 21:42:31.832] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\rest\RequestHandler.js:350
+[02/17/2022 21:42:31.833]       throw new DiscordAPIError(data, res.status, request);
+[02/17/2022 21:42:31.833]             ^
+[02/17/2022 21:42:31.833] 
+[02/17/2022 21:42:31.834] DiscordAPIError: Missing Access
+[02/17/2022 21:42:31.834]     at RequestHandler.execute (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\rest\RequestHandler.js:350:13)
+[02/17/2022 21:42:31.834]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[02/17/2022 21:42:31.834]     at async RequestHandler.push (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\rest\RequestHandler.js:51:14)
+[02/17/2022 21:42:31.835]     at async MessageManager._fetchId (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\node_modules\discord.js\src\managers\MessageManager.js:219:18)
+[02/17/2022 21:42:31.835]     at async Client.<anonymous> (C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build\main.js:57:33) {
+[02/17/2022 21:42:31.835]   method: 'get',
+[02/17/2022 21:42:31.835]   path: '/channels/481591680680591378/messages/944073528196599889',
+[02/17/2022 21:42:31.836]   code: 50001,
+[02/17/2022 21:42:31.836]   httpStatus: 403,
+[02/17/2022 21:42:31.836]   requestData: { json: undefined, files: [] }
+[02/17/2022 21:42:31.836] }
+[02/17/2022 21:42:32.431] Not Running, Starting up Smoothy
+[02/17/2022 21:42:32.439] 
+[02/17/2022 21:42:32.440] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build>echo Run.bat File Started 
+[02/17/2022 21:42:32.440] Run.bat File Started
+[02/17/2022 21:42:32.440] 
+[02/17/2022 21:42:32.441] C:\Users\choos\Documents\my programs\Dicord bots\Smoothy\build>node . 
+[02/17/2022 21:42:33.434] Smoothy is currently running 
+[02/17/2022 21:42:34.987] ^C
