@@ -1,0 +1,331 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Run Smoothy/1.0.0": {
+        "dependencies": {
+          "System.Composition.Convention": "6.0.0-rc.1.21451.13",
+          "System.Composition.TypedParts": "6.0.0-rc.1.21451.13",
+          "System.Configuration.ConfigurationManager": "6.0.0-rc.1.21451.13"
+        },
+        "runtime": {
+          "Run Smoothy.dll": {}
+        }
+      },
+      "Microsoft.NETCore.Platforms/5.0.0": {},
+      "Microsoft.Win32.SystemEvents/6.0.0-rc.1.21451.13": {
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp3.1/Microsoft.Win32.SystemEvents.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      },
+      "System.Composition.AttributedModel/6.0.0-rc.1.21451.13": {
+        "runtime": {
+          "lib/netstandard2.0/System.Composition.AttributedModel.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      },
+      "System.Composition.Convention/6.0.0-rc.1.21451.13": {
+        "dependencies": {
+          "System.Composition.AttributedModel": "6.0.0-rc.1.21451.13"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Composition.Convention.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      },
+      "System.Composition.Hosting/6.0.0-rc.1.21451.13": {
+        "dependencies": {
+          "System.Composition.Runtime": "6.0.0-rc.1.21451.13"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Composition.Hosting.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      },
+      "System.Composition.Runtime/6.0.0-rc.1.21451.13": {
+        "runtime": {
+          "lib/netstandard2.0/System.Composition.Runtime.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      },
+      "System.Composition.TypedParts/6.0.0-rc.1.21451.13": {
+        "dependencies": {
+          "System.Composition.AttributedModel": "6.0.0-rc.1.21451.13",
+          "System.Composition.Hosting": "6.0.0-rc.1.21451.13",
+          "System.Composition.Runtime": "6.0.0-rc.1.21451.13"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Composition.TypedParts.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      },
+      "System.Configuration.ConfigurationManager/6.0.0-rc.1.21451.13": {
+        "dependencies": {
+          "System.Security.Cryptography.ProtectedData": "6.0.0-rc.1.21451.13",
+          "System.Security.Permissions": "6.0.0-rc.1.21451.13"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      },
+      "System.Drawing.Common/6.0.0-rc.1.21451.13": {
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "6.0.0-rc.1.21451.13"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/System.Drawing.Common.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp3.1/System.Drawing.Common.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          },
+          "runtimes/win/lib/netcoreapp3.1/System.Drawing.Common.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      },
+      "System.Memory/4.5.4": {},
+      "System.Security.AccessControl/5.0.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "5.0.0",
+          "System.Security.Principal.Windows": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Security.AccessControl.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        }
+      },
+      "System.Security.Cryptography.ProtectedData/6.0.0-rc.1.21451.13": {
+        "dependencies": {
+          "System.Memory": "4.5.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      },
+      "System.Security.Permissions/6.0.0-rc.1.21451.13": {
+        "dependencies": {
+          "System.Security.AccessControl": "5.0.0",
+          "System.Windows.Extensions": "6.0.0-rc.1.21451.13"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/System.Security.Permissions.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      },
+      "System.Security.Principal.Windows/5.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          },
+          "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        }
+      },
+      "System.Windows.Extensions/6.0.0-rc.1.21451.13": {
+        "dependencies": {
+          "System.Drawing.Common": "6.0.0-rc.1.21451.13"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/System.Windows.Extensions.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp3.1/System.Windows.Extensions.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.45113"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Run Smoothy/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.NETCore.Platforms/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VyPlqzH2wavqquTcYpkIIAQ6WdenuKoFN0BdYBbCWsclXacSOHNQn66Gt4z5NBqEYW0FAPm5rlvki9ZiCij5xQ==",
+      "path": "microsoft.netcore.platforms/5.0.0",
+      "hashPath": "microsoft.netcore.platforms.5.0.0.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eCdNWK22DZ27Qggw2KuHDoRwi7Pj4vsQkGIIvlIKfOXcPvxnmfCwEXzrfNwZEHwQz+194RqHYX2z35x03UTAqQ==",
+      "path": "microsoft.win32.systemevents/6.0.0-rc.1.21451.13",
+      "hashPath": "microsoft.win32.systemevents.6.0.0-rc.1.21451.13.nupkg.sha512"
+    },
+    "System.Composition.AttributedModel/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sGXilzApfWHCcigIaHBx+c2IFeZFmIJz6fhwI74xexFplZk+hD900Dt+1EpMoI8ncAZ25XV3BGhvdCKuYgcdJQ==",
+      "path": "system.composition.attributedmodel/6.0.0-rc.1.21451.13",
+      "hashPath": "system.composition.attributedmodel.6.0.0-rc.1.21451.13.nupkg.sha512"
+    },
+    "System.Composition.Convention/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ht9kGnfFVEz685PVG92Axuo4GUpJ2ygTBTAA2SZgWVkwaWpEgrz3bt3OUaj+pCBAgVmZUgJnyf9ihpkTmMl4xA==",
+      "path": "system.composition.convention/6.0.0-rc.1.21451.13",
+      "hashPath": "system.composition.convention.6.0.0-rc.1.21451.13.nupkg.sha512"
+    },
+    "System.Composition.Hosting/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/d4zrJDn2aAqQ0OfBLoZtas68sJX1bBYLsLL+yLwi3AZQrDZ7ESL+4Jo84xEt5M2cfb7Vg6mdsiZwd9syomr7g==",
+      "path": "system.composition.hosting/6.0.0-rc.1.21451.13",
+      "hashPath": "system.composition.hosting.6.0.0-rc.1.21451.13.nupkg.sha512"
+    },
+    "System.Composition.Runtime/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+KtVsQO++nm2eZv7IUe+1uwkR1MLoWS6vElvkhwADTT0d3T3tZATV45SJygX8wcWKQ83gtsTnq+4ILDOD2LN7g==",
+      "path": "system.composition.runtime/6.0.0-rc.1.21451.13",
+      "hashPath": "system.composition.runtime.6.0.0-rc.1.21451.13.nupkg.sha512"
+    },
+    "System.Composition.TypedParts/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5LjMDTP2YzuP9Qb2DjElE1vR7G8VTcbxhiIt2XRvXVje3ecZ+bTOfJPwzu6HAlg7JKJhr4vE9wfcVwGhnqUsLw==",
+      "path": "system.composition.typedparts/6.0.0-rc.1.21451.13",
+      "hashPath": "system.composition.typedparts.6.0.0-rc.1.21451.13.nupkg.sha512"
+    },
+    "System.Configuration.ConfigurationManager/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Rk5KwcImUcBE3nnHw3zqMkQnDjMozlNfNAHHqEOcMKzCnrOZabsqo87ld2WasrjbnhrKh3htM8wCiaFvuO+tlA==",
+      "path": "system.configuration.configurationmanager/6.0.0-rc.1.21451.13",
+      "hashPath": "system.configuration.configurationmanager.6.0.0-rc.1.21451.13.nupkg.sha512"
+    },
+    "System.Drawing.Common/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nEW4tiEiznDadlEqD6a5CQYJdhor3yV9EfnzC9Ijy9xiKbJvTgj/TUIdLpbjNkXlUWOVo6+lvQxym3aK5Eo5CA==",
+      "path": "system.drawing.common/6.0.0-rc.1.21451.13",
+      "hashPath": "system.drawing.common.6.0.0-rc.1.21451.13.nupkg.sha512"
+    },
+    "System.Memory/4.5.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "path": "system.memory/4.5.4",
+      "hashPath": "system.memory.4.5.4.nupkg.sha512"
+    },
+    "System.Security.AccessControl/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dagJ1mHZO3Ani8GH0PHpPEe/oYO+rVdbQjvjJkBRNQkX4t0r1iaeGn8+/ybkSLEan3/slM0t59SVdHzuHf2jmw==",
+      "path": "system.security.accesscontrol/5.0.0",
+      "hashPath": "system.security.accesscontrol.5.0.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.ProtectedData/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-l5/ri8Rbwh+iWXLGzTYaPnspGZMP3Q2jQbDAs4U/ZaGeyo8ISH8s/3ESQIZ3zcIz99O6LDWwrlneO/BOOm14FQ==",
+      "path": "system.security.cryptography.protecteddata/6.0.0-rc.1.21451.13",
+      "hashPath": "system.security.cryptography.protecteddata.6.0.0-rc.1.21451.13.nupkg.sha512"
+    },
+    "System.Security.Permissions/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uqrl3EF/6lEzpWyCHTflzHpCDZR3zK9Z/HPHKY3UscmQLGAbwkAD6FyTNNyLcbi5JjBP3kquleqvj4BRW/6MCg==",
+      "path": "system.security.permissions/6.0.0-rc.1.21451.13",
+      "hashPath": "system.security.permissions.6.0.0-rc.1.21451.13.nupkg.sha512"
+    },
+    "System.Security.Principal.Windows/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-t0MGLukB5WAVU9bO3MGzvlGnyJPgUlcwerXn1kzBRjwLKixT96XV0Uza41W49gVd8zEMFu9vQEFlv0IOrytICA==",
+      "path": "system.security.principal.windows/5.0.0",
+      "hashPath": "system.security.principal.windows.5.0.0.nupkg.sha512"
+    },
+    "System.Windows.Extensions/6.0.0-rc.1.21451.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/ku2GlWoL35BlDKXAcETWxSaSTsY2jCyGJ1WbsAEJiVkEr408hk7X2LwtfaO3SzcUpKiJMtE1KWTPaH+/CFSKQ==",
+      "path": "system.windows.extensions/6.0.0-rc.1.21451.13",
+      "hashPath": "system.windows.extensions.6.0.0-rc.1.21451.13.nupkg.sha512"
+    }
+  }
+}

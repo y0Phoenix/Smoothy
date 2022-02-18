@@ -1,1 +1,1 @@
-{"queues":[],"disconnectIdles":[]}
+{"queues":[],"disconnectIdles":[{"disconnectTimer":null,"msgs":[],"queueMsgs":[],"top5Msg":null,"top5Results":[],"disconnectvcidle":null,"disconnectTimervcidle":null,"message":{"guild":{"id":"471822222236057600"},"author":{"id":"217497799414120448"},"channelId":"481591680680591378","id":"944073528196599889"},"id":"471822222236057600","client":null}]}

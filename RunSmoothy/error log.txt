@@ -1,309 +1,146 @@
-[12/19/2021 12:25:33.911] Not Running, Starting up Smoothy
-[12/19/2021 12:25:34.408] Smoothy is currently running 
-[12/19/2021 12:25:34.940] Smoothy 1.4.5 is online!
-[12/19/2021 12:25:35.411] Smoothy is currently running 
-[12/19/2021 12:25:56.673] Command = pp https://www.youtube.com/playlist?list=PLAcVjxrQDMPo0uhHE4H9G0yPjS1vmhXrE
-[12/19/2021 12:25:56.906] Smoothy is currently running 
-[12/19/2021 12:25:57.383] [33mWARNING:[0m ytdl-core is out of date! Update with "npm install ytdl-core@latest".
-[12/19/2021 12:25:57.414] Smoothy is currently running 
-[12/19/2021 12:25:58.242] Found YouTube playlist Discord
-[12/19/2021 12:25:58.243] created the audioplayer
-[12/19/2021 12:25:58.243] subscribed to Player
-[12/19/2021 12:25:58.404] Smoothy is currently running 
-[12/19/2021 12:25:58.441] Created the serverQueue
-[12/19/2021 12:25:58.574] Playing Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
-[12/19/2021 12:25:58.913] Smoothy is currently running 
-[12/19/2021 12:26:02.800] Command = mix 
-[12/19/2021 12:26:02.800] Now shuffling the queue
-[12/19/2021 12:26:02.902] Smoothy is currently running 
-[12/19/2021 12:26:04.611] Command = q 
-[12/19/2021 12:26:04.910] Smoothy is currently running 
-[12/19/2021 12:26:13.932] Command = j 28
-[12/19/2021 12:26:14.049] Player Status Is Idle
-[12/19/2021 12:26:14.405] Smoothy is currently running 
-[12/19/2021 12:26:15.544] Found Han's RX 7 - Orange Demon  | Tokyo Drift  | Dark Light [FULL HD]
-[12/19/2021 12:26:15.547] Playing Han's RX 7 - Orange Demon  | Tokyo Drift  | Dark Light [FULL HD]!
-[12/19/2021 12:26:15.911] Smoothy is currently running 
-[12/19/2021 12:29:38.673] Player Status Is Idle
-[12/19/2021 12:29:38.909] Smoothy is currently running 
-[12/19/2021 12:29:39.943] Found the weeknd - blinding lights (slowed + reverb)
-[12/19/2021 12:29:39.948] Playing the weeknd - blinding lights (slowed + reverb)!
-[12/19/2021 12:29:40.411] Smoothy is currently running 
-[12/19/2021 12:29:40.531] Audio Player Threw An Err
-[12/19/2021 12:29:40.531] Player Status Is Idle
-[12/19/2021 12:29:40.910] Smoothy is currently running 
-[12/19/2021 12:29:43.327] Found the weeknd - blinding lights (slowed + reverb)
-[12/19/2021 12:29:43.327] Retrying the weeknd - blinding lights (slowed + reverb) at https://www.youtube.com/v/iDVKMdnvgl8?version=3&autohide=1
-[12/19/2021 12:29:43.330] Playing the weeknd - blinding lights (slowed + reverb)!
-[12/19/2021 12:29:43.412] Smoothy is currently running 
-[12/19/2021 12:29:44.166] Retries Successfull
-[12/19/2021 12:29:44.409] Smoothy is currently running 
-[12/19/2021 12:33:36.058] Player Status Is Idle
-[12/19/2021 12:33:36.191] Splicing the weeknd - blinding lights (slowed + reverb) 26
-[12/19/2021 12:33:36.404] Smoothy is currently running 
-[12/19/2021 12:33:37.195] Found LXST CXNTURY - ODIUM (Extended)(Bass Boosted)
-[12/19/2021 12:33:37.222] Playing LXST CXNTURY - ODIUM (Extended)(Bass Boosted)!
-[12/19/2021 12:33:37.408] Smoothy is currently running 
-[12/19/2021 12:38:49.534] Player Status Is Idle
-[12/19/2021 12:38:49.797] Splicing LXST CXNTURY - ODIUM (Extended)(Bass Boosted) 24
-[12/19/2021 12:38:49.911] Smoothy is currently running 
-[12/19/2021 12:38:50.806] Found Bob Seger- Night Moves
-[12/19/2021 12:38:50.812] Playing Bob Seger- Night Moves!
-[12/19/2021 12:38:50.908] Smoothy is currently running 
-[12/19/2021 12:44:17.581] Player Status Is Idle
-[12/19/2021 12:44:17.696] Splicing Bob Seger- Night Moves 18
-[12/19/2021 12:44:17.907] Smoothy is currently running 
-[12/19/2021 12:44:18.618] Found Minecraft Parody on "Reborn" by Kanye West and Kid Cudi - Respawn
-[12/19/2021 12:44:18.623] Playing Minecraft Parody on "Reborn" by Kanye West and Kid Cudi - Respawn!
-[12/19/2021 12:44:18.904] Smoothy is currently running 
-[12/19/2021 12:48:29.155] Player Status Is Idle
-[12/19/2021 12:48:29.266] Splicing Minecraft Parody on "Reborn" by Kanye West and Kid Cudi - Respawn 26
-[12/19/2021 12:48:29.404] Smoothy is currently running 
-[12/19/2021 12:48:30.864] Found BLADEFEAR -  RADICAL
-[12/19/2021 12:48:30.869] Playing BLADEFEAR -  RADICAL!
-[12/19/2021 12:48:30.909] Smoothy is currently running 
-[12/19/2021 12:50:36.752] Player Status Is Idle
-[12/19/2021 12:50:36.894] Splicing BLADEFEAR -  RADICAL 24
-[12/19/2021 12:50:36.910] Smoothy is currently running 
-[12/19/2021 12:50:37.839] Found Hoedown (Goose) [Chiptune Cover] from Don't Starve Together | Mandrew Music
-[12/19/2021 12:50:37.845] Playing Hoedown (Goose) [Chiptune Cover] from Don't Starve Together | Mandrew Music!
-[12/19/2021 12:50:37.907] Smoothy is currently running 
-[12/19/2021 12:52:47.081] Player Status Is Idle
-[12/19/2021 12:52:47.214] Splicing Hoedown (Goose) [Chiptune Cover] from Don't Starve Together | Mandrew Music 6
-[12/19/2021 12:52:47.411] Smoothy is currently running 
-[12/19/2021 12:52:48.273] Found Dear Mr. Fantasy
-[12/19/2021 12:52:48.279] Playing Dear Mr. Fantasy!
-[12/19/2021 12:52:48.406] Smoothy is currently running 
-[12/19/2021 12:58:23.219] Player Status Is Idle
-[12/19/2021 12:58:23.409] Smoothy is currently running 
-[12/19/2021 12:58:24.341] Found FRXXMAN - MEMENTO
-[12/19/2021 12:58:24.346] Playing FRXXMAN - MEMENTO!
-[12/19/2021 12:58:24.413] Smoothy is currently running 
-[12/19/2021 13:00:53.595] Player Status Is Idle
-[12/19/2021 13:00:53.826] Splicing FRXXMAN - MEMENTO 23
-[12/19/2021 13:00:53.908] Smoothy is currently running 
-[12/19/2021 13:00:56.282] Found Problem With My Dawgs (Original Mix)
-[12/19/2021 13:00:56.288] Playing Problem With My Dawgs (Original Mix)!
-[12/19/2021 13:00:56.408] Smoothy is currently running 
-[12/19/2021 13:01:02.372] Command = n 
-[12/19/2021 13:01:02.373] Skipping Problem With My Dawgs (Original Mix)!
-[12/19/2021 13:01:02.401] Smoothy is currently running 
-[12/19/2021 13:01:02.673] Player Status Is Idle
-[12/19/2021 13:01:02.674] Splicing Problem With My Dawgs (Original Mix) 6
-[12/19/2021 13:01:02.903] Smoothy is currently running 
-[12/19/2021 13:01:05.889] Found Right Above It (Explicit)
-[12/19/2021 13:01:05.892] Playing Right Above It (Explicit)!
-[12/19/2021 13:01:05.915] Smoothy is currently running 
-[12/19/2021 13:05:41.736] Player Status Is Idle
-[12/19/2021 13:05:41.878] Splicing Right Above It (Explicit) 24
-[12/19/2021 13:05:41.910] Smoothy is currently running 
-[12/19/2021 13:05:42.854] Found BLESSED MANE - NO SLEEP
-[12/19/2021 13:05:42.859] Playing BLESSED MANE - NO SLEEP!
-[12/19/2021 13:05:42.904] Smoothy is currently running 
-[12/19/2021 13:09:03.391] Player Status Is Idle
-[12/19/2021 13:09:03.410] Smoothy is currently running 
-[12/19/2021 13:09:03.497] Splicing BLESSED MANE - NO SLEEP 21
-[12/19/2021 13:09:03.908] Smoothy is currently running 
-[12/19/2021 13:09:04.760] Found Trance - 009 Sound System Dreamscape (HD)
-[12/19/2021 13:09:04.766] Playing Trance - 009 Sound System Dreamscape (HD)!
-[12/19/2021 13:09:04.906] Smoothy is currently running 
-[12/19/2021 13:17:45.037] Player Status Is Idle
-[12/19/2021 13:17:45.410] Smoothy is currently running 
-[12/19/2021 13:17:46.257] Found Chick
-[12/19/2021 13:17:46.262] Playing Chick!
-[12/19/2021 13:17:46.408] Smoothy is currently running 
-[12/19/2021 13:21:26.849] Player Status Is Idle
-[12/19/2021 13:21:26.912] Smoothy is currently running 
-[12/19/2021 13:21:26.951] Splicing Chick 22
-[12/19/2021 13:21:27.412] Smoothy is currently running 
-[12/19/2021 13:21:27.756] Found ≡ƒÜù Γ¢╜∩╕Å ZOOMING IN THE FOREIGN  ≡ƒÜù Γ¢╜∩╕Å [TYLER1]
-[12/19/2021 13:21:27.761] Playing ≡ƒÜù Γ¢╜∩╕Å ZOOMING IN THE FOREIGN  ≡ƒÜù Γ¢╜∩╕Å [TYLER1]!
-[12/19/2021 13:21:27.910] Smoothy is currently running 
-[12/19/2021 13:23:47.211] Command = re 
-[12/19/2021 13:23:47.330] Player Status Is Idle
-[12/19/2021 13:23:47.411] Smoothy is currently running 
-[12/19/2021 13:23:48.214] Found ≡ƒÜù Γ¢╜∩╕Å ZOOMING IN THE FOREIGN  ≡ƒÜù Γ¢╜∩╕Å [TYLER1]
-[12/19/2021 13:23:48.219] Playing ≡ƒÜù Γ¢╜∩╕Å ZOOMING IN THE FOREIGN  ≡ƒÜù Γ¢╜∩╕Å [TYLER1]!
-[12/19/2021 13:23:48.409] Smoothy is currently running 
-[12/19/2021 13:26:41.801] Player Status Is Idle
-[12/19/2021 13:26:41.911] Smoothy is currently running 
-[12/19/2021 13:26:41.951] Splicing ≡ƒÜù Γ¢╜∩╕Å ZOOMING IN THE FOREIGN  ≡ƒÜù Γ¢╜∩╕Å [TYLER1] 20
-[12/19/2021 13:26:42.410] Smoothy is currently running 
-[12/19/2021 13:26:43.086] Found I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music
-[12/19/2021 13:26:43.092] Playing I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music!
-[12/19/2021 13:26:43.410] Smoothy is currently running 
-[12/19/2021 13:30:24.643] Player Status Is Idle
-[12/19/2021 13:30:24.909] Smoothy is currently running 
-[12/19/2021 13:30:25.973] Found hozier - take me to church ( slowed + reverb )
-[12/19/2021 13:30:25.979] Playing hozier - take me to church ( slowed + reverb )!
-[12/19/2021 13:30:26.411] Smoothy is currently running 
-[12/19/2021 13:34:56.409] Player Status Is Idle
-[12/19/2021 13:34:56.410] Smoothy is currently running 
-[12/19/2021 13:34:56.824] Splicing hozier - take me to church ( slowed + reverb ) 6
-[12/19/2021 13:34:56.910] Smoothy is currently running 
-[12/19/2021 13:34:57.962] Found Creedence Clearwater Revival: Bad Moon Rising
-[12/19/2021 13:34:57.968] Playing Creedence Clearwater Revival: Bad Moon Rising!
-[12/19/2021 13:34:58.409] Smoothy is currently running 
-[12/19/2021 13:37:20.659] Player Status Is Idle
-[12/19/2021 13:37:20.769] Splicing Creedence Clearwater Revival: Bad Moon Rising 12
-[12/19/2021 13:37:20.912] Smoothy is currently running 
-[12/19/2021 13:37:22.748] Found Ending Theme - Yoshi's Island
-[12/19/2021 13:37:22.754] Playing Ending Theme - Yoshi's Island!
-[12/19/2021 13:37:22.908] Smoothy is currently running 
-[12/19/2021 13:41:19.847] Player Status Is Idle
-[12/19/2021 13:41:19.910] Smoothy is currently running 
-[12/19/2021 13:41:20.008] Splicing Ending Theme - Yoshi's Island 14
-[12/19/2021 13:41:20.407] Smoothy is currently running 
-[12/19/2021 13:41:22.130] Found FaZe Ramos: Go On Ramos! - Episode 11
-[12/19/2021 13:41:22.135] Playing FaZe Ramos: Go On Ramos! - Episode 11!
-[12/19/2021 13:41:22.409] Smoothy is currently running 
-[12/19/2021 13:44:07.501] Player Status Is Idle
-[12/19/2021 13:44:07.672] Splicing FaZe Ramos: Go On Ramos! - Episode 11 14
-[12/19/2021 13:44:07.909] Smoothy is currently running 
-[12/19/2021 13:44:09.952] Found Iroh Sings Leaves From the Vine (Little Soldier Boy) ≡ƒìâ| Avatar
-[12/19/2021 13:44:09.957] Playing Iroh Sings Leaves From the Vine (Little Soldier Boy) ≡ƒìâ| Avatar!
-[12/19/2021 13:44:10.409] Smoothy is currently running 
-[12/19/2021 13:45:21.582] Player Status Is Idle
-[12/19/2021 13:45:21.712] Splicing Iroh Sings Leaves From the Vine (Little Soldier Boy) ≡ƒìâ| Avatar 13
-[12/19/2021 13:45:21.911] Smoothy is currently running 
-[12/19/2021 13:45:22.899] Found MrTLexify intro song (Hudson Mohawke-Chimes)
-[12/19/2021 13:45:22.904] Playing MrTLexify intro song (Hudson Mohawke-Chimes)!
-[12/19/2021 13:45:22.911] Smoothy is currently running 
-[12/19/2021 13:45:23.550] Audio Player Threw An Err
-[12/19/2021 13:45:23.550] Player Status Is Idle
-[12/19/2021 13:45:23.910] Smoothy is currently running 
-[12/19/2021 13:45:26.227] Found MrTLexify intro song (Hudson Mohawke-Chimes)
-[12/19/2021 13:45:26.227] Retrying MrTLexify intro song (Hudson Mohawke-Chimes) at https://www.youtube.com/v/ZRebigia0Jc?version=3&autohide=1
-[12/19/2021 13:45:26.230] Playing MrTLexify intro song (Hudson Mohawke-Chimes)!
-[12/19/2021 13:45:26.406] Smoothy is currently running 
-[12/19/2021 13:45:27.166] Retries Successfull
-[12/19/2021 13:45:27.409] Smoothy is currently running 
-[12/19/2021 13:49:00.279] Player Status Is Idle
-[12/19/2021 13:49:00.406] Smoothy is currently running 
-[12/19/2021 13:49:00.561] Splicing MrTLexify intro song (Hudson Mohawke-Chimes) 5
-[12/19/2021 13:49:00.907] Smoothy is currently running 
-[12/19/2021 13:49:02.307] Found Sigma Male Theme [1 Hour Loop + 432hz]
-[12/19/2021 13:49:02.312] Playing Sigma Male Theme [1 Hour Loop + 432hz]!
-[12/19/2021 13:49:02.412] Smoothy is currently running 
-[12/19/2021 14:49:03.640] Player Status Is Idle
-[12/19/2021 14:49:03.773] Splicing Sigma Male Theme [1 Hour Loop + 432hz] 14
-[12/19/2021 14:49:03.908] Smoothy is currently running 
-[12/19/2021 14:49:05.003] Found Coldplay - Yellow (FKYA & Kh├╕st Remix)
-[12/19/2021 14:49:05.026] Playing Coldplay - Yellow (FKYA & Kh├╕st Remix)!
-[12/19/2021 14:49:05.407] Smoothy is currently running 
-[12/19/2021 14:52:28.097] Player Status Is Idle
-[12/19/2021 14:52:28.281] Splicing Coldplay - Yellow (FKYA & Kh├╕st Remix) 2
-[12/19/2021 14:52:28.407] Smoothy is currently running 
-[12/19/2021 14:52:29.751] Found cat caramelldansen 1 hour
-[12/19/2021 14:52:29.756] Playing cat caramelldansen 1 hour!
-[12/19/2021 14:52:29.909] Smoothy is currently running 
-[12/19/2021 15:37:32.043] Command = n 
-[12/19/2021 15:37:32.043] Skipping cat caramelldansen 1 hour!
-[12/19/2021 15:37:32.340] Player Status Is Idle
-[12/19/2021 15:37:32.340] Splicing cat caramelldansen 1 hour 12
-[12/19/2021 15:37:32.405] Smoothy is currently running 
-[12/19/2021 15:37:33.415] Found DBZ Soundtrack - The Fearsome Ginyu Special Corps [Extended]
-[12/19/2021 15:37:33.421] Playing DBZ Soundtrack - The Fearsome Ginyu Special Corps [Extended]!
-[12/19/2021 15:37:33.910] Smoothy is currently running 
-[12/19/2021 15:50:17.376] Player Status Is Idle
-[12/19/2021 15:50:17.407] Smoothy is currently running 
-[12/19/2021 15:50:17.507] Splicing DBZ Soundtrack - The Fearsome Ginyu Special Corps [Extended] 9
-[12/19/2021 15:50:17.909] Smoothy is currently running 
-[12/19/2021 15:50:18.806] Found The Animals - The House of the Rising Sun - Lyrics
-[12/19/2021 15:50:18.811] Playing The Animals - The House of the Rising Sun - Lyrics!
-[12/19/2021 15:50:18.907] Smoothy is currently running 
-[12/19/2021 15:50:19.675] Audio Player Threw An Err
-[12/19/2021 15:50:19.675] Player Status Is Idle
-[12/19/2021 15:50:19.906] Smoothy is currently running 
-[12/19/2021 15:50:22.343] Found The Animals - The House of the Rising Sun - Lyrics
-[12/19/2021 15:50:22.343] Retrying The Animals - The House of the Rising Sun - Lyrics at https://www.youtube.com/v/3ZYBHFv9Z14?version=3&autohide=1
-[12/19/2021 15:50:22.346] Playing The Animals - The House of the Rising Sun - Lyrics!
-[12/19/2021 15:50:22.408] Smoothy is currently running 
-[12/19/2021 15:50:23.339] Retries Successfull
-[12/19/2021 15:50:23.408] Smoothy is currently running 
-[12/19/2021 15:54:42.050] Player Status Is Idle
-[12/19/2021 15:54:42.139] Splicing The Animals - The House of the Rising Sun - Lyrics 9
-[12/19/2021 15:54:42.409] Smoothy is currently running 
-[12/19/2021 15:54:43.049] Found NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3
-[12/19/2021 15:54:43.054] Playing NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3!
-[12/19/2021 15:54:43.409] Smoothy is currently running 
-[12/19/2021 16:06:52.587] Command = pa 
-[12/19/2021 16:06:52.906] Smoothy is currently running 
-[12/19/2021 16:11:45.464] Command = un 
-[12/19/2021 16:11:45.907] Smoothy is currently running 
-[12/19/2021 16:12:14.211] Audio Player Threw An Err
-[12/19/2021 16:12:14.211] Player Status Is Idle
-[12/19/2021 16:12:14.409] Smoothy is currently running 
-[12/19/2021 16:12:16.754] Found NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3
-[12/19/2021 16:12:16.754] Retrying NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3 at https://www.youtube.com/v/ndizAUAR_Cs?version=3&autohide=1
-[12/19/2021 16:12:16.759] Playing NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3!
-[12/19/2021 16:12:16.910] Smoothy is currently running 
-[12/19/2021 16:12:17.645] Retries Successfull
-[12/19/2021 16:12:17.909] Smoothy is currently running 
-[12/19/2021 16:12:30.693] Command = n 
-[12/19/2021 16:12:30.693] Skipping NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3!
-[12/19/2021 16:12:30.907] Smoothy is currently running 
-[12/19/2021 16:12:30.922] Player Status Is Idle
-[12/19/2021 16:12:30.922] Splicing NIGHT DRIVE PHONK MIX (LXST CXNTURY TYPE) #3 8
-[12/19/2021 16:12:31.411] Smoothy is currently running 
-[12/19/2021 16:12:32.036] Found Call of Duty: Black Ops 3 - Main Extended Theme
-[12/19/2021 16:12:32.040] Playing Call of Duty: Black Ops 3 - Main Extended Theme!
-[12/19/2021 16:12:32.407] Smoothy is currently running 
-[12/19/2021 17:14:17.393] Player Status Is Idle
-[12/19/2021 17:14:17.410] Smoothy is currently running 
-[12/19/2021 17:14:17.513] Splicing Call of Duty: Black Ops 3 - Main Extended Theme 4
-[12/19/2021 17:14:17.910] Smoothy is currently running 
-[12/19/2021 17:14:18.624] Found Zack Hemsey - "The Way (Instrumental)"
-[12/19/2021 17:14:18.629] Playing Zack Hemsey - "The Way (Instrumental)"!
-[12/19/2021 17:14:18.908] Smoothy is currently running 
-[12/19/2021 17:21:24.504] Player Status Is Idle
-[12/19/2021 17:21:24.750] Splicing Zack Hemsey - "The Way (Instrumental)" 6
-[12/19/2021 17:21:24.911] Smoothy is currently running 
-[12/19/2021 17:21:25.518] Found Capital Cities - Safe and Sound (slowed + reverb)
-[12/19/2021 17:21:25.523] Playing Capital Cities - Safe and Sound (slowed + reverb)!
-[12/19/2021 17:21:25.909] Smoothy is currently running 
-[12/19/2021 17:25:23.566] Player Status Is Idle
-[12/19/2021 17:25:23.663] Splicing Capital Cities - Safe and Sound (slowed + reverb) 1
-[12/19/2021 17:25:23.908] Smoothy is currently running 
-[12/19/2021 17:25:24.478] Found Zack Hemsey - "Vengeance"
-[12/19/2021 17:25:24.484] Playing Zack Hemsey - "Vengeance"!
-[12/19/2021 17:25:24.909] Smoothy is currently running 
-[12/19/2021 17:31:58.190] Player Status Is Idle
-[12/19/2021 17:31:58.345] Splicing Zack Hemsey - "Vengeance" 2
-[12/19/2021 17:31:58.409] Smoothy is currently running 
-[12/19/2021 17:31:59.067] Found Cheykeys - finish him
-[12/19/2021 17:31:59.072] Playing Cheykeys - finish him!
-[12/19/2021 17:31:59.111] Audio Player Threw An Err
-[12/19/2021 17:31:59.111] Player Status Is Idle
-[12/19/2021 17:31:59.405] Smoothy is currently running 
-[12/19/2021 17:32:01.333] Found Cheykeys - finish him
-[12/19/2021 17:32:01.333] Retrying Cheykeys - finish him at https://www.youtube.com/v/c1oXg-AAwwA?version=3&autohide=1
-[12/19/2021 17:32:01.336] Playing Cheykeys - finish him!
-[12/19/2021 17:32:01.411] Smoothy is currently running 
-[12/19/2021 17:32:01.506] Retries Successfull
-[12/19/2021 17:32:01.912] Smoothy is currently running 
-[12/19/2021 17:33:54.800] Player Status Is Idle
-[12/19/2021 17:33:54.910] Smoothy is currently running 
-[12/19/2021 17:33:54.957] Splicing Cheykeys - finish him 2
-[12/19/2021 17:33:55.411] Smoothy is currently running 
-[12/19/2021 17:33:55.879] Found Kaito Shoma - Scary Garry
-[12/19/2021 17:33:55.884] Playing Kaito Shoma - Scary Garry!
-[12/19/2021 17:33:55.911] Smoothy is currently running 
-[12/19/2021 17:35:36.097] Player Status Is Idle
-[12/19/2021 17:35:36.297] Splicing Kaito Shoma - Scary Garry 2
-[12/19/2021 17:35:36.411] Smoothy is currently running 
-[12/19/2021 17:35:37.399] Found XXXTENTACION & SKI MASK THE SLUMP GOD - FREDDY VS JASON (Prod. Willie G) (OFFICIAL LYRICS)
-[12/19/2021 17:35:37.404] Playing XXXTENTACION & SKI MASK THE SLUMP GOD - FREDDY VS JASON (Prod. Willie G) (OFFICIAL LYRICS)!
-[12/19/2021 17:35:37.410] Smoothy is currently running 
-[12/19/2021 17:37:17.033] Player Status Is Idle
-[12/19/2021 17:37:17.147] Splicing XXXTENTACION & SKI MASK THE SLUMP GOD - FREDDY VS JASON (Prod. Willie G) (OFFICIAL LYRICS) 1
-[12/19/2021 17:37:17.408] Smoothy is currently running 
-[12/19/2021 17:37:17.918] Found CopperCab's response to Schmoyoho songifying him [REMIX] (FUNNY)
-[12/19/2021 17:37:17.923] Playing CopperCab's response to Schmoyoho songifying him [REMIX] (FUNNY)!
-[12/19/2021 17:37:18.410] Smoothy is currently running 
-[12/19/2021 17:39:21.170] Player Status Is Idle
-[12/19/2021 17:39:21.283] Starting disconnectTimer Timeout
-[12/19/2021 17:39:21.407] Smoothy is currently running 
-[12/19/2021 18:09:21.286] Left VC Due To Idle
-[12/19/2021 18:09:21.412] Smoothy is currently running 
-[12/19/2021 20:19:28.709] ^C
+[02/17/2022 21:37:45.475] Smoothy is already running so killing it!
+[02/17/2022 21:37:46.490] Not Running, Starting up Smoothy...
+[02/17/2022 21:37:46.516] 
+[02/17/2022 21:37:46.516] C:\Users\Admin\Desktop\Smoothy\build>echo Run.bat File Started 
+[02/17/2022 21:37:46.516] Run.bat File Started
+[02/17/2022 21:37:46.516] 
+[02/17/2022 21:37:46.516] C:\Users\Admin\Desktop\Smoothy\build>node . 
+[02/17/2022 21:37:47.473] Smoothy is currently running 
+[02/17/2022 21:37:49.904] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:37:49.904]   ____                        _   _                   _  _  _   _____ 
+[02/17/2022 21:37:49.904]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
+[02/17/2022 21:37:49.905]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
+[02/17/2022 21:37:49.905]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
+[02/17/2022 21:37:49.905]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
+[02/17/2022 21:37:49.905]                                         |___/                         
+[02/17/2022 21:37:49.905] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:37:50.484] Smoothy is currently running 
+[02/17/2022 21:37:59.128] Command = p piano man
+[02/17/2022 21:37:59.470] Smoothy is currently running 
+[02/17/2022 21:37:59.903] Videosearch error on piano man
+[02/17/2022 21:38:00.463] Smoothy is currently running 
+[02/17/2022 21:38:01.141] C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1
+[02/17/2022 21:38:01.147] !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.ytSearch=e()}}(function(){return function(){function e(t,n,r){function o(u,l){if(!n[u]){if(!t[u]){var s="function"==typeof require&&require;if(!l&&s)return s(u,!0);if(i)return i(u,!0);var a=new Error("Cannot find module '"+u+"'");throw a.code="MODULE_NOT_FOUND",a}var c=n[u]={exports:{}};t[u][0].call(c.exports,function(e){var n=t[u][1][e];return o(n?n:e)},c,c.exports,e,t,n,r)}return n[u].exports}for(var i="function"==typeof require&&require,u=0;u<r.length;u++)o(r[u]);return o}return e}()({1:[function(e,t,n){"use strict";function r(e,t){function n(){for(var n=e.split(/\s+/),s=v+n.join("+"),a=[],c=function(e){var t=e;a.push(function(e){o(s,t,function(t,n){t?e(t):e(null,n)})})},f=r.pageStart;f<r.pageEnd;f++)c(f);d(a,function(e,n){if(e)t(e);else{n=[].concat.apply([],n);var r=n.filter(i),o=n.filter(u),s=n.filter(l);t(null,{videos:r,playlists:o,accounts:s})}})}var r=Object.assign({},h);r="string"==typeof e?Object.assign(r,{query:e}):Object.assign(r,e),e=r.query||r.search,n()}function o(e,t,n){e+="&page="+t;var r=g.parse(e);p.req(r,function(e,t,r){e?n(e):s(r,n)})}function i(e){return e.url.indexOf("watch")>=0}function u(e){return e.url.indexOf("list")>=0}function l(e){return e.url.indexOf("user")>=0}function s(e,t){for(var n=f.load(e),r=n(".yt-lockup-content"),o=[],i=0;i<r.length;i++){var u=r[i],l=n(".yt-lockup-title",u),s=n("a",l),c=n("span",l),p=a(c.text()),d=s.attr("href")||"",g=d.split("=")[1],v=n(".yt-lockup-meta-info",u),h=n("li",v),y=n(h[0]).text(),m=n(h[1]).text(),x=Number(m.split(" ")[0].split(",").join("").trim()),w={title:s.text(),url:d,videoId:g,seconds:Number(p.seconds),timestamp:p.timestamp,duration:p,ago:y,views:Number(x)};o.push(w)}t(null,o)}function a(e){for(var t=e.split(" "),n=t[t.length-1].replace(/[^:\d]/g,""),r=n.split(":"),o=0,i=0,u=r.length-1;u>=0;u--)if(!(r[u].length<=0)){var l=r[u].replace(/\D/g,"");if(o+=parseInt(l)*(i>0?Math.pow(60,i):1),i++,i>2)break}return{toString:function(){return o+" seconds ("+n+")"},seconds:o,timestamp:n}}function c(e){console.log("doing list search"),r(e,function(e,t){if(e)throw e;var n=t.videos,r=t.playlists,o=t.accounts;console.log("videos: "+n.length),console.log("playlists: "+r.length),console.log("accounts: "+o.length);for(var i=0;i<3;i++){var u=n[i],l=" ("+u.timestamp+")";console.log(u.title+l)}})}var f=e("cheerio"),p=e("dasu"),d=e("async.parallel"),g=e("url"),v="https://www.youtube.com/results?hl=en&gl=US&category=music&search_query=",h={pageStart:1,pageEnd:3};t.exports=function(e,t){r(e,t)},t.exports.search=r,e.main===t&&c("superman theme")},{"async.parallel":void 0,cheerio:void 0,dasu:void 0,url:void 0}]},{},[1])(1)});
+[02/17/2022 21:38:01.149]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+[02/17/2022 21:38:01.150] 
+[02/17/2022 21:38:01.150] TypeError: t is not a function
+[02/17/2022 21:38:01.150]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1087
+[02/17/2022 21:38:01.151]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:20:9
+[02/17/2022 21:38:01.151]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.once\index.js:6:12
+[02/17/2022 21:38:01.152]     at done (C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.eachof\index.js:30:13)
+[02/17/2022 21:38:01.152]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.onlyonce\index.js:6:12
+[02/17/2022 21:38:01.152]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:17:13
+[02/17/2022 21:38:01.153]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.restparam\index.js:14:29
+[02/17/2022 21:38:01.153]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:934
+[02/17/2022 21:38:01.153]     at s (C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1934)
+[02/17/2022 21:38:01.154]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1329
+[02/17/2022 21:38:01.483] Not Running, Starting up Smoothy...
+[02/17/2022 21:38:01.502] 
+[02/17/2022 21:38:01.503] C:\Users\Admin\Desktop\Smoothy\build>echo Run.bat File Started 
+[02/17/2022 21:38:01.503] Run.bat File Started
+[02/17/2022 21:38:01.504] 
+[02/17/2022 21:38:01.504] C:\Users\Admin\Desktop\Smoothy\build>node . 
+[02/17/2022 21:38:02.481] Smoothy is currently running 
+[02/17/2022 21:38:04.872] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:38:04.873]   ____                        _   _                   _  _  _   _____ 
+[02/17/2022 21:38:04.873]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
+[02/17/2022 21:38:04.874]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
+[02/17/2022 21:38:04.875]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
+[02/17/2022 21:38:04.875]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
+[02/17/2022 21:38:04.876]                                         |___/                         
+[02/17/2022 21:38:04.876] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:38:05.476] Smoothy is currently running 
+[02/17/2022 21:38:12.790] Command = p piano man
+[02/17/2022 21:38:13.477] Smoothy is currently running 
+[02/17/2022 21:38:13.562] Videosearch error on piano man
+[02/17/2022 21:38:14.483] Smoothy is currently running 
+[02/17/2022 21:38:14.641] C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1
+[02/17/2022 21:38:14.647] !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.ytSearch=e()}}(function(){return function(){function e(t,n,r){function o(u,l){if(!n[u]){if(!t[u]){var s="function"==typeof require&&require;if(!l&&s)return s(u,!0);if(i)return i(u,!0);var a=new Error("Cannot find module '"+u+"'");throw a.code="MODULE_NOT_FOUND",a}var c=n[u]={exports:{}};t[u][0].call(c.exports,function(e){var n=t[u][1][e];return o(n?n:e)},c,c.exports,e,t,n,r)}return n[u].exports}for(var i="function"==typeof require&&require,u=0;u<r.length;u++)o(r[u]);return o}return e}()({1:[function(e,t,n){"use strict";function r(e,t){function n(){for(var n=e.split(/\s+/),s=v+n.join("+"),a=[],c=function(e){var t=e;a.push(function(e){o(s,t,function(t,n){t?e(t):e(null,n)})})},f=r.pageStart;f<r.pageEnd;f++)c(f);d(a,function(e,n){if(e)t(e);else{n=[].concat.apply([],n);var r=n.filter(i),o=n.filter(u),s=n.filter(l);t(null,{videos:r,playlists:o,accounts:s})}})}var r=Object.assign({},h);r="string"==typeof e?Object.assign(r,{query:e}):Object.assign(r,e),e=r.query||r.search,n()}function o(e,t,n){e+="&page="+t;var r=g.parse(e);p.req(r,function(e,t,r){e?n(e):s(r,n)})}function i(e){return e.url.indexOf("watch")>=0}function u(e){return e.url.indexOf("list")>=0}function l(e){return e.url.indexOf("user")>=0}function s(e,t){for(var n=f.load(e),r=n(".yt-lockup-content"),o=[],i=0;i<r.length;i++){var u=r[i],l=n(".yt-lockup-title",u),s=n("a",l),c=n("span",l),p=a(c.text()),d=s.attr("href")||"",g=d.split("=")[1],v=n(".yt-lockup-meta-info",u),h=n("li",v),y=n(h[0]).text(),m=n(h[1]).text(),x=Number(m.split(" ")[0].split(",").join("").trim()),w={title:s.text(),url:d,videoId:g,seconds:Number(p.seconds),timestamp:p.timestamp,duration:p,ago:y,views:Number(x)};o.push(w)}t(null,o)}function a(e){for(var t=e.split(" "),n=t[t.length-1].replace(/[^:\d]/g,""),r=n.split(":"),o=0,i=0,u=r.length-1;u>=0;u--)if(!(r[u].length<=0)){var l=r[u].replace(/\D/g,"");if(o+=parseInt(l)*(i>0?Math.pow(60,i):1),i++,i>2)break}return{toString:function(){return o+" seconds ("+n+")"},seconds:o,timestamp:n}}function c(e){console.log("doing list search"),r(e,function(e,t){if(e)throw e;var n=t.videos,r=t.playlists,o=t.accounts;console.log("videos: "+n.length),console.log("playlists: "+r.length),console.log("accounts: "+o.length);for(var i=0;i<3;i++){var u=n[i],l=" ("+u.timestamp+")";console.log(u.title+l)}})}var f=e("cheerio"),p=e("dasu"),d=e("async.parallel"),g=e("url"),v="https://www.youtube.com/results?hl=en&gl=US&category=music&search_query=",h={pageStart:1,pageEnd:3};t.exports=function(e,t){r(e,t)},t.exports.search=r,e.main===t&&c("superman theme")},{"async.parallel":void 0,cheerio:void 0,dasu:void 0,url:void 0}]},{},[1])(1)});
+[02/17/2022 21:38:14.648]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+[02/17/2022 21:38:14.648] 
+[02/17/2022 21:38:14.649] TypeError: t is not a function
+[02/17/2022 21:38:14.649]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1087
+[02/17/2022 21:38:14.649]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:20:9
+[02/17/2022 21:38:14.650]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.once\index.js:6:12
+[02/17/2022 21:38:14.650]     at done (C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.eachof\index.js:30:13)
+[02/17/2022 21:38:14.651]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.onlyonce\index.js:6:12
+[02/17/2022 21:38:14.651]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:17:13
+[02/17/2022 21:38:14.651]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.restparam\index.js:14:29
+[02/17/2022 21:38:14.652]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:934
+[02/17/2022 21:38:14.652]     at s (C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1934)
+[02/17/2022 21:38:14.652]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1329
+[02/17/2022 21:38:15.476] Not Running, Starting up Smoothy...
+[02/17/2022 21:38:15.496] 
+[02/17/2022 21:38:15.496] C:\Users\Admin\Desktop\Smoothy\build>echo Run.bat File Started 
+[02/17/2022 21:38:15.497] Run.bat File Started
+[02/17/2022 21:38:15.497] 
+[02/17/2022 21:38:15.497] C:\Users\Admin\Desktop\Smoothy\build>node . 
+[02/17/2022 21:38:16.480] Smoothy is currently running 
+[02/17/2022 21:38:18.872] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:38:18.873]   ____                        _   _                   _  _  _   _____ 
+[02/17/2022 21:38:18.873]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
+[02/17/2022 21:38:18.874]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
+[02/17/2022 21:38:18.874]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
+[02/17/2022 21:38:18.875]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
+[02/17/2022 21:38:18.875]                                         |___/                         
+[02/17/2022 21:38:18.876] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:38:19.473] Smoothy is currently running 
+[02/17/2022 21:39:10.650] Command = dc 
+[02/17/2022 21:39:10.947] C:\Users\Admin\Desktop\Smoothy\build\commands\leave.js:46
+[02/17/2022 21:39:10.948]             .then(msg => (0, modules_1.deleteMsg)(msg, 30000, serverDisconnectIdle.client));
+[02/17/2022 21:39:10.948]                                                                                    ^
+[02/17/2022 21:39:10.949] 
+[02/17/2022 21:39:10.950] TypeError: Cannot read properties of undefined (reading 'client')
+[02/17/2022 21:39:10.950]     at C:\Users\Admin\Desktop\Smoothy\build\commands\leave.js:46:84
+[02/17/2022 21:39:10.951]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[02/17/2022 21:39:11.472] Not Running, Starting up Smoothy...
+[02/17/2022 21:39:11.492] 
+[02/17/2022 21:39:11.492] C:\Users\Admin\Desktop\Smoothy\build>echo Run.bat File Started 
+[02/17/2022 21:39:11.493] Run.bat File Started
+[02/17/2022 21:39:11.493] 
+[02/17/2022 21:39:11.493] C:\Users\Admin\Desktop\Smoothy\build>node . 
+[02/17/2022 21:39:12.472] Smoothy is currently running 
+[02/17/2022 21:39:14.934] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:39:14.935]   ____                        _   _                   _  _  _   _____ 
+[02/17/2022 21:39:14.935]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
+[02/17/2022 21:39:14.936]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
+[02/17/2022 21:39:14.936]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
+[02/17/2022 21:39:14.937]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
+[02/17/2022 21:39:14.937]                                         |___/                         
+[02/17/2022 21:39:14.938] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:39:15.487] Smoothy is currently running 
+[02/17/2022 21:40:20.737] Command = p piano man
+[02/17/2022 21:40:21.416] Videosearch error on piano man
+[02/17/2022 21:40:21.489] Smoothy is currently running 
+[02/17/2022 21:40:22.376] C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1
+[02/17/2022 21:40:22.382] !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.ytSearch=e()}}(function(){return function(){function e(t,n,r){function o(u,l){if(!n[u]){if(!t[u]){var s="function"==typeof require&&require;if(!l&&s)return s(u,!0);if(i)return i(u,!0);var a=new Error("Cannot find module '"+u+"'");throw a.code="MODULE_NOT_FOUND",a}var c=n[u]={exports:{}};t[u][0].call(c.exports,function(e){var n=t[u][1][e];return o(n?n:e)},c,c.exports,e,t,n,r)}return n[u].exports}for(var i="function"==typeof require&&require,u=0;u<r.length;u++)o(r[u]);return o}return e}()({1:[function(e,t,n){"use strict";function r(e,t){function n(){for(var n=e.split(/\s+/),s=v+n.join("+"),a=[],c=function(e){var t=e;a.push(function(e){o(s,t,function(t,n){t?e(t):e(null,n)})})},f=r.pageStart;f<r.pageEnd;f++)c(f);d(a,function(e,n){if(e)t(e);else{n=[].concat.apply([],n);var r=n.filter(i),o=n.filter(u),s=n.filter(l);t(null,{videos:r,playlists:o,accounts:s})}})}var r=Object.assign({},h);r="string"==typeof e?Object.assign(r,{query:e}):Object.assign(r,e),e=r.query||r.search,n()}function o(e,t,n){e+="&page="+t;var r=g.parse(e);p.req(r,function(e,t,r){e?n(e):s(r,n)})}function i(e){return e.url.indexOf("watch")>=0}function u(e){return e.url.indexOf("list")>=0}function l(e){return e.url.indexOf("user")>=0}function s(e,t){for(var n=f.load(e),r=n(".yt-lockup-content"),o=[],i=0;i<r.length;i++){var u=r[i],l=n(".yt-lockup-title",u),s=n("a",l),c=n("span",l),p=a(c.text()),d=s.attr("href")||"",g=d.split("=")[1],v=n(".yt-lockup-meta-info",u),h=n("li",v),y=n(h[0]).text(),m=n(h[1]).text(),x=Number(m.split(" ")[0].split(",").join("").trim()),w={title:s.text(),url:d,videoId:g,seconds:Number(p.seconds),timestamp:p.timestamp,duration:p,ago:y,views:Number(x)};o.push(w)}t(null,o)}function a(e){for(var t=e.split(" "),n=t[t.length-1].replace(/[^:\d]/g,""),r=n.split(":"),o=0,i=0,u=r.length-1;u>=0;u--)if(!(r[u].length<=0)){var l=r[u].replace(/\D/g,"");if(o+=parseInt(l)*(i>0?Math.pow(60,i):1),i++,i>2)break}return{toString:function(){return o+" seconds ("+n+")"},seconds:o,timestamp:n}}function c(e){console.log("doing list search"),r(e,function(e,t){if(e)throw e;var n=t.videos,r=t.playlists,o=t.accounts;console.log("videos: "+n.length),console.log("playlists: "+r.length),console.log("accounts: "+o.length);for(var i=0;i<3;i++){var u=n[i],l=" ("+u.timestamp+")";console.log(u.title+l)}})}var f=e("cheerio"),p=e("dasu"),d=e("async.parallel"),g=e("url"),v="https://www.youtube.com/results?hl=en&gl=US&category=music&search_query=",h={pageStart:1,pageEnd:3};t.exports=function(e,t){r(e,t)},t.exports.search=r,e.main===t&&c("superman theme")},{"async.parallel":void 0,cheerio:void 0,dasu:void 0,url:void 0}]},{},[1])(1)});
+[02/17/2022 21:40:22.383]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+[02/17/2022 21:40:22.384] 
+[02/17/2022 21:40:22.384] TypeError: t is not a function
+[02/17/2022 21:40:22.385]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1087
+[02/17/2022 21:40:22.385]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:20:9
+[02/17/2022 21:40:22.386]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.once\index.js:6:12
+[02/17/2022 21:40:22.386]     at done (C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.eachof\index.js:30:13)
+[02/17/2022 21:40:22.386]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.onlyonce\index.js:6:12
+[02/17/2022 21:40:22.387]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.parallel\index.js:17:13
+[02/17/2022 21:40:22.387]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\async.util.restparam\index.js:14:29
+[02/17/2022 21:40:22.388]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:934
+[02/17/2022 21:40:22.388]     at s (C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1934)
+[02/17/2022 21:40:22.389]     at C:\Users\Admin\Desktop\Smoothy\build\node_modules\yt-search\dist\yt-search.min.js:1:1329
+[02/17/2022 21:40:22.477] Not Running, Starting up Smoothy...
+[02/17/2022 21:40:22.497] 
+[02/17/2022 21:40:22.497] C:\Users\Admin\Desktop\Smoothy\build>echo Run.bat File Started 
+[02/17/2022 21:40:22.498] Run.bat File Started
+[02/17/2022 21:40:22.498] 
+[02/17/2022 21:40:22.499] C:\Users\Admin\Desktop\Smoothy\build>node . 
+[02/17/2022 21:40:23.479] Smoothy is currently running 
+[02/17/2022 21:40:25.816] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:40:25.816]   ____                        _   _                   _  _  _   _____ 
+[02/17/2022 21:40:25.817]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
+[02/17/2022 21:40:25.818]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
+[02/17/2022 21:40:25.818]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
+[02/17/2022 21:40:25.819]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
+[02/17/2022 21:40:25.819]                                         |___/                         
+[02/17/2022 21:40:25.820] ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+[02/17/2022 21:40:26.474] Smoothy is currently running 
+[02/17/2022 21:40:42.675] ^C
