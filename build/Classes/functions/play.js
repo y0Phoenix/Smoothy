@@ -40,7 +40,7 @@ async function play() {
                 serverQueue.player.stop();
                 serverQueue.audioPlayerIdle();
             }
-            return play();
+            return serverQueue.play();
         }
     }
     else {
