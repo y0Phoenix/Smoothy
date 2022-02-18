@@ -4,7 +4,6 @@ const play_dl_1 = require("play-dl");
 const voice_1 = require("@discordjs/voice");
 const discord_js_1 = require("discord.js");
 const modules_1 = require("../../modules/modules");
-const audioPlayerIdle_1 = require("./audioPlayerIdle");
 const maps_1 = require("../../maps");
 /**
  @description where the song gets played and the nowPlaying message gets set and sent
@@ -31,11 +30,17 @@ async function play() {
             serverQueue.repeat = false;
         }
         catch (err) {
-            const msg = await serverQueue.message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
-                        .setDescription(`Sorry There Was An Issue Playing ${serverQueue.currentsong[0].title} Playing Next Song`)
-                        .setColor('RED')] });
-            (0, modules_1.deleteMsg)(msg, 30000, DisconnectIdle.get(1));
             console.log(err);
+            serverQueue.tries++;
+            if (serverQueue.tries >= 5) {
+                const msg = await serverQueue.message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
+                            .setDescription(`Sorry There Was An Issue Playing ${serverQueue.currentsong[0].title} Playing Next Song`)
+                            .setColor('RED')] });
+                (0, modules_1.deleteMsg)(msg, 30000, DisconnectIdle.get(1));
+                serverQueue.player.stop();
+                serverQueue.audioPlayerIdle();
+            }
+            return play();
         }
     }
     else {
@@ -44,7 +49,7 @@ async function play() {
             .setDescription(':rofl: No ***video*** results found');
         serverQueue.message.channel.send({ embeds: [noVidEmbed] });
         serverQueue.player.stop();
-        (0, audioPlayerIdle_1.default)();
+        serverQueue.audioPlayerIdle();
     }
 }
 exports.default = play;

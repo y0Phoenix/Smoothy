@@ -1,21 +1,10 @@
-import {Idle} from "../Idle";
 import Queue from "../Queue";
 import playdl from 'play-dl';
 import {
-    AudioPlayerStatus,
-    StreamType,
-    createAudioPlayer,
-    createAudioResource,
-    joinVoiceChannel,
-    getVoiceConnection,
-    VoiceConnectionStatus,
-    AudioPlayer, 
-    PlayerSubscription, 
-    VoiceConnection
+    createAudioResource
   } from '@discordjs/voice';
   import { MessageEmbed } from 'discord.js';
   import {writeGlobal, deleteMsg} from '../../modules/modules';
-  import audioPlayerIdle from './audioPlayerIdle';
 import getMaps from "../../maps";
 
 /**
@@ -43,11 +32,18 @@ export default async function play() {
         serverQueue.repeat = false;
   
       } catch (err) {
-        const msg = await serverQueue.message.channel.send({embeds: [new MessageEmbed()
-          .setDescription(`Sorry There Was An Issue Playing ${serverQueue.currentsong[0].title} Playing Next Song`)
-          .setColor('RED')]});
-        deleteMsg(msg, 30000, DisconnectIdle.get(1));
         console.log(err);
+        serverQueue.tries++;
+        if (serverQueue.tries >= 5) {
+          const msg = await serverQueue.message.channel.send({embeds: [new MessageEmbed()
+            .setDescription(`Sorry There Was An Issue Playing ${serverQueue.currentsong[0].title} Playing Next Song`)
+            .setColor('RED')]});
+          deleteMsg(msg, 30000, DisconnectIdle.get(1));
+          serverQueue.player.stop();
+          serverQueue.audioPlayerIdle();
+        }
+        return play();
+
       }
     } else {
         const noVidEmbed = new MessageEmbed()
@@ -55,6 +51,6 @@ export default async function play() {
             .setDescription(':rofl: No ***video*** results found');
         serverQueue.message.channel.send({embeds: [noVidEmbed]});
         serverQueue.player.stop();
-        audioPlayerIdle();
+        serverQueue.audioPlayerIdle();
     }
   }
