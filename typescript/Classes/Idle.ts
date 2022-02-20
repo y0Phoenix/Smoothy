@@ -18,6 +18,7 @@ export class WriteIdle {
     queueMsgs: Partial<WriteMessage>[] = []
     top5Msg: Message = null
     top5Results: Partial<playdl.YouTubeVideo[]> | Partial<ytsearch.SearchResult[]> = []
+    tries: number = 0
     disconnectvcidle: typeof disconnectvcidle = null
     disconnectTimervcidle: typeof disconnectTimervcidle = null
     constructor (data) {
@@ -46,6 +47,7 @@ export class Idle {
     queueMsgs: Partial<Message>[] = []
     top5Msg: Message = null
     top5Results: Partial<playdl.YouTubeVideo[]> | Partial<ytsearch.SearchResult[]> = []
+    tries: number = 0;
     disconnectvcidle: typeof disconnectvcidle
     disconnectTimervcidle: typeof disconnectTimervcidle
     constructor (data) {

@@ -60,14 +60,25 @@ client.once('ready', async () => {
             i < data.disconnectIdles.length;
             i++) {
                 const dci: WriteIdle = data.disconnectIdles[i];
-                const channel: any = await client.channels.fetch(dci.message.channelId);
-                const message = await channel.messages.fetch(dci.message.id);
-                dci.message = message;
-                dci.client = client;
-                dci.disconnectTimervcidle = disconnectTimervcidle;
-                dci.disconnectvcidle = disconnectvcidle;
-                console.log(`set dci functions for`);
-                DisconnectIdle.set(dci.id, dci);
+                if (dci.tries <= 5) {
+                    const channel: any = await client.channels.fetch(dci.message.channelId);
+                    const message = await channel.messages.fetch(dci.message.id);
+                    dci.message = message;
+                    dci.client = client;
+                    dci.disconnectTimervcidle = disconnectTimervcidle;
+                    dci.disconnectvcidle = disconnectvcidle;
+                    dci.tries++;
+                    console.log(`set dci functions for`);
+                    DisconnectIdle.set(dci.id, dci);
+                }
+                else {
+                    const i = data.queues.map(queue => queue.id).indexOf(dci.id);
+                    if (i) {
+                        data.queues.splice(i, 1);
+                    }
+                    data.disconnectIdles.splice(i, 1);
+                    fs.writeFileSync('./config/global.json', JSON.stringify(data));
+                }
             }
         }
         for (let i = 0;

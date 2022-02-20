@@ -15,6 +15,7 @@ class WriteIdle {
         this.queueMsgs = [];
         this.top5Msg = null;
         this.top5Results = [];
+        this.tries = 0;
         this.disconnectvcidle = null;
         this.disconnectTimervcidle = null;
         this.message = new WriteMessage_1.default(data.message);
@@ -40,6 +41,7 @@ class Idle {
         this.queueMsgs = [];
         this.top5Msg = null;
         this.top5Results = [];
+        this.tries = 0;
         this.message = data.message;
         this.id = data.message.guild.id;
         this.client = data.client;
