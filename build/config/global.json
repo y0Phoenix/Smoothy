@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"queues":[],"disconnectIdles":[{"disconnectTimer":null,"msgs":[],"queueMsgs":[],"top5Msg":null,"top5Results":[],"disconnectvcidle":null,"disconnectTimervcidle":null,"message":{"guild":{"id":"737909233781047359"},"author":{"id":"217497799414120448"},"channelId":"741494520532959244","id":"945030436302778418"},"id":"737909233781047359","client":null}]}
+=======
+{"queues":[],"disconnectIdles":[]}
+>>>>>>> 3d508c462e322fda98f76f7774d3d99414908e8c
