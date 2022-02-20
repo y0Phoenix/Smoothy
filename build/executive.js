@@ -56,7 +56,7 @@ async function executive(message, queue, DisconnectIdle, serverDisconnectIdle, s
         const addQueueEmbed = new discord_js_1.MessageEmbed()
             .setColor('YELLOW')
             .setDescription(`***[${videoURL.videoDetails.title}](${videoURL.videoDetails.video_url})***
-        Has Been Added To The Queue :arrow_down:`);
+		Has Been Added To The Queue :arrow_down:`);
         let msg = await message.channel.send({ embeds: [addQueueEmbed] });
         serverDisconnectIdle.msgs.push(msg);
         (0, modules_1.writeGlobal)('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
@@ -116,9 +116,22 @@ async function FindVideoCheck(message, args, queue, DisconnectIdle, serverDiscon
     else {
         const video = await (0, videoFinder_1.default)(videoName, message);
         if (video) {
-            const videoURL = await ytdl.getBasicInfo(video.url);
-            console.log(`Found ${videoURL.videoDetails.title}`);
-            executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
+            try {
+                const videoURL = await ytdl.getBasicInfo(video.url);
+                console.log(`Found ${videoURL.videoDetails.title}`);
+                executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
+            }
+            catch (err) {
+                const msg = await message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
+                            .setColor('RED')
+                            .setDescription(`Failed To Play **[${video.title}](${video.url})** As It Is Age Restricted. Try A Different Video`)] });
+                (0, modules_1.deleteMsg)(msg, 35000, serverDisconnectIdle.client);
+                if (serverQueue) {
+                    serverQueue.player.stop();
+                    serverQueue.audioPlayerIdle();
+                }
+                return;
+            }
         }
         else {
             if (video === false) {
@@ -157,7 +170,7 @@ async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDis
                 .setColor('GOLD')
                 .setTitle(`Found YouTube Playlist`)
                 .setDescription(`:notes: ***[${playlist.title}](${playlist.url})***
-                  All The Songs Will Be Added To The Queue!`)
+						All The Songs Will Be Added To The Queue!`)
                 .addFields({
                 name: 'Requested By',
                 value: `<@${message.author.id}>`,

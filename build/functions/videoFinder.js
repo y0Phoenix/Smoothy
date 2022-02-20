@@ -14,6 +14,7 @@ const maps_1 = require("../maps");
 async function videoFinder(query, message) {
     const { DisconnectIdle } = (0, maps_1.default)();
     let sdi = DisconnectIdle.get(message.guild.id);
+    const client = DisconnectIdle.get(1);
     if (sdi.top5Results[0]) {
         const i = parseInt(query);
         if (isNaN(i)) {
@@ -21,22 +22,22 @@ async function videoFinder(query, message) {
                 const msg = await message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
                             .setColor('BLUE')
                             .setDescription(':thumbsup: Okay Try Typing Your Search Again')] });
-                (0, modules_1.deleteMsg)(msg, 30000, sdi.client);
-                (0, modules_1.deleteMsg)(sdi.top5Msg, 0, sdi.client);
+                (0, modules_1.deleteMsg)(msg, 30000, client);
+                (0, modules_1.deleteMsg)(sdi.top5Msg, 0, client);
                 sdi.top5Results = [];
                 return false;
             }
             const msg = await message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
                         .setColor('RED')
-                        .setDescription('Please Enter A Number 1-5 From The Top5 Results')] });
-            (0, modules_1.deleteMsg)(msg, 30000, sdi.client);
-            (0, modules_1.deleteMsg)(sdi.top5Msg, 0, sdi.client);
+                        .setDescription('Please Enter A Number 1-3 From The Top5 Results')] });
+            (0, modules_1.deleteMsg)(msg, 30000, client);
+            (0, modules_1.deleteMsg)(sdi.top5Msg, 0, client);
             sdi.top5Results = [];
             return false;
         }
         const temp = Object.assign({}, sdi.top5Results[i - 1]);
         sdi.top5Results = [];
-        await (0, modules_1.deleteMsg)(sdi.top5Msg, 0, sdi.client);
+        await (0, modules_1.deleteMsg)(sdi.top5Msg, 0, client);
         return temp;
     }
     let name = query.toLowerCase();
@@ -68,7 +69,7 @@ async function videoFinder(query, message) {
             if (i === 0) {
                 title = new discord_js_1.MessageEmbed()
                     .setColor('FUCHSIA')
-                    .setTitle('Top 5 Results')
+                    .setTitle('Top 3 Results')
                     .setDescription('No good natches were found for your search please select one via -play or select none via -play none');
             }
             whichEmbed = new discord_js_1.MessageEmbed()
