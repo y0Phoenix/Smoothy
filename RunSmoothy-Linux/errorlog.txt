@@ -1,102 +1,475 @@
-[01/09/2022 22:14:27.310] Smoothy is already running so killing it!
-[01/09/2022 22:14:28.291] Not Running, Starting up Smoothy...
-[01/09/2022 22:14:28.314] Run Shell Script Started
-[01/09/2022 22:14:29.382] Smoothy is currently running 
-[01/09/2022 22:14:31.719] set dci functions for
-[01/09/2022 22:14:31.736] Smoothy 1.4.6 is online!
-[01/09/2022 22:14:32.262] Smoothy is currently running 
-[01/09/2022 22:14:32.907] Playing Trance - 009 Sound System Dreamscape (HD)!
-[01/09/2022 22:14:33.266] Smoothy is currently running 
-[01/09/2022 22:14:42.234] Command = j memento
-[01/09/2022 22:14:42.250] Smoothy is currently running 
-[01/09/2022 22:14:42.353] Player Status Is Idle
-[01/09/2022 22:14:43.073] Found FRXXMAN - MEMENTO
-[01/09/2022 22:14:43.260] Smoothy is currently running 
-[01/09/2022 22:14:43.600] Playing FRXXMAN - MEMENTO!
-[01/09/2022 22:14:44.251] Smoothy is currently running 
-[01/09/2022 22:17:12.725] Player Status Is Idle
-[01/09/2022 22:17:13.244] Smoothy is currently running 
-[01/09/2022 22:17:13.323] Found I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music
-[01/09/2022 22:17:13.927] Playing I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music!
-[01/09/2022 22:17:14.282] Smoothy is currently running 
-[01/09/2022 22:17:25.085] Command = pr 
-[01/09/2022 22:17:25.258] Smoothy is currently running 
-[01/09/2022 22:17:25.388] Player Status Is Idle
-[01/09/2022 22:17:25.893] Found FRXXMAN - MEMENTO
-[01/09/2022 22:17:26.246] Smoothy is currently running 
-[01/09/2022 22:17:26.400] Playing FRXXMAN - MEMENTO!
-[01/09/2022 22:17:27.256] Smoothy is currently running 
-[01/09/2022 22:19:55.523] Player Status Is Idle
-[01/09/2022 22:19:56.086] Found I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music
-[01/09/2022 22:19:56.270] Smoothy is currently running 
-[01/09/2022 22:19:56.650] Playing I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music!
-[01/09/2022 22:19:57.260] Smoothy is currently running 
-[01/09/2022 22:20:01.627] Command = n 
-[01/09/2022 22:20:01.628] Skipping I Live (Orchestral) [Lower Pitch] | Black Ops 3 Music!
-[01/09/2022 22:20:01.731] Player Status Is Idle
-[01/09/2022 22:20:02.156] Found CopperCab's response to Schmoyoho songifying him [REMIX] (FUNNY)
-[01/09/2022 22:20:02.262] Smoothy is currently running 
-[01/09/2022 22:20:02.551] Playing CopperCab's response to Schmoyoho songifying him [REMIX] (FUNNY)!
-[01/09/2022 22:20:03.262] Smoothy is currently running 
-[01/09/2022 22:21:43.734] Command = mix 
-[01/09/2022 22:21:43.736] Now shuffling the queue
-[01/09/2022 22:21:44.266] Smoothy is currently running 
-[01/09/2022 22:22:05.693] Player Status Is Idle
-[01/09/2022 22:22:06.256] Smoothy is currently running 
-[01/09/2022 22:22:06.327] Found Dear Mr. Fantasy
-[01/09/2022 22:22:07.282] Playing Dear Mr. Fantasy!
-[01/09/2022 22:22:07.285] Smoothy is currently running 
-[01/09/2022 22:22:14.387] Command = j no sleep
-[01/09/2022 22:22:14.503] Player Status Is Idle
-[01/09/2022 22:22:14.504] Splicing BLESSED MANE - NO SLEEP 22
-[01/09/2022 22:22:15.085] Found BLESSED MANE - NO SLEEP
-[01/09/2022 22:22:15.271] Smoothy is currently running 
-[01/09/2022 22:22:15.850] Playing BLESSED MANE - NO SLEEP!
-[01/09/2022 22:22:16.280] Smoothy is currently running 
-[01/09/2022 22:22:38.900] Command = r odium
-[01/09/2022 22:22:39.269] Smoothy is currently running 
-[01/09/2022 22:23:19.379] Command = np 
-[01/09/2022 22:23:20.271] Smoothy is currently running 
-[01/09/2022 22:25:02.706] Command = dc 
-[01/09/2022 22:25:02.712] Left The Voice Channel From Command
-[01/09/2022 22:25:03.275] Smoothy is currently running 
-[01/09/2022 22:25:16.733] Command = pp https://www.youtube.com/playlist?list=PLAcVjxrQDMPo0uhHE4H9G0yPjS1vmhXrE
-[01/09/2022 22:25:17.279] Smoothy is currently running 
-[01/09/2022 22:25:17.738] Found YouTube playlist Discord
-[01/09/2022 22:25:17.740] Created the serverQueue
-[01/09/2022 22:25:18.285] Playing Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
-[01/09/2022 22:25:18.287] Smoothy is currently running 
-[01/09/2022 22:25:20.101] Command = mix 
-[01/09/2022 22:25:20.101] Now shuffling the queue
-[01/09/2022 22:25:20.287] Smoothy is currently running 
-[01/09/2022 22:25:22.609] Command = l 
-[01/09/2022 22:25:23.287] Smoothy is currently running 
-[01/09/2022 22:25:37.402] Command = r cat carmedalian
-[01/09/2022 22:25:37.416] /home/aaron/Documents/Smoothy/build/commands/remove.js:29
-[01/09/2022 22:25:37.416]         const result = await (0, modules_1.find)(serverQueue, serverQueue.shuffledSongs[i].title);
-[01/09/2022 22:25:37.416]                                                                                            ^
-[01/09/2022 22:25:37.416] 
-[01/09/2022 22:25:37.416] TypeError: Cannot read properties of undefined (reading 'title')
-[01/09/2022 22:25:37.417]     at remove (/home/aaron/Documents/Smoothy/build/commands/remove.js:29:92)
-[01/09/2022 22:25:37.417]     at runMicrotasks (<anonymous>)
-[01/09/2022 22:25:37.417]     at processTicksAndRejections (node:internal/process/task_queues:96:5)
-[01/09/2022 22:25:38.267] Not Running, Starting up Smoothy...
-[01/09/2022 22:25:38.277] Run Shell Script Started
-[01/09/2022 22:25:39.294] Smoothy is currently running 
-[01/09/2022 22:25:41.052] set dci functions for
-[01/09/2022 22:25:41.069] Smoothy 1.4.6 is online!
-[01/09/2022 22:25:41.273] Smoothy is currently running 
-[01/09/2022 22:25:41.842] Playing Bertysolo & Jeremy Blake - Je n'oublierai jamais (Instrumental)!
-[01/09/2022 22:25:42.292] Smoothy is currently running 
-[01/09/2022 22:26:45.473] Command = dc 
-[01/09/2022 22:26:45.476] Left The Voice Channel From Command
-[01/09/2022 22:26:46.286] Smoothy is currently running 
-[01/09/2022 22:39:57.011] Command = p piano man
-[01/09/2022 22:39:57.340] Smoothy is currently running 
-[01/09/2022 22:39:59.213] Found Billy Joel - Piano Man (Official HD Video)
-[01/09/2022 22:39:59.359] Smoothy is currently running 
-[01/09/2022 22:40:00.936] Playing Billy Joel - Piano Man (Official HD Video)!
-[01/09/2022 22:40:01.380] Smoothy is currently running 
-[01/09/2022 22:40:03.054] Command = dc 
-[01/09/2022 22:40:03.055] Left The Voice Channel From Command
-[01/09/2022 22:40:03.345] Smoothy is currently running 
+[02/19/2022 21:54:49.575] Not Running, Starting up Smoothy...
+[02/19/2022 21:54:49.598] Run Shell Script Started
+[02/19/2022 21:54:50.587] Smoothy is currently running 
+[02/19/2022 21:54:53.583] set dci functions for
+[02/19/2022 21:54:53.636] ═════════════════════════════════════════════════════════════════════════════
+[02/19/2022 21:54:53.636]   ____                        _   _                   _  _  _   _____ 
+[02/19/2022 21:54:53.636]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
+[02/19/2022 21:54:53.636]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
+[02/19/2022 21:54:53.636]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
+[02/19/2022 21:54:53.637]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
+[02/19/2022 21:54:53.637]                                         |___/                         
+[02/19/2022 21:54:53.637] ═════════════════════════════════════════════════════════════════════════════
+[02/19/2022 21:54:54.626] Smoothy is currently running 
+[02/19/2022 21:54:54.928] Playing Sigma Male Theme [1 Hour Loop]!
+[02/19/2022 21:54:55.706] Smoothy is currently running 
+[02/19/2022 22:22:38.042] Command = p https://www.youtube.com/watch?v=6MkE4TK3NEc
+[02/19/2022 22:22:38.732] Smoothy is currently running 
+[02/19/2022 22:22:38.752] Found amogus sussy alarm
+[02/19/2022 22:22:38.752] Cleared Timout For disconnectTimer
+[02/19/2022 22:22:39.722] Smoothy is currently running 
+[02/19/2022 22:22:40.372] Command = skip 
+[02/19/2022 22:22:40.372] Skipping Sigma Male Theme [1 Hour Loop]!
+[02/19/2022 22:22:40.491] Player Status Is Idle
+[02/19/2022 22:22:40.736] Smoothy is currently running 
+[02/19/2022 22:22:41.226] Found amogus sussy alarm
+[02/19/2022 22:22:41.718] Smoothy is currently running 
+[02/19/2022 22:22:41.826] Playing amogus sussy alarm!
+[02/19/2022 22:22:42.721] Smoothy is currently running 
+[02/19/2022 22:22:43.369] Command = v 100
+[02/19/2022 22:22:43.729] Smoothy is currently running 
+[02/19/2022 22:22:57.466] Player Status Is Idle
+[02/19/2022 22:22:57.714] Starting disconnectTimer Timeout
+[02/19/2022 22:22:57.721] Smoothy is currently running 
+[02/19/2022 22:26:12.165] Command = p https://youtu.be/dGU84wsaX3E
+[02/19/2022 22:26:12.735] Smoothy is currently running 
+[02/19/2022 22:26:12.847] Found 9+10 Kid sings Attack of the Killer Queen, but it's 2 versions played at once
+[02/19/2022 22:26:12.847] Cleared Timout For disconnectTimer
+[02/19/2022 22:26:13.306] Playing 9+10 Kid sings Attack of the Killer Queen, but it's 2 versions played at once!
+[02/19/2022 22:26:13.745] Smoothy is currently running 
+[02/19/2022 22:28:14.610] Player Status Is Idle
+[02/19/2022 22:28:14.743] Smoothy is currently running 
+[02/19/2022 22:28:14.809] Starting disconnectTimer Timeout
+[02/19/2022 22:28:15.735] Smoothy is currently running 
+[02/19/2022 22:28:46.068] Command = p https://youtu.be/LWilxyKpBGE
+[02/19/2022 22:28:46.534] Found I'm coming after you (I've had a good chuckle over that one)
+[02/19/2022 22:28:46.535] Cleared Timout For disconnectTimer
+[02/19/2022 22:28:46.751] Smoothy is currently running 
+[02/19/2022 22:28:46.996] Playing I'm coming after you (I've had a good chuckle over that one)!
+[02/19/2022 22:28:47.742] Smoothy is currently running 
+[02/19/2022 22:28:54.177] Player Status Is Idle
+[02/19/2022 22:28:54.388] Starting disconnectTimer Timeout
+[02/19/2022 22:28:54.739] Smoothy is currently running 
+[02/19/2022 22:29:23.185] Command = p https://youtu.be/CWIKifF0O6g
+[02/19/2022 22:29:23.745] Found Breaking Bad Theme (Ayo Mr. White Remix)
+[02/19/2022 22:29:23.746] Cleared Timout For disconnectTimer
+[02/19/2022 22:29:23.765] Smoothy is currently running 
+[02/19/2022 22:29:24.343] Playing Breaking Bad Theme (Ayo Mr. White Remix)!
+[02/19/2022 22:29:24.751] Smoothy is currently running 
+[02/19/2022 22:29:25.074] Command = p https://youtu.be/tas0O586t80
+[02/19/2022 22:29:25.611] Found Program in C
+[02/19/2022 22:29:25.612] Cleared Timout For disconnectTimer
+[02/19/2022 22:29:25.764] Smoothy is currently running 
+[02/19/2022 22:29:27.061] Command = n 
+[02/19/2022 22:29:27.062] Skipping Breaking Bad Theme (Ayo Mr. White Remix)!
+[02/19/2022 22:29:27.163] Player Status Is Idle
+[02/19/2022 22:29:27.669] Found Program in C
+[02/19/2022 22:29:27.779] Smoothy is currently running 
+[02/19/2022 22:29:28.685] Playing Program in C!
+[02/19/2022 22:29:28.763] Smoothy is currently running 
+[02/19/2022 22:30:04.053] Command = p https://youtu.be/CWIKifF0O6g
+[02/19/2022 22:30:04.527] Found Breaking Bad Theme (Ayo Mr. White Remix)
+[02/19/2022 22:30:04.527] Cleared Timout For disconnectTimer
+[02/19/2022 22:30:04.758] Smoothy is currently running 
+[02/19/2022 22:30:20.427] Player Status Is Idle
+[02/19/2022 22:30:20.754] Smoothy is currently running 
+[02/19/2022 22:30:20.963] Found Breaking Bad Theme (Ayo Mr. White Remix)
+[02/19/2022 22:30:21.513] Playing Breaking Bad Theme (Ayo Mr. White Remix)!
+[02/19/2022 22:30:21.749] Smoothy is currently running 
+[02/19/2022 22:30:38.597] Command = p https://www.youtube.com/watch?v=uEb7gtZ7oR0
+[02/19/2022 22:30:38.751] Smoothy is currently running 
+[02/19/2022 22:30:39.116] Found [YTPMV] Doin' Your BIG SHOT in Minecraft
+[02/19/2022 22:30:39.117] Cleared Timout For disconnectTimer
+[02/19/2022 22:30:39.746] Smoothy is currently running 
+[02/19/2022 22:32:45.655] Player Status Is Idle
+[02/19/2022 22:32:45.758] Smoothy is currently running 
+[02/19/2022 22:32:46.157] Found [YTPMV] Doin' Your BIG SHOT in Minecraft
+[02/19/2022 22:32:46.674] Playing [YTPMV] Doin' Your BIG SHOT in Minecraft!
+[02/19/2022 22:32:46.765] Smoothy is currently running 
+[02/19/2022 22:35:25.218] Player Status Is Idle
+[02/19/2022 22:35:25.436] Starting disconnectTimer Timeout
+[02/19/2022 22:35:25.759] Smoothy is currently running 
+[02/19/2022 22:36:22.386] Command = p https://youtu.be/5X_cIlWdhjU
+[02/19/2022 22:36:22.771] Smoothy is currently running 
+[02/19/2022 22:36:22.940] Found Doin' Your Mom - A Dramatic Reading
+[02/19/2022 22:36:22.940] Cleared Timout For disconnectTimer
+[02/19/2022 22:36:23.505] Playing Doin' Your Mom - A Dramatic Reading!
+[02/19/2022 22:36:23.779] Smoothy is currently running 
+[02/19/2022 22:38:05.451] Command = p https://youtu.be/PhinhAH9B1I
+[02/19/2022 22:38:05.782] Smoothy is currently running 
+[02/19/2022 22:38:05.905] Found ben shapiro daddys girl - dirty little cum slut
+[02/19/2022 22:38:05.906] Cleared Timout For disconnectTimer
+[02/19/2022 22:38:06.770] Smoothy is currently running 
+[02/19/2022 22:43:03.388] Player Status Is Idle
+[02/19/2022 22:43:03.796] Smoothy is currently running 
+[02/19/2022 22:43:03.922] Found ben shapiro daddys girl - dirty little cum slut
+[02/19/2022 22:43:04.434] Playing ben shapiro daddys girl - dirty little cum slut!
+[02/19/2022 22:43:04.792] Smoothy is currently running 
+[02/19/2022 22:43:44.916] Player Status Is Idle
+[02/19/2022 22:43:45.166] Starting disconnectTimer Timeout
+[02/19/2022 22:43:45.785] Smoothy is currently running 
+[02/19/2022 22:46:09.819] Command = p https://youtu.be/qLpnTTb9V8o
+[02/19/2022 22:46:10.368] Found Bee Gees - Doin' Your Mom
+[02/19/2022 22:46:10.368] Cleared Timout For disconnectTimer
+[02/19/2022 22:46:10.789] Smoothy is currently running 
+[02/19/2022 22:46:11.317] Playing Bee Gees - Doin' Your Mom!
+[02/19/2022 22:46:11.811] Smoothy is currently running 
+[02/19/2022 22:47:22.382] Player Status Is Idle
+[02/19/2022 22:47:22.561] Starting disconnectTimer Timeout
+[02/19/2022 22:47:22.799] Smoothy is currently running 
+[02/19/2022 22:47:47.768] Command = p https://youtu.be/51v2pSavves
+[02/19/2022 22:47:47.802] Smoothy is currently running 
+[02/19/2022 22:47:48.222] Found Hank Schrader from breaking bad calls walter white a sussy baka 😳😳
+[02/19/2022 22:47:48.222] Cleared Timout For disconnectTimer
+[02/19/2022 22:47:48.672] Playing Hank Schrader from breaking bad calls walter white a sussy baka 😳😳!
+[02/19/2022 22:47:48.808] Smoothy is currently running 
+[02/19/2022 22:48:28.632] Player Status Is Idle
+[02/19/2022 22:48:28.807] Smoothy is currently running 
+[02/19/2022 22:48:28.838] Starting disconnectTimer Timeout
+[02/19/2022 22:48:29.800] Smoothy is currently running 
+[02/19/2022 23:00:07.528] Command = p https://youtu.be/Zso5bj3b6yc
+[02/19/2022 23:00:07.856] Smoothy is currently running 
+[02/19/2022 23:00:08.225] Found C418 - ARIA MATH | a cover
+[02/19/2022 23:00:08.226] Cleared Timout For disconnectTimer
+[02/19/2022 23:00:08.778] Playing C418 - ARIA MATH | a cover!
+[02/19/2022 23:00:08.858] Smoothy is currently running 
+[02/19/2022 23:04:02.963] Player Status Is Idle
+[02/19/2022 23:04:03.163] Starting disconnectTimer Timeout
+[02/19/2022 23:04:03.860] Smoothy is currently running 
+[02/19/2022 23:04:21.348] Command = p https://youtu.be/_3-t5ZFbjRU
+[02/19/2022 23:04:21.881] Smoothy is currently running 
+[02/19/2022 23:04:21.916] Found Beauty Of Annihilation
+[02/19/2022 23:04:21.916] Cleared Timout For disconnectTimer
+[02/19/2022 23:04:22.922] Smoothy is currently running 
+[02/19/2022 23:04:22.966] Playing Beauty Of Annihilation!
+[02/19/2022 23:04:23.873] Smoothy is currently running 
+[02/19/2022 23:08:51.649] Player Status Is Idle
+[02/19/2022 23:08:51.881] Smoothy is currently running 
+[02/19/2022 23:08:52.021] Starting disconnectTimer Timeout
+[02/19/2022 23:08:52.874] Smoothy is currently running 
+[02/19/2022 23:09:20.271] Command = p bo2 main menu thteme extended
+[02/19/2022 23:09:20.878] Smoothy is currently running 
+[02/19/2022 23:09:23.220] Command = p 1
+[02/19/2022 23:09:23.868] Found COD Black Ops 2 Main Menu Theme Extended 1 hour
+[02/19/2022 23:09:23.868] Cleared Timout For disconnectTimer
+[02/19/2022 23:09:23.887] Smoothy is currently running 
+[02/19/2022 23:09:24.322] Playing COD Black Ops 2 Main Menu Theme Extended 1 hour!
+[02/19/2022 23:09:24.881] Smoothy is currently running 
+[02/20/2022 00:10:04.484] Player Status Is Idle
+[02/20/2022 00:10:04.858] Starting disconnectTimer Timeout
+[02/20/2022 00:10:05.067] Smoothy is currently running 
+[02/20/2022 00:31:19.802] Command = p https://youtu.be/LWilxyKpBGE
+[02/20/2022 00:31:20.151] Smoothy is currently running 
+[02/20/2022 00:31:20.371] Found I'm coming after you (I've had a good chuckle over that one)
+[02/20/2022 00:31:20.372] Cleared Timout For disconnectTimer
+[02/20/2022 00:31:20.884] Playing I'm coming after you (I've had a good chuckle over that one)!
+[02/20/2022 00:31:21.157] Smoothy is currently running 
+[02/20/2022 00:31:28.064] Player Status Is Idle
+[02/20/2022 00:31:28.144] Smoothy is currently running 
+[02/20/2022 00:31:28.380] Starting disconnectTimer Timeout
+[02/20/2022 00:31:29.137] Smoothy is currently running 
+[02/20/2022 00:32:31.602] Command = p https://youtu.be/6FCERrS3DL4
+[02/20/2022 00:32:32.057] Found Minecraft King27 & XXXMINECRAFTION - The Return
+[02/20/2022 00:32:32.057] Cleared Timout For disconnectTimer
+[02/20/2022 00:32:32.155] Smoothy is currently running 
+[02/20/2022 00:32:32.526] Playing Minecraft King27 & XXXMINECRAFTION - The Return!
+[02/20/2022 00:32:33.145] Smoothy is currently running 
+[02/20/2022 00:33:08.809] Command = p https://youtu.be/yL4d2eJmy_I
+[02/20/2022 00:33:09.157] Smoothy is currently running 
+[02/20/2022 00:33:09.256] Found Minecraft King27 & XXXMINECRAFTION - FEATHER!
+[02/20/2022 00:33:09.256] Cleared Timout For disconnectTimer
+[02/20/2022 00:33:10.145] Smoothy is currently running 
+[02/20/2022 00:35:26.888] Player Status Is Idle
+[02/20/2022 00:35:27.165] Smoothy is currently running 
+[02/20/2022 00:35:27.384] Found Minecraft King27 & XXXMINECRAFTION - FEATHER!
+[02/20/2022 00:35:27.914] Playing Minecraft King27 & XXXMINECRAFTION - FEATHER!!
+[02/20/2022 00:35:28.162] Smoothy is currently running 
+[02/20/2022 00:38:19.837] Player Status Is Idle
+[02/20/2022 00:38:20.061] Starting disconnectTimer Timeout
+[02/20/2022 00:38:20.171] Smoothy is currently running 
+[02/20/2022 00:38:25.280] Command = play https://youtu.be/FOygK2emYUE
+[02/20/2022 00:38:25.763] Found Minecraft King27 & XXXMINECRAFTION - SLAY IT!
+[02/20/2022 00:38:25.764] Cleared Timout For disconnectTimer
+[02/20/2022 00:38:26.164] Smoothy is currently running 
+[02/20/2022 00:38:26.231] Playing Minecraft King27 & XXXMINECRAFTION - SLAY IT!!
+[02/20/2022 00:38:27.164] Smoothy is currently running 
+[02/20/2022 00:41:27.986] Command = p https://youtu.be/p7auzYNe_zs
+[02/20/2022 00:41:28.173] Smoothy is currently running 
+[02/20/2022 00:41:28.523] Found Minecraft Parody of "Mixed Personalities" - Mining Strategies w/ ReptileLegit
+[02/20/2022 00:41:28.523] Cleared Timout For disconnectTimer
+[02/20/2022 00:41:29.168] Smoothy is currently running 
+[02/20/2022 00:41:55.675] Player Status Is Idle
+[02/20/2022 00:41:56.169] Found Minecraft Parody of "Mixed Personalities" - Mining Strategies w/ ReptileLegit
+[02/20/2022 00:41:56.181] Smoothy is currently running 
+[02/20/2022 00:41:57.072] Playing Minecraft Parody of "Mixed Personalities" - Mining Strategies w/ ReptileLegit!
+[02/20/2022 00:41:57.206] Smoothy is currently running 
+[02/20/2022 00:42:59.799] Command = p https://youtu.be/xkeKotybEgM
+[02/20/2022 00:43:00.190] Smoothy is currently running 
+[02/20/2022 00:43:00.403] Found YNW Melly - Murder On My Mind (MINECRAFT PARODY) ft  Minecraft King27
+[02/20/2022 00:43:00.404] Cleared Timout For disconnectTimer
+[02/20/2022 00:43:01.179] Smoothy is currently running 
+[02/20/2022 00:43:58.818] Command = p https://youtu.be/IoPgu9MJ35Y
+[02/20/2022 00:43:59.200] Smoothy is currently running 
+[02/20/2022 00:43:59.356] Found Lil Tecca - Ransom (MINECRAFT PARODY)
+[02/20/2022 00:43:59.357] Cleared Timout For disconnectTimer
+[02/20/2022 00:44:00.185] Smoothy is currently running 
+[02/20/2022 00:46:04.457] Player Status Is Idle
+[02/20/2022 00:46:05.042] Found YNW Melly - Murder On My Mind (MINECRAFT PARODY) ft  Minecraft King27
+[02/20/2022 00:46:05.196] Smoothy is currently running 
+[02/20/2022 00:46:05.920] Playing YNW Melly - Murder On My Mind (MINECRAFT PARODY) ft  Minecraft King27!
+[02/20/2022 00:46:06.204] Smoothy is currently running 
+[02/20/2022 00:49:59.944] Command = skip 
+[02/20/2022 00:49:59.945] Skipping YNW Melly - Murder On My Mind (MINECRAFT PARODY) ft  Minecraft King27!
+[02/20/2022 00:50:00.063] Player Status Is Idle
+[02/20/2022 00:50:00.217] Smoothy is currently running 
+[02/20/2022 00:50:00.636] Found Lil Tecca - Ransom (MINECRAFT PARODY)
+[02/20/2022 00:50:01.197] Smoothy is currently running 
+[02/20/2022 00:50:01.543] Playing Lil Tecca - Ransom (MINECRAFT PARODY)!
+[02/20/2022 00:50:02.203] Smoothy is currently running 
+[02/20/2022 00:52:35.885] Player Status Is Idle
+[02/20/2022 00:52:36.209] Smoothy is currently running 
+[02/20/2022 00:52:36.215] Starting disconnectTimer Timeout
+[02/20/2022 00:52:37.199] Smoothy is currently running 
+[02/20/2022 01:22:36.217] Left VC Due To Idle
+[02/20/2022 01:22:36.218] MSG Not found at deleteMSG
+[02/20/2022 01:22:36.218] MSG Not found at deleteMSG
+[02/20/2022 01:22:36.218] MSG Not found at deleteMSG
+[02/20/2022 01:22:36.219] MSG Not found at deleteMSG
+[02/20/2022 01:22:36.219] MSG Not found at deleteMSG
+[02/20/2022 01:22:36.225] Unkown MSG at deleteMSG
+[02/20/2022 01:22:36.226] Unkown MSG at deleteMSG
+[02/20/2022 01:22:36.226] Unkown MSG at deleteMSG
+[02/20/2022 01:22:36.227] Unkown MSG at deleteMSG
+[02/20/2022 01:22:36.227] Unkown MSG at deleteMSG
+[02/20/2022 01:22:36.319] Smoothy is currently running 
+[02/20/2022 02:34:29.944] Command = p https://youtu.be/LWilxyKpBGE
+[02/20/2022 02:34:30.440] Found I'm coming after you (I've had a good chuckle over that one)
+[02/20/2022 02:34:30.531] Smoothy is currently running 
+[02/20/2022 02:34:30.871] Playing I'm coming after you (I've had a good chuckle over that one)!
+[02/20/2022 02:34:31.514] Smoothy is currently running 
+[02/20/2022 02:34:38.053] Player Status Is Idle
+[02/20/2022 02:34:38.207] Starting disconnectTimer Timeout
+[02/20/2022 02:34:38.517] Smoothy is currently running 
+[02/20/2022 02:35:37.835] Command = p https://youtu.be/F297GsPpmfI
+[02/20/2022 02:35:38.267] Found gn
+[02/20/2022 02:35:38.267] Cleared Timout For disconnectTimer
+[02/20/2022 02:35:38.533] Smoothy is currently running 
+[02/20/2022 02:35:38.704] Playing gn!
+[02/20/2022 02:35:39.516] Smoothy is currently running 
+[02/20/2022 02:35:52.465] Player Status Is Idle
+[02/20/2022 02:35:52.521] Smoothy is currently running 
+[02/20/2022 02:35:52.633] Starting disconnectTimer Timeout
+[02/20/2022 02:35:53.509] Smoothy is currently running 
+[02/20/2022 03:05:52.638] Left VC Due To Idle
+[02/20/2022 03:05:52.652] /home/aaron/Documents/Smoothy/build/modules/src/leave.js:23
+[02/20/2022 03:05:52.652]         sdi.msgs.forEach(msg => {
+[02/20/2022 03:05:52.652]             ^
+[02/20/2022 03:05:52.652] 
+[02/20/2022 03:05:52.652] TypeError: Cannot read properties of undefined (reading 'msgs')
+[02/20/2022 03:05:52.653]     at leave (/home/aaron/Documents/Smoothy/build/modules/src/leave.js:23:13)
+[02/20/2022 03:05:52.653]     at Timeout.disconnectvcidle [as _onTimeout] (/home/aaron/Documents/Smoothy/build/Classes/functions/disconnectIdle.js:18:25)
+[02/20/2022 03:05:52.653]     at listOnTimeout (node:internal/timers:561:11)
+[02/20/2022 03:05:52.653]     at processTimers (node:internal/timers:502:7)
+[02/20/2022 03:05:53.605] Not Running, Starting up Smoothy...
+[02/20/2022 03:05:53.619] Run Shell Script Started
+[02/20/2022 03:05:54.644] Smoothy is currently running 
+[02/20/2022 03:05:55.724] ═════════════════════════════════════════════════════════════════════════════
+[02/20/2022 03:05:55.724]   ____                        _   _                   _  _  _   _____ 
+[02/20/2022 03:05:55.724]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
+[02/20/2022 03:05:55.725]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
+[02/20/2022 03:05:55.725]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
+[02/20/2022 03:05:55.725]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
+[02/20/2022 03:05:55.725]                                         |___/                         
+[02/20/2022 03:05:55.725] ═════════════════════════════════════════════════════════════════════════════
+[02/20/2022 03:05:56.604] Smoothy is currently running 
+[02/20/2022 11:36:38.522] Command = p https://youtu.be/6FCERrS3DL4
+[02/20/2022 11:36:38.969] Smoothy is currently running 
+[02/20/2022 11:36:39.159] Found Minecraft King27 & XXXMINECRAFTION - The Return
+[02/20/2022 11:36:39.870] Playing Minecraft King27 & XXXMINECRAFTION - The Return!
+[02/20/2022 11:36:40.035] Smoothy is currently running 
+[02/20/2022 11:39:34.338] Player Status Is Idle
+[02/20/2022 11:39:34.544] Starting disconnectTimer Timeout
+[02/20/2022 11:39:34.954] Smoothy is currently running 
+[02/20/2022 11:39:44.522] Command = p https://youtu.be/CWIKifF0O6g
+[02/20/2022 11:39:44.967] Smoothy is currently running 
+[02/20/2022 11:39:45.157] Found Breaking Bad Theme (Ayo Mr. White Remix)
+[02/20/2022 11:39:45.157] Cleared Timout For disconnectTimer
+[02/20/2022 11:39:45.693] Playing Breaking Bad Theme (Ayo Mr. White Remix)!
+[02/20/2022 11:39:45.973] Smoothy is currently running 
+[02/20/2022 11:42:09.635] Player Status Is Idle
+[02/20/2022 11:42:09.855] Starting disconnectTimer Timeout
+[02/20/2022 11:42:09.972] Smoothy is currently running 
+[02/20/2022 11:42:44.010] Command = p https://youtu.be/51v2pSavves
+[02/20/2022 11:42:44.605] Found Hank Schrader from breaking bad calls walter white a sussy baka 😳😳
+[02/20/2022 11:42:44.606] Cleared Timout For disconnectTimer
+[02/20/2022 11:42:44.965] Smoothy is currently running 
+[02/20/2022 11:42:45.187] Playing Hank Schrader from breaking bad calls walter white a sussy baka 😳😳!
+[02/20/2022 11:42:45.971] Smoothy is currently running 
+[02/20/2022 11:42:57.792] Command = skip 
+[02/20/2022 11:42:57.792] Skipping Hank Schrader from breaking bad calls walter white a sussy baka 😳😳!
+[02/20/2022 11:42:57.908] Player Status Is Idle
+[02/20/2022 11:42:57.969] Smoothy is currently running 
+[02/20/2022 11:42:58.224] Starting disconnectTimer Timeout
+[02/20/2022 11:42:58.967] Smoothy is currently running 
+[02/20/2022 11:43:54.889] Command = play https://youtu.be/cwyTleTL06Y
+[02/20/2022 11:43:54.968] Smoothy is currently running 
+[02/20/2022 11:43:55.366] Found meow
+[02/20/2022 11:43:55.366] Cleared Timout For disconnectTimer
+[02/20/2022 11:43:55.836] Playing meow!
+[02/20/2022 11:43:55.974] Smoothy is currently running 
+[02/20/2022 11:46:19.282] Player Status Is Idle
+[02/20/2022 11:46:19.497] Starting disconnectTimer Timeout
+[02/20/2022 11:46:19.975] Smoothy is currently running 
+[02/20/2022 11:46:49.328] Command = p https://youtu.be/Zso5bj3b6yc
+[02/20/2022 11:46:49.930] Found C418 - ARIA MATH | a cover
+[02/20/2022 11:46:49.930] Cleared Timout For disconnectTimer
+[02/20/2022 11:46:49.993] Smoothy is currently running 
+[02/20/2022 11:46:50.601] Playing C418 - ARIA MATH | a cover!
+[02/20/2022 11:46:50.975] Smoothy is currently running 
+[02/20/2022 11:50:44.626] Player Status Is Idle
+[02/20/2022 11:50:44.855] Starting disconnectTimer Timeout
+[02/20/2022 11:50:44.996] Smoothy is currently running 
+[02/20/2022 11:52:04.796] Command = p https://youtu.be/_3-t5ZFbjRU
+[02/20/2022 11:52:05.006] Smoothy is currently running 
+[02/20/2022 11:52:05.404] Found Beauty Of Annihilation
+[02/20/2022 11:52:05.405] Cleared Timout For disconnectTimer
+[02/20/2022 11:52:05.998] Smoothy is currently running 
+[02/20/2022 11:52:06.454] Playing Beauty Of Annihilation!
+[02/20/2022 11:52:07.009] Smoothy is currently running 
+[02/20/2022 11:56:35.119] Player Status Is Idle
+[02/20/2022 11:56:35.418] Starting disconnectTimer Timeout
+[02/20/2022 11:56:36.009] Smoothy is currently running 
+[02/20/2022 11:57:45.498] Command = p https://youtu.be/e2SWfjUT1Jo
+[02/20/2022 11:57:46.015] Smoothy is currently running 
+[02/20/2022 11:57:46.228] Found Chief Keef - 3Hunna (Feat. Rick Ross) [Finally Rich (Deluxe Edition)] [HQ]
+[02/20/2022 11:57:46.230] Cleared Timout For disconnectTimer
+[02/20/2022 11:57:47.036] Smoothy is currently running 
+[02/20/2022 11:57:47.205] Playing Chief Keef - 3Hunna (Feat. Rick Ross) [Finally Rich (Deluxe Edition)] [HQ]!
+[02/20/2022 11:57:48.016] Smoothy is currently running 
+[02/20/2022 12:01:16.450] Player Status Is Idle
+[02/20/2022 12:01:16.693] Starting disconnectTimer Timeout
+[02/20/2022 12:01:17.026] Smoothy is currently running 
+[02/20/2022 12:01:19.254] Command = p hood gone love it lyrics
+[02/20/2022 12:01:20.024] Smoothy is currently running 
+[02/20/2022 12:01:20.668] Found Jay Rock ft. Kendrick Lamar - Hood Gone Love It - Lyrics HD
+[02/20/2022 12:01:20.668] Cleared Timout For disconnectTimer
+[02/20/2022 12:01:21.022] Smoothy is currently running 
+[02/20/2022 12:01:21.589] Playing Jay Rock ft. Kendrick Lamar - Hood Gone Love It - Lyrics HD!
+[02/20/2022 12:01:22.029] Smoothy is currently running 
+[02/20/2022 12:02:12.738] Command = p Kanye west father stretch my hands pt 1 lyrics
+[02/20/2022 12:02:13.037] Smoothy is currently running 
+[02/20/2022 12:02:13.922] Found Father Stretch My Hands. Pt. 1 Kanye West (Song & Lyrics) (Check Description)
+[02/20/2022 12:02:13.922] Cleared Timout For disconnectTimer
+[02/20/2022 12:02:14.031] Smoothy is currently running 
+[02/20/2022 12:02:35.941] Command = p Kanye west follow god lyrics
+[02/20/2022 12:02:36.034] Smoothy is currently running 
+[02/20/2022 12:02:37.284] Found Kanye West - Follow God (Lyrics)
+[02/20/2022 12:02:37.284] Cleared Timout For disconnectTimer
+[02/20/2022 12:02:38.033] Smoothy is currently running 
+[02/20/2022 12:03:06.784] Command = play stronger kayne west lyrics
+[02/20/2022 12:03:07.038] Smoothy is currently running 
+[02/20/2022 12:03:14.835] Command = p 1
+[02/20/2022 12:03:15.036] Smoothy is currently running 
+[02/20/2022 12:03:15.565] Found Kanye West Stronger [Lyrics]
+[02/20/2022 12:03:15.566] Cleared Timout For disconnectTimer
+[02/20/2022 12:03:16.038] Smoothy is currently running 
+[02/20/2022 12:03:39.023] Command = play can’t tell me nothing Kanye lyrics
+[02/20/2022 12:03:39.032] Smoothy is currently running 
+[02/20/2022 12:03:47.800] Command = p 1
+[02/20/2022 12:03:48.038] Smoothy is currently running 
+[02/20/2022 12:03:48.541] Found KANYE WEST - CAN'T TELL ME NOTHING **(LYRICS ON SCREEN)**
+[02/20/2022 12:03:48.541] Cleared Timout For disconnectTimer
+[02/20/2022 12:03:49.036] Smoothy is currently running 
+[02/20/2022 12:04:48.045] Command = play shoota playboy carti lyrics
+[02/20/2022 12:04:49.043] Smoothy is currently running 
+[02/20/2022 12:04:52.933] Command = p 1
+[02/20/2022 12:04:53.049] Smoothy is currently running 
+[02/20/2022 12:04:53.618] Found Playboi Carti - Shoota (Audio) ft. Lil Uzi Vert
+[02/20/2022 12:04:53.619] Cleared Timout For disconnectTimer
+[02/20/2022 12:04:54.042] Smoothy is currently running 
+[02/20/2022 12:05:11.501] Command = play yah mean playboy carti lyrics
+[02/20/2022 12:05:12.035] Smoothy is currently running 
+[02/20/2022 12:05:16.172] Command = p 1
+[02/20/2022 12:05:17.041] Smoothy is currently running 
+[02/20/2022 12:05:17.525] /home/aaron/Documents/Smoothy/build/node_modules/miniget/dist/index.js:206
+[02/20/2022 12:05:17.526]                 let err = new Miniget.MinigetError(`Status code: ${res.statusCode}`, res.statusCode);
+[02/20/2022 12:05:17.526]                           ^
+[02/20/2022 12:05:17.526] 
+[02/20/2022 12:05:17.526] MinigetError: Status code: 410
+[02/20/2022 12:05:17.526]     at ClientRequest.<anonymous> (/home/aaron/Documents/Smoothy/build/node_modules/miniget/dist/index.js:206:27)
+[02/20/2022 12:05:17.526]     at Object.onceWrapper (node:events:640:26)
+[02/20/2022 12:05:17.526]     at ClientRequest.emit (node:events:520:28)
+[02/20/2022 12:05:17.526]     at HTTPParser.parserOnIncomingClient (node:_http_client:618:27)
+[02/20/2022 12:05:17.527]     at HTTPParser.parserOnHeadersComplete (node:_http_common:128:17)
+[02/20/2022 12:05:17.527]     at HTTPParser.execute (<anonymous>)
+[02/20/2022 12:05:17.527]     at TLSSocket.socketOnData (node:_http_client:482:22)
+[02/20/2022 12:05:17.527]     at TLSSocket.emit (node:events:520:28)
+[02/20/2022 12:05:17.527]     at addChunk (node:internal/streams/readable:315:12)
+[02/20/2022 12:05:17.527]     at readableAddChunk (node:internal/streams/readable:289:9) {
+[02/20/2022 12:05:17.527]   statusCode: 410
+[02/20/2022 12:05:17.527] }
+[02/20/2022 12:05:18.031] Not Running, Starting up Smoothy...
+[02/20/2022 12:05:18.045] Run Shell Script Started
+[02/20/2022 12:05:19.070] Smoothy is currently running 
+[02/20/2022 12:05:20.322] ═════════════════════════════════════════════════════════════════════════════
+[02/20/2022 12:05:20.322]   ____                        _   _                   _  _  _   _____ 
+[02/20/2022 12:05:20.322]  / ___| _ __ ___   ___   ___ | |_| |__  _   _  __   _/ || || | |___  |
+[02/20/2022 12:05:20.322]  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \| | | | \ \ / / || || |_   / / 
+[02/20/2022 12:05:20.322]   ___) | | | | | | (_) | (_) | |_| | | | |_| |  \ V /| ||__   _| / /  
+[02/20/2022 12:05:20.322]  |____/|_| |_| |_|\___/ \___/ \__|_| |_|\__, |   \_/ |_(_) |_|(_)_/   
+[02/20/2022 12:05:20.323]                                         |___/                         
+[02/20/2022 12:05:20.323] ═════════════════════════════════════════════════════════════════════════════
+[02/20/2022 12:05:21.032] Smoothy is currently running 
+[02/20/2022 12:05:30.461] Command = queue 
+[02/20/2022 12:05:31.036] Smoothy is currently running 
+[02/20/2022 12:05:34.709] Command = skip 
+[02/20/2022 12:05:34.710] Skipping Jay Rock ft. Kendrick Lamar - Hood Gone Love It - Lyrics HD!
+[02/20/2022 12:05:35.038] Smoothy is currently running 
+[02/20/2022 12:05:47.382] Command = queue 
+[02/20/2022 12:05:48.036] Smoothy is currently running 
+[02/20/2022 12:05:52.706] Command = skip 
+[02/20/2022 12:05:52.709] Skipping Jay Rock ft. Kendrick Lamar - Hood Gone Love It - Lyrics HD!
+[02/20/2022 12:05:53.035] Smoothy is currently running 
+[02/20/2022 12:06:08.934] Command = play 
+[02/20/2022 12:06:09.034] Smoothy is currently running 
+[02/20/2022 12:06:11.518] Command = pause 
+[02/20/2022 12:06:12.036] Smoothy is currently running 
+[02/20/2022 12:06:15.945] Command = resume 
+[02/20/2022 12:06:16.033] Smoothy is currently running 
+[02/20/2022 12:06:20.089] Command = skip 
+[02/20/2022 12:06:20.089] Skipping Jay Rock ft. Kendrick Lamar - Hood Gone Love It - Lyrics HD!
+[02/20/2022 12:06:21.035] Smoothy is currently running 
+[02/20/2022 12:06:25.669] Command = fuck 
+[02/20/2022 12:06:26.037] Smoothy is currently running 
+[02/20/2022 12:06:33.755] Command = clear 
+[02/20/2022 12:06:33.759] Starting disconnectTimer Timeout
+[02/20/2022 12:06:34.041] Smoothy is currently running 
+[02/20/2022 12:06:39.432] Command = resume 
+[02/20/2022 12:06:40.036] Smoothy is currently running 
+[02/20/2022 12:06:43.306] Command = dc 
+[02/20/2022 12:06:43.310] Left The Voice Channel From Command
+[02/20/2022 12:06:43.537] Unkown MSG at deleteMSG
+[02/20/2022 12:06:44.037] Smoothy is currently running 
+[02/20/2022 12:06:59.772] Command = p Kanye west follow god lyrics
+[02/20/2022 12:07:00.050] Smoothy is currently running 
+[02/20/2022 12:07:01.149] Found Kanye West - Follow God (Lyrics)
+[02/20/2022 12:07:02.070] Smoothy is currently running 
+[02/20/2022 12:07:02.257] Playing Kanye West - Follow God (Lyrics)!
+[02/20/2022 12:07:03.045] Smoothy is currently running 
+[02/20/2022 12:07:15.299] Command = play stronger kayne west lyrics
+[02/20/2022 12:07:16.043] Smoothy is currently running 
+[02/20/2022 12:07:20.734] Command = p 1
+[02/20/2022 12:07:21.054] Smoothy is currently running 
+[02/20/2022 12:07:21.369] Found Kanye West Stronger [Lyrics]
+[02/20/2022 12:07:22.038] Smoothy is currently running 
+[02/20/2022 12:08:53.881] Command = skip 
+[02/20/2022 12:08:53.882] Skipping Kanye West - Follow God (Lyrics)!
+[02/20/2022 12:08:53.998] Player Status Is Idle
+[02/20/2022 12:08:54.048] Smoothy is currently running 
+[02/20/2022 12:08:54.686] Found Kanye West Stronger [Lyrics]
+[02/20/2022 12:08:55.049] Smoothy is currently running 
+[02/20/2022 12:08:55.635] Playing Kanye West Stronger [Lyrics]!
+[02/20/2022 12:08:56.060] Smoothy is currently running 
+[02/20/2022 12:13:23.301] Player Status Is Idle
+[02/20/2022 12:13:23.596] Starting disconnectTimer Timeout
+[02/20/2022 12:13:24.061] Smoothy is currently running 
