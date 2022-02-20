@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [02/19/2022 21:54:49.575] Not Running, Starting up Smoothy...
 [02/19/2022 21:54:49.598] Run Shell Script Started
 [02/19/2022 21:54:50.587] Smoothy is currently running 
@@ -473,3 +474,5 @@
 [02/20/2022 12:13:23.301] Player Status Is Idle
 [02/20/2022 12:13:23.596] Starting disconnectTimer Timeout
 [02/20/2022 12:13:24.061] Smoothy is currently running 
+=======
+>>>>>>> e2a846ebd7a0ffa36d1ad7dc57f134291025dfad

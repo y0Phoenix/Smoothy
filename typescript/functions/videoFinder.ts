@@ -1,6 +1,6 @@
 import * as playdl from 'play-dl';
 import { deleteMsg, distance, topResult } from '../modules/modules';
-import {MessageEmbed, Message} from 'discord.js';
+import {MessageEmbed, Message, Client} from 'discord.js';
 import * as ytsearch from 'yt-search';
 import getMaps from '../maps';
 import { Idle } from '../Classes/Idle';
@@ -14,6 +14,7 @@ import { Idle } from '../Classes/Idle';
 export default async function videoFinder(query: string, message: any) {
 	const {DisconnectIdle} = getMaps();
 	let sdi: Idle = DisconnectIdle.get(message.guild.id);
+	const client: Client = DisconnectIdle.get(1);
 	if (sdi.top5Results[0]) {
 		const i = parseInt(query);
 		if (isNaN(i)) {
@@ -21,22 +22,22 @@ export default async function videoFinder(query: string, message: any) {
 				const msg = await message.channel.send({embeds: [new MessageEmbed()
 					.setColor('BLUE')
 					.setDescription(':thumbsup: Okay Try Typing Your Search Again')]});
-				deleteMsg(msg, 30000, sdi.client);
-				deleteMsg(sdi.top5Msg, 0, sdi.client);
+				deleteMsg(msg, 30000, client);
+				deleteMsg(sdi.top5Msg, 0, client);
 				sdi.top5Results = [];
 				return false;
 			}
 			const msg = await message.channel.send({embeds: [new MessageEmbed()
 				.setColor('RED')
-				.setDescription('Please Enter A Number 1-5 From The Top5 Results')]});
-			deleteMsg(msg, 30000, sdi.client);
-			deleteMsg(sdi.top5Msg, 0, sdi.client);
+				.setDescription('Please Enter A Number 1-3 From The Top5 Results')]});
+			deleteMsg(msg, 30000, client);
+			deleteMsg(sdi.top5Msg, 0, client);
 			sdi.top5Results = [];
 			return false
 		}
 		const temp = {...sdi.top5Results[i - 1]};
 		sdi.top5Results = [];
-		await deleteMsg(sdi.top5Msg, 0, sdi.client);
+		await deleteMsg(sdi.top5Msg, 0, client);
 		return temp;
 	}
 	let name = query.toLowerCase();
@@ -70,7 +71,7 @@ export default async function videoFinder(query: string, message: any) {
 			if (i === 0) {
 				title = new MessageEmbed()
 				.setColor('FUCHSIA')
-				.setTitle('Top 5 Results')
+				.setTitle('Top 3 Results')
 				.setDescription('No good natches were found for your search please select one via -play or select none via -play none')
 				;
 			}
