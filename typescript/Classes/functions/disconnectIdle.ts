@@ -1,6 +1,6 @@
 import { MessageEmbed } from "discord.js";
 import getMaps from "../../maps";
-import { leave } from "../../modules/modules";
+import { deleteMsg, leave } from "../../modules/modules";
 import { Idle } from "../Idle";
 
 /**
@@ -8,11 +8,12 @@ import { Idle } from "../Idle";
  *  @param  {} DisconnectIdle the map that holds all of the servers Idles
  *  @description disconnects from voiceConnection after 1800000 ms or 30 min
  */
-export function disconnectvcidle(queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
+export async function disconnectvcidle(queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
     const vcIdleEmbed = new MessageEmbed()
       .setColor('RED')
       .setDescription(':cry: Left VC Due To Idle');
-    serverDisconnectIdle.message.channel.send({embeds: [vcIdleEmbed]});
+    const msg = await serverDisconnectIdle.message.channel.send({embeds: [vcIdleEmbed]});
+    deleteMsg(msg, 60000, DisconnectIdle.get(1));
     console.log(`Left VC Due To Idle`);
     leave(serverDisconnectIdle.message, DisconnectIdle, queue);
   }

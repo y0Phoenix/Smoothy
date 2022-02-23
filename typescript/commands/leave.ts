@@ -19,30 +19,23 @@ const noVCEmbed = new MessageEmbed()
 export default async function Leave(message: Message, queue: any, serverQueue: Queue, DisconnectIdle: any, serverDisconnectIdle: Idle){
     const voiceConnection = getVoiceConnection(message.guild.id);
     if(voiceConnection){
-        if(voiceConnection.state.status === VoiceConnectionStatus.Ready){
-            const leaveEmbed = new MessageEmbed()
-                .setColor('RED')
-                .setDescription(`:cry: Leaving Channel`)
-            ;
-            message.channel.send({embeds: [leaveEmbed]})
-            .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
-            console.log('Left The Voice Channel From Command')
-            if(serverQueue){
-                if(serverQueue.player.state.status === AudioPlayerStatus.Playing){
-                    serverQueue.stop = true;
-                    serverQueue.player.stop();    
-                }    
-            }
-            if(serverDisconnectIdle.disconnectTimer !== undefined){
-                clearTimeout(serverDisconnectIdle.disconnectTimer)
-            }
-            leave(message, DisconnectIdle, queue);
+        const leaveEmbed = new MessageEmbed()
+            .setColor('RED')
+            .setDescription(`:cry: Leaving Channel`)
+        ;
+        message.channel.send({embeds: [leaveEmbed]})
+        .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
+        console.log('Left The Voice Channel From Command')
+        if(serverQueue){
+            if(serverQueue.player.state.status === AudioPlayerStatus.Playing){
+                serverQueue.stop = true;
+                serverQueue.player.stop();    
+            }    
         }
-        else{
-            message.channel.send({embeds: [noVCEmbed]})
-            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
-            return;
-        }   
+        if(serverDisconnectIdle.disconnectTimer !== undefined){
+            clearTimeout(serverDisconnectIdle.disconnectTimer)
+        }
+        leave(message, DisconnectIdle, queue); 
     }
     else{
         message.channel.send({embeds: [noVCEmbed]})
