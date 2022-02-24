@@ -29,7 +29,7 @@ export default async function videoFinder(query: string, message: any) {
 			}
 			const msg = await message.channel.send({embeds: [new MessageEmbed()
 				.setColor('RED')
-				.setDescription('Please Enter A Number 1-3 From The Top5 Results')]});
+				.setDescription('Please Enter A Number 1-3 From The Top3 Results')]});
 			deleteMsg(msg, 30000, client);
 			return false
 		}

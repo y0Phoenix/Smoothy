@@ -29,7 +29,7 @@ async function videoFinder(query, message) {
             }
             const msg = await message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
                         .setColor('RED')
-                        .setDescription('Please Enter A Number 1-3 From The Top5 Results')] });
+                        .setDescription('Please Enter A Number 1-3 From The Top3 Results')] });
             (0, modules_1.deleteMsg)(msg, 30000, client);
             return false;
         }
