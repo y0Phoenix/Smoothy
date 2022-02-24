@@ -31,8 +31,6 @@ export default async function videoFinder(query: string, message: any) {
 				.setColor('RED')
 				.setDescription('Please Enter A Number 1-3 From The Top5 Results')]});
 			deleteMsg(msg, 30000, client);
-			deleteMsg(sdi.top5Msg, 0, client);
-			sdi.top5Results = [];
 			return false
 		}
 		const temp = {...sdi.top5Results[i - 1]};
