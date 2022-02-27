@@ -19,7 +19,7 @@ async function writeGlobal(str, data, id) {
     const file = './config/global.json';
     let _file = fs.readFileSync(file, 'utf-8');
     let _data = JSON.parse(_file);
-    let Data = Object.assign({}, _data);
+    let Data = { ..._data };
     var d;
     var q;
     const dciGet = async () => {
@@ -54,11 +54,11 @@ async function writeGlobal(str, data, id) {
     }
     if (str === 'update queue') {
         const obj = new WriteQueue_1.default(data);
-        Data.queues[q] = Object.assign({}, obj);
+        Data.queues[q] = { ...obj };
     }
     if (str === 'update dci') {
         const obj = new Idle_1.WriteIdle({ message: data.message, client: data.client, msgs: data.msgs, queueMsgs: data.queueMsgs });
-        Data.disconnectIdles[d] = Object.assign({}, obj);
+        Data.disconnectIdles[d] = { ...obj };
     }
     if (str === 'delete queue') {
         if (q == null) {

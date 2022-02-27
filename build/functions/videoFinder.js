@@ -33,7 +33,7 @@ async function videoFinder(query, message) {
             (0, modules_1.deleteMsg)(msg, 30000, client);
             return false;
         }
-        const temp = Object.assign({}, sdi.top5Results[i - 1]);
+        const temp = { ...sdi.top5Results[i - 1] };
         sdi.top5Results = [];
         await (0, modules_1.deleteMsg)(sdi.top5Msg, 0, client);
         return temp;

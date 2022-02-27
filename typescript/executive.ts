@@ -227,9 +227,9 @@
 		}
 	}
 
-	async function joinvoicechannel(message: Partial<Message>, vc: Message['member']['voice']['channel'], DisconnectIdle: Map<any, any>, serverDisconnectIdle: Idle, client: Client, bool: any) {
+	async function joinvoicechannel(message: Partial<Message>, vc: any, DisconnectIdle: Map<any, any>, serverDisconnectIdle: Idle, client: Client, bool: any) {
 		if (VoiceConnectionStatus.Disconnected) {
-			const VoiceConnection = joinVoiceChannel({
+			joinVoiceChannel({
 			channelId: vc.id,
 			guildId: vc.guild.id, 
 			adapterCreator: vc.guild.voiceAdapterCreator,
@@ -244,7 +244,11 @@
 			await writeGlobal('add dci', DisconnectIdle.get(message.guild.id), message.guild.id);
 			}
 		}
-		return VoiceConnection;
+		return joinVoiceChannel({
+			channelId: vc.id,
+			guildId: vc.guild.id, 
+			adapterCreator: vc.guild.voiceAdapterCreator,
+			});;
 		}
 	}
 

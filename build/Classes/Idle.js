@@ -9,15 +9,18 @@ const executive_1 = require("../executive");
 const modules_1 = require("../modules/modules");
 const voice_2 = require("@discordjs/voice");
 class WriteIdle {
+    message;
+    id;
+    client;
+    disconnectTimer = null;
+    msgs = [];
+    queueMsgs = [];
+    top5Msg = null;
+    top5Results = [];
+    tries = 0;
+    disconnectvcidle = null;
+    disconnectTimervcidle = null;
     constructor(data) {
-        this.disconnectTimer = null;
-        this.msgs = [];
-        this.queueMsgs = [];
-        this.top5Msg = null;
-        this.top5Results = [];
-        this.tries = 0;
-        this.disconnectvcidle = null;
-        this.disconnectTimervcidle = null;
         this.message = new WriteMessage_1.default(data.message);
         this.id = data.message.guild.id;
         this.client = null;
@@ -35,13 +38,19 @@ class WriteIdle {
 }
 exports.WriteIdle = WriteIdle;
 class Idle {
+    message;
+    id;
+    client;
+    disconnectTimer;
+    voiceConnection = null;
+    msgs = [];
+    queueMsgs = [];
+    top5Msg = null;
+    top5Results = [];
+    tries = 0;
+    disconnectvcidle;
+    disconnectTimervcidle;
     constructor(data) {
-        this.voiceConnection = null;
-        this.msgs = [];
-        this.queueMsgs = [];
-        this.top5Msg = null;
-        this.top5Results = [];
-        this.tries = 0;
         this.message = data.message;
         this.id = data.message.guild.id;
         this.client = data.client;

@@ -228,7 +228,7 @@ async function findvideoplaylist(message, args, queue, DisconnectIdle, serverDis
 exports.findvideoplaylist = findvideoplaylist;
 async function joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdle, client, bool) {
     if (voice_1.VoiceConnectionStatus.Disconnected) {
-        const VoiceConnection = (0, voice_1.joinVoiceChannel)({
+        (0, voice_1.joinVoiceChannel)({
             channelId: vc.id,
             guildId: vc.guild.id,
             adapterCreator: vc.guild.voiceAdapterCreator,
@@ -243,7 +243,12 @@ async function joinvoicechannel(message, vc, DisconnectIdle, serverDisconnectIdl
                 await (0, modules_1.writeGlobal)('add dci', DisconnectIdle.get(message.guild.id), message.guild.id);
             }
         }
-        return VoiceConnection;
+        return (0, voice_1.joinVoiceChannel)({
+            channelId: vc.id,
+            guildId: vc.guild.id,
+            adapterCreator: vc.guild.voiceAdapterCreator,
+        });
+        ;
     }
 }
 exports.joinvoicechannel = joinvoicechannel;

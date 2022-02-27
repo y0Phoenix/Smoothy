@@ -2,6 +2,7 @@ import { MessageEmbed, Message } from "discord.js";
 import { Idle } from "../Classes/Idle";
 import Queue from "../Classes/Queue";
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
+import getMaps from "../maps";
 
 const noSongEmbed = new MessageEmbed()
     .setColor('RED')
@@ -25,6 +26,7 @@ function volumeE(v) {
  */
 export default async function volume(message: Message, args: any, serverQueue: Queue, serverDisconnectIdle: Idle){
     let volume;
+    const {DisconnectIdle} = getMaps();
     if(args.length > 0){
         if(serverQueue){
             args = args[0].toLowerCase();
@@ -33,7 +35,7 @@ export default async function volume(message: Message, args: any, serverQueue: Q
                 serverQueue.resource.volume.volume = volume;
                 let embed = volumeE(volume);
                 let msg = await message.channel.send({embeds: [embed]});
-                serverDisconnectIdle.msgs.push(msg);
+                deleteMsg(msg, 60000, DisconnectIdle.get(1));
                 writeGlobal('update dci', serverDisconnectIdle, serverQueue.id);
             }
             else{
@@ -43,7 +45,7 @@ export default async function volume(message: Message, args: any, serverQueue: Q
                         serverQueue.resource.volume.volume = volume;
                         let embed = volumeE(volume);
                         let msg = await message.channel.send({embeds: [embed]});
-                        serverDisconnectIdle.msgs.push(msg);
+                        deleteMsg(msg, 60000, DisconnectIdle.get(1));
                         writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
                     }
                     else{
@@ -52,18 +54,18 @@ export default async function volume(message: Message, args: any, serverQueue: Q
                             .setDescription(':rofl: Volume is 100 max')
                         ;
                         message.channel.send({embeds: [toHighEmbed]})
-                        .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+                        .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
                     }
                 }
                 else{
                     message.channel.send({embeds: [noSongEmbed]})
-                    .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+                    .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
                 }
             }
         }
         else{
             message.channel.send({embeds: [noSongEmbed]})
-            .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+            .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
         }
     }
     else{
@@ -72,6 +74,6 @@ export default async function volume(message: Message, args: any, serverQueue: Q
             .setDescription(':rofl: You Must Specify With A Number')
         ;
         message.channel.send({embeds: [specifyEmbed]})
-        .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+        .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
     }
 }

@@ -3,8 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ErrorSong = exports.WriteSong = exports.PlaylistSong = exports.Song = void 0;
 const WriteMessage_1 = require("./WriteMessage");
 class Song {
+    videoURL;
+    url;
+    title;
+    thumbnail;
+    message;
+    duration;
+    durationS;
+    playlistsong = false;
     constructor(data) {
-        this.playlistsong = false;
         function durationCheck(dur) {
             let totalseconds = parseInt(dur);
             let minutes = Math.floor(totalseconds / 60);
@@ -35,7 +42,7 @@ class Song {
                 return `${minutes}:${_seconds}`;
             }
         }
-        this.videoURL = Object.assign({}, data.data);
+        this.videoURL = { ...data.data };
         this.url = data.data.videoDetails.video_url;
         this.title = data.data.videoDetails.title;
         this.thumbnail = data.data.videoDetails.thumbnails[3].url;
@@ -46,9 +53,15 @@ class Song {
 }
 exports.Song = Song;
 class PlaylistSong {
+    videoURL = null;
+    url;
+    title;
+    thumbnail;
+    message;
+    duration;
+    durationS;
+    playlistsong = false;
     constructor(data) {
-        this.videoURL = null;
-        this.playlistsong = false;
         this.url = data.playlist.url;
         this.title = data.playlist.title;
         this.thumbnail = data.playlist.bestThumbnail.url;
@@ -59,6 +72,12 @@ class PlaylistSong {
 }
 exports.PlaylistSong = PlaylistSong;
 class WriteSong {
+    title;
+    url;
+    message;
+    duration;
+    durationS;
+    thumbnail;
     constructor(data) {
         this.title = data.data.title;
         this.url = data.data.url;
@@ -70,8 +89,14 @@ class WriteSong {
 }
 exports.WriteSong = WriteSong;
 class ErrorSong {
+    url;
+    title;
+    thumbnail;
+    message;
+    duration;
+    durationS;
+    playlistsong = false;
     constructor(data) {
-        this.playlistsong = false;
         this.url = data.song.video_details.url;
         this.title = data.song.video_details.title;
         this.thumbnail = data.song.video_details.thumbnails[3].url;
