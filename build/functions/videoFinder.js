@@ -61,7 +61,7 @@ async function videoFinder(query, message) {
         const length = 3;
         for (let i = 0; i < length; i++) {
             let thumbnail;
-            if (video[i]?.thumbnail && video[i]?.thumbnails[0]) {
+            if (video[i]?.thumbnail || video[i]?.thumbnails[0]) {
                 thumbnail = bool ? video[i].thumbnails[0].url : video[i].thumbnail;
             }
             sdi.top5Results.push(video[i]);
