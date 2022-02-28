@@ -95,7 +95,10 @@ async function videoFinder(query, message) {
                     return videoResult[bool];
                 }
                 else {
-                    emebdPush(videoResult, true);
+                    if (videoResult[0]?.thumbnails) {
+                        emebdPush(videoResult, true);
+                        return false;
+                    }
                     return false;
                 }
             }
