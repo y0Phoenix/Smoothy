@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 //stops the audioPlayer which make AudioPlayerStatus Idle, which then exeuctes the function at ../executive.js(78)
+const voice_1 = require("@discordjs/voice");
 const discord_js_1 = require("discord.js");
 const modules_1 = require("../modules/modules");
 /**
@@ -12,6 +13,13 @@ const modules_1 = require("../modules/modules");
 async function skip(message, serverQueue, client) {
     if (serverQueue !== undefined) {
         if (serverQueue.songs.length > 0) {
+            if (serverQueue.player.state.status === voice_1.AudioPlayerStatus.Paused) {
+                const msg = await message.channel.send({ embeds: [new discord_js_1.MessageEmbed()
+                            .setColor('RED')
+                            .setDescription(':rofl: Please Unpause The Player Before Restarting')
+                    ] });
+                (0, modules_1.deleteMsg)(msg, 30000, client);
+            }
             try {
                 console.log("Skipping " + serverQueue.currentsong[0].title + "!");
                 const skipEmbed = new discord_js_1.MessageEmbed()
@@ -20,8 +28,6 @@ async function skip(message, serverQueue, client) {
                     .setDescription(` ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                     .addFields({
                     name: `Requested By`, value: `<@${message.author.id}>`, inline: true,
-                }, {
-                    name: `***Duration***`, value: `${serverQueue.currentsong[0].duration}`, inline: true
                 });
                 message.channel.send({ embeds: [skipEmbed] })
                     .then(msg => (0, modules_1.deleteMsg)(msg, 60000, client));
