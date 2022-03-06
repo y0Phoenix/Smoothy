@@ -33,15 +33,16 @@ const title = async (serverQueue) => {
  * @description adds onto the queuelist string to create one big queue
  */
 async function queueListAdd(serverQueue) {
-    let { queue: { i, endQueueList, queueList } } = serverQueue;
     if (serverQueue.shuffle === true) {
-        for (i; i <= endQueueList + 1; i++) {
+        for (serverQueue.queue.i; serverQueue.queue.i <= serverQueue.queue.endQueueList + 1; serverQueue.queue.i++) {
+            const i = serverQueue.queue.i;
+            const endQueueList = serverQueue.queue.endQueueList;
             if (serverQueue.shuffledSongs[i] && i <= endQueueList) {
                 if (serverQueue.shuffledSongs[i] === serverQueue.shuffledSongs[0]) {
-                    queueList += `\n****Now Playing****\n**[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})**\nRequested By: <@${serverQueue.currentsong[0].message.author.id}>\n***Duration*** ${serverQueue.currentsong[0].duration}\n`;
+                    serverQueue.queue.queueList += `\n****Now Playing****\n**[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})**\nRequested By: <@${serverQueue.currentsong[0].message.author.id}>\n***Duration*** ${serverQueue.currentsong[0].duration}\n`;
                 }
                 else {
-                    queueList += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}> ***Duration*** ${serverQueue.shuffledSongs[i].duration}`;
+                    serverQueue.queue.queueList += `\n***${i}*** : **[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})**\nRequested By: <@${serverQueue.shuffledSongs[i].message.author.id}> ***Duration*** ${serverQueue.shuffledSongs[i].duration}`;
                 }
             }
             else {
@@ -50,13 +51,15 @@ async function queueListAdd(serverQueue) {
         }
     }
     else {
-        for (i; i <= endQueueList + 1; i++) {
+        for (serverQueue.queue.i; serverQueue.queue.i <= serverQueue.queue.endQueueList + 1; serverQueue.queue.i++) {
+            const i = serverQueue.queue.i;
+            const endQueueList = serverQueue.queue.endQueueList;
             if (serverQueue.songs[i] && i <= endQueueList) {
                 if (serverQueue.songs[i] === serverQueue.songs[0]) {
-                    queueList += `\n****Now Playing****\n**[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})**\nRequested By: <@${serverQueue.currentsong[0].message.author.id}>\n***Duration*** ${serverQueue.currentsong[0].duration}\n`;
+                    serverQueue.queue.queueList += `\n****Now Playing****\n**[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})**\nRequested By: <@${serverQueue.currentsong[0].message.author.id}>\n***Duration*** ${serverQueue.currentsong[0].duration}\n`;
                 }
                 else {
-                    queueList += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}> ***Duration*** ${serverQueue.songs[i].duration}`;
+                    serverQueue.queue.queueList += `\n***${i}*** : **[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})**\nRequested By: <@${serverQueue.songs[i].message.author.id}> ***Duration*** ${serverQueue.songs[i].duration}`;
                 }
             }
             else {
@@ -72,7 +75,6 @@ async function queueListAdd(serverQueue) {
  * @description checks conditions and send a message embed with the queuelist global var inside
  */
 async function getQueueList(message, serverQueue, serverDisconnectIdle) {
-    let { queue: { i, endQueueList, queueList } } = serverQueue;
     if (serverQueue.songs.length <= 10 && serverQueue.shuffledSongs.length <= 10) {
         await queueListAdd(serverQueue);
         const queueListEmbed = new discord_js_1.MessageEmbed()
@@ -81,25 +83,27 @@ async function getQueueList(message, serverQueue, serverDisconnectIdle) {
             .setDescription(`${queueList}`);
         const msg = await message.channel.send({ embeds: [queueListEmbed] });
         serverDisconnectIdle.queueMsgs.push(msg);
-        queueList = ``;
+        serverQueue.queue.queueList = ``;
     }
     else {
         await queueListAdd(serverQueue);
-        if (i === endQueueList + 1 && endQueueList === 10) {
+        if (serverQueue.queue.i === serverQueue.queue.endQueueList + 1 && serverQueue.queue.endQueueList === 10) {
             const queueListEmbed = new discord_js_1.MessageEmbed()
                 .setColor('LUMINOUS_VIVID_PINK')
                 .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
-                .setDescription(`${queueList}`);
-            serverQueue.queue.msg.push(queueListEmbed);
-            queueList = ``;
+                .setDescription(`${serverQueue.queue.queueList}`);
+            const msg = await message.channel.send({ embeds: [queueListEmbed] });
+            serverDisconnectIdle.queueMsgs.push(msg);
+            serverQueue.queue.queueList = ``;
             longQueueList(message, serverQueue, serverDisconnectIdle);
         }
-        else if (endQueueList > 10 && queueList !== ``) {
+        else if (serverQueue.queue.endQueueList > 10 && serverQueue.queue.queueList !== ``) {
             const queueListEmbed = new discord_js_1.MessageEmbed()
                 .setColor('LUMINOUS_VIVID_PINK')
-                .setDescription(`${queueList}`);
-            serverQueue.queue.msg.push(queueListEmbed);
-            queueList = ``;
+                .setDescription(`${serverQueue.queue.queueList}`);
+            const msg = await message.channel.send({ embeds: [queueListEmbed] });
+            serverDisconnectIdle.queueMsgs.push(msg);
+            serverQueue.queue.queueList = ``;
             longQueueList(message, serverQueue, serverDisconnectIdle);
         }
     }
@@ -113,14 +117,9 @@ async function getQueueList(message, serverQueue, serverDisconnectIdle) {
  * to the text-channel. Somewhat of a middleware function
  */
 async function longQueueList(message, serverQueue, serverDisconnectIdle) {
-    let { queue: { i, endQueueList, queueList } } = serverQueue;
-    if (endQueueList < serverQueue.songs.length) {
-        endQueueList = endQueueList + 10;
+    if (serverQueue.queue.endQueueList < serverQueue.songs.length) {
+        serverQueue.queue.endQueueList = serverQueue.queue.endQueueList + 10;
         getQueueList(message, serverQueue, serverDisconnectIdle);
-    }
-    else {
-        const msg = await message.channel.send({ embeds: serverQueue.queue.msg });
-        serverDisconnectIdle.queueMsgs.push(msg);
     }
 }
 /**
@@ -131,7 +130,6 @@ async function longQueueList(message, serverQueue, serverDisconnectIdle) {
  * longer song queues. The reason for 10 songs being the max is the discord api limits MessageEmbed descriptions to less than 4096 characters
  */
 async function queueList(message, serverQueue, serverDisconnectIdle) {
-    let { queue: { i, endQueueList, queueList } } = serverQueue;
     if (serverQueue !== undefined) {
         if (serverDisconnectIdle.queueMsgs[0]) {
             for (let i = 0; i < serverDisconnectIdle.queueMsgs.length; i++) {
@@ -148,9 +146,9 @@ async function queueList(message, serverQueue, serverDisconnectIdle) {
             (0, modules_1.writeGlobal)('update dci', serverDisconnectIdle, message.guildId);
         }
         if (serverQueue.songs.length >= 2) {
-            queueList = ``;
-            endQueueList = 10;
-            i = 0;
+            serverQueue.queue.queueList = ``;
+            serverQueue.queue.endQueueList = 10;
+            serverQueue.queue.i = 0;
             getQueueList(message, serverQueue, serverDisconnectIdle);
         }
         else {
@@ -170,7 +168,7 @@ async function queueList(message, serverQueue, serverDisconnectIdle) {
             let msg = await message.channel.send({ embeds: [queueListEmbed] });
             serverDisconnectIdle.queueMsgs.push(msg);
             (0, modules_1.writeGlobal)('update dci', serverDisconnectIdle, message.guildId);
-            queueList = ``;
+            serverQueue.queue.queueList = ``;
         }
     }
     else {

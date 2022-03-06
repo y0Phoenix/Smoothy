@@ -39,7 +39,11 @@ class Queue {
     repeat = false;
     bool = false;
     jumpbool = false;
-    queue;
+    queue = {
+        i: 0,
+        queueList: ``,
+        endQueueList: 10
+    };
     nowPlayingSend = nowPlayingSend_1.default;
     playNext = playNext_1.default;
     findSplice = findSplice_1.default;

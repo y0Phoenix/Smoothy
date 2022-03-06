@@ -54,7 +54,11 @@ export default class Queue {
     repeat: boolean = false;
     bool: boolean = false;
     jumpbool: boolean = false;
-    queue: queue;
+    queue: queue = {
+        i: 0,
+        queueList: ``,
+        endQueueList: 10
+    };
     nowPlayingSend: typeof nowPlayingSend = nowPlayingSend;
     playNext: typeof playNext = playNext;
     findSplice: typeof findSplice = findSplice;
@@ -167,5 +171,4 @@ interface queue {
     endQueueList: number;
     queueList: string;
     i: number;
-    msg: Partial<MessageEmbed>[];
 }
