@@ -39,6 +39,7 @@ class Queue {
     repeat = false;
     bool = false;
     jumpbool = false;
+    queue;
     nowPlayingSend = nowPlayingSend_1.default;
     playNext = playNext_1.default;
     findSplice = findSplice_1.default;

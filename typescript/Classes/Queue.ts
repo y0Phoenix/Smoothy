@@ -54,6 +54,7 @@ export default class Queue {
     repeat: boolean = false;
     bool: boolean = false;
     jumpbool: boolean = false;
+    queue: queue;
     nowPlayingSend: typeof nowPlayingSend = nowPlayingSend;
     playNext: typeof playNext = playNext;
     findSplice: typeof findSplice = findSplice;
@@ -160,4 +161,11 @@ export default class Queue {
           }
       });
     }
+}
+
+interface queue {
+    endQueueList: number;
+    queueList: string;
+    i: number;
+    msg: Partial<MessageEmbed>[];
 }
