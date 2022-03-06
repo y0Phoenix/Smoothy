@@ -99,7 +99,7 @@ export default class Queue {
             this.subsciption = this.voiceConnection.subscribe(this.player);
         }
 
-        this.player.on('error', async (err) => {
+        this.player.on('error', async () => {
             const localServerQueue: Queue = this;
           localServerQueue.audioPlayerErr = true;
           console.log(`Audio Player Threw An Err`);
@@ -142,11 +142,11 @@ export default class Queue {
       });
   
       //when the audioPlayer for this class inside is Idle the function is executed
-      this.player.on(AudioPlayerStatus.Idle, async (playerEvent) => {
+      this.player.on(AudioPlayerStatus.Idle, async () => {
           this.audioPlayerIdle();
       });
     // this is meant for when the player throws an error and the error is corrected, its needed to send a nowplaying message   
-      this.player.on(AudioPlayerStatus.Playing, async (data) => {
+      this.player.on(AudioPlayerStatus.Playing, async () => {
           const localServerQueue: Queue = this;
           if (localServerQueue.audioPlayerErr === true && localServerQueue.tries > 0) {
           console.log('Retries Successfull');

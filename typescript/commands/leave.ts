@@ -16,7 +16,7 @@ const noVCEmbed = new MessageEmbed()
  * @param  {Idle} serverDisconnectIdle current servers idle
  * @description leaves the voice channel, deletes the serverQueue from the queue map and deletes all the messages inside the serverDisconnectIdle msgs and queueMSGs arrays
  */
-export default async function Leave(message: Message, queue: any, serverQueue: Queue, DisconnectIdle: any, serverDisconnectIdle: Idle){
+export default async function Leave(message: Message, serverQueue: Queue, DisconnectIdle: any, serverDisconnectIdle: Idle){
     const voiceConnection = getVoiceConnection(message.guild.id);
     if(voiceConnection){
         const leaveEmbed = new MessageEmbed()
@@ -35,11 +35,11 @@ export default async function Leave(message: Message, queue: any, serverQueue: Q
         if(serverDisconnectIdle.disconnectTimer !== undefined){
             clearTimeout(serverDisconnectIdle.disconnectTimer)
         }
-        leave(message, DisconnectIdle, queue); 
+        leave(message); 
     }
     else{
         message.channel.send({embeds: [noVCEmbed]})
-        .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
+        .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
         return;
     } 
 }

@@ -4,10 +4,11 @@ import getMaps from '../maps';
 import * as playdl from 'play-dl';
 import * as ytsearch from 'yt-search';
 import { disconnectTimervcidle, disconnectvcidle } from './functions/disconnectIdle';
-import { getVoiceConnection, VoiceConnection } from '@discordjs/voice';
+import { AudioPlayerStatus, entersState, getVoiceConnection, VoiceConnection } from '@discordjs/voice';
 import { joinvoicechannel } from '../executive';
 import { exists, leave } from '../modules/modules';
 import { VoiceConnectionStatus } from '@discordjs/voice';
+import Queue from './Queue';
 
 export class WriteIdle {
     message: WriteMessage
@@ -65,8 +66,15 @@ export class Idle {
             };
             join();
         }
-        this.voiceConnection.on(VoiceConnectionStatus.Disconnected, () => {
-            leave(this.message, DisconnectIdle, queue);
-        })
+        this.voiceConnection.on(VoiceConnectionStatus.Disconnected, async () => {
+            try {
+                await Promise.race([
+                    entersState(this.voiceConnection, VoiceConnectionStatus.Signalling, 5_000),
+                    entersState(this.voiceConnection, VoiceConnectionStatus.Connecting, 5_000),
+                ]);
+            } catch (err) {
+                leave(this.message);
+            }
+        });
     }
 }

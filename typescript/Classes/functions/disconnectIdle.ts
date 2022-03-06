@@ -15,7 +15,7 @@ export async function disconnectvcidle(queue: any, DisconnectIdle: any, serverDi
     const msg = await serverDisconnectIdle.message.channel.send({embeds: [vcIdleEmbed]});
     deleteMsg(msg, 60000, DisconnectIdle.get(1));
     console.log(`Left VC Due To Idle`);
-    leave(serverDisconnectIdle.message, DisconnectIdle, queue);
+    leave(serverDisconnectIdle.message);
   }
   
 /**

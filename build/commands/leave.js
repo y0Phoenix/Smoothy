@@ -14,7 +14,7 @@ const noVCEmbed = new discord_js_1.MessageEmbed()
  * @param  {Idle} serverDisconnectIdle current servers idle
  * @description leaves the voice channel, deletes the serverQueue from the queue map and deletes all the messages inside the serverDisconnectIdle msgs and queueMSGs arrays
  */
-async function Leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle) {
+async function Leave(message, serverQueue, DisconnectIdle, serverDisconnectIdle) {
     const voiceConnection = (0, voice_1.getVoiceConnection)(message.guild.id);
     if (voiceConnection) {
         const leaveEmbed = new discord_js_1.MessageEmbed()
@@ -32,11 +32,11 @@ async function Leave(message, queue, serverQueue, DisconnectIdle, serverDisconne
         if (serverDisconnectIdle.disconnectTimer !== undefined) {
             clearTimeout(serverDisconnectIdle.disconnectTimer);
         }
-        (0, modules_1.leave)(message, DisconnectIdle, queue);
+        (0, modules_1.leave)(message);
     }
     else {
         message.channel.send({ embeds: [noVCEmbed] })
-            .then(msg => (0, modules_1.deleteMsg)(msg, 30000, serverDisconnectIdle.client));
+            .then(msg => (0, modules_1.deleteMsg)(msg, 30000, DisconnectIdle.get(1)));
         return;
     }
 }

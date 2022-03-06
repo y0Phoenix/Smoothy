@@ -180,7 +180,7 @@ client.on('messageCreate', async (message) => {
         (0, clear_1.default)(message, serverQueue, queue, serverDisconnectIdle);
     }
     else if (command === 'leave' || command === 'disconnect' || command === 'dc' || command === 'die') {
-        (0, leave_1.default)(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle);
+        (0, leave_1.default)(message, serverQueue, DisconnectIdle, serverDisconnectIdle);
     }
     else if (command === 'remove' || command === 'r') {
         (0, remove_1.default)(message, args, serverQueue, client);

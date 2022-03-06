@@ -193,7 +193,7 @@ client.on('messageCreate', async message =>{
     }else if (command === 'stop' || command === 'clear'){
         clear(message, serverQueue, queue, serverDisconnectIdle);
     }else if (command === 'leave' || command === 'disconnect' || command === 'dc' || command === 'die'){
-        leave(message, queue, serverQueue, DisconnectIdle, serverDisconnectIdle);
+        leave(message, serverQueue, DisconnectIdle, serverDisconnectIdle);
     }else if (command === 'remove' || command === 'r'){
         remove(message, args, serverQueue, client);
     }else if (command === 'help'){
