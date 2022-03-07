@@ -17,10 +17,10 @@ async function leave(msg) {
     const sq = queue.get(id);
     const client = DisconnectIdle.get(1);
     if (vc) {
-        if (!sq)
-            return;
-        if (sq.nowPlaying) {
-            (0, deleteMsg_1.default)(sq.nowPlaying, 0, client);
+        if (sq) {
+            if (sq.nowPlaying) {
+                (0, deleteMsg_1.default)(sq.nowPlaying, 0, client);
+            }
         }
         if (!sdi)
             return;
@@ -30,7 +30,7 @@ async function leave(msg) {
         sdi.queueMsgs.forEach(msg => {
             (0, deleteMsg_1.default)(msg, 0, client);
         });
-        vc.disconnect();
+        vc.destroy();
         queue.delete(id);
         await (0, writeglobal_1.default)('delete queue', null, id);
         DisconnectIdle.delete(id);

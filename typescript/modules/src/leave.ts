@@ -20,9 +20,10 @@ export default async function leave(msg: Message) {
     const client: Client = DisconnectIdle.get(1);
     
     if (vc) {
-        if (!sq) return;
-        if (sq.nowPlaying) {
-            deleteMsg(sq.nowPlaying, 0, client);
+        if (sq) {
+            if (sq.nowPlaying) {
+                deleteMsg(sq.nowPlaying, 0, client);
+            }
         }
         if (!sdi) return;
         sdi.msgs.forEach(msg => {

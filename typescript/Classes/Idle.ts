@@ -66,5 +66,17 @@ export class Idle {
             };
             join();
         }
+        this.voiceConnection.on(VoiceConnectionStatus.Disconnected, async () => {
+            try {
+                await Promise.race([
+                    entersState(this.voiceConnection, VoiceConnectionStatus.Signalling, 5_000),
+                    entersState(this.voiceConnection, VoiceConnectionStatus.Connecting, 5_000),
+                ]);
+                // Seems to be reconnecting to a new channel - ignore disconnect
+            } catch (error) {
+                // Seems to be a real disconnect which SHOULDN'T be recovered from
+                leave(this.message);
+            }
+        })
     }
 }
