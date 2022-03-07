@@ -66,15 +66,5 @@ export class Idle {
             };
             join();
         }
-        this.voiceConnection.on(VoiceConnectionStatus.Disconnected, async () => {
-            try {
-                await Promise.race([
-                    entersState(this.voiceConnection, VoiceConnectionStatus.Signalling, 5_000),
-                    entersState(this.voiceConnection, VoiceConnectionStatus.Connecting, 5_000),
-                ]);
-            } catch (err) {
-                leave(this.message);
-            }
-        });
     }
 }

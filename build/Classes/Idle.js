@@ -7,7 +7,6 @@ const disconnectIdle_1 = require("./functions/disconnectIdle");
 const voice_1 = require("@discordjs/voice");
 const executive_1 = require("../executive");
 const modules_1 = require("../modules/modules");
-const voice_2 = require("@discordjs/voice");
 class WriteIdle {
     message;
     id;
@@ -65,17 +64,6 @@ class Idle {
             };
             join();
         }
-        this.voiceConnection.on(voice_2.VoiceConnectionStatus.Disconnected, async () => {
-            try {
-                await Promise.race([
-                    (0, voice_1.entersState)(this.voiceConnection, voice_2.VoiceConnectionStatus.Signalling, 5_000),
-                    (0, voice_1.entersState)(this.voiceConnection, voice_2.VoiceConnectionStatus.Connecting, 5_000),
-                ]);
-            }
-            catch (err) {
-                (0, modules_1.leave)(this.message);
-            }
-        });
     }
 }
 exports.Idle = Idle;
