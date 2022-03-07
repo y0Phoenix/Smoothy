@@ -31,7 +31,7 @@ export default async function leave(msg: Message) {
         sdi.queueMsgs.forEach(msg => {
             deleteMsg(msg, 0, client);
         })
-        vc.destroy()
+        vc.disconnect()
         queue.delete(id);
         await writeGlobal('delete queue', null, id);
         DisconnectIdle.delete(id);
