@@ -8,7 +8,6 @@ import { AudioPlayerStatus, entersState, getVoiceConnection, VoiceConnection } f
 import { joinvoicechannel } from '../executive';
 import { exists, leave } from '../modules/modules';
 import { VoiceConnectionStatus } from '@discordjs/voice';
-import Queue from './Queue';
 
 export class WriteIdle {
     message: WriteMessage
@@ -58,7 +57,7 @@ export class Idle {
         this.disconnectTimervcidle = disconnectTimervcidle;
         this.disconnectvcidle = disconnectvcidle;
         this.voiceConnection = getVoiceConnection(this.id);
-        const {DisconnectIdle, queue} = getMaps();
+        const {DisconnectIdle} = getMaps();
         if (!this.voiceConnection) {
             const join = async () => {
                 const bool = await exists(this.id, 'dci')

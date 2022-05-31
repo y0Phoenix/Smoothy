@@ -8,7 +8,7 @@ import { Idle } from "../Idle";
  *  @param  {} DisconnectIdle the map that holds all of the servers Idles
  *  @description disconnects from voiceConnection after 1800000 ms or 30 min
  */
-export async function disconnectvcidle(queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle) {
+export async function disconnectvcidle(DisconnectIdle: any, serverDisconnectIdle: Idle) {
     const vcIdleEmbed = new MessageEmbed()
       .setColor('RED')
       .setDescription(':cry: Left VC Due To Idle');
@@ -22,13 +22,12 @@ export async function disconnectvcidle(queue: any, DisconnectIdle: any, serverDi
  * @description starts the timer for 1800000 ms or 30 min which disconnects from voiceConnection
  * this timer only starts when the audioPlayer is Idle
  */
-export function disconnectTimervcidle() {
+export function disconnectTimervcidle(this: Idle) {
     const maps = getMaps();
-    const {DisconnectIdle, queue} = maps;
+    const {DisconnectIdle} = maps;
     this.disconnectTimer = setTimeout(
       this.disconnectvcidle,
       1800000,
-      queue,
       DisconnectIdle,
       this
     );
