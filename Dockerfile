@@ -8,6 +8,8 @@ RUN npm install
 
 COPY /build /app/
 
+COPY /config /app/
+
 ENV DOCKER_BUILD=true
 
 CMD ["node", "."]
