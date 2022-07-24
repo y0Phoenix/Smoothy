@@ -16,7 +16,7 @@ import Global from '../../interfaces/_Global';
  * @param {} id the id of the discord server
  */
 export default async function writeGlobal(str: string, data: any, id: string) {
-    const file = '../config/global.json';
+    const file = `${process.env.DOCKER_BUILD === 'true' ? './config/global.json' : '../config/global.json'}`;
     let _file = fs.readFileSync(file, 'utf-8');
     let _data: Global = JSON.parse(_file);
     let Data = {..._data}
