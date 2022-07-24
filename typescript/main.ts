@@ -139,6 +139,7 @@ client.on('messageCreate', async message =>{
     if(message.author.bot){
         return;
     }
+    console.log(process.env.DOCKER_BUILD);
     let file = fs.readFileSync(`${process.env.DOCKER_BUILD === 'true' ? './config/prefixes.json' : '../config/prefixes.json' }`, 'utf-8');
     let data = JSON.parse(file);
     let prefix = undefined;
