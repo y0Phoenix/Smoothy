@@ -8,7 +8,7 @@ RUN npm install
 
 COPY /build /app/
 
-COPY /config /app/
+COPY /config /app/config
 
 ENV DOCKER_BUILD=true
 
