@@ -115,7 +115,7 @@ client.once('ready', async () => {
     }
     figlet.text(`${client.user.username} v1.4.7`, (err, data) => {
         if (err) {
-            console.log('figlet not working');
+            console.log('figlet not working rip');
             console.dir(err);
         }
         else {
@@ -139,7 +139,6 @@ client.on('messageCreate', async message =>{
     if(message.author.bot){
         return;
     }
-    console.log(process.env.DOCKER_BUILD);
     let file = fs.readFileSync(`${process.env.DOCKER_BUILD === 'true' ? './config/prefixes.json' : '../config/prefixes.json' }`, 'utf-8');
     let data = JSON.parse(file);
     let prefix = undefined;
