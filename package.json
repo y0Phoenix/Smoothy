@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc -p typescript/tsconfig.json",
-    "dev": "npx tsc -p typescript/tsconfig-dev.json"
+    "dev": "npx tsc -p typescript/tsconfig-dev.json",
+    "start": "node ./build/main.js"
   },
   "author": "Aaron Graybill",
   "license": "MIT",
