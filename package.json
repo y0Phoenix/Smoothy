@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc -p typescript/tsconfig.json",
     "dev": "npx tsc -p typescript/tsconfig-dev.json",
-    "start": "node ./build/main.js"
+    "start": "node ./build/main.js",
+    "linux": "mono ./RunSmoothy-Linux/Program.exe",
+    "windows": "./RunSmoothy/Run Rmoothy.exe"
   },
   "author": "Aaron Graybill",
   "license": "MIT",
