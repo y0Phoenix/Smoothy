@@ -86,7 +86,7 @@ async function getQueueList(message: Message, serverQueue: Queue, serverDisconne
         const queueListEmbed = new MessageEmbed()
             .setColor('LUMINOUS_VIVID_PINK')
             .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
-            .setDescription(`${queueList}`)
+            .setDescription(`${serverQueue.queue.queueList}`)
         ;
         const msg = await message.channel.send({embeds: [queueListEmbed]});
         serverDisconnectIdle.queueMsgs.push(msg);
