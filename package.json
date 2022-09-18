@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc -p typescript/tsconfig.json",
-    "dev": "concurrently \"npx tsc -p typescript/tsconfig-dev.json\" \"npm start\"",
-    "start": "nodemon ./build/main.js",
+    "dev": "concurrently \"npx tsc -p typescript/tsconfig-dev.json\" \"nodemon ./build/main.js\"",
+    "start": "node ./build/main.js",
     "linux": "mono ./RunSmoothy-Linux/Program.exe",
     "windows": "./RunSmoothy/Run Rmoothy.exe"
   },
