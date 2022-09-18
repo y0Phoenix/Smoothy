@@ -51,7 +51,7 @@
 [02/19/2022 22:28:54.177] Player Status Is Idle
 [02/19/2022 22:28:54.388] Starting disconnectTimer Timeout
 [02/19/2022 22:28:54.739] Smoothy is currently running 
-[02/19/2022 22:29:23.185] Command = p https://youtu.be/CWIKifF0O6g
+[02/19/2022 22:29:23.185] Command = p d
 [02/19/2022 22:29:23.745] Found Breaking Bad Theme (Ayo Mr. White Remix)
 [02/19/2022 22:29:23.746] Cleared Timout For disconnectTimer
 [02/19/2022 22:29:23.765] Smoothy is currently running 

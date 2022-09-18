@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc -p typescript/tsconfig.json",
-    "dev": "npx tsc -p typescript/tsconfig-dev.json",
-    "start": "node ./build/main.js",
+    "dev": "concurrently \"npx tsc -p typescript/tsconfig-dev.json\" \"npm start\"",
+    "start": "nodemon ./build/main.js",
     "linux": "mono ./RunSmoothy-Linux/Program.exe",
     "windows": "./RunSmoothy/Run Rmoothy.exe"
   },
@@ -31,5 +31,9 @@
     "yt-search": "^2.10.3",
     "ytdl-core": "^4.10.1",
     "ytpl": "^2.2.3"
+  },
+  "devDependencies": {
+    "concurrently": "^7.4.0",
+    "nodemon": "^2.0.20"
   }
 }
