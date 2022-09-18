@@ -7,12 +7,11 @@
 	} from '@discordjs/voice';
 	import { MessageEmbed, Message, Client, VoiceChannel, CommandInteractionOptionResolver } from 'discord.js';
 	import { Idle } from './Classes/Idle';
-	import { ErrorSong, PlaylistSong, Song } from './Classes/Song';
+	import { PlaylistSong, Song } from './Classes/Song';
 	import Queue from './Classes/Queue';
 	import validURL from './functions/validURL' ;
 	import videoFinder from './functions/videoFinder';
 	import * as ytdl from 'ytdl-core';
-	import InfoData from './interfaces/_InfoData';
 	import * as playdl from 'play-dl';
 
 	const noVidEmbed = new MessageEmbed()
@@ -29,7 +28,7 @@
 	 * @param  {} videoURL the ytdl video
 	 * @description checks if a serverQueue exists if it doesn't it creates one and pushes it to the queue map then it continues onto {@link play}, else it pushes a new Song to the serverQueue.songs array
 	 */
-	async function executive(message: Message, queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle, serverQueue: Queue, videoURL: InfoData) {
+	async function executive(message: Message, queue: any, DisconnectIdle: any, serverDisconnectIdle: Idle, serverQueue: Queue, videoURL: ytdl.videoInfo) {
 	serverDisconnectIdle = DisconnectIdle.get(message.guild.id);
 	const client = DisconnectIdle.get(1);
 	if (!serverDisconnectIdle) {

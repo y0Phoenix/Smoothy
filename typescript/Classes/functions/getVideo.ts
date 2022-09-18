@@ -16,7 +16,7 @@ export default async function getVideo() {
   let serverQueue: Queue = this
     let message: Partial<Message>;
     let videoName: string;
-    let videoURL: InfoData;
+    let videoURL: ytdl.videoInfo;
     let i = serverQueue.jump;
     serverQueue.jump = 0;
     if (serverQueue.previousbool) {

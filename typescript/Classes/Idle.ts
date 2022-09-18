@@ -67,14 +67,14 @@ export class Idle {
         }
         this.voiceConnection.on(VoiceConnectionStatus.Disconnected, async () => {
             const str = `\nServer: ${this.message.guild.name}\nAuthor: ${this.message.author.username}`;
-            console.log(`Disconnect State Detected Checking If Valid For${str}`)
+            console.log(`Disconnect State Detected Checking If Valid For${str}`);
             try {
                 await Promise.race([
                     entersState(this.voiceConnection, VoiceConnectionStatus.Signalling, 5_000),
                     entersState(this.voiceConnection, VoiceConnectionStatus.Connecting, 5_000),
                 ]);
                 // Seems to be reconnecting to a new channel - ignore disconnect
-                console.log(`Asserted Disconnect As Invalid For${str}`)
+                console.log(`Asserted Disconnect As Invalid For${str}`);
             } catch (error) {
                 // Seems to be a real disconnect which SHOULDN'T be recovered from
                 console.log(`Asserted Disconnect As Valid For ${str}`);

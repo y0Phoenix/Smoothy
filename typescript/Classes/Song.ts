@@ -3,10 +3,11 @@ import { Message } from "discord.js";
 import InfoData from "../interfaces/_InfoData";
 import {Item} from "../interfaces/_Playlist";
 import _ErrorInfoData from '../interfaces/_ErrorInfoData';
+import { videoInfo } from "ytdl-core";
 
 export interface _newSong {
     message: Partial<Message>;
-    data: InfoData;
+    data: videoInfo;
 }
 
 export interface _newPlaylistSong {
@@ -21,7 +22,7 @@ export interface _newWriteSong {
 
 
 export class Song {
-    videoURL: InfoData;
+    videoURL: videoInfo;
     url: InfoData["videoDetails"]["video_url"];
     title: InfoData["videoDetails"]["title"];
     thumbnail: any;
@@ -67,7 +68,7 @@ export class Song {
     }
 }
 export class PlaylistSong {
-    videoURL: InfoData = null;
+    videoURL: videoInfo = null;
     url: Item["url"];
     title: Item["title"];
     thumbnail: Item["bestThumbnail"]["url"];
