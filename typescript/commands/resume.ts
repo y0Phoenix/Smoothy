@@ -1,5 +1,5 @@
 //resumes the audioPlayer only if the audioPlayer is Paused
-import { MessageEmbed, Message, Client } from 'discord.js';
+import { EmbedBuilder, Message, Client, Colors } from 'discord.js';
 import {AudioPlayerStatus,} from '@discordjs/voice';
 import {deleteMsg, leave} from '../modules/modules';
 import Queue from '../Classes/Queue';
@@ -14,8 +14,8 @@ export default async function resume(message: Message, serverQueue: Queue, clien
     if(serverQueue){
         if(serverQueue.player.state.status === AudioPlayerStatus.Paused){
             serverQueue.player.unpause();
-            const resumEmbed = new MessageEmbed()
-                .setColor('GREEN')
+            const resumEmbed = new EmbedBuilder()
+                .setColor(Colors.Green)
                 .setDescription(`I Have Resumed ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                 .addFields(
                     {
@@ -26,15 +26,15 @@ export default async function resume(message: Message, serverQueue: Queue, clien
                     }
                 )
             ;
-            message.channel.send({embeds: [resumEmbed]})
+            message.reply({embeds: [resumEmbed]})
             .then(msg => deleteMsg(msg, 60000, client));
         }else{
-            message.channel.send(`:rofl: Not Currently Paused :rofl:`)
+            message.reply(`:rofl: Not Currently Paused :rofl:`)
             .then(msg => deleteMsg(msg, 30000, client));
         }
 
     }else{
-        message.channel.send(`:rofl: Not Currently Paused :rofl:`)
+        message.reply(`:rofl: Not Currently Paused :rofl:`)
         .then(msg => deleteMsg(msg, 30000, client));
     }
 }

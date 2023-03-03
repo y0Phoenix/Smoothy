@@ -1,6 +1,6 @@
 // This is the Main File for Smoothy Developed by Eugene aka y0Phoenix 
 // This is where the client is created and messages come in from discord and are converted into commands and args 
-import { Client, Intents, MessageEmbed} from 'discord.js';
+import { Client, GatewayIntentBits, EmbedBuilder, Colors} from 'discord.js';
 const AbortController = require ("node-abort-controller").AbortController;
 import Play from './commands/play';
 import leave from './commands/leave';
@@ -32,7 +32,7 @@ import Queue from "./Classes/Queue";
 import getMaps from "./maps";
 import Global from './interfaces/_Global';
 //Creates the client
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 // todo implement mySQL or MongoDB into Smoothy instead of plain JSON file
 // const sequelize = new Sequelize('discord', 'root', 'aaron', {
@@ -124,7 +124,7 @@ client.once('ready', async () => {
             console.log(`═════════════════════════════════════════════════════════════════════════════`);
         }
     })
-    client.user.setActivity('-help', { type: 'LISTENING' })
+    client.user.setActivity('-help', { name: "LISTENING" })
 });
 client.once('recconnecting', () => {
     console.log('Smoothy is reconnecting!');
@@ -160,15 +160,15 @@ client.on('messageCreate', async message =>{
             }
         }
     if(message.content === 'myprefix'){
-        const myprefixEmbed = new MessageEmbed()
-            .setColor('BLUE')
+        const myprefixEmbed = new EmbedBuilder()
+            .setColor(Colors.Blue)
             .addFields(
                 {
                 name: ':thumbsup: Current Prefix',value: `**${prefix}**`
                 }
             )
         ;   
-        message.channel.send({embeds: [myprefixEmbed]});
+        message.reply({embeds: [myprefixEmbed]});
         console.log(`Send current prefix ${prefix} to the channel`);
         return;
     }
@@ -227,11 +227,11 @@ client.on('messageCreate', async message =>{
             serverQueue.nowPlaying = await serverQueue.nowPlayingSend();
         }
     }else{
-        const invalidCommandEmbed = new MessageEmbed()
-            .setColor(`RED`)
+        const invalidCommandEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .setDescription(`:rofl: Invalid Command Type -help To See Current Commands`)
         ;
-        message.channel.send({embeds: [invalidCommandEmbed]})
+        message.reply({embeds: [invalidCommandEmbed]})
         .then(msg => {
             setTimeout(() => {
                 msg.delete()

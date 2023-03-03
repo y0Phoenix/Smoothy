@@ -1,5 +1,5 @@
 //pauses the song at the front of the serverQueue
-import { MessageEmbed, Message, Client } from 'discord.js';
+import { EmbedBuilder, Message, Client, Colors } from 'discord.js';
 import Queue from '../Classes/Queue';
 import {deleteMsg, leave} from '../modules/modules';
 
@@ -12,11 +12,13 @@ import {deleteMsg, leave} from '../modules/modules';
 export default function pause(message: Message, serverQueue: Queue, client: Client){
     if(serverQueue !== undefined){
         serverQueue.player.pause();
-        const pauseEmbed = new MessageEmbed()
-            .setColor('RED')
+        const pauseEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .setDescription(`I Have Paused ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
-            .addField(`Help` , `You Can Resume By Typing ***-resume***`)
             .addFields(
+                {
+                    name: `Help`, value: "You Can Resume By Typing ***-resume***"
+                },
                 {
                     name: `Requested By` , value: `<@${message.author.id}>`, inline: true,
                 },
@@ -25,11 +27,11 @@ export default function pause(message: Message, serverQueue: Queue, client: Clie
                 }
             )
         ;
-        message.channel.send({embeds: [pauseEmbed]})
+        message.reply({embeds: [pauseEmbed]})
         .then(msg => deleteMsg(msg, 60000, client));
     }
     else{
-        message.channel.send(`:rofl: Nothing To Pause :rofl:`)
+        message.reply(`:rofl: Nothing To Pause :rofl:`)
         .then(msg => deleteMsg(msg, 30000, client));
     }
 }

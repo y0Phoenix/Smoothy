@@ -1,5 +1,5 @@
 import { createAudioResource, StreamType, AudioPlayerStatus } from '@discordjs/voice';
-import { MessageEmbed, Message } from 'discord.js';
+import { Colors, EmbedBuilder, Message } from 'discord.js';
 import playdl from 'play-dl';
 import * as prism from 'prism-media';
 import { Idle } from '../Classes/Idle';
@@ -27,11 +27,11 @@ export default async function seek(message: Message, args: any, serverQueue: Que
                 req.forEach((element, index) => {
                     element = parseInt(element);
                     if (isNaN(element)) {
-                        const embed = new MessageEmbed()
-                            .setColor('RED')
+                        const embed = new EmbedBuilder()
+                            .setColor(Colors.Red)
                             .setDescription(':rofl: Please Enter A Valid Seek Request Type -help If You Are Struggling To Figure It Out')
                         ;
-                        message.channel.send({embeds: [embed]})
+                        message.reply({embeds: [embed]})
                         .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                         return;
                     }
@@ -64,11 +64,11 @@ export default async function seek(message: Message, args: any, serverQueue: Que
                 const video = await playdl.video_info(serverQueue.currentsong[0].url);
 
                 if (seek >= serverQueue.currentsong[0].durationS) {
-                    const toLong = new MessageEmbed()
-                        .setColor('RED')
+                    const toLong = new EmbedBuilder()
+                        .setColor(Colors.Red)
                         .setDescription(`:rofl: **${req.join(':')}** Is Longer Than The Song Length Of **${serverQueue.currentsong[0].duration}**`)
                     ;
-                    let msg = await message.channel.send({embeds: [toLong]});
+                    let msg = await message.reply({embeds: [toLong]});
                     deleteMsg(msg, 30000, serverDisconnectIdle.client);
                     return
                 }
@@ -93,11 +93,11 @@ export default async function seek(message: Message, args: any, serverQueue: Que
                 });
                 serverQueue.resource.metadata = serverQueue;
                 serverQueue.player.play(serverQueue.resource);
-                const seekEmbed = new MessageEmbed()
-                    .setColor('GREEN')
+                const seekEmbed = new EmbedBuilder()
+                    .setColor(Colors.Green)
                     .setDescription(`:thumbsup: Seeking [${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url}) To **${req.join(',')}**`)
                 ;
-                let msg = await message.channel.send({embeds: [seekEmbed]}) ;
+                let msg = await message.reply({embeds: [seekEmbed]}) ;
                 deleteMsg(msg, 60000, serverDisconnectIdle.client);
             }
             else {

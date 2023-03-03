@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { Client, Message } from 'discord.js';
 import WriteMessage from "./WriteMessage";
 import getMaps from '../maps';
 import * as playdl from 'play-dl';

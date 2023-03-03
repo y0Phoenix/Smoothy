@@ -1,6 +1,6 @@
 import * as playdl from 'play-dl';
 import { deleteMsg, distance, topResult } from '../modules/modules';
-import {MessageEmbed, Message, Client} from 'discord.js';
+import {EmbedBuilder, Message, Client, Colors} from 'discord.js';
 import * as ytsearch from 'yt-search';
 import getMaps from '../maps';
 import { Idle } from '../Classes/Idle';
@@ -19,16 +19,16 @@ export default async function videoFinder(query: string, message: any) {
 		const i = parseInt(query);
 		if (isNaN(i)) {
 			if (query === 'none') {
-				const msg = await message.channel.send({embeds: [new MessageEmbed()
-					.setColor('BLUE')
+				const msg = await message.reply({embeds: [new EmbedBuilder()
+					.setColor(Colors.Blue)
 					.setDescription(':thumbsup: Okay Try Typing Your Search Again')]});
 				deleteMsg(msg, 30000, client);
 				deleteMsg(sdi.top5Msg, 0, client);
 				sdi.top5Results = [];
 				return false;
 			}
-			const msg = await message.channel.send({embeds: [new MessageEmbed()
-				.setColor('RED')
+			const msg = await message.reply({embeds: [new EmbedBuilder()
+				.setColor(Colors.Red)
 				.setDescription('Please Enter A Number 1-3 From The Top3 Results')]});
 			deleteMsg(msg, 30000, client);
 			return false
@@ -67,17 +67,17 @@ export default async function videoFinder(query: string, message: any) {
 				thumbnail = bool ? video[i].thumbnails[0].url : video[i].thumbnail;
 			}
 			sdi.top5Results.push(video[i]);
-			let title: MessageEmbed;
-			let whichEmbed: MessageEmbed;
+			let title: EmbedBuilder;
+			let whichEmbed: EmbedBuilder;
 			if (i === 0) {
-				title = new MessageEmbed()
-				.setColor('FUCHSIA')
+				title = new EmbedBuilder()
+				.setColor(Colors.Fuchsia)
 				.setTitle('Top 3 Results')
 				.setDescription('No good natches were found for your search please select one via -play or select none via -play none')
 				;
 			}
-			whichEmbed = new MessageEmbed()
-			.setColor('FUCHSIA')
+			whichEmbed = new EmbedBuilder()
+			.setColor(Colors.Fuchsia)
 			.setFields(
 				{
 				name: `${i + 1}: `, value: `**[${video[i].title}](${video[i].url})**`
@@ -89,7 +89,7 @@ export default async function videoFinder(query: string, message: any) {
 			}
 			embeds.push(whichEmbed);
 		}
-		sdi.top5Msg = await message.channel.send({embeds: embeds});
+		sdi.top5Msg = await message.reply({embeds: embeds});
 	}
 
 	try {

@@ -1,6 +1,6 @@
 //stops the audioPlayer which make AudioPlayerStatus Idle, which then exeuctes the function at ../executive.js(78)
 import { AudioPlayerStatus } from '@discordjs/voice';
-import { MessageEmbed, Message, Client } from 'discord.js';
+import { EmbedBuilder, Message, Client, Colors } from 'discord.js';
 import Queue from '../Classes/Queue';
 import {deleteMsg} from '../modules/modules';
 
@@ -14,16 +14,16 @@ import {deleteMsg} from '../modules/modules';
     if(serverQueue !== undefined){
         if (serverQueue.songs.length > 0 ) {
             if (serverQueue.player.state.status === AudioPlayerStatus.Paused) {
-                const msg = await message.channel.send({embeds: [new MessageEmbed()
-                    .setColor('RED')
+                const msg = await message.reply({embeds: [new EmbedBuilder()
+                    .setColor(Colors.Red)
                     .setDescription(':rofl: Please Unpause The Player Before Restarting')
                 ]});
                 deleteMsg(msg, 30000, client);
             }
             try {
                 console.log("Skipping " + serverQueue.currentsong[0].title + "!");
-                const skipEmbed = new MessageEmbed()
-                    .setColor('AQUA')
+                const skipEmbed = new EmbedBuilder()
+                    .setColor(Colors.Aqua)
                     .setTitle(`:next_track: Skipping`)
                     .setDescription(` ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
                     .addFields(
@@ -32,7 +32,7 @@ import {deleteMsg} from '../modules/modules';
                         },
                     )
                 ;
-                message.channel.send({embeds: [skipEmbed]})
+                message.reply({embeds: [skipEmbed]})
                 .then(msg => deleteMsg(msg, 60000, client));
                 serverQueue.player.stop();  
                 }
@@ -40,7 +40,7 @@ import {deleteMsg} from '../modules/modules';
                     console.log('Unknown MSG');
                 }
         }else{
-            message.channel.send(':rofl: Nothing To ***Skip*** :rofl:')
+            message.reply(':rofl: Nothing To ***Skip*** :rofl:')
             .then(msg => deleteMsg(msg, 30000, client));
         }
     }

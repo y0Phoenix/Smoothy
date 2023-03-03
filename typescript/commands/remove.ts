@@ -1,5 +1,5 @@
 //removes a specified song inside of serverQueue using a number inside of args
-import { MessageEmbed, Message, Client } from 'discord.js';
+import { EmbedBuilder, Message, Client, Colors } from 'discord.js';
 import Queue from '../Classes/Queue';
 import {deleteMsg, writeGlobal, find} from '../modules/modules';
 
@@ -25,8 +25,8 @@ export default async function remove(message: Message, args: any, serverQueue: Q
             }
         }
         else {
-            const msg = await message.channel.send({embeds: [new MessageEmbed()
-                .setColor('RED')
+            const msg = await message.reply({embeds: [new EmbedBuilder()
+                .setColor(Colors.Red)
                 .setDescription(`:rofl: No Good Matches found for **${query}** please check your spelling or remove a song via a number from the -queue`)]});
             deleteMsg(msg, 60000, client);
             return;
@@ -36,8 +36,8 @@ export default async function remove(message: Message, args: any, serverQueue: Q
         const result = await find(serverQueue, serverQueue.shuffledSongs[i].title);
         serverQueue.songs.splice(result.song, 1);
         if(serverQueue.shuffledSongs[i]){
-            const removeEmbed = new MessageEmbed()
-                .setColor('BLURPLE')
+            const removeEmbed = new EmbedBuilder()
+                .setColor(Colors.Blurple)
                 .setDescription(`I Have Removed ***[${serverQueue.shuffledSongs[i].title}](${serverQueue.shuffledSongs[i].url})***`)
                 .addFields(
                     {
@@ -46,20 +46,20 @@ export default async function remove(message: Message, args: any, serverQueue: Q
                     {
                         name: `***Duration***`, value: `${serverQueue.shuffledSongs[i].duration}`, inline: true
                     })
-            message.channel.send({embeds: [removeEmbed]})
+            message.reply({embeds: [removeEmbed]})
             .then(msg => deleteMsg(msg, 60000, client));   
             serverQueue.shuffledSongs.splice(i, 1);
             writeGlobal('update queue', serverQueue, serverQueue.id);
         }
         else{
-            message.channel.send('No Song Specified')
+            message.reply('No Song Specified')
             .then(msg => deleteMsg(msg, 30000, client));
         }
     }
     else{
         if(serverQueue.songs[i]){
-            const removeEmbed = new MessageEmbed()
-                .setColor('BLURPLE')
+            const removeEmbed = new EmbedBuilder()
+                .setColor(Colors.Blurple)
                 .setTitle(':eject: Removing Song')
                 .setURL(`${serverQueue.songs[i].url}`)
                 .setDescription(`I Have Removed ***[${serverQueue.songs[i].title}](${serverQueue.songs[i].url})***`)
@@ -72,13 +72,13 @@ export default async function remove(message: Message, args: any, serverQueue: Q
                     })
                 .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
                 .setTimestamp();
-            message.channel.send({embeds: [removeEmbed]})
+            message.reply({embeds: [removeEmbed]})
             .then(msg => deleteMsg(msg, 60000, client));   
             serverQueue.songs.splice(i, 1);
             writeGlobal('update queue', serverQueue, serverQueue.id);
         }
         else{
-            message.channel.send('No Song Specified')
+            message.reply('No Song Specified')
             .then(msg => deleteMsg(msg, 30000, client));
         }
     }

@@ -5,7 +5,7 @@
 	joinVoiceChannel,
 	VoiceConnectionStatus,
 	} from '@discordjs/voice';
-	import { MessageEmbed, Message, Client, VoiceChannel, CommandInteractionOptionResolver } from 'discord.js';
+	import { EmbedBuilder, Message, Client, VoiceChannel, CommandInteractionOptionResolver, Colors } from 'discord.js';
 	import { Idle } from './Classes/Idle';
 	import { PlaylistSong, Song } from './Classes/Song';
 	import Queue from './Classes/Queue';
@@ -14,8 +14,8 @@
 	import * as ytdl from 'ytdl-core';
 	import * as playdl from 'play-dl';
 
-	const noVidEmbed = new MessageEmbed()
-	.setColor('RED')
+	const noVidEmbed = new EmbedBuilder()
+	.setColor(Colors.Red)
 	.setDescription(':rofl: No ***video*** results found or cant play');
 
 
@@ -56,12 +56,12 @@
 		let songObj = new Song({message: message, data: videoURL});
 		serverQueue.songs.push(songObj);
 		writeGlobal('update queue', serverQueue, serverQueue.id);
-		const addQueueEmbed = new MessageEmbed()
-		.setColor('YELLOW')
+		const addQueueEmbed = new EmbedBuilder()
+		.setColor(Colors.Yellow)
 		.setDescription(`***[${videoURL.videoDetails.title}](${videoURL.videoDetails.video_url})***
 		Has Been Added To The Queue :arrow_down:`)
 		;
-		let msg = await message.channel.send({ embeds: [addQueueEmbed] });
+		let msg = await message.reply({ embeds: [addQueueEmbed] });
 		serverDisconnectIdle.msgs.push(msg);
 		writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
 	}
@@ -95,8 +95,8 @@
 		videoURL = await ytdl.getBasicInfo(videoName);
 	} catch (err) {
 		console.log(`Error On ytdl-core url ${videoName}`);
-		return message.channel.send({embeds: [new MessageEmbed() 
-		.setColor('RED')
+		return message.reply({embeds: [new EmbedBuilder() 
+		.setColor(Colors.Red)
 		.setDescription('Sorry Cannot Play This Video As It Is Age Restricted')
 	]}).then(msg => {
 		deleteMsg(msg, 30000, DisconnectIdle.get(1));
@@ -109,8 +109,7 @@
 		console.log(`Found ${videoURL.videoDetails.title}`);
 		executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
 	} else {
-		message.channel
-			.send({ embeds: [noVidEmbed] })
+		message.reply({ embeds: [noVidEmbed] })
 			.then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
 		return;
 	}
@@ -122,8 +121,8 @@
 			console.log(`Found ${videoURL.videoDetails.title}`);
 			executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
 		} catch (err) {
-			const msg = await message.channel.send({embeds: [new MessageEmbed()
-				.setColor('RED')
+			const msg = await message.reply({embeds: [new EmbedBuilder()
+				.setColor(Colors.Red)
 				.setDescription(`Failed To Play **[${video.title}](${video.url})** As It Is Age Restricted. Try A Different Video`)]});
 			deleteMsg(msg, 35000, serverDisconnectIdle.client);
 			if (serverQueue) {
@@ -136,8 +135,7 @@
 		if (video === false) {
 		return;
 		}
-		message.channel
-		.send({ embeds: [noVidEmbed] })
+		message.reply({ embeds: [noVidEmbed] })
 		.then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
 		return;
 	}
@@ -164,8 +162,8 @@
 		var added = false;
 		if (playlist) {
 			const videoURL = await ytdl.getBasicInfo(playlist.items[0].shortUrl);
-			const playlistEmbed = new MessageEmbed()
-			.setColor('GOLD')
+			const playlistEmbed = new EmbedBuilder()
+			.setColor(Colors.Gold)
 			.setTitle(`Found YouTube Playlist`)
 			.setDescription(
 				`:notes: ***[${playlist.title}](${playlist.url})***
@@ -196,7 +194,7 @@
 				writeGlobal('add queue', serverQueue, serverQueue.id);
 				serverQueue.play();
 			}
-			let msg = await message.channel.send({embeds: [playlistEmbed],});
+			let msg = await message.reply({embeds: [playlistEmbed],});
 			serverDisconnectIdle.msgs.push(msg);
 			writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
 			for (let i = 0; i < playlist.items.length; i++) {
@@ -209,19 +207,17 @@
 			}
 			writeGlobal('update queue', serverQueue, serverQueue.id);
 		} else {
-			const noPlaylistEmbed = new MessageEmbed()
-			.setColor('RED')
+			const noPlaylistEmbed = new EmbedBuilder()
+			.setColor(Colors.Red)
 			.setDescription(':rofl: Playlist Either Doesnt Exist Or Is Private');
-			message.channel
-			.send({ embeds: [noPlaylistEmbed] })
+			message.reply({ embeds: [noPlaylistEmbed] })
 			.then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
 		}
 		} else {
-		const wrongEmbed = new MessageEmbed()
-			.setColor('RED')
+		const wrongEmbed = new EmbedBuilder()
+			.setColor(Colors.Red)
 			.setDescription(':rofl: You Need To Add A Valid Playlist Link');
-		message.channel
-			.send({ embeds: [wrongEmbed] })
+		message.reply({ embeds: [wrongEmbed] })
 			.then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
 		}
 	}

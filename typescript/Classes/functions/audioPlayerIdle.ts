@@ -1,7 +1,7 @@
 import {Idle} from "../Idle";
 import { AudioPlayerStatus } from "@discordjs/voice";
 import { deleteMsg, writeGlobal } from "../../modules/modules";
-import { MessageEmbed } from "discord.js";
+import { Colors, EmbedBuilder } from "discord.js";
 import Queue from "../Queue";
 import getMaps from "../../maps";
 
@@ -14,8 +14,8 @@ export default async function audioPlayerIdle() {
     const {DisconnectIdle, queue} = maps
     const serverDisconnectIdle: Idle = DisconnectIdle.get(serverQueue.id);
     console.log('Player Status Is Idle');
-    const noMoreSongsEmbed = new MessageEmbed()
-      .setColor('RED')
+    const noMoreSongsEmbed = new EmbedBuilder()
+      .setColor(Colors.Red)
       .setDescription(`:x: No More Songs To Play`)
     ;
     if (serverQueue.stop === true) {
@@ -45,7 +45,7 @@ export default async function audioPlayerIdle() {
 			if (serverQueue.songs.length > 0) {
 				serverQueue.playNext();
 			} else {
-				const msg = await serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]});
+				const msg = await serverQueue.message.reply({embeds: [noMoreSongsEmbed]});
 				deleteMsg(msg, 60000, serverDisconnectIdle.client);
 				queue.delete(serverQueue.message.guild.id);
 				await writeGlobal('delete queue', null, serverQueue.id);
@@ -83,11 +83,11 @@ export default async function audioPlayerIdle() {
 			if (serverQueue.shuffledSongs.length > 0) {
 				serverQueue.playNext();
 			} else {
-				const noMoreSongsEmbed = new MessageEmbed()
-				.setColor('RED')
+				const noMoreSongsEmbed = new EmbedBuilder()
+				.setColor(Colors.Red)
 				.setDescription(`:x: No More Songs To Play`)
 				;
-				serverQueue.message.channel.send({embeds: [noMoreSongsEmbed]});
+				serverQueue.message.reply({embeds: [noMoreSongsEmbed]});
 				queue.delete(serverQueue.message.guild.id);
 				writeGlobal('delete queue', null, serverQueue.id);
 				serverDisconnectIdle.disconnectTimervcidle();

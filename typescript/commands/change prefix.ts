@@ -1,4 +1,4 @@
-import { MessageEmbed, Message, Client }  from "discord.js";
+import { EmbedBuilder, Message, Client, Colors }  from "discord.js";
 import * as fs from "fs";
 import {deleteMsg, leave}  from '../modules/modules';
 const File = './config/prefixes.json';
@@ -23,23 +23,23 @@ export default function changeprefix(message: Message, args: any, data: any, fou
             data[found].prefix = prefix;
             fs.writeFileSync(File, JSON.stringify(data));
         }
-        const prefixEmbed = new MessageEmbed()
-            .setColor('RED')
+        const prefixEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .addFields(
                 {
                     name: ':thumbsup: New Prefix', value:`**${prefix}**`
                 }
             )
         ;
-        message.channel.send({embeds: [prefixEmbed]})
+        message.reply({embeds: [prefixEmbed]})
         .then(msg => deleteMsg(msg, 60000, client));
     }
     else{
-        const specifyEmbed = new MessageEmbed()
-            .setColor('RED')
+        const specifyEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .setDescription(':thumbsdown: You Must Specify With A New Prefix')
         ;
-        message.channel.send({embeds: [specifyEmbed]})
+        message.reply({embeds: [specifyEmbed]})
         .then(msg => deleteMsg(msg, 30000, client));
     }
 }

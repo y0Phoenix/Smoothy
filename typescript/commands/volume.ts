@@ -1,17 +1,17 @@
-import { MessageEmbed, Message } from "discord.js";
+import { Colors, EmbedBuilder, Message } from "discord.js";
 import { Idle } from "../Classes/Idle";
 import Queue from "../Classes/Queue";
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
 import getMaps from "../maps";
 
-const noSongEmbed = new MessageEmbed()
-    .setColor('RED')
+const noSongEmbed = new EmbedBuilder()
+    .setColor(Colors.Red)
     .setDescription(':rofl: No Song To Change Volume')
 ;
 
 function volumeE(v) {
-    const volumeEmbed = new MessageEmbed()
-        .setColor('GOLD')
+    const volumeEmbed = new EmbedBuilder()
+        .setColor(Colors.Gold)
         .setDescription(`:thumbsup: Volume Is Now ${v}`)
         .setTimestamp()
     ;
@@ -34,7 +34,7 @@ export default async function volume(message: Message, args: any, serverQueue: Q
                 volume = 1;
                 serverQueue.resource.volume.volume = volume;
                 let embed = volumeE(volume);
-                let msg = await message.channel.send({embeds: [embed]});
+                let msg = await message.reply({embeds: [embed]});
                 deleteMsg(msg, 60000, DisconnectIdle.get(1));
                 writeGlobal('update dci', serverDisconnectIdle, serverQueue.id);
             }
@@ -44,36 +44,36 @@ export default async function volume(message: Message, args: any, serverQueue: Q
                     if(args <= 100){
                         serverQueue.resource.volume.volume = volume;
                         let embed = volumeE(volume);
-                        let msg = await message.channel.send({embeds: [embed]});
+                        let msg = await message.reply({embeds: [embed]});
                         deleteMsg(msg, 60000, DisconnectIdle.get(1));
                         writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
                     }
                     else{
-                        const toHighEmbed = new MessageEmbed()
-                            .setColor('RED')
+                        const toHighEmbed = new EmbedBuilder()
+                            .setColor(Colors.Red)
                             .setDescription(':rofl: Volume is 100 max')
                         ;
-                        message.channel.send({embeds: [toHighEmbed]})
+                        message.reply({embeds: [toHighEmbed]})
                         .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
                     }
                 }
                 else{
-                    message.channel.send({embeds: [noSongEmbed]})
+                    message.reply({embeds: [noSongEmbed]})
                     .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
                 }
             }
         }
         else{
-            message.channel.send({embeds: [noSongEmbed]})
+            message.reply({embeds: [noSongEmbed]})
             .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
         }
     }
     else{
-        const specifyEmbed = new MessageEmbed()
-            .setColor('RED')
+        const specifyEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .setDescription(':rofl: You Must Specify With A Number')
         ;
-        message.channel.send({embeds: [specifyEmbed]})
+        message.reply({embeds: [specifyEmbed]})
         .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
     }
 }

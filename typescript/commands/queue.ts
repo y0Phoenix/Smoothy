@@ -3,7 +3,7 @@
 // TODO add the queuelist endqueulist and i global variables to the Queue class for security incase two queue request come in at the same time
 // TODO implement checking for the message being sent to ensure the description is less than 4096 characters
 
-import { MessageEmbed, Message } from 'discord.js';
+import { Colors, EmbedBuilder, Message } from 'discord.js';
 import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
 import getMaps from '../maps';
@@ -83,34 +83,34 @@ async function queueListAdd(serverQueue: Queue){
 async function getQueueList(message: Message, serverQueue: Queue, serverDisconnectIdle: Idle) {
     if(serverQueue.songs.length <= 10 && serverQueue.shuffledSongs.length <= 10){ 
         await queueListAdd(serverQueue);
-        const queueListEmbed = new MessageEmbed()
-            .setColor('LUMINOUS_VIVID_PINK')
+        const queueListEmbed = new EmbedBuilder()
+            .setColor(Colors.LuminousVividPink)
             .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
             .setDescription(`${serverQueue.queue.queueList}`)
         ;
-        const msg = await message.channel.send({embeds: [queueListEmbed]});
+        const msg = await message.reply({embeds: [queueListEmbed]});
         serverDisconnectIdle.queueMsgs.push(msg);
         serverQueue.queue.queueList = ``;
     }
     else{
         await queueListAdd(serverQueue);
         if(serverQueue.queue.i === serverQueue.queue.endQueueList + 1 && serverQueue.queue.endQueueList === 10){
-            const queueListEmbed = new MessageEmbed()
-                .setColor('LUMINOUS_VIVID_PINK')
+            const queueListEmbed = new EmbedBuilder()
+                .setColor(Colors.LuminousVividPink)
                 .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
                 .setDescription(`${serverQueue.queue.queueList}`)
             ;
-            const msg = await message.channel.send({embeds: [queueListEmbed]});
+            const msg = await message.reply({embeds: [queueListEmbed]});
             serverDisconnectIdle.queueMsgs.push(msg);
             serverQueue.queue.queueList = ``;
             longQueueList(message, serverQueue, serverDisconnectIdle);
         }
         else if(serverQueue.queue.endQueueList > 10 && serverQueue.queue.queueList !== ``){
-            const queueListEmbed = new MessageEmbed()
-                .setColor('LUMINOUS_VIVID_PINK')
+            const queueListEmbed = new EmbedBuilder()
+                .setColor(Colors.LuminousVividPink)
                 .setDescription(`${serverQueue.queue.queueList}`)
             ;
-            const msg = await message.channel.send({embeds: [queueListEmbed]});
+            const msg = await message.reply({embeds: [queueListEmbed]});
             serverDisconnectIdle.queueMsgs.push(msg);
             serverQueue.queue.queueList = ``;
             longQueueList(message, serverQueue, serverDisconnectIdle);
@@ -137,7 +137,7 @@ async function longQueueList(message: Message, serverQueue: Queue, serverDisconn
  * @param  {Queue} serverQueue the current servers Queue
  * @param  {Idle} serverDisconnectIdle the current servers Idle
  * @description checks some conditions and either sends a queuelist to the text-channel of less than 10 songs or continues onto the getQueueList function for 
- * longer song queues. The reason for 10 songs being the max is the discord api limits MessageEmbed descriptions to less than 4096 characters
+ * longer song queues. The reason for 10 songs being the max is the discord api limits EmbedBuilder descriptions to less than 4096 characters
  */
 export default async function queueList(message: Message, serverQueue: Queue, serverDisconnectIdle: Idle){
     if(serverQueue !== undefined){
@@ -164,8 +164,8 @@ export default async function queueList(message: Message, serverQueue: Queue, se
             getQueueList(message, serverQueue, serverDisconnectIdle);
         }
         else{
-            const queueListEmbed = new MessageEmbed()
-                .setColor('LUMINOUS_VIVID_PINK')
+            const queueListEmbed = new EmbedBuilder()
+                .setColor(Colors.LuminousVividPink)
                 .setTitle(':thumbsup: Here Is The Queue')
                 .addFields(
                     {
@@ -182,17 +182,17 @@ export default async function queueList(message: Message, serverQueue: Queue, se
                     }
                 )
             ;
-        let msg = await message.channel.send({embeds: [queueListEmbed]});
+        let msg = await message.reply({embeds: [queueListEmbed]});
         serverDisconnectIdle.queueMsgs.push(msg);
         writeGlobal('update dci', serverDisconnectIdle, message.guildId);
         serverQueue.queue.queueList = ``;
         } 
     }else{
-        const noSongsEmbed = new MessageEmbed()
-            .setColor('RED')
+        const noSongsEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .setDescription(`:rofl: No Songs Currently In Queue`);
         const {DisconnectIdle} = getMaps();
-        message.channel.send({embeds: [noSongsEmbed]})
+        message.reply({embeds: [noSongsEmbed]})
         .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
     }  
 }

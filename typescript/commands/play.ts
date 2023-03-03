@@ -1,24 +1,24 @@
 //checks if a link was specified, if the user is inside of a voiceChannel, if Smoothy has permission to connect and if Smoothy has permission to speak
 //then joins the voiceChannel and finds the video. Both functions are inside of executive.js 
-import { MessageEmbed, Message, Client } from 'discord.js';
+import { EmbedBuilder, Message, Client, Colors } from 'discord.js';
 import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
 import {joinvoicechannel, FindVideoCheck, findvideoplaylist} from '../executive';
 import {deleteMsg, exists} from '../modules/modules';
-const needVCEmbed = new MessageEmbed()
-    .setColor('RED')
+const needVCEmbed = new EmbedBuilder()
+    .setColor(Colors.Red)
     .setDescription(':nerd: You Need To Be In A ***Voice Channel*** To Execute This Command')
 ;
-const specifyEmbed = new MessageEmbed()
-    .setColor('RED')
+const specifyEmbed = new EmbedBuilder()
+    .setColor(Colors.Red)
     .setDescription(':nerd: You Need To Specify With Either A ***Link*** Or ***Search*** ***Query***')
 ;
-const connectEmbed = new MessageEmbed()
-    .setColor('RED')
+const connectEmbed = new EmbedBuilder()
+    .setColor(Colors.Red)
     .setDescription(':nerd: I Dont Have The ***Permission To Connect***')
 ;
-const speakEmbed = new MessageEmbed()
-    .setColor('RED')
+const speakEmbed = new EmbedBuilder()
+    .setColor(Colors.Red)
     .setDescription(':nerd: I Dont Have The ***Permissins To Speak*** ')
 ;
 
@@ -37,14 +37,14 @@ const speakEmbed = new MessageEmbed()
 export default async function play(message: Message, args: any,  vc: Message['member']['voice']['channel'], queue: any, 
 DisconnectIdle: any, serverDisconnectIdle: Idle, serverQueue: Queue, command: string, client: Client) {
     try{
-        if (args.length === 0) return message.channel.send({embeds: [specifyEmbed]})
+        if (args.length === 0) return message.reply({embeds: [specifyEmbed]})
         .then(msg => deleteMsg(msg, 30000, client));
-        if (!vc) return message.channel.send({embeds: [needVCEmbed]})
+        if (!vc) return message.reply({embeds: [needVCEmbed]})
         .then(msg => deleteMsg(msg, 30000, client));
         const permissions = vc.permissionsFor(message.client.user);
-        if (!permissions.has('CONNECT')) return message.channel.send({embeds: [connectEmbed]})
+        if (!permissions.has('Connect')) return message.reply({embeds: [connectEmbed]})
         .then(msg => deleteMsg(msg, 30000, client));
-        if (!permissions.has('SPEAK')) return message.channel.send({embeds: [speakEmbed]})
+        if (!permissions.has('Speak')) return message.reply({embeds: [speakEmbed]})
         .then(msg => deleteMsg(msg, 30000, client));
         
         const bool = await exists(message.guildId, 'dci');

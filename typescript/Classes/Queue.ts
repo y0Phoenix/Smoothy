@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Colors, Message } from 'discord.js';
 import audioPlayerIdle from './functions/audioPlayerIdle';
 import {
   AudioPlayerStatus,
@@ -13,7 +13,7 @@ import {
   VoiceConnection,
   AudioResource
 } from '@discordjs/voice';
-import { MessageEmbed } from'discord.js';
+import { EmbedBuilder } from'discord.js';
 import {Song} from './Song';
 import { retryTimer, checkIfPlaying } from './functions/retryPlayer';
 import { exists, writeGlobal } from '../modules/modules';
@@ -97,12 +97,24 @@ export default class Queue {
                 const bool = await exists(this.id, 'dci')
                 this.voiceConnection = await joinvoicechannel(this.message, this.voiceChannel, maps.DisconnectIdle, DisconnectIdle.get(this.id), DisconnectIdle.get(1), bool);
                 this.subsciption = this.voiceConnection.subscribe(this.player);
+                // this.voiceConnection.on("stateChange", (oldState, newState) => {
+                //     console.log("voice connection " + oldState.status + " " + newState.status);
+                //     const queue: Queue = this;
+                // });
             };
             join();
         }
         else {
             this.subsciption = this.voiceConnection.subscribe(this.player);
         }
+
+        // this.player.on("stateChange", (oldState, newState) => {
+        //     console.log(`state change ${oldState.status} ${newState.status}`);
+        //     const queue: Queue = this;
+        //     if (newState.status == AudioPlayerStatus.AutoPaused) queue.player.stop(true);
+        // });
+
+
 
         this.player.on('error', async () => {
             const localServerQueue: Queue = this;
@@ -123,8 +135,8 @@ export default class Queue {
               localServerQueue.tries = 0;
               localServerQueue.audioPlayerErr = false;
               console.log(`Retries Failed Sending Error Message`);
-              const audioPlayerErrME = new MessageEmbed()
-              .setColor('RED')
+              const audioPlayerErrME = new EmbedBuilder()
+              .setColor(Colors.Red)
               .setTitle(
                   `AudioPlayerError: ${localServerQueue.songs[0].title} Threw An Error :pensive:`
               )
@@ -139,7 +151,7 @@ export default class Queue {
               )
               .setImage(`${localServerQueue.songs[0].thumbnail}`)
               .setTimestamp();
-              localServerQueue.message.channel.send({ embeds: [audioPlayerErrME] });
+              localServerQueue.message.reply({ embeds: [audioPlayerErrME] });
               localServerQueue.player.stop();
               this.audioPlayerIdle();
           }

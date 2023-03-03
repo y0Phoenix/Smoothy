@@ -1,4 +1,4 @@
-import { MessageEmbed, Message, Client } from "discord.js";
+import { EmbedBuilder, Message, Client, Colors } from "discord.js";
 import Queue from "../Classes/Queue";
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
 //reordes the queue into a new array
@@ -16,11 +16,11 @@ export default async function shuffle(message: Message, serverQueue: Queue, clie
             serverQueue.shuffle = true
             serverQueue.shuffledSongs.push(serverQueue.songs[0]);
             console.log('Now shuffling the queue');
-            const shuffleEmbed = new MessageEmbed()
-                .setColor('GREEN')
+            const shuffleEmbed = new EmbedBuilder()
+                .setColor(Colors.Green)
                 .setDescription(':thumbsup: I Am Now Shuffling The Queue :twisted_rightwards_arrows:')
             ;
-            message.channel.send({embeds: [shuffleEmbed]})
+            message.reply({embeds: [shuffleEmbed]})
             .then(msg => deleteMsg(msg, 60000, client));
             var songsLength = serverQueue.songs.length;
             const randomNumber = () => {
@@ -54,11 +54,11 @@ export default async function shuffle(message: Message, serverQueue: Queue, clie
         }
         else{
             console.log('Cant shuffled the queue only 1 song');
-            const oneEmbed = new MessageEmbed()
-                .setColor('RED')
+            const oneEmbed = new EmbedBuilder()
+                .setColor(Colors.Red)
                 .setDescription(':rofl: I Cannot Shuffle A 1 Song Queue')
             ;
-            message.channel.send({embeds: [oneEmbed]})
+            message.reply({embeds: [oneEmbed]})
             .then(msg => deleteMsg(msg, 30000, client));
         }
     }
@@ -66,11 +66,11 @@ export default async function shuffle(message: Message, serverQueue: Queue, clie
         console.log('Returning the queue to original order');
         serverQueue.shuffle = false;
         serverQueue.shuffledSongs = [];
-        const noShuffleEmbed = new MessageEmbed()
-            .setColor('GREEN')
+        const noShuffleEmbed = new EmbedBuilder()
+            .setColor(Colors.Green)
             .setDescription(':thumbsup: I Have Returned The Queue To Its Original Order')
         ;
-        message.channel.send({embeds: [noShuffleEmbed]})
+        message.reply({embeds: [noShuffleEmbed]})
         .then(msg => deleteMsg(msg, 60000, client));
         writeGlobal('update queue', serverQueue, serverQueue.id);
     }

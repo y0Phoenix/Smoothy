@@ -52,25 +52,25 @@ export default async function writeGlobal(str: string, data: any, id: string) {
         const obj = new WriteIdle({message: data.message, client: data.client, msgs: data.msgs, queueMsgs: data.queueMsgs});
         Data.disconnectIdles.push(obj);
     }
-    if (str === 'add queue') {
+    else if (str === 'add queue') {
         const obj = new WriteQueue(data);
         Data.queues.push(obj);
     }
-    if (str === 'update queue') {
+    else if (str === 'update queue') {
         const obj = new WriteQueue(data);
         Data.queues[q] = {...obj};
     }
-    if (str === 'update dci') {
+    else if (str === 'update dci') {
         const obj = new WriteIdle({message: data.message, client: data.client, msgs: data.msgs, queueMsgs: data.queueMsgs});
         Data.disconnectIdles[d] = {...obj};
     }
-    if (str === 'delete queue') {
+    else if (str === 'delete queue') {
         if (q == null) {
             return
         }
         Data.queues.splice(q, 1);
     }
-    if (str === 'delete dci') {
+    else if (str === 'delete dci') {
         if (d == null) {
             return
         }

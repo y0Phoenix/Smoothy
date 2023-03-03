@@ -1,5 +1,5 @@
 //sets serverQueue.loopsong to true if false, else sets it to false
-import { MessageEmbed, Message } from 'discord.js';
+import { Colors, EmbedBuilder, Message } from 'discord.js';
 import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
@@ -14,31 +14,31 @@ export default async function loopsong(message: Message, serverQueue: Queue, ser
     if(serverQueue){
         if(serverQueue.loopsong === false){
             serverQueue.loopsong = true
-            const loopSongEmbed = new MessageEmbed()
-                .setColor('ORANGE')
+            const loopSongEmbed = new EmbedBuilder()
+                .setColor(Colors.Orange)
                 .setDescription(`:thumbsup: Now Looping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})*** :repeat_one:`)
             ;
-            let msg = await message.channel.send({embeds: [loopSongEmbed]});
+            let msg = await message.reply({embeds: [loopSongEmbed]});
             serverDisconnectIdle.msgs.push(msg);
             await writeGlobal('update dci', serverDisconnectIdle, message.guildId);
             writeGlobal('update queue', serverQueue, message.guildId);
         }
         else{
             serverQueue.loopsong = false
-            const endLoopSongEmbed = new MessageEmbed()
-                .setColor('ORANGE')
+            const endLoopSongEmbed = new EmbedBuilder()
+                .setColor(Colors.Orange)
                 .setDescription(`:x: No Longer Looping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
             ;
-            message.channel.send({embeds: [endLoopSongEmbed]})
+            message.reply({embeds: [endLoopSongEmbed]})
             .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
             writeGlobal('update queue', serverQueue, message.guildId);
         }
     }
     else{
-        const notPlayingEmbed = new MessageEmbed()
-            .setColor('ORANGE')
+        const notPlayingEmbed = new EmbedBuilder()
+            .setColor(Colors.Orange)
             .setDescription(`:rofl: Nothing Playing Right Now`)
-        message.channel.send({embeds: [notPlayingEmbed]})
+        message.reply({embeds: [notPlayingEmbed]})
         .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
     }
 }

@@ -1,10 +1,10 @@
 import {VoiceConnectionStatus, getVoiceConnection, AudioPlayerStatus,} from '@discordjs/voice';
-import { MessageEmbed, Message } from 'discord.js';
+import { Colors, EmbedBuilder, Message } from 'discord.js';
 import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
 import {deleteMsg, leave} from '../modules/modules';
-const noVCEmbed = new MessageEmbed()
-        .setColor('RED')
+const noVCEmbed = new EmbedBuilder()
+        .setColor(Colors.Red)
         .setDescription(`:rofl: I Am Not In VC`)
     ;
 
@@ -19,11 +19,11 @@ const noVCEmbed = new MessageEmbed()
 export default async function Leave(message: Message, serverQueue: Queue, DisconnectIdle: any, serverDisconnectIdle: Idle){
     const voiceConnection = getVoiceConnection(message.guild.id);
     if(voiceConnection){
-        const leaveEmbed = new MessageEmbed()
-            .setColor('RED')
+        const leaveEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .setDescription(`:cry: Leaving Channel`)
         ;
-        message.channel.send({embeds: [leaveEmbed]})
+        message.reply({embeds: [leaveEmbed]})
         .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
         console.log('Left The Voice Channel From Command')
         if(serverQueue){
@@ -38,7 +38,7 @@ export default async function Leave(message: Message, serverQueue: Queue, Discon
         leave(message); 
     }
     else{
-        message.channel.send({embeds: [noVCEmbed]})
+        message.reply({embeds: [noVCEmbed]})
         .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
         return;
     } 

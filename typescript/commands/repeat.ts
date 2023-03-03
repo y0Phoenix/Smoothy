@@ -1,5 +1,5 @@
 import { AudioPlayerStatus } from "@discordjs/voice";
-import { MessageEmbed, Message, Client } from "discord.js";
+import { EmbedBuilder, Message, Client, Colors } from "discord.js";
 import Queue from "../Classes/Queue";
 import {deleteMsg, leave} from '../modules/modules';
 import audioPlayerIdle from '../Classes/functions/audioPlayerIdle';
@@ -18,37 +18,37 @@ export default function repeat(message: Message, serverQueue: Queue, client: Cli
             if(serverQueue.songs.length > 0){
                 serverQueue.player.stop();
                 serverQueue.repeat = true
-                const restartCurrentEmbed = new MessageEmbed()
-                    .setColor('GREEN')
+                const restartCurrentEmbed = new EmbedBuilder()
+                    .setColor(Colors.Green)
                     .setDescription(`:thumbsup: I Am Restarting ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})*** :arrows_counterclockwise:`)
                 ;
-                message.channel.send({embeds: [restartCurrentEmbed]})
+                message.reply({embeds: [restartCurrentEmbed]})
                 .then(msg => deleteMsg(msg, 60000, client));
             }
             else{
-                const notPlayingEmbed = new MessageEmbed()
-                    .setColor('GREEN')
+                const notPlayingEmbed = new EmbedBuilder()
+                    .setColor(Colors.Green)
                     .setDescription(`:rofl: Not Currently Playing Anything At The Moment`)
                 ;
-                message.channel.send({embeds: [notPlayingEmbed]})
+                message.reply({embeds: [notPlayingEmbed]})
                 .then(msg => deleteMsg(msg, 30000, client));
             }
         }
         else {
-            const pausedEmbed = new MessageEmbed()
-                .setColor('RED')
+            const pausedEmbed = new EmbedBuilder()
+                .setColor(Colors.Red)
                 .setDescription(':rofl: Please Unpause The Player Before Restarting')
             ;
-            message.channel.send({embeds: [pausedEmbed]})
+            message.reply({embeds: [pausedEmbed]})
             .then(msg => deleteMsg(msg, 30000, client));
         }
     }
     else{
-        const notPlayingEmbed = new MessageEmbed()
-            .setColor('GREEN')
+        const notPlayingEmbed = new EmbedBuilder()
+            .setColor(Colors.Green)
             .setDescription(`:rofl: Not Currently Playing Anything At The Moment`)
         ;
-        message.channel.send({embeds: [notPlayingEmbed]})   
+        message.reply({embeds: [notPlayingEmbed]})   
         .then(msg => deleteMsg(msg, 30000, client));     
     }
 }

@@ -1,6 +1,6 @@
 import Queue from "../Queue";
 import { AudioPlayerStatus } from "@discordjs/voice";
-import { MessageEmbed } from "discord.js";
+import { Colors, EmbedBuilder } from "discord.js";
 import { deleteMsg, find } from "../../modules/modules";
 import getMaps from "../../maps";
 
@@ -21,7 +21,7 @@ export function checkIfPlaying() {
  * @description retry function for serverQueue.player on an error 
  */
 export async function retryTimer() {
-    const serverQueue = this;
+    const serverQueue: Queue = this;
     const maps = getMaps();
     const serverDisconnectIdle = maps.DisconnectIdle.get(serverQueue.id);
     if (serverQueue.player.state.status !== AudioPlayerStatus.Playing && serverQueue.tries < 5 && serverQueue.loop === false) {
@@ -37,11 +37,11 @@ export async function retryTimer() {
         }
   
         else {
-          const errorEmbed = new MessageEmbed()
-            .setColor('RED')
+          const errorEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .setDescription(`:thumbsdown: [${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url}) failed to play reverting to original queue try again later`)
           ;
-          serverQueue.message.channel.send({embeds: [errorEmbed]});
+          serverQueue.message.reply({embeds: [errorEmbed]});
         }
       }
       serverQueue.currentsong.shift();
@@ -49,10 +49,9 @@ export async function retryTimer() {
       console.log(
         `Retrying ${serverQueue.currentsong[0].title} at ${serverQueue.currentsong[0].url}`
       );
-      serverQueue.play(maps.queue, maps.DisconnectIdle, serverDisconnectIdle);
+      serverQueue.play();
       if (serverQueue.tries >= 4) {
-        serverQueue.message.channel
-          .send(`Smoothy Is Buffering Please Wait`)
+        serverQueue.message.reply(`Smoothy Is Buffering Please Wait`)
           .then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
       }
     }

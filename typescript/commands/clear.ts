@@ -1,5 +1,5 @@
 //stops the audioPlayer deletes serverQueue and starts the disconnecttimer
-import { MessageEmbed, Message } from 'discord.js';
+import { Colors, EmbedBuilder, Message } from 'discord.js';
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
 import Queue from '../Classes/Queue';
 import { Idle } from '../Classes/Idle';
@@ -24,21 +24,21 @@ export default async function clear(message: Message, serverQueue: Queue, queue:
         queue.delete(message.guildId);
         await writeGlobal('delete queue', null, serverQueue.id);
         writeGlobal('delete dci', null, serverQueue.id);
-        const stopEmbed = new MessageEmbed()
-            .setColor('RED')
+        const stopEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .setDescription(`:octagonal_sign: I Have ***Stopped*** The Music!`)
         ;
-        message.channel.send({embeds: [stopEmbed]})
+        message.reply({embeds: [stopEmbed]})
         .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
         if (serverDisconnectIdle) {
             serverDisconnectIdle.disconnectTimervcidle();
         }
     }else{
-        const notPlayingEmbed = new MessageEmbed()
-            .setColor('RED')
+        const notPlayingEmbed = new EmbedBuilder()
+            .setColor(Colors.Red)
             .setDescription(`:rofl: Nothing ***Playing*** Currently!`)
         ;
-        message.channel.send({embeds: [notPlayingEmbed]})
+        message.reply({embeds: [notPlayingEmbed]})
         .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
     }
 }
