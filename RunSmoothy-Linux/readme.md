@@ -7,7 +7,7 @@ First thing is you will need to install the latest Nodejs LTS via nodesource
     sudo apt-get install curl
 ```
 ```
-    curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 ```
 ```
     sudo apt-get install -y nodejs
