@@ -3,6 +3,7 @@ import { EmbedBuilder, Message, Client, Colors } from "discord.js";
 import Queue from "../Classes/Queue";
 import {deleteMsg, leave} from '../modules/modules';
 import audioPlayerIdle from '../Classes/functions/audioPlayerIdle';
+import sendMessage from "../modules/src/sendMessage";
 //stops the audioPlayer and sets serverQueue.repeat to true, which is used inside of executive.js
 
 /**
@@ -22,7 +23,7 @@ export default function repeat(message: Message, serverQueue: Queue, client: Cli
                     .setColor(Colors.Green)
                     .setDescription(`:thumbsup: I Am Restarting ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})*** :arrows_counterclockwise:`)
                 ;
-                message.reply({embeds: [restartCurrentEmbed]})
+                sendMessage({embeds: [restartCurrentEmbed]}, message)
                 .then(msg => deleteMsg(msg, 60000, client));
             }
             else{
@@ -30,7 +31,7 @@ export default function repeat(message: Message, serverQueue: Queue, client: Cli
                     .setColor(Colors.Green)
                     .setDescription(`:rofl: Not Currently Playing Anything At The Moment`)
                 ;
-                message.reply({embeds: [notPlayingEmbed]})
+                sendMessage({embeds: [notPlayingEmbed]}, message)
                 .then(msg => deleteMsg(msg, 30000, client));
             }
         }
@@ -39,7 +40,7 @@ export default function repeat(message: Message, serverQueue: Queue, client: Cli
                 .setColor(Colors.Red)
                 .setDescription(':rofl: Please Unpause The Player Before Restarting')
             ;
-            message.reply({embeds: [pausedEmbed]})
+            sendMessage({embeds: [pausedEmbed]}, message)
             .then(msg => deleteMsg(msg, 30000, client));
         }
     }
@@ -48,7 +49,7 @@ export default function repeat(message: Message, serverQueue: Queue, client: Cli
             .setColor(Colors.Green)
             .setDescription(`:rofl: Not Currently Playing Anything At The Moment`)
         ;
-        message.reply({embeds: [notPlayingEmbed]})   
+        sendMessage({embeds: [notPlayingEmbed]} , message) 
         .then(msg => deleteMsg(msg, 30000, client));     
     }
 }

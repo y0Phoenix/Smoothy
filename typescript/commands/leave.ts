@@ -3,6 +3,7 @@ import { Colors, EmbedBuilder, Message } from 'discord.js';
 import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
 import {deleteMsg, leave} from '../modules/modules';
+import sendMessage from '../modules/src/sendMessage';
 const noVCEmbed = new EmbedBuilder()
         .setColor(Colors.Red)
         .setDescription(`:rofl: I Am Not In VC`)
@@ -23,7 +24,7 @@ export default async function Leave(message: Message, serverQueue: Queue, Discon
             .setColor(Colors.Red)
             .setDescription(`:cry: Leaving Channel`)
         ;
-        message.reply({embeds: [leaveEmbed]})
+        sendMessage({embeds: [leaveEmbed]}, message)
         .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
         console.log('Left The Voice Channel From Command')
         if(serverQueue){
@@ -38,7 +39,7 @@ export default async function Leave(message: Message, serverQueue: Queue, Discon
         leave(message); 
     }
     else{
-        message.reply({embeds: [noVCEmbed]})
+        sendMessage({embeds: [noVCEmbed]}, message)
         .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
         return;
     } 

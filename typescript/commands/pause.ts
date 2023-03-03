@@ -2,6 +2,7 @@
 import { EmbedBuilder, Message, Client, Colors } from 'discord.js';
 import Queue from '../Classes/Queue';
 import {deleteMsg, leave} from '../modules/modules';
+import sendMessage from '../modules/src/sendMessage';
 
 /**
  * @param  {Message} message the users message
@@ -27,11 +28,11 @@ export default function pause(message: Message, serverQueue: Queue, client: Clie
                 }
             )
         ;
-        message.reply({embeds: [pauseEmbed]})
+        sendMessage({embeds: [pauseEmbed]}, message)
         .then(msg => deleteMsg(msg, 60000, client));
     }
     else{
-        message.reply(`:rofl: Nothing To Pause :rofl:`)
+        sendMessage(`:rofl: Nothing To Pause :rofl:`, message)
         .then(msg => deleteMsg(msg, 30000, client));
     }
 }

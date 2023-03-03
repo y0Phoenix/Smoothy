@@ -3,6 +3,7 @@ import { Colors, EmbedBuilder, Message } from "discord.js";
 import { Idle } from "../Classes/Idle";
 import Queue from "../Classes/Queue";
 import { deleteMsg } from "../modules/modules";
+import sendMessage from "../modules/src/sendMessage";
 
 const noSongs = new EmbedBuilder()
     .setColor(Colors.Red)
@@ -24,7 +25,7 @@ export default async function previous(message: Message, serverQueue: Queue, ser
                     .setColor(Colors.Green)
                     .setDescription(`:thumbsup: Going Back To [${serverQueue.previous[0].title}](${serverQueue.previous[0].url})`)
                 ;
-                let msg = await message.reply({embeds: [previousEmbed]});
+                let msg = await sendMessage({embeds: [previousEmbed]}, message);
                 deleteMsg(msg, 60000, serverDisconnectIdle.client);
                 serverQueue.player.stop();
             }
@@ -33,17 +34,17 @@ export default async function previous(message: Message, serverQueue: Queue, ser
                     .setColor(Colors.Red)
                     .setDescription(':rofl: Cant Play The Previos Song While Paused')
                 ;
-                let msg = await message.reply({embeds: [pausedEmbed]});
+                let msg = await sendMessage({embeds: [pausedEmbed]}, message);
                 deleteMsg(msg, 30000, serverDisconnectIdle.client);
             }
         }
         else {
-            let msg = await message.reply({embeds: [noSongs]});
+            let msg = await sendMessage({embeds: [noSongs]}, message);
             deleteMsg(msg, 30000, serverDisconnectIdle.client);
         }
     }
     else {
-        let msg = await message.reply({embeds: [noSongs]});
+        let msg = await sendMessage({embeds: [noSongs]}, message);
         deleteMsg(msg, 30000, serverDisconnectIdle.client);
     }
 }

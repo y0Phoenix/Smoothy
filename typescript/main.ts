@@ -31,6 +31,7 @@ import { Idle, WriteIdle } from "./Classes/Idle";
 import Queue from "./Classes/Queue";
 import getMaps from "./maps";
 import Global from './interfaces/_Global';
+import sendMessage from './modules/src/sendMessage';
 //Creates the client
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
@@ -168,7 +169,7 @@ client.on('messageCreate', async message =>{
                 }
             )
         ;   
-        message.reply({embeds: [myprefixEmbed]});
+        sendMessage({embeds: [myprefixEmbed]}, message);
         console.log(`Send current prefix ${prefix} to the channel`);
         return;
     }
@@ -231,7 +232,7 @@ client.on('messageCreate', async message =>{
             .setColor(Colors.Red)
             .setDescription(`:rofl: Invalid Command Type -help To See Current Commands`)
         ;
-        message.reply({embeds: [invalidCommandEmbed]})
+        sendMessage({embeds: [invalidCommandEmbed]}, message)
         .then(msg => {
             setTimeout(() => {
                 msg.delete()

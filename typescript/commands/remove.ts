@@ -2,6 +2,7 @@
 import { EmbedBuilder, Message, Client, Colors } from 'discord.js';
 import Queue from '../Classes/Queue';
 import {deleteMsg, writeGlobal, find} from '../modules/modules';
+import sendMessage from '../modules/src/sendMessage';
 
 /**
  * @param  {Message} message the users Message
@@ -25,9 +26,9 @@ export default async function remove(message: Message, args: any, serverQueue: Q
             }
         }
         else {
-            const msg = await message.reply({embeds: [new EmbedBuilder()
+            const msg = await sendMessage({embeds: [new EmbedBuilder()
                 .setColor(Colors.Red)
-                .setDescription(`:rofl: No Good Matches found for **${query}** please check your spelling or remove a song via a number from the -queue`)]});
+                .setDescription(`:rofl: No Good Matches found for **${query}** please check your spelling or remove a song via a number from the -queue`)]}, message);
             deleteMsg(msg, 60000, client);
             return;
         }
@@ -46,13 +47,13 @@ export default async function remove(message: Message, args: any, serverQueue: Q
                     {
                         name: `***Duration***`, value: `${serverQueue.shuffledSongs[i].duration}`, inline: true
                     })
-            message.reply({embeds: [removeEmbed]})
+            sendMessage({embeds: [removeEmbed]}, message)
             .then(msg => deleteMsg(msg, 60000, client));   
             serverQueue.shuffledSongs.splice(i, 1);
             writeGlobal('update queue', serverQueue, serverQueue.id);
         }
         else{
-            message.reply('No Song Specified')
+            sendMessage('No Song Specified', message)
             .then(msg => deleteMsg(msg, 30000, client));
         }
     }
@@ -72,13 +73,13 @@ export default async function remove(message: Message, args: any, serverQueue: Q
                     })
                 .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
                 .setTimestamp();
-            message.reply({embeds: [removeEmbed]})
+            sendMessage({embeds: [removeEmbed]}, message)
             .then(msg => deleteMsg(msg, 60000, client));   
             serverQueue.songs.splice(i, 1);
             writeGlobal('update queue', serverQueue, serverQueue.id);
         }
         else{
-            message.reply('No Song Specified')
+            sendMessage('No Song Specified', message)
             .then(msg => deleteMsg(msg, 30000, client));
         }
     }

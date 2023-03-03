@@ -3,6 +3,7 @@ import { EmbedBuilder, Message, Client, Colors } from 'discord.js';
 import {AudioPlayerStatus,} from '@discordjs/voice';
 import {deleteMsg, leave} from '../modules/modules';
 import Queue from '../Classes/Queue';
+import sendMessage from '../modules/src/sendMessage';
 
 /**
  * @param  {Message} message the users Message
@@ -26,15 +27,15 @@ export default async function resume(message: Message, serverQueue: Queue, clien
                     }
                 )
             ;
-            message.reply({embeds: [resumEmbed]})
+            sendMessage({embeds: [resumEmbed]}, message)
             .then(msg => deleteMsg(msg, 60000, client));
         }else{
-            message.reply(`:rofl: Not Currently Paused :rofl:`)
+            sendMessage(`:rofl: Not Currently Paused :rofl:`, message)
             .then(msg => deleteMsg(msg, 30000, client));
         }
 
     }else{
-        message.reply(`:rofl: Not Currently Paused :rofl:`)
+        sendMessage(`:rofl: Not Currently Paused :rofl:`, message)
         .then(msg => deleteMsg(msg, 30000, client));
     }
 }

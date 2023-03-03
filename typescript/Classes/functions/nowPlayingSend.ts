@@ -2,6 +2,7 @@ import {EmbedBuilder} from 'discord.js';
 import { deleteMsg } from '../../modules/modules';
 import Queue from '../Queue';
 import getMaps from '../../maps';
+import sendMessage from '../../modules/src/sendMessage';
 
 export default async function nowPlayingSend() {
     const serverQueue: Queue = this;
@@ -11,7 +12,7 @@ export default async function nowPlayingSend() {
             await deleteMsg(serverQueue.nowPlaying, 0, DisconnectIdle.get(1));
             serverQueue.nowPlaying = undefined
         }
-        const msg = serverQueue.message.reply({embeds: [new EmbedBuilder()
+        const msg = sendMessage({embeds: [new EmbedBuilder()
             .setColor('#0099ff')
             .setDescription(`***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
             .setAuthor({name: `Now Playing`, iconURL: 'https://cdn.discordapp.com/attachments/778600026280558617/781024479623118878/ezgif.com-gif-maker_1.gif'})
@@ -29,7 +30,7 @@ export default async function nowPlayingSend() {
             )
             .setThumbnail(`${serverQueue.currentsong[0].thumbnail}`)
 
-        ]});
+        ]}, serverQueue.message);
         return msg
     }
 }

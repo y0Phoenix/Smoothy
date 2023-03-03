@@ -4,6 +4,7 @@ import { deleteMsg, writeGlobal } from "../../modules/modules";
 import { Colors, EmbedBuilder } from "discord.js";
 import Queue from "../Queue";
 import getMaps from "../../maps";
+import sendMessage from "../../modules/src/sendMessage";
 
 /**
  * @description sets of functions and/or events based off of conditions inorder to play a new song
@@ -45,7 +46,7 @@ export default async function audioPlayerIdle() {
 			if (serverQueue.songs.length > 0) {
 				serverQueue.playNext();
 			} else {
-				const msg = await serverQueue.message.reply({embeds: [noMoreSongsEmbed]});
+				const msg = await sendMessage({embeds: [noMoreSongsEmbed]}, serverQueue.message);
 				deleteMsg(msg, 60000, serverDisconnectIdle.client);
 				queue.delete(serverQueue.message.guild.id);
 				await writeGlobal('delete queue', null, serverQueue.id);
@@ -87,7 +88,7 @@ export default async function audioPlayerIdle() {
 				.setColor(Colors.Red)
 				.setDescription(`:x: No More Songs To Play`)
 				;
-				serverQueue.message.reply({embeds: [noMoreSongsEmbed]});
+				sendMessage({embeds: [noMoreSongsEmbed]}, serverQueue.message);
 				queue.delete(serverQueue.message.guild.id);
 				writeGlobal('delete queue', null, serverQueue.id);
 				serverDisconnectIdle.disconnectTimervcidle();

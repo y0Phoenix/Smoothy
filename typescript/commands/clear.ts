@@ -3,6 +3,7 @@ import { Colors, EmbedBuilder, Message } from 'discord.js';
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
 import Queue from '../Classes/Queue';
 import { Idle } from '../Classes/Idle';
+import sendMessage from '../modules/src/sendMessage';
 
 /**
  * @param  {Message} message the users Message
@@ -28,7 +29,7 @@ export default async function clear(message: Message, serverQueue: Queue, queue:
             .setColor(Colors.Red)
             .setDescription(`:octagonal_sign: I Have ***Stopped*** The Music!`)
         ;
-        message.reply({embeds: [stopEmbed]})
+        sendMessage({embeds: [stopEmbed]}, message)
         .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
         if (serverDisconnectIdle) {
             serverDisconnectIdle.disconnectTimervcidle();
@@ -38,7 +39,7 @@ export default async function clear(message: Message, serverQueue: Queue, queue:
             .setColor(Colors.Red)
             .setDescription(`:rofl: Nothing ***Playing*** Currently!`)
         ;
-        message.reply({embeds: [notPlayingEmbed]})
+        sendMessage({embeds: [notPlayingEmbed]}, message)
         .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
     }
 }

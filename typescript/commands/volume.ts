@@ -3,6 +3,7 @@ import { Idle } from "../Classes/Idle";
 import Queue from "../Classes/Queue";
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
 import getMaps from "../maps";
+import sendMessage from "../modules/src/sendMessage";
 
 const noSongEmbed = new EmbedBuilder()
     .setColor(Colors.Red)
@@ -34,7 +35,7 @@ export default async function volume(message: Message, args: any, serverQueue: Q
                 volume = 1;
                 serverQueue.resource.volume.volume = volume;
                 let embed = volumeE(volume);
-                let msg = await message.reply({embeds: [embed]});
+                let msg = await sendMessage({embeds: [embed]}, message);
                 deleteMsg(msg, 60000, DisconnectIdle.get(1));
                 writeGlobal('update dci', serverDisconnectIdle, serverQueue.id);
             }
@@ -44,7 +45,7 @@ export default async function volume(message: Message, args: any, serverQueue: Q
                     if(args <= 100){
                         serverQueue.resource.volume.volume = volume;
                         let embed = volumeE(volume);
-                        let msg = await message.reply({embeds: [embed]});
+                        let msg = await sendMessage({embeds: [embed]}, message);
                         deleteMsg(msg, 60000, DisconnectIdle.get(1));
                         writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
                     }
@@ -53,18 +54,18 @@ export default async function volume(message: Message, args: any, serverQueue: Q
                             .setColor(Colors.Red)
                             .setDescription(':rofl: Volume is 100 max')
                         ;
-                        message.reply({embeds: [toHighEmbed]})
+                        sendMessage({embeds: [toHighEmbed]}, message)
                         .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
                     }
                 }
                 else{
-                    message.reply({embeds: [noSongEmbed]})
+                    sendMessage({embeds: [noSongEmbed]}, message)
                     .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
                 }
             }
         }
         else{
-            message.reply({embeds: [noSongEmbed]})
+            sendMessage({embeds: [noSongEmbed]}, message)
             .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
         }
     }
@@ -73,7 +74,7 @@ export default async function volume(message: Message, args: any, serverQueue: Q
             .setColor(Colors.Red)
             .setDescription(':rofl: You Must Specify With A Number')
         ;
-        message.reply({embeds: [specifyEmbed]})
+        sendMessage({embeds: [specifyEmbed]}, message)
         .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
     }
 }

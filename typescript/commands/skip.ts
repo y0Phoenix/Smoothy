@@ -3,6 +3,7 @@ import { AudioPlayerStatus } from '@discordjs/voice';
 import { EmbedBuilder, Message, Client, Colors } from 'discord.js';
 import Queue from '../Classes/Queue';
 import {deleteMsg} from '../modules/modules';
+import sendMessage from '../modules/src/sendMessage';
 
 /**
  * @param  {Message} message the users Messgae
@@ -14,10 +15,10 @@ import {deleteMsg} from '../modules/modules';
     if(serverQueue !== undefined){
         if (serverQueue.songs.length > 0 ) {
             if (serverQueue.player.state.status === AudioPlayerStatus.Paused) {
-                const msg = await message.reply({embeds: [new EmbedBuilder()
+                const msg = await sendMessage({embeds: [new EmbedBuilder()
                     .setColor(Colors.Red)
                     .setDescription(':rofl: Please Unpause The Player Before Restarting')
-                ]});
+                ]}, message);
                 deleteMsg(msg, 30000, client);
             }
             try {
@@ -32,7 +33,7 @@ import {deleteMsg} from '../modules/modules';
                         },
                     )
                 ;
-                message.reply({embeds: [skipEmbed]})
+                sendMessage({embeds: [skipEmbed]}, message)
                 .then(msg => deleteMsg(msg, 60000, client));
                 serverQueue.player.stop();  
                 }
@@ -40,7 +41,7 @@ import {deleteMsg} from '../modules/modules';
                     console.log('Unknown MSG');
                 }
         }else{
-            message.reply(':rofl: Nothing To ***Skip*** :rofl:')
+            sendMessage(':rofl: Nothing To ***Skip*** :rofl:', message)
             .then(msg => deleteMsg(msg, 30000, client));
         }
     }

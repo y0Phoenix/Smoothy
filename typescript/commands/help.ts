@@ -1,5 +1,6 @@
 //creates an embed message which lists out the current functionalites and info about Smoothy
 import { Colors, EmbedBuilder, Message } from 'discord.js';
+import sendMessage from '../modules/src/sendMessage';
 
 /**
  * @param  {Message} message the users message
@@ -12,5 +13,5 @@ import { Colors, EmbedBuilder, Message } from 'discord.js';
     .setDescription(`https://github.com/y0Phoenix/Smoothy/blob/main/Help.md`)
     .setThumbnail('https://github.com/y0Phoenix/Smoothy/blob/development/pictures/Smoothy%20Logo.png?raw=true')
     
-    message.reply({embeds: [helpEmbedBuilder]})
+    sendMessage({embeds: [helpEmbedBuilder]}, message)
 }

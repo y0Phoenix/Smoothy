@@ -5,6 +5,7 @@ import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
 import {joinvoicechannel, FindVideoCheck, findvideoplaylist} from '../executive';
 import {deleteMsg, exists} from '../modules/modules';
+import sendMessage from '../modules/src/sendMessage';
 const needVCEmbed = new EmbedBuilder()
     .setColor(Colors.Red)
     .setDescription(':nerd: You Need To Be In A ***Voice Channel*** To Execute This Command')
@@ -37,14 +38,14 @@ const speakEmbed = new EmbedBuilder()
 export default async function play(message: Message, args: any,  vc: Message['member']['voice']['channel'], queue: any, 
 DisconnectIdle: any, serverDisconnectIdle: Idle, serverQueue: Queue, command: string, client: Client) {
     try{
-        if (args.length === 0) return message.reply({embeds: [specifyEmbed]})
+        if (args.length === 0) return sendMessage({embeds: [specifyEmbed]}, message)
         .then(msg => deleteMsg(msg, 30000, client));
-        if (!vc) return message.reply({embeds: [needVCEmbed]})
+        if (!vc) return sendMessage({embeds: [needVCEmbed]}, message)
         .then(msg => deleteMsg(msg, 30000, client));
         const permissions = vc.permissionsFor(message.client.user);
-        if (!permissions.has('Connect')) return message.reply({embeds: [connectEmbed]})
+        if (!permissions.has('Connect')) return sendMessage({embeds: [connectEmbed]}, message)
         .then(msg => deleteMsg(msg, 30000, client));
-        if (!permissions.has('Speak')) return message.reply({embeds: [speakEmbed]})
+        if (!permissions.has('Speak')) return sendMessage({embeds: [speakEmbed]}, message)
         .then(msg => deleteMsg(msg, 30000, client));
         
         const bool = await exists(message.guildId, 'dci');

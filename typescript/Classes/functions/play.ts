@@ -7,6 +7,7 @@ import {
   import { Colors, EmbedBuilder } from 'discord.js';
   import {writeGlobal, deleteMsg} from '../../modules/modules';
 import getMaps from "../../maps";
+import sendMessage from "../../modules/src/sendMessage";
 
 /**
  @description where the song gets played and the nowPlaying message gets set and sent
@@ -36,9 +37,9 @@ export default async function play() {
         console.log(err);
         serverQueue.tries++;
         if (serverQueue.tries >= 5) {
-          const msg = await serverQueue.message.reply({embeds: [new EmbedBuilder()
+          const msg = await sendMessage({embeds: [new EmbedBuilder()
             .setDescription(`Sorry There Was An Issue Playing ${serverQueue.currentsong[0].title} Playing Next Song`)
-            .setColor(Colors.Red)]});
+            .setColor(Colors.Red)]}, serverQueue.message);
           deleteMsg(msg, 30000, DisconnectIdle.get(1));
           serverQueue.player.stop();
           serverQueue.audioPlayerIdle();
@@ -50,7 +51,7 @@ export default async function play() {
         const noVidEmbed = new EmbedBuilder()
             .setColor(Colors.Red)
             .setDescription(':rofl: No ***video*** results found');
-        serverQueue.message.reply({embeds: [noVidEmbed]});
+        sendMessage({embeds: [noVidEmbed]}, serverQueue.message);
         serverQueue.player.stop();
         serverQueue.audioPlayerIdle();
     }

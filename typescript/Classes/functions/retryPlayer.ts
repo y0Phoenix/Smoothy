@@ -3,6 +3,7 @@ import { AudioPlayerStatus } from "@discordjs/voice";
 import { Colors, EmbedBuilder } from "discord.js";
 import { deleteMsg, find } from "../../modules/modules";
 import getMaps from "../../maps";
+import sendMessage from "../../modules/src/sendMessage";
 
 /**
  * @description checks if the serverQueue is playing a song via
@@ -41,7 +42,7 @@ export async function retryTimer() {
             .setColor(Colors.Red)
             .setDescription(`:thumbsdown: [${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url}) failed to play reverting to original queue try again later`)
           ;
-          serverQueue.message.reply({embeds: [errorEmbed]});
+          sendMessage({embeds: [errorEmbed]}, serverQueue.message);
         }
       }
       serverQueue.currentsong.shift();
@@ -51,7 +52,7 @@ export async function retryTimer() {
       );
       serverQueue.play();
       if (serverQueue.tries >= 4) {
-        serverQueue.message.reply(`Smoothy Is Buffering Please Wait`)
+        sendMessage(`Smoothy Is Buffering Please Wait`, serverQueue.message)
           .then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
       }
     }

@@ -5,6 +5,7 @@ import * as prism from 'prism-media';
 import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
 import { deleteMsg } from '../modules/modules';
+import sendMessage from '../modules/src/sendMessage';
 /**
  * @param  {Message} message the users Message
  * @param  {any} args the users Mesage content without the prefix and command
@@ -31,7 +32,7 @@ export default async function seek(message: Message, args: any, serverQueue: Que
                             .setColor(Colors.Red)
                             .setDescription(':rofl: Please Enter A Valid Seek Request Type -help If You Are Struggling To Figure It Out')
                         ;
-                        message.reply({embeds: [embed]})
+                        sendMessage({embeds: [embed]}, message)
                         .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                         return;
                     }
@@ -68,7 +69,7 @@ export default async function seek(message: Message, args: any, serverQueue: Que
                         .setColor(Colors.Red)
                         .setDescription(`:rofl: **${req.join(':')}** Is Longer Than The Song Length Of **${serverQueue.currentsong[0].duration}**`)
                     ;
-                    let msg = await message.reply({embeds: [toLong]});
+                    let msg = await sendMessage({embeds: [toLong]}, message);
                     deleteMsg(msg, 30000, serverDisconnectIdle.client);
                     return
                 }
@@ -97,7 +98,7 @@ export default async function seek(message: Message, args: any, serverQueue: Que
                     .setColor(Colors.Green)
                     .setDescription(`:thumbsup: Seeking [${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url}) To **${req.join(',')}**`)
                 ;
-                let msg = await message.reply({embeds: [seekEmbed]}) ;
+                let msg = await sendMessage({embeds: [seekEmbed]}, message);
                 deleteMsg(msg, 60000, serverDisconnectIdle.client);
             }
             else {

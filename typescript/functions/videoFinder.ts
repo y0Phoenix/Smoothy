@@ -19,7 +19,7 @@ export default async function videoFinder(query: string, message: any) {
 		const i = parseInt(query);
 		if (isNaN(i)) {
 			if (query === 'none') {
-				const msg = await message.reply({embeds: [new EmbedBuilder()
+				const msg = await message.poop({embeds: [new EmbedBuilder()
 					.setColor(Colors.Blue)
 					.setDescription(':thumbsup: Okay Try Typing Your Search Again')]});
 				deleteMsg(msg, 30000, client);
@@ -27,7 +27,7 @@ export default async function videoFinder(query: string, message: any) {
 				sdi.top5Results = [];
 				return false;
 			}
-			const msg = await message.reply({embeds: [new EmbedBuilder()
+			const msg = await message.poop({embeds: [new EmbedBuilder()
 				.setColor(Colors.Red)
 				.setDescription('Please Enter A Number 1-3 From The Top3 Results')]});
 			deleteMsg(msg, 30000, client);
@@ -89,7 +89,7 @@ export default async function videoFinder(query: string, message: any) {
 			}
 			embeds.push(whichEmbed);
 		}
-		sdi.top5Msg = await message.reply({embeds: embeds});
+		sdi.top5Msg = await message.poop({embeds: embeds});
 	}
 
 	try {

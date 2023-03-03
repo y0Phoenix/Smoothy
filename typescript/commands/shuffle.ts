@@ -1,6 +1,7 @@
 import { EmbedBuilder, Message, Client, Colors } from "discord.js";
 import Queue from "../Classes/Queue";
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
+import sendMessage from "../modules/src/sendMessage";
 //reordes the queue into a new array
 
 /**
@@ -20,7 +21,7 @@ export default async function shuffle(message: Message, serverQueue: Queue, clie
                 .setColor(Colors.Green)
                 .setDescription(':thumbsup: I Am Now Shuffling The Queue :twisted_rightwards_arrows:')
             ;
-            message.reply({embeds: [shuffleEmbed]})
+            sendMessage({embeds: [shuffleEmbed]}, message)
             .then(msg => deleteMsg(msg, 60000, client));
             var songsLength = serverQueue.songs.length;
             const randomNumber = () => {
@@ -58,7 +59,7 @@ export default async function shuffle(message: Message, serverQueue: Queue, clie
                 .setColor(Colors.Red)
                 .setDescription(':rofl: I Cannot Shuffle A 1 Song Queue')
             ;
-            message.reply({embeds: [oneEmbed]})
+            sendMessage({embeds: [oneEmbed]}, message)
             .then(msg => deleteMsg(msg, 30000, client));
         }
     }
@@ -70,7 +71,7 @@ export default async function shuffle(message: Message, serverQueue: Queue, clie
             .setColor(Colors.Green)
             .setDescription(':thumbsup: I Have Returned The Queue To Its Original Order')
         ;
-        message.reply({embeds: [noShuffleEmbed]})
+        sendMessage({embeds: [noShuffleEmbed]}, message)
         .then(msg => deleteMsg(msg, 60000, client));
         writeGlobal('update queue', serverQueue, serverQueue.id);
     }

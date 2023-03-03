@@ -13,6 +13,7 @@
 	import videoFinder from './functions/videoFinder';
 	import * as ytdl from 'ytdl-core';
 	import * as playdl from 'play-dl';
+import sendMessage from './modules/src/sendMessage';
 
 	const noVidEmbed = new EmbedBuilder()
 	.setColor(Colors.Red)
@@ -61,7 +62,7 @@
 		.setDescription(`***[${videoURL.videoDetails.title}](${videoURL.videoDetails.video_url})***
 		Has Been Added To The Queue :arrow_down:`)
 		;
-		let msg = await message.reply({ embeds: [addQueueEmbed] });
+		let msg = await sendMessage({ embeds: [addQueueEmbed] }, message);
 		serverDisconnectIdle.msgs.push(msg);
 		writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
 	}
@@ -95,10 +96,10 @@
 		videoURL = await ytdl.getBasicInfo(videoName);
 	} catch (err) {
 		console.log(`Error On ytdl-core url ${videoName}`);
-		return message.reply({embeds: [new EmbedBuilder() 
+		return sendMessage({embeds: [new EmbedBuilder() 
 		.setColor(Colors.Red)
 		.setDescription('Sorry Cannot Play This Video As It Is Age Restricted')
-	]}).then(msg => {
+	]}, message).then(msg => {
 		deleteMsg(msg, 30000, DisconnectIdle.get(1));
 	})
 		// TODO add age restricted video functionality
@@ -109,7 +110,7 @@
 		console.log(`Found ${videoURL.videoDetails.title}`);
 		executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
 	} else {
-		message.reply({ embeds: [noVidEmbed] })
+		sendMessage({ embeds: [noVidEmbed]} , message)
 			.then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
 		return;
 	}
@@ -121,9 +122,9 @@
 			console.log(`Found ${videoURL.videoDetails.title}`);
 			executive(message, queue, DisconnectIdle, serverDisconnectIdle, serverQueue, videoURL);
 		} catch (err) {
-			const msg = await message.reply({embeds: [new EmbedBuilder()
+			const msg = await sendMessage({embeds: [new EmbedBuilder()
 				.setColor(Colors.Red)
-				.setDescription(`Failed To Play **[${video.title}](${video.url})** As It Is Age Restricted. Try A Different Video`)]});
+				.setDescription(`Failed To Play **[${video.title}](${video.url})** As It Is Age Restricted. Try A Different Video`)]}, message);
 			deleteMsg(msg, 35000, serverDisconnectIdle.client);
 			if (serverQueue) {
 				serverQueue.player.stop();
@@ -135,7 +136,7 @@
 		if (video === false) {
 		return;
 		}
-		message.reply({ embeds: [noVidEmbed] })
+		sendMessage({ embeds: [noVidEmbed]} , message)
 		.then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
 		return;
 	}
@@ -194,7 +195,7 @@
 				writeGlobal('add queue', serverQueue, serverQueue.id);
 				serverQueue.play();
 			}
-			let msg = await message.reply({embeds: [playlistEmbed],});
+			let msg = await sendMessage({embeds: [playlistEmbed],}, message);
 			serverDisconnectIdle.msgs.push(msg);
 			writeGlobal('update dci', serverDisconnectIdle, serverDisconnectIdle.id);
 			for (let i = 0; i < playlist.items.length; i++) {
@@ -210,14 +211,14 @@
 			const noPlaylistEmbed = new EmbedBuilder()
 			.setColor(Colors.Red)
 			.setDescription(':rofl: Playlist Either Doesnt Exist Or Is Private');
-			message.reply({ embeds: [noPlaylistEmbed] })
+			sendMessage({ embeds: [noPlaylistEmbed]} , message)
 			.then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
 		}
 		} else {
 		const wrongEmbed = new EmbedBuilder()
 			.setColor(Colors.Red)
 			.setDescription(':rofl: You Need To Add A Valid Playlist Link');
-		message.reply({ embeds: [wrongEmbed] })
+		sendMessage({ embeds: [wrongEmbed]} , message)
 			.then((msg) => deleteMsg(msg, 30000, serverDisconnectIdle.client));
 		}
 	}

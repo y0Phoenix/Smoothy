@@ -1,6 +1,7 @@
 import { Colors, EmbedBuilder } from "discord.js";
 import getMaps from "../../maps";
 import { deleteMsg, leave } from "../../modules/modules";
+import sendMessage from "../../modules/src/sendMessage";
 import { Idle } from "../Idle";
 
 /**
@@ -12,7 +13,7 @@ export async function disconnectvcidle(DisconnectIdle: any, serverDisconnectIdle
     const vcIdleEmbed = new EmbedBuilder()
       .setColor(Colors.Red)
       .setDescription(':cry: Left VC Due To Idle');
-    const msg = await serverDisconnectIdle.message.reply({embeds: [vcIdleEmbed]});
+    const msg = await sendMessage({embeds: [vcIdleEmbed]}, serverDisconnectIdle.message);
     deleteMsg(msg, 60000, DisconnectIdle.get(1));
     console.log(`Left VC Due To Idle`);
     leave(serverDisconnectIdle.message);

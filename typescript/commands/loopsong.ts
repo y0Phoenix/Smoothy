@@ -3,6 +3,7 @@ import { Colors, EmbedBuilder, Message } from 'discord.js';
 import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
+import sendMessage from '../modules/src/sendMessage';
 
 /**
  * @param  {Message} message the users message
@@ -18,7 +19,7 @@ export default async function loopsong(message: Message, serverQueue: Queue, ser
                 .setColor(Colors.Orange)
                 .setDescription(`:thumbsup: Now Looping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})*** :repeat_one:`)
             ;
-            let msg = await message.reply({embeds: [loopSongEmbed]});
+            let msg = await sendMessage({embeds: [loopSongEmbed]}, message);
             serverDisconnectIdle.msgs.push(msg);
             await writeGlobal('update dci', serverDisconnectIdle, message.guildId);
             writeGlobal('update queue', serverQueue, message.guildId);
@@ -29,7 +30,7 @@ export default async function loopsong(message: Message, serverQueue: Queue, ser
                 .setColor(Colors.Orange)
                 .setDescription(`:x: No Longer Looping ***[${serverQueue.currentsong[0].title}](${serverQueue.currentsong[0].url})***`)
             ;
-            message.reply({embeds: [endLoopSongEmbed]})
+            sendMessage({embeds: [endLoopSongEmbed]}, message)
             .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
             writeGlobal('update queue', serverQueue, message.guildId);
         }
@@ -38,7 +39,7 @@ export default async function loopsong(message: Message, serverQueue: Queue, ser
         const notPlayingEmbed = new EmbedBuilder()
             .setColor(Colors.Orange)
             .setDescription(`:rofl: Nothing Playing Right Now`)
-        message.reply({embeds: [notPlayingEmbed]})
+        sendMessage({embeds: [notPlayingEmbed]}, message)
         .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
     }
 }

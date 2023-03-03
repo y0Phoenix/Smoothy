@@ -3,6 +3,7 @@ import { Colors, EmbedBuilder, Message } from 'discord.js';
 import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
 import {deleteMsg, find } from '../modules/modules';
+import sendMessage from '../modules/src/sendMessage';
 
 /**
  * @param  {Message} message the message from the user
@@ -24,7 +25,7 @@ export default async function jump(message: Message, args: any, serverQueue: Que
                             .setColor(Colors.Red)
                             .setDescription(':rofl: No Exact Matches Found Please Check Your Spelling')
                         ;
-                        message.reply({embeds: [noMatch]})
+                        sendMessage({embeds: [noMatch]}, message)
                             .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client))
                         ;
                         return;
@@ -57,12 +58,12 @@ export default async function jump(message: Message, args: any, serverQueue: Que
                                 })
                             .setThumbnail(`${serverQueue.songs[i].thumbnail}`)
                             .setTimestamp();
-                        message.reply({embeds: [jumpEmbed]})
+                        sendMessage({embeds: [jumpEmbed]}, message)
                         .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
                         serverQueue.player.stop();
                     }
                     else{
-                        message.reply(':x: No Song Specified')
+                        sendMessage(':x: No Song Specified', message)
                         .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                     }
                 }
@@ -82,27 +83,27 @@ export default async function jump(message: Message, args: any, serverQueue: Que
                                 })
                             .setThumbnail(`${serverQueue.shuffledSongs[i].thumbnail}`)
                             .setTimestamp();
-                        message.reply({embeds: [jumpEmbed]})
+                        sendMessage({embeds: [jumpEmbed]}, message)
                         .then(msg => deleteMsg(msg, 60000, serverDisconnectIdle.client));
                         serverQueue.player.stop();
                     }
                     else{
-                        message.reply(':x: No Song Specified')
+                        sendMessage(':x: No Song Specified', message)
                         .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
                     }
                 }
             }
             else{
-                message.reply(':x: No Other Songs Besides The Current Exist In The Queue :x:')
+                sendMessage(':x: No Other Songs Besides The Current Exist In The Queue :x:', message)
                 .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
             }
         }
         else{
-            message.reply(`:rofl: I Cannot Jump To A Song Wile I Am Looping A Song :rofl:`)
+            sendMessage(`:rofl: I Cannot Jump To A Song Wile I Am Looping A Song :rofl:`, message)
             .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
         }
     }else{
-        message.reply(':rofl: I Dont Have A Song Queue :rofl:')
+        sendMessage(':rofl: I Dont Have A Song Queue :rofl:', message)
         .then(msg => deleteMsg(msg, 30000, serverDisconnectIdle.client));
     }     
 }

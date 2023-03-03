@@ -3,6 +3,7 @@ import * as fs from "fs";
 import {deleteMsg, leave}  from '../modules/modules';
 const File = './config/prefixes.json';
 import Queue from '../Classes/Queue';
+import sendMessage from "../modules/src/sendMessage";
 
 /**
  * @param  {Message} message the users message
@@ -31,7 +32,7 @@ export default function changeprefix(message: Message, args: any, data: any, fou
                 }
             )
         ;
-        message.reply({embeds: [prefixEmbed]})
+        sendMessage({embeds: [prefixEmbed]}, message)
         .then(msg => deleteMsg(msg, 60000, client));
     }
     else{
@@ -39,7 +40,7 @@ export default function changeprefix(message: Message, args: any, data: any, fou
             .setColor(Colors.Red)
             .setDescription(':thumbsdown: You Must Specify With A New Prefix')
         ;
-        message.reply({embeds: [specifyEmbed]})
+        sendMessage({embeds: [specifyEmbed]}, message)
         .then(msg => deleteMsg(msg, 30000, client));
     }
 }

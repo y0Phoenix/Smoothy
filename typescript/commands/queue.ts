@@ -8,6 +8,7 @@ import { Idle } from '../Classes/Idle';
 import Queue from '../Classes/Queue';
 import getMaps from '../maps';
 import {deleteMsg, leave, writeGlobal} from '../modules/modules';
+import sendMessage from '../modules/src/sendMessage';
 /**
  * @param  {Queue} serverQueue the current serves queue
  * @description chacks multiple conditions and return a string that matches a specific condition
@@ -88,7 +89,7 @@ async function getQueueList(message: Message, serverQueue: Queue, serverDisconne
             .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
             .setDescription(`${serverQueue.queue.queueList}`)
         ;
-        const msg = await message.reply({embeds: [queueListEmbed]});
+        const msg = await sendMessage({embeds: [queueListEmbed]}, message);
         serverDisconnectIdle.queueMsgs.push(msg);
         serverQueue.queue.queueList = ``;
     }
@@ -100,7 +101,7 @@ async function getQueueList(message: Message, serverQueue: Queue, serverDisconne
                 .setTitle(`:thumbsup: Here Is ${await title(serverQueue)} Queue`)
                 .setDescription(`${serverQueue.queue.queueList}`)
             ;
-            const msg = await message.reply({embeds: [queueListEmbed]});
+            const msg = await sendMessage({embeds: [queueListEmbed]}, message);
             serverDisconnectIdle.queueMsgs.push(msg);
             serverQueue.queue.queueList = ``;
             longQueueList(message, serverQueue, serverDisconnectIdle);
@@ -110,7 +111,7 @@ async function getQueueList(message: Message, serverQueue: Queue, serverDisconne
                 .setColor(Colors.LuminousVividPink)
                 .setDescription(`${serverQueue.queue.queueList}`)
             ;
-            const msg = await message.reply({embeds: [queueListEmbed]});
+            const msg = await sendMessage({embeds: [queueListEmbed]}, message);
             serverDisconnectIdle.queueMsgs.push(msg);
             serverQueue.queue.queueList = ``;
             longQueueList(message, serverQueue, serverDisconnectIdle);
@@ -182,7 +183,7 @@ export default async function queueList(message: Message, serverQueue: Queue, se
                     }
                 )
             ;
-        let msg = await message.reply({embeds: [queueListEmbed]});
+        let msg = await sendMessage({embeds: [queueListEmbed]}, message);
         serverDisconnectIdle.queueMsgs.push(msg);
         writeGlobal('update dci', serverDisconnectIdle, message.guildId);
         serverQueue.queue.queueList = ``;
@@ -192,7 +193,7 @@ export default async function queueList(message: Message, serverQueue: Queue, se
             .setColor(Colors.Red)
             .setDescription(`:rofl: No Songs Currently In Queue`);
         const {DisconnectIdle} = getMaps();
-        message.reply({embeds: [noSongsEmbed]})
+        sendMessage({embeds: [noSongsEmbed]}, message)
         .then(msg => deleteMsg(msg, 30000, DisconnectIdle.get(1)));
     }  
 }
