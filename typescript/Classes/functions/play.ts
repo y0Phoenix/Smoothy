@@ -18,9 +18,9 @@ export default async function play() {
     const yturl: boolean = playdl.validate(serverQueue.currentsong[0].url) ? true : false;
     if (yturl === true) {
       try {
-        const stream = await ytdl(serverQueue.currentsong[0].url, {filter: "audioonly", quality: "highestaudio"});
-        serverQueue.resource = createAudioResource(stream, {
-          inputType: StreamType.Opus,
+        const stream = await playdl.stream(serverQueue.currentsong[0].url);
+        serverQueue.resource = createAudioResource(stream.stream, {
+          inputType: stream.type,
           inlineVolume: true,
         });
         serverQueue.resource.metadata = serverQueue;
