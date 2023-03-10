@@ -34,6 +34,8 @@ import Global from './interfaces/_Global';
 import sendMessage from './modules/src/sendMessage';
 //Creates the client
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+console.log(process.title);
+process.title = "smoothy";
 
 // todo implement mySQL or MongoDB into Smoothy instead of plain JSON file
 // const sequelize = new Sequelize('discord', 'root', 'aaron', {
@@ -241,5 +243,5 @@ client.on('messageCreate', async message =>{
     return;
     }
 }); 
-client.login(config.get('token'));    
+client.login(config.token);    
 
