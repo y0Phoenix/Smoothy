@@ -4,6 +4,7 @@ import {EmbedBuilder, Message, Client, Colors} from 'discord.js';
 import * as ytsearch from 'yt-search';
 import getMaps from '../maps';
 import { Idle } from '../Classes/Idle';
+import sendMessage from '../modules/src/sendMessage';
 
 /**
  * @param  {string} q the video you wish to search
@@ -19,17 +20,17 @@ export default async function videoFinder(query: string, message: any) {
 		const i = parseInt(query);
 		if (isNaN(i)) {
 			if (query === 'none') {
-				const msg = await message.poop({embeds: [new EmbedBuilder()
+				const msg = await sendMessage({ embeds: [new EmbedBuilder()
 					.setColor(Colors.Blue)
-					.setDescription(':thumbsup: Okay Try Typing Your Search Again')]});
-				deleteMsg(msg, 30000, client);
-				deleteMsg(sdi.top5Msg, 0, client);
-				sdi.top5Results = [];
-				return false;
-			}
-			const msg = await message.poop({embeds: [new EmbedBuilder()
-				.setColor(Colors.Red)
-				.setDescription('Please Enter A Number 1-3 From The Top3 Results')]});
+					.setDescription(':thumbsup: Okay Try Typing Your Search Again')]}, message);
+			deleteMsg(msg, 30000, client);
+			deleteMsg(sdi.top5Msg, 0, client);
+			sdi.top5Results = [];
+			return false;
+		}
+		const msg = await sendMessage({ embeds: [new EmbedBuilder()
+			.setColor(Colors.Red)
+			.setDescription('Please Enter A Number 1-3 From The Top3 Results')]}, message);
 			deleteMsg(msg, 30000, client);
 			return false
 		}
@@ -89,7 +90,7 @@ export default async function videoFinder(query: string, message: any) {
 			}
 			embeds.push(whichEmbed);
 		}
-		sdi.top5Msg = await message.poop({embeds: embeds});
+		sdi.top5Msg = await sendMessage({embeds}, message);
 	}
 
 	try {
