@@ -24,7 +24,7 @@ import _play from './Classes/functions/play';
 import { joinvoicechannel} from './executive';
 const figlet = require('figlet');
 import * as fs from 'fs';
-import * as config from 'config';
+import config from '../config/default.json';
 import seek from './commands/seek';
 import { disconnectTimervcidle, disconnectvcidle } from './Classes/functions/disconnectIdle';
 import { Idle, WriteIdle } from "./Classes/Idle";

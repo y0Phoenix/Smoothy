@@ -1,5 +1,5 @@
 	//executive file holds all the executive functions and is the largest file
-	import * as ytpl from 'ytpl';
+	import ytpl from 'ytpl';
 	import {writeGlobal, deleteMsg } from './modules/modules';
 	import {
 	joinVoiceChannel,
