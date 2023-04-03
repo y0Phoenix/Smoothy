@@ -9,7 +9,8 @@
     "dev": "concurrently \"npx tsc -p typescript/tsconfig-dev.json\" \"nodemon ./build/main.js\"",
     "start": "node ./build/main.js",
     "linux": "mono ./RunSmoothy-Linux/Program.exe",
-    "windows": "./RunSmoothy/Run Rmoothy.exe"
+    "windows": "./RunSmoothy/Run Rmoothy.exe",
+    "postinstall": "patch-package"
   },
   "author": "Aaron Graybill",
   "license": "MIT",
@@ -34,6 +35,7 @@
   },
   "devDependencies": {
     "concurrently": "^7.4.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "patch-package": "^6.5.1"
   }
 }
