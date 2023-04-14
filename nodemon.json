@@ -1,0 +1,4 @@
+{
+    "verbose": true,
+    "ignore": ["default.json", "global.json", "prefixes.json"]
+}

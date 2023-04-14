@@ -24,7 +24,7 @@ import _play from './Classes/functions/play';
 import { joinvoicechannel} from './executive';
 const figlet = require('figlet');
 import * as fs from 'fs';
-import config from '../config/default.json';
+const token = require('config').get("token");
 import seek from './commands/seek';
 import { disconnectTimervcidle, disconnectvcidle } from './Classes/functions/disconnectIdle';
 import { Idle, WriteIdle } from "./Classes/Idle";
@@ -93,17 +93,28 @@ client.once('ready', async () => {
                 const vc: any = await client.channels.fetch(data.queues[i].voiceChannel.id);
                 data.queues[i].message = message;
                 data.queues[i].voiceChannel = vc;
-                let serverQueue = new Queue({ 
-                    msg: data.queues[i].message, 
-                    songs: data.queues[i].songs, 
-                    shuffledSongs: data.queues[i].shuffledSongs, 
-                    currentsong: data.queues[i].currentsong, 
-                    previous: data.queues[i].previous 
-                });
-                serverQueue.shuffle = data.queues[i].shuffle;
-                serverQueue.loop = data.queues[i].loop;
-                serverQueue.loopsong = data.queues[i].loopsong;
-                queue.set(data.queues[i].id, serverQueue);
+                try {
+                    let serverQueue = new Queue({ 
+                        msg: data.queues[i].message, 
+                        songs: data.queues[i].songs, 
+                        shuffledSongs: data.queues[i].shuffledSongs, 
+                        currentsong: data.queues[i].currentsong, 
+                        previous: data.queues[i].previous 
+                    });
+                    serverQueue.shuffle = data.queues[i].shuffle;
+                    serverQueue.loop = data.queues[i].loop;
+                    serverQueue.loopsong = data.queues[i].loopsong;
+                    queue.set(data.queues[i].id, serverQueue);
+                }
+                catch {
+                    console.warn("Failed To Create New Queue From Global File");
+                    let dci = data.disconnectIdles.map(dci => dci.id).indexOf(message.guild.id);
+                    if (dci != -1) {
+                        data.disconnectIdles.splice(dci, 1);
+                    }
+                    data.queues.splice(i, 1);
+                    fs.writeFileSync('./config/global.json', JSON.stringify(data));
+                }
         }
         for (let i = 0;
             i < data.disconnectIdles.length;
@@ -244,5 +255,5 @@ client.on('messageCreate', async message =>{
     return;
     }
 }); 
-client.login(config.token);    
+client.login(token);    
 

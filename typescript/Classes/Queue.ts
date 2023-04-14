@@ -1,4 +1,4 @@
-import { Colors, Message } from 'discord.js';
+import { Client, Colors, Message } from 'discord.js';
 import audioPlayerIdle from './functions/audioPlayerIdle';
 import {
   AudioPlayerStatus,
@@ -25,7 +25,6 @@ import { joinvoicechannel } from '../executive';
 import getMaps from '../maps';
 import play from './functions/play';
 import getVideo from './functions/getVideo';
-import { Idle } from './Idle';
 
 
 export default class Queue {
@@ -88,7 +87,20 @@ export default class Queue {
         }    
         this.message = msg;
         this.id = msg.guild.id;
-        this.voiceChannel = msg.member.voice.channel;
+        if (msg.member?.voice) {
+            this.voiceChannel = msg.member.voice.channel;
+        }
+        else {
+            let client: Client = DisconnectIdle.get(1);
+            let fetch = async () => {
+                let channel: any = await client.channels.fetch(this.message.channelId);
+                this.message = await channel.messages.fetch(this.message.id);
+                if (!this.message.member?.voice) {
+                    throw "Failed To Aquire Users Voice Connection From Discord";
+                }
+            }
+            fetch();
+        }
         this.player = createAudioPlayer();
         this.voiceConnection = getVoiceConnection(msg.guild.id);
         if (!this.voiceConnection) {

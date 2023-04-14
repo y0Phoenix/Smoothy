@@ -7,6 +7,7 @@ import { Song, WriteSong} from "./Song";
 export default class WriteQueue {
     message: WriteMessage;
     id: string;
+    name: string;
     voiceChannel: Message["member"]["voice"]["channel"];
     voiceConnection: VoiceConnection = null;
     songs: Partial<WriteSong>[];
@@ -32,6 +33,7 @@ export default class WriteQueue {
         this.message = new WriteMessage(data.message);
         this.id = this.message.guild.id;
         this.voiceChannel = data.message.member.voice.channel;
+        this.name = data.message.guild.name;
         this.currentsong = [];
         this.songs = [];
         this.shuffledSongs = [];
