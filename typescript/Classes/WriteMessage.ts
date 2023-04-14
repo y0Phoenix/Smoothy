@@ -1,19 +1,4 @@
 import { Message } from "discord.js";
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
- console.log("cum nuggets");
-
 export default class WriteMessage {
     guild: {
         id: string
