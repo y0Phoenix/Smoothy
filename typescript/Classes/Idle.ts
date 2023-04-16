@@ -74,10 +74,10 @@ export class Idle {
                     entersState(this.voiceConnection, VoiceConnectionStatus.Connecting, 5_000),
                 ]);
                 // Seems to be reconnecting to a new channel - ignore disconnect
-                console.log(`Asserted Disconnect As Invalid For${str}`);
+                console.log(`Asserted Disconnect As Valid For${str}`);
             } catch (error) {
                 // Seems to be a real disconnect which SHOULDN'T be recovered from
-                console.log(`Asserted Disconnect As Valid For ${str}`);
+                console.log(`Asserted Disconnect As Invalid For ${str}`);
                 leave(this.message);
             }
         })
