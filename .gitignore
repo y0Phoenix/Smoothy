@@ -9,3 +9,4 @@ checklist.txt
 .data/
 global.json
 build
+.DS_Store
