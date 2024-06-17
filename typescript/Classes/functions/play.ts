@@ -1,6 +1,7 @@
 import Queue from "../Queue";
 import playdl from 'play-dl';
-import * as ytdl from 'ytdl-core-discord';
+import * as _ytdl from 'ytdl-core-discord';
+import ytdl from 'ytdl-core';
 import {
     createAudioResource, StreamType
   } from '@discordjs/voice';
@@ -18,9 +19,10 @@ export default async function play() {
     const yturl: boolean = playdl.validate(serverQueue.currentsong[0].url) ? true : false;
     if (yturl === true) {
       try {
-        const stream = await playdl.stream(serverQueue.currentsong[0].url);
-        serverQueue.resource = createAudioResource(stream.stream, {
-          inputType: stream.type,
+        // const stream = await playdl.stream(serverQueue.currentsong[0].url);
+        const stream = await ytdl(serverQueue.currentsong[0].url);
+        serverQueue.resource = createAudioResource(stream, {
+          inputType: StreamType.Arbitrary,
           inlineVolume: true,
         });
         serverQueue.resource.metadata = serverQueue;
