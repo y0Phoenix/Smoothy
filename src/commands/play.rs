@@ -38,7 +38,7 @@ pub async fn play(ctx: SmContext<'_>, url: String) -> CommandResult {
         let _song = handler.play_input(src.into());
 
         let song = Song {
-            title,
+            title: title.clone(),
             url,
             thumbnail,
             duration: duration.as_secs().to_string(),
@@ -49,10 +49,11 @@ pub async fn play(ctx: SmContext<'_>, url: String) -> CommandResult {
 
         data.update_server_db(server).await;
 
-        send_msg(ctx, "Playing song", Some(15000)).await;
+        send_msg(ctx, format!("Playing song {}", title).as_str(), Some(15000)).await;
     } else {
         send_msg(ctx, "Not in a voice channel to play in", Some(15000)).await;
     }
 
+    println!("Playing song");
     Ok(())
 }

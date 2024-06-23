@@ -2230,7 +2230,6 @@ name = "smoothy"
 version = "0.1.0"
 dependencies = [
  "dotenv",
- "futures",
  "poise",
  "reqwest",
  "rusty_time",

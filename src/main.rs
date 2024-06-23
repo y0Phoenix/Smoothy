@@ -1,17 +1,16 @@
-use std::{env, sync::Mutex, thread, time::{Duration, Instant}};
+use std::{env, sync::{mpsc::{self, RecvTimeoutError}, Mutex}, time::{Duration, Instant}};
 use std::sync::Arc;
 
 use commands::{leave::leave, play::play};
-use common::{Servers, SmData};
+use common::{DltMsg, Servers, SmData};
 use dotenv::dotenv;
-use futures::executor::block_on;
 use reqwest::Client as HttpClient;
 use ::serenity::all::GatewayIntents;
 use serenity::all as serenity;
-use smoothy::*;
-
 use sqlx::PgPool;
 use tracing::info;
+
+use smoothy::*;
 
 struct Handler;
 
@@ -56,6 +55,7 @@ async fn main() {
     
     let dlt_msgs = Arc::new(Mutex::new(Vec::new()));
     let dlt_msgs_clone = Arc::clone(&dlt_msgs);
+    let dlt_msgs_clone_2 = Arc::clone(&dlt_msgs);
     
     let framework = poise::Framework::new(options, |_, _, _| {
         Box::pin(async {
@@ -84,45 +84,93 @@ async fn main() {
         .expect("Err creating client");
     let http_clone = Arc::clone(&client.http);
     let cache_clone = Arc::clone(&client.cache);
+
+    let (dlt_tx, dlt_rx) = mpsc::channel::<DltMsg>();
+    let (kill_tx, kill_rx) = mpsc::channel::<bool>();
+    let kill_rx_arc = Arc::new(Mutex::new(kill_rx));
+    let kill_rx_clone = Arc::clone(&kill_rx_arc);
+
     tokio::spawn(async move {
         let _ = client
             .start()
             .await
             .map_err(|why| println!("Client ended: {:?}", why));
     });
-    thread::spawn(move || {
+
+    tokio::spawn(async move {
+        let _signal_err = tokio::signal::ctrl_c().await;
+        kill_tx.send(true).unwrap();
+    });
+
+    tokio::spawn(async move {
         let mut instant = Instant::now();
         loop {
+            match kill_rx_arc.lock().unwrap().recv_timeout(Duration::from_millis(5)) {
+                Ok(_) => break,
+                Err(err) => match err {
+                    RecvTimeoutError::Disconnected => {
+                        break;
+                    },
+                    _ => {}
+                }
+            }
             let delta = instant.elapsed();
             instant = Instant::now();
+            // println!("timer thread");
             let mut dlt_msgs = dlt_msgs.lock().unwrap();
-            *dlt_msgs = dlt_msgs.iter_mut()
-                .filter_map(|msg| {
+            for msg in dlt_msgs.iter_mut() {
                     msg.timer.tick(delta);
+                    // println!("ticking timer for {}", msg.msg.content);
                     if msg.timer.just_finished() {
-                        let delete_result = msg.msg.delete(http_clone.clone());
-                        if let Err(_) = block_on(delete_result) {
-                            let server_name: &String = match msg.msg.guild(&cache_clone) {
-                                Some(guild) => &guild.clone().name,
-                                None => {
-                                    info!("Error while trying to get guild from msg {}", msg.msg.content);
-                                    return Some(msg.clone()); // Clone the message here
-                                },
-                            };
-                            info!("There was a problem deleting a message from {server_name}");
-                            return Some(msg.clone()); // Clone the message here
-                        }
-                        info!("Message {} deleted", msg.msg.content);
-                        None
-                    } else {
-                        Some(msg.clone()) // Clone the message here
+                        info!("Msg {} timer finished sending dlt request", msg.msg.content);
+                        let _ = dlt_tx.send(msg.clone());
                     }
-                })
-                .collect();
-            thread::sleep(Duration::from_secs(1));
+            }
         }
     });
 
-    let _signal_err = tokio::signal::ctrl_c().await;
+    loop {
+        match dlt_rx.recv_timeout(Duration::from_millis(5)) {
+            Ok(msg) => {
+                if let Err(_) = msg.msg.delete(http_clone.clone()).await {
+                    let server_name: &String = match msg.msg.guild(&cache_clone) {
+                        Some(guild) => &guild.clone().name,
+                        None => {
+                            info!("Error while trying to get guild from msg {}", msg.msg.content);
+                            continue;
+                            // return Some(msg.clone()); // Clone the message here
+                        },
+                    };
+                    info!("There was a problem deleting a message from {server_name}");
+                    // return Some(msg.clone()); // Clone the message here
+                }
+                info!("Message {} deleted", msg.msg.content);
+                let mut dlt_msgs = dlt_msgs_clone_2.lock().unwrap();
+                *dlt_msgs = dlt_msgs.clone().into_iter().filter_map(|dlt_msg| {
+                    if dlt_msg.msg.id == msg.msg.id {
+                        info!("removing {} from dlt_msgs", msg.msg.content);
+                        return None;
+                    }
+                    Some(dlt_msg)
+                }).collect();
+            },
+            Err(err) => match err {
+                RecvTimeoutError::Disconnected => {
+                    break;
+                },
+                _ => {}
+            }
+        }
+        match kill_rx_clone.lock().unwrap().recv_timeout(Duration::from_millis(5)) {
+            Ok(_) => break,
+            Err(err) => match err {
+                RecvTimeoutError::Disconnected => {
+                    break;
+                },
+                _ => {}
+            }
+        }
+    }
+
     println!("Received Ctrl-C, shutting down.");
 }
