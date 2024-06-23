@@ -1,8 +1,8 @@
-use std::{env, sync::Mutex, thread, time::Instant};
+use std::{env, sync::Mutex, thread, time::{Duration, Instant}};
 use std::sync::Arc;
 
 use commands::{leave::leave, play::play};
-use common::{Server, SmData};
+use common::{Servers, SmData};
 use dotenv::dotenv;
 use futures::executor::block_on;
 use reqwest::Client as HttpClient;
@@ -17,7 +17,8 @@ struct Handler;
 
 #[serenity::async_trait]
 impl serenity::EventHandler for Handler {
-    async fn ready(&self, _: serenity::Context, ready: serenity::Ready) {
+    async fn ready(&self, _ctx: serenity::Context, ready: serenity::Ready) {
+        // let data = ctx.
         println!("{} is connected!", ready.user.name);
     }
 }
@@ -31,9 +32,10 @@ async fn main() {
     let token = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
     let db_url = env::var("DB_URL").expect("DB_URL env not set");
 
+    
     // Create our songbird voice manager
     let manager = songbird::Songbird::serenity();
-
+    
     // Configure our command framework
     let options = poise::FrameworkOptions {
         commands: vec![leave(), play()],
@@ -43,12 +45,15 @@ async fn main() {
         },
         ..Default::default()
     };
-
+    
     // We have to clone our voice manager's Arc to share it between serenity and our user data.
     let manager_clone = Arc::clone(&manager);
-
+    
     // connect to the db
     let pool = PgPool::connect(&db_url).await.expect("Failed to connect to db");
+    sqlx::migrate!("./migrations").run(&pool).await.expect("Couldn't run db migrations");
+
+    
     let dlt_msgs = Arc::new(Mutex::new(Vec::new()));
     let dlt_msgs_clone = Arc::clone(&dlt_msgs);
     
@@ -62,15 +67,15 @@ async fn main() {
                     http: HttpClient::new(),
                     songbird: manager_clone,
                     db: pool,
-                    server: Server::default(),
+                    servers: Arc::new(Mutex::new(Servers(std::collections::HashMap::new()))),
                     dlt_msgs: dlt_msgs_clone
                 },
             )
         })
     });
-
+    
     let intents =
-        GatewayIntents::non_privileged() | GatewayIntents::MESSAGE_CONTENT;
+    GatewayIntents::non_privileged() | GatewayIntents::MESSAGE_CONTENT;
     let mut client = serenity::Client::builder(&token, intents)
         .voice_manager_arc(manager)
         .event_handler(Handler)
@@ -79,7 +84,6 @@ async fn main() {
         .expect("Err creating client");
     let http_clone = Arc::clone(&client.http);
     let cache_clone = Arc::clone(&client.cache);
-
     tokio::spawn(async move {
         let _ = client
             .start()
@@ -115,6 +119,7 @@ async fn main() {
                     }
                 })
                 .collect();
+            thread::sleep(Duration::from_secs(1));
         }
     });
 

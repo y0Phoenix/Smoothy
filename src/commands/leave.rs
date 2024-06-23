@@ -9,12 +9,12 @@ pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
 
     if has_handler {
         if let Err(e) = manager.remove(guild_id).await {
-            send_msg(ctx, format!("Failed: {:?}", e).as_str(), 15000).await;
+            send_msg(ctx, format!("Failed: {:?}", e).as_str(), Some(15000)).await;
         }
 
-        send_msg(ctx, "Left voice channel", 15000).await;
+        send_msg(ctx, "Left voice channel", Some(15000)).await;
     } else {
-        send_msg(ctx, "Not in a voice channel", 15000).await;
+        send_msg(ctx, "Not in a voice channel", Some(15000)).await;
     }
 
     Ok(())

@@ -2234,6 +2234,7 @@ dependencies = [
  "poise",
  "reqwest",
  "rusty_time",
+ "serde",
  "serenity",
  "songbird",
  "sqlx",

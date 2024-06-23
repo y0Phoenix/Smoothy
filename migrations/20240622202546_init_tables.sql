@@ -1,4 +1,6 @@
 -- Add migration script here
-CREATE TABLE servers(
-    server_id
+CREATE TABLE server(
+    server_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    songs JSONB NOT NULL
 )
