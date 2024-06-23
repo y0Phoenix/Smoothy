@@ -1,4 +1,4 @@
-use crate::{check_msg, CommandResult, SmContext};
+use crate::{executive::send_msg, CommandResult, SmContext};
 
 #[poise::command(prefix_command, guild_only, aliases("dc", "disconnect", "die"))]
 pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
@@ -9,12 +9,12 @@ pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
 
     if has_handler {
         if let Err(e) = manager.remove(guild_id).await {
-            check_msg(ctx.say(format!("Failed: {:?}", e)).await);
+            send_msg(ctx, format!("Failed: {:?}", e).as_str(), 15000).await;
         }
 
-        check_msg(ctx.say("Left voice channel").await);
+        send_msg(ctx, "Left voice channel", 15000).await;
     } else {
-        check_msg(ctx.reply("Not in a voice channel").await);
+        send_msg(ctx, "Not in a voice channel", 15000).await;
     }
 
     Ok(())

@@ -1,6 +1,6 @@
 use songbird::input::YoutubeDl;
 
-use crate::{check_msg, executive::join, CommandResult, SmContext};
+use crate::{executive::{send_msg, join}, CommandResult, SmContext};
 
 #[poise::command(prefix_command, guild_only, aliases("p"))]
 pub async fn play(ctx: SmContext<'_>, url: String) -> CommandResult {
@@ -10,10 +10,8 @@ pub async fn play(ctx: SmContext<'_>, url: String) -> CommandResult {
     let do_search = !url.starts_with("http");
 
     let guild_id = ctx.guild_id().unwrap();
-    let data = ctx.data();
-    // let members = guild_id.members(ctx.http(), None, None).await.unwrap();
 
-    // println!("{:?}", members);
+    let data = ctx.data();
     if let Some(handler_lock) = data.songbird.get(guild_id) {
         let mut handler = handler_lock.lock().await;
 
@@ -24,9 +22,9 @@ pub async fn play(ctx: SmContext<'_>, url: String) -> CommandResult {
         };
         let _ = handler.play_input(src.into());
 
-        check_msg(ctx.say("Playing song").await);
+        send_msg(ctx, "Playing song", 15000).await;
     } else {
-        check_msg(ctx.say("Not in a voice channel to play in").await);
+        send_msg(ctx, "Not in a voice channel to play in", 15000).await;
     }
 
     Ok(())
