@@ -19,7 +19,11 @@ async fn main() {
 
     // Configure the client with your Discord bot token in the environment.
     let token = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
-    let db_url = env::var("DB_URL").expect("DB_URL env not set");
+    let test = env::var("TEST").expect("Expected a TEST bool in the environment").parse::<bool>().expect("Expected TEST environment variable to be a bool");
+    let mut db_url = env::var("DB_URL").expect("DB_URL env not set");
+    if test {
+        db_url = db_url.replace("smoothy", "smoothy-test");
+    }
 
     
     // Create our songbird voice manager
