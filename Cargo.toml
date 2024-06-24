@@ -6,11 +6,12 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal", "sync"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal", "sync", "tracing"] }
 dotenv = "0.15.0"
 reqwest = "0.11"
 serenity = { version = "0.12.2", default-features = false, features = ["client", "gateway", "rustls_backend", "model", "standard_framework", "voice", "cache", "http"] }
-songbird = "0.4"
+songbird = {version = "0.4", default-features = true, features = ["builtin-queue"]}
+# songbird = {path = "crates", default-features = true, features = ["builtin-queue"]}
 symphonia = { features = ["aac", "mp3", "isomp4", "alac"], version = "0.5" }
 tracing = "0.1.40"
 tracing-futures = "0.2.5"

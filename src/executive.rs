@@ -1,17 +1,21 @@
 use std::{sync::Arc, time::Duration};
 use rusty_time::Timer;
 use serenity::all::{ChannelId, GuildId, Http};
-use songbird::{Call, TrackEvent};
+use songbird::Call;
 use sqlx::types::Json;
 use tokio::sync::Mutex;
 use tracing::info;
 
-use crate::{common::{DltMsg, Server, SmData, Songs}, SmContext, SmError, TrackErrorNotifier};
+use crate::{add_global_events, common::{DltMsg, Server, SmData, Songs}, SmContext, SmError};
 
 pub type ExecResult = Result<bool, SmError>;
 
 pub async fn join(ctx: SmContext<'_>) -> ExecResult {
-    let generics = get_generics(ctx);
+    let generics = Generics { 
+        channel_id: ctx.channel_id(),
+        data: ctx.data().clone().into(),
+        guild_id: ctx.guild_id().expect("GuildId should exist")
+    };
     let (guild_id, channel, name) = {
         let guild = ctx.guild().unwrap();
         let name = guild.name.clone();
@@ -49,20 +53,21 @@ pub async fn join(ctx: SmContext<'_>) -> ExecResult {
     let manager = &ctx.data().songbird;
     if let Ok(handler_lock) = manager.join(guild_id, connect_to).await {
         // Attach an event handler to see notifications of all track errors.
-        let mut handler = handler_lock.lock().await;
-        handler.add_global_event(TrackEvent::Error.into(), TrackErrorNotifier);
+        let handler = handler_lock.lock().await;
+        add_global_events(handler, &generics);
     }
     Ok(true)
 }
 
 pub async fn is_playing(ctx: SmContext<'_>) -> ExecResult {
-    let generics = get_generics(ctx);
+    let generics = ctx.data().get_generics(&ctx.guild_id().expect("GuildId should exist")).expect("Generic should exist");
 
     if let Some(server) = generics.data.get_server(&ctx.guild_id().expect("Should be a GuildId")) {
         match server.audio_player.state {
             crate::common::AudioPlayerState::Playing => return Ok(true),
             crate::common::AudioPlayerState::Idle => send_msg(&generics, "Not currently playing a song", Some(30000)).await,
-            crate::common::AudioPlayerState::Paused => send_msg(&generics, "Player is currently pause", Some(30000)).await,
+            crate::common::AudioPlayerState::Paused => send_msg(&generics, "Player is currently paused", Some(30000)).await,
+            crate::common::AudioPlayerState::Skipped => send_msg(&generics, "Player is skipping", Some(30000)).await,
         }
         return Ok(false);
     } else {
@@ -71,19 +76,19 @@ pub async fn is_playing(ctx: SmContext<'_>) -> ExecResult {
     Ok(false)
 }
 
-pub async fn get_audio_player_handler<'a>(generics: &'a Generics<'a>) -> Option<Arc<Mutex<Call>>> {
+pub async fn get_audio_player_handler<'a>(generics: &Generics) -> Option<Arc<Mutex<Call>>> {
     if let Some(handler) = generics.data.songbird.get(generics.guild_id) {
         Some(handler)
     }
     else {
-        let _ = generics.channel_id.say(generics.http, "Not currently in a voice channel").await;
+        let _ = generics.channel_id.say(generics.http(), "Not currently in a voice channel").await;
         None
     }
 }
 
 /// Checks that a message successfully sent; if not, then logs why to stdout.
-pub async fn send_msg(generics: &Generics<'_>, msg: &str, millis_dur: Option<u64>) {
-    match generics.channel_id.say(generics.http, msg).await {
+pub async fn send_msg(generics: &Generics, msg: &str, millis_dur: Option<u64>) {
+    match generics.channel_id.say(generics.http(), msg).await {
         Ok(msg) => {
             if let Some(dur) = millis_dur {
             let mut dlt_msgs = generics.data.dlt_msgs.lock().unwrap();
@@ -98,18 +103,19 @@ pub async fn send_msg(generics: &Generics<'_>, msg: &str, millis_dur: Option<u64
     }
 }
 
-pub struct Generics<'a> {
+#[derive(Debug, Clone)]
+pub struct Generics {
     pub channel_id: ChannelId,
-    pub http: &'a Http,
-    pub data: &'a SmData,
+    pub data: Arc<SmData>,
     pub guild_id: GuildId
 }
 
-pub fn get_generics(ctx: SmContext<'_>) -> Generics {
-    Generics {
-        channel_id: ctx.channel_id(),
-        http: ctx.http(),
-        data: ctx.data(),
-        guild_id: ctx.guild_id().expect("GuildId should exist")
+impl Generics {
+    fn http(&self) -> Arc<Http> {
+        self.data.http.lock().unwrap().clone().unwrap()
     }
+}
+
+pub fn get_generics(ctx: SmContext<'_>) -> Generics {
+    ctx.data().get_generics(&ctx.guild_id().expect("GuildId should exist")).expect("Generic should exist")
 }

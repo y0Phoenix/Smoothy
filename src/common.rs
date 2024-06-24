@@ -1,6 +1,7 @@
 use std::{str::FromStr, sync::{Arc, Mutex}};
 use std::collections::HashMap;
 
+use prelude::TypeMapKey;
 // YtDl requests need an HTTP client to operate -- we'll create and store our own.
 use reqwest::Client as HttpClient;
 use rusty_time::Timer;
@@ -18,13 +19,14 @@ pub struct DltMsg {
     pub timer: Timer
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct SmData {
     pub reqwest: HttpClient,
     pub http: Arc<Mutex<Option<Arc<Http>>>>,
     pub songbird: Arc<songbird::Songbird>,
-    pub db: Pool<Postgres>,
+    pub db: Arc<Pool<Postgres>>,
     pub servers: Arc<Mutex<Servers>>,
+    pub generics: Arc<Mutex<std::collections::HashMap<String, Generics>>>,
     pub dlt_msgs: Arc<Mutex<Vec<DltMsg>>>,
     pub id: Arc<Mutex<UserId>>
 }
@@ -35,7 +37,7 @@ impl SmData {
         match query("UPDATE server SET songs = $1 WHERE server_id = $2")
             .bind(server.songs.clone())
             .bind(server.id.clone())
-            .execute(&self.db)
+            .execute(&*self.db)
             .await
         {
             Ok(_) => info!("Server {} updated successfully", server.id),
@@ -52,20 +54,21 @@ impl SmData {
             .bind(server.voice_channel_id.clone())
             .bind(server.name.clone())
             .bind(server.songs.clone())
-            .execute(&self.db)
+            .execute(&*self.db)
             .await
         {
             Ok(_) => info!("Server {} added successfully", server.id),
             Err(err) => info!("Failed to update server {}: {}", server.id, err),
         };
         let mut servers = self.servers.lock().unwrap();
+        self.add_generic(&server);
         servers.0.insert(server.id.clone(), server);
         self
     }
     /// gets all the servers from the database and updates the cache aswell
     pub async fn get_servers_db(&self) -> Servers {
         match query("SELECT * FROM server")
-            .fetch_all(&self.db)
+            .fetch_all(&*self.db)
             .await 
         {
             Ok(res) => {
@@ -85,7 +88,7 @@ impl SmData {
     pub async fn remove_server_db(&self, guild_id: &GuildId) -> &Self {
         match query("DELETE FROM server WHERE server_id = $1")
             .bind(guild_id.to_string())
-            .execute(&self.db)
+            .execute(&*self.db)
             .await
         {
             Ok(_) => info!("Removed server {} from db", guild_id.to_string()),
@@ -93,6 +96,7 @@ impl SmData {
             Err(err) => info!("Failed to remove server {} from db: {}", guild_id.to_string(), err),
         }
         self.servers.lock().unwrap().0.remove(&guild_id.to_string());
+        self.generics.lock().unwrap().remove(&guild_id.to_string());
         self
     }
     /// attempts to get a specified server from the cache
@@ -112,18 +116,23 @@ impl SmData {
     pub fn update_server(&self, server: Server) {
         self.servers.lock().unwrap().0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
     }
+    /// adds a generic to the generics pool
+    pub fn add_generic(&self, server: &Server) {
+        self.generics.lock().unwrap().insert(server.id.clone(), Generics { 
+            channel_id: ChannelId::from_str(&server.channel_id).expect("ChannelId should be valid"),
+            data: Arc::new(self.clone()),
+            guild_id: GuildId::from_str(&server.id).expect("GuildId should be valid") 
+        });
+    }
+    /// gets the specified generic for the guild from the generics pool
+    pub fn get_generics(&self, guild_id: &GuildId) -> Option<Generics> {
+        self.generics.lock().unwrap().get(&guild_id.to_string()).cloned()
+    }
     /// Attempts to stop the player. This will stop the songbird [`Call`] player as well as update the [`AudioPlayerState`]
     pub async fn stop_player(&self, guild_id: &GuildId) -> Result<(), ()> {
         let mut server = self.get_server(guild_id).expect("Server should exist");
 
-        let http = self.http.lock().unwrap().clone().unwrap();
-
-        let handle = match get_audio_player_handler(&Generics {
-            channel_id: ChannelId::from_str(&server.channel_id).expect("Should be valid channel_id"),
-            http: &http,
-            data: self,
-            guild_id: *guild_id,
-        }).await {
+        let handle = match get_audio_player_handler(&self.get_generics(guild_id).expect("Generic should exist")).await {
             Some(handle) => handle,
             None => return Err(()),
         };
@@ -134,13 +143,38 @@ impl SmData {
 
         Ok(())
     }
-    /// Attempts to play the next song. Returns [`Err`] if the server isn't in the cache
-    pub fn next_song(&self, guild_id: &GuildId) -> Result<(), ()> {
+    /// Attempts to advance the server queue to the next song. Returns [`Err`] if the server isn't in the cache
+    /// 
+    /// # Note
+    /// 
+    /// this doesn't advance the sonbird queue. it only advances the server queue
+    pub async fn next_song(&self, guild_id: &GuildId) -> Result<(), ()> {
         let mut server = match self.get_server(guild_id) {
             Some(server) => server,
             None => return Err(()),
         };
-        server.songs.next_song();
+        let handle = match get_audio_player_handler(&self.get_generics(guild_id).expect("Generic should exist")).await {
+            Some(handle) => handle,
+            None => return Err(()),
+        };
+        if let Err(err) = handle.lock().await.queue().skip() {
+            println!("{}", err);
+        }
+        server.audio_player.skip();
+        self.update_server(server);
+        Ok(())
+    }
+    /// Attempts to start the servers curr_song. Returns [`Err`] if the server isn't in the cache
+    /// 
+    /// # Note
+    /// 
+    /// this doesn't start song in the sonbird queue. it only start the player in the the server queue
+    pub fn start_song(&self, guild_id: &GuildId) -> Result<(), ()> {
+        let mut server = match self.get_server(guild_id) {
+            Some(server) => server,
+            None => return Err(()),
+        };
+        server.audio_player.play();
         self.update_server(server);
         Ok(())
     }
@@ -173,9 +207,13 @@ pub struct Servers(pub std::collections::HashMap<String, Server>);
 pub struct Song {
     pub title: String,
     pub url: String,
-    pub duration: String,
+    pub duration_in_sec: u64,
     pub thumbnail: String,
     pub requested_by: String
+}
+
+impl TypeMapKey for Song {
+    type Value = Song;
 }
 
 #[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize)]
@@ -207,13 +245,20 @@ pub struct AudioPlayer {
 
 impl AudioPlayer {
     pub fn stop(&mut self) {
-        self.state = AudioPlayerState::Idle
+        self.update_state(AudioPlayerState::Idle)
     }
     pub fn play(&mut self) {
-        self.state = AudioPlayerState::Playing
+        self.update_state(AudioPlayerState::Playing)
     }
     pub fn pause(&mut self) {
-        self.state = AudioPlayerState::Paused
+        self.update_state(AudioPlayerState::Paused)
+    }
+    pub fn skip(&mut self) {
+        self.update_state(AudioPlayerState::Skipped)
+    }
+    fn update_state(&mut self, state: AudioPlayerState) {
+        info!("New AudioPlayerState {:?}", state);
+        self.state = state;
     }
 }
 
@@ -222,7 +267,8 @@ pub enum AudioPlayerState {
     Playing,
     #[default]
     Idle,
-    Paused
+    Paused,
+    Skipped,
 }
 
 impl AudioPlayerState {

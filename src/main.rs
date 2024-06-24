@@ -8,7 +8,7 @@ use reqwest::Client as HttpClient;
 use ::serenity::all::{GatewayIntents, UserId};
 use serenity::all as serenity;
 use sqlx::PgPool;
-use tracing::info;
+use tracing::{info, warn};
 
 use smoothy::*;
 
@@ -69,8 +69,9 @@ async fn main() {
                     reqwest: HttpClient::new(),
                     http: Arc::new(Mutex::new(None)),
                     songbird: manager_clone,
-                    db: pool,
+                    db: Arc::new(pool),
                     servers: Arc::new(Mutex::new(Servers(std::collections::HashMap::new()))),
+                    generics: Arc::new(Mutex::new(std::collections::HashMap::new())),
                     dlt_msgs: dlt_msgs_clone,
                     id: Arc::new(Mutex::new(UserId::default()))
                 },
@@ -94,18 +95,21 @@ async fn main() {
     let kill_rx_clone = Arc::clone(&kill_rx_arc);
 
     tokio::spawn(async move {
+        info!("client thread spawned");
         let _ = client
-            .start()
-            .await
-            .map_err(|why| println!("Client ended: {:?}", why));
-    });
+        .start()
+        .await
+        .map_err(|why| println!("Client ended: {:?}", why));
+});
 
-    tokio::spawn(async move {
+tokio::spawn(async move {
+        info!("kill check thread spawned");
         let _signal_err = tokio::signal::ctrl_c().await;
         kill_tx.send(true).unwrap();
     });
-
+    
     tokio::spawn(async move {
+        info!("timer thread spawned");
         let mut instant = Instant::now();
         loop {
             match kill_rx_arc.lock().unwrap().recv_timeout(Duration::from_millis(5)) {
@@ -125,7 +129,7 @@ async fn main() {
                     msg.timer.tick(delta);
                     // println!("ticking timer for {}", msg.msg.content);
                     if msg.timer.just_finished() {
-                        info!("Message {} timer finished sending dlt request", msg.msg.id);
+                        // info!("Message {} timer finished sending dlt request", msg.msg.id);
                         let _ = dlt_tx.send(msg.clone());
                     }
             }
@@ -139,17 +143,17 @@ async fn main() {
                     let server_name: String = match msg.msg.guild(&cache_clone) {
                         Some(guild) => guild.name.clone(),
                         None => {
-                            info!("Error while trying to get guild from Message {}", msg.msg.id);
+                            warn!("Error while trying to get guild from Message {}", msg.msg.id);
                             continue;
                         },
                     };
-                    info!("There was a problem deleting a message from {server_name}");
+                    warn!("There was a problem deleting a message from {server_name}");
                 }
-                info!("Message {} deleted", msg.msg.id);
+                // info!("Message {} deleted", msg.msg.id);
                 let mut dlt_msgs = dlt_msgs_clone_2.lock().unwrap();
                 *dlt_msgs = dlt_msgs.clone().into_iter().filter_map(|dlt_msg| {
                     if dlt_msg.msg.id == msg.msg.id {
-                        info!("Removing {} from dlt_msgs", msg.msg.id);
+                        // info!("Removing {} from dlt_msgs", msg.msg.id);
                         return None;
                     }
                     Some(dlt_msg)
