@@ -22,7 +22,8 @@ pub struct SmData {
     pub songbird: Arc<songbird::Songbird>,
     pub db: Pool<Postgres>,
     pub servers: Arc<Mutex<Servers>>,
-    pub dlt_msgs: Arc<Mutex<Vec<DltMsg>>>
+    pub dlt_msgs: Arc<Mutex<Vec<DltMsg>>>,
+    pub id: Arc<Mutex<UserId>>
 }
 
 impl SmData {
@@ -72,6 +73,19 @@ impl SmData {
             Err(err) => panic!("Failed to aquire servers from DB {}", err),
         }
     }
+    pub async fn remove_server_db(&self, guild_id: &GuildId) -> &Self {
+        match query("DELETE FROM server WHERE server_id = $1")
+            .bind(guild_id.to_string())
+            .execute(&self.db)
+            .await
+        {
+            Ok(_) => info!("Removed server {} from db", guild_id.to_string()),
+            // TODO do something usefull if we failed to remove server from DB for some reason
+            Err(err) => info!("Failed to remove server {} from db: {}", guild_id.to_string(), err),
+        }
+        self.servers.lock().unwrap().0.remove(&guild_id.to_string());
+        self
+    }
     pub fn get_server(&self, guild_id: &GuildId) -> Option<Server> {
         match self.servers.lock().unwrap().0.get(&guild_id.to_string()) {
             Some(server) => Some(server.clone()),
@@ -84,6 +98,9 @@ impl SmData {
         for server in servers.0.iter() {
             println!("server.1.name {}", server.1.name);
         }
+    }
+    pub fn init_bot(&self, id: UserId) {
+        *self.id.lock().unwrap() = id;
     }
 }
 

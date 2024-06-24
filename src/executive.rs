@@ -9,7 +9,7 @@ use crate::{common::{DltMsg, Server, Songs}, SmContext, SmError, TrackErrorNotif
 pub type ExecResult = Result<bool, SmError>;
 
 pub async fn join(ctx: SmContext<'_>) -> ExecResult {
-    println!("Join channel fn called");
+    // println!("Join channel fn called");
     let (guild_id, channel_id, name) = {
         let guild = ctx.guild().unwrap();
         let name = guild.name.clone();
@@ -29,10 +29,9 @@ pub async fn join(ctx: SmContext<'_>) -> ExecResult {
             name,
             songs: Json(Songs(Vec::new())),
         }).await;
-        println!("poo");
     }
 
-    data.print_servers();
+    // data.print_servers();
 
     let connect_to = match channel_id {
         Some(channel) => channel,

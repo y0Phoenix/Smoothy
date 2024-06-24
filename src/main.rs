@@ -5,22 +5,12 @@ use commands::{leave::leave, play::play};
 use common::{DltMsg, Servers, SmData};
 use dotenv::dotenv;
 use reqwest::Client as HttpClient;
-use ::serenity::all::GatewayIntents;
+use ::serenity::all::{GatewayIntents, UserId};
 use serenity::all as serenity;
 use sqlx::PgPool;
 use tracing::info;
 
 use smoothy::*;
-
-struct Handler;
-
-#[serenity::async_trait]
-impl serenity::EventHandler for Handler {
-    async fn ready(&self, _ctx: serenity::Context, ready: serenity::Ready) {
-        // let data = ctx.
-        println!("{} is connected!", ready.user.name);
-    }
-}
 
 #[tokio::main]
 async fn main() {
@@ -41,6 +31,9 @@ async fn main() {
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some(String::from("-")),
             ..Default::default()
+        },
+        event_handler: |ctx, event, framework, data| {
+            Box::pin(event_handler(ctx, event, framework, data))
         },
         ..Default::default()
     };
@@ -68,7 +61,8 @@ async fn main() {
                     songbird: manager_clone,
                     db: pool,
                     servers: Arc::new(Mutex::new(Servers(std::collections::HashMap::new()))),
-                    dlt_msgs: dlt_msgs_clone
+                    dlt_msgs: dlt_msgs_clone,
+                    id: Arc::new(Mutex::new(UserId::default()))
                 },
             )
         })
@@ -78,7 +72,6 @@ async fn main() {
     GatewayIntents::non_privileged() | GatewayIntents::MESSAGE_CONTENT;
     let mut client = serenity::Client::builder(&token, intents)
         .voice_manager_arc(manager)
-        .event_handler(Handler)
         .framework(framework)
         .await
         .expect("Err creating client");
@@ -133,8 +126,8 @@ async fn main() {
         match dlt_rx.recv_timeout(Duration::from_millis(5)) {
             Ok(msg) => {
                 if let Err(_) = msg.msg.delete(http_clone.clone()).await {
-                    let server_name: &String = match msg.msg.guild(&cache_clone) {
-                        Some(guild) => &guild.clone().name,
+                    let server_name: String = match msg.msg.guild(&cache_clone) {
+                        Some(guild) => guild.name.clone(),
                         None => {
                             info!("Error while trying to get guild from msg {}", msg.msg.content);
                             continue;

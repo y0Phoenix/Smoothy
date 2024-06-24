@@ -13,7 +13,7 @@ pub async fn play(ctx: SmContext<'_>, url: String) -> CommandResult {
     let data = ctx.data();
 
     let Some(mut server) = data.get_server(&guild_id) else {
-        send_msg(ctx, "Failed to acquire server", Some(15000)).await;
+        send_msg(ctx, "Failed to aquire server", Some(15000)).await;
         return Ok(());
     };
     if let Some(handler_lock) = data.songbird.get(guild_id) {
