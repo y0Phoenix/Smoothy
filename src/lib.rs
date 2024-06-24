@@ -8,13 +8,13 @@ use ::serenity::all::{CacheHttp, ChannelId, GuildId};
 use serenity::all as serenity;
 // Event related imports to detect track creation failures.
 use songbird::{events::{Event, EventContext, EventHandler as VoiceEventHandler}, TrackEvent};
+use tracing::warn;
 
 pub mod commands;
 pub mod executive;
 pub mod common;
 
 pub type SmError = Box<dyn std::error::Error + Send + Sync>;
-// TODO add delete msg automatically functionality. create a wrapper struct over this to handle this easily
 pub type SmContext<'a> = poise::Context<'a, SmData, SmError>;
 pub type CommandResult = Result<(), SmError>;
 
@@ -22,7 +22,8 @@ pub struct TrackErrorNotifier;
 
 #[serenity::async_trait]
 impl VoiceEventHandler for TrackErrorNotifier {
-    async fn act(&self, ctx: &EventContext<'_>) -> Option<Event> {
+    async fn act(&self, ctx: &EventContext<'_>) -> Option<Event> { 
+        warn!("songbird event");
         if let EventContext::Track(track_list) = ctx {
             for (state, handle) in *track_list {
                 println!(
@@ -45,26 +46,27 @@ pub async fn event_handler(
 ) -> Result<(), SmError> {
     match event {
         serenity::FullEvent::Ready { data_about_bot, .. } => {
-            data.init_bot(data_about_bot.user.id);
+            data.init_bot(data_about_bot.user.id, ctx.http.clone());
             let servers = data.get_servers_db().await;
             let mut generics = Generics {
                 channel_id: ChannelId::default(),
                 http: ctx.http.http(),
                 data,
+                guild_id: GuildId::default()
             };
             for (_, server) in servers.0.iter() {
                 generics.channel_id = ChannelId::from_str(&server.channel_id).unwrap();
-                let guild_id = GuildId::from_str(&server.id).expect("Should be valid GuildId");
+                generics.guild_id = GuildId::from_str(&server.id).expect("Should be valid GuildId");
                 let voice_channel_id = ChannelId::from_str(&server.voice_channel_id).expect("Should be valid VoiceChannelId");
                 println!("server {}", server.name);
                 if let Some(song) = server.songs.curr_song() {
                     let manager = &data.songbird;
-                    if let Ok(handler_lock) = manager.join(guild_id, voice_channel_id).await {
+                    if let Ok(handler_lock) = manager.join(generics.guild_id, voice_channel_id).await {
                         // Attach an event handler to see notifications of all track errors.
                         let mut handler = handler_lock.lock().await;
                         handler.add_global_event(TrackEvent::Error.into(), TrackErrorNotifier);
                     }
-                    start_song(commands::play::SongType::DB(song), &generics, guild_id).await
+                    start_song(commands::play::SongType::DB(song), &generics).await
                 }
             }
             println!("Logged in as {} id: {}", data_about_bot.user.name, data.id.lock().unwrap());

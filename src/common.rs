@@ -1,4 +1,4 @@
-use std::sync::{Arc, Mutex};
+use std::{str::FromStr, sync::{Arc, Mutex}};
 use std::collections::HashMap;
 
 // YtDl requests need an HTTP client to operate -- we'll create and store our own.
@@ -9,6 +9,8 @@ use serenity::all::*;
 use sqlx::{postgres::PgRow, prelude::FromRow, query, Pool, Postgres, Row};
 use tracing::info;
 
+use crate::executive::{get_audio_player_handler, Generics};
+
 #[derive(Debug, Clone)]
 pub struct DltMsg {
     pub msg: Box<Message>,
@@ -18,7 +20,8 @@ pub struct DltMsg {
 
 #[derive(Debug)]
 pub struct SmData {
-    pub http: HttpClient,
+    pub reqwest: HttpClient,
+    pub http: Arc<Mutex<Option<Arc<Http>>>>,
     pub songbird: Arc<songbird::Songbird>,
     pub db: Pool<Postgres>,
     pub servers: Arc<Mutex<Servers>>,
@@ -93,11 +96,60 @@ impl SmData {
         self
     }
     /// attempts to get a specified server from the cache
+    /// 
+    /// # Note 
+    /// 
+    /// The [`Server`](crate::common::Server) does not mutate the internal server data in [`SmData`](crate::common::SmData)
+    /// 
+    /// if you want to mutate internal server data you can modify the server return from this function and pass it into update_server_db on [`SmData`](crate::common::SmData)
     pub fn get_server(&self, guild_id: &GuildId) -> Option<Server> {
-        match self.servers.lock().unwrap().0.get(&guild_id.to_string()) {
+        match self.servers.lock().unwrap().0.get_mut(&guild_id.to_string()) {
             Some(server) => Some(server.clone()),
             None => None,
         }
+    }
+    /// Update the server in the cache and not in the db
+    pub fn update_server(&self, server: Server) {
+        self.servers.lock().unwrap().0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
+    }
+    /// Attempts to stop the player. This will stop the songbird [`Call`] player as well as update the [`AudioPlayerState`]
+    pub async fn stop_player(&self, guild_id: &GuildId) -> Result<(), ()> {
+        let mut server = self.get_server(guild_id).expect("Server should exist");
+
+        let http = self.http.lock().unwrap().clone().unwrap();
+
+        let handle = match get_audio_player_handler(&Generics {
+            channel_id: ChannelId::from_str(&server.channel_id).expect("Should be valid channel_id"),
+            http: &http,
+            data: self,
+            guild_id: *guild_id,
+        }).await {
+            Some(handle) => handle,
+            None => return Err(()),
+        };
+
+        handle.lock().await.stop();
+        server.audio_player.stop();
+        self.update_server(server);
+
+        Ok(())
+    }
+    /// Attempts to play the next song. Returns [`Err`] if the server isn't in the cache
+    pub fn next_song(&self, guild_id: &GuildId) -> Result<(), ()> {
+        let mut server = match self.get_server(guild_id) {
+            Some(server) => server,
+            None => return Err(()),
+        };
+        server.songs.next_song();
+        self.update_server(server);
+        Ok(())
+    }
+    pub fn curr_song(&self, guild_id: &GuildId) -> Option<Song> {
+        let server = match self.get_server(guild_id) {
+            Some(server) => server,
+            None => return None,
+        };
+        server.songs.curr_song()
     }
     pub fn print_servers(&self) {
         let servers = self.servers.lock().unwrap();
@@ -107,8 +159,9 @@ impl SmData {
         }
     }
     /// initialized the bot with data from discord
-    pub fn init_bot(&self, id: UserId) {
+    pub fn init_bot(&self, id: UserId, http: Arc<Http>) {
         *self.id.lock().unwrap() = id;
+        *self.http.lock().unwrap() = Some(Arc::clone(&http));
     }
 }
 
@@ -133,8 +186,63 @@ impl Songs {
         self.0.push(song);
         self
     }
+    pub fn next_song(&mut self) -> &mut Self {
+        if !self.0.is_empty() {
+            self.0.remove(0);
+        }
+        self
+    }
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }  
     pub fn curr_song(&self) -> Option<Song> {
         self.0.get(0).cloned()
+    }
+}
+
+#[derive(Debug, Default, Serialize, Clone)]
+pub struct AudioPlayer {
+    pub state: AudioPlayerState,
+}
+
+impl AudioPlayer {
+    pub fn stop(&mut self) {
+        self.state = AudioPlayerState::Idle
+    }
+    pub fn play(&mut self) {
+        self.state = AudioPlayerState::Playing
+    }
+    pub fn pause(&mut self) {
+        self.state = AudioPlayerState::Paused
+    }
+}
+
+#[derive(Debug, Default, Serialize, Clone)]
+pub enum AudioPlayerState {
+    Playing,
+    #[default]
+    Idle,
+    Paused
+}
+
+impl AudioPlayerState {
+    pub fn is_playing(&self) -> bool {
+        match self {
+            Self::Playing => true,
+            _ => false
+        }
+    }
+    pub fn is_idle(&self) -> bool {
+        match self {
+            Self::Idle => true,
+            _ => false
+        }
+    }
+    pub fn is_pause(&self) -> bool {
+        match self {
+            Self::Paused => true,
+            _ => false
+        }
     }
 }
 
@@ -145,7 +253,8 @@ pub struct Server {
     pub voice_channel_id: String,
     pub name: String,
     pub songs: sqlx::types::Json<Songs>,
-    // #[sqlx(skip)]
+    #[sqlx(skip)]
+    pub audio_player: AudioPlayer
 }
 
 impl From<PgRow> for Server {
@@ -155,7 +264,8 @@ impl From<PgRow> for Server {
             channel_id: value.get("channel_id"),
             voice_channel_id: value.get("voice_channel_id"),
             name: value.get("name"),
-            songs: value.get("songs")
+            songs: value.get("songs"),
+            ..Default::default()
         }
     }
 }

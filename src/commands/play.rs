@@ -1,4 +1,3 @@
-use serenity::all::GuildId;
 use songbird::input::{Compose, YoutubeDl};
 use tracing::info;
 
@@ -9,7 +8,7 @@ use crate::{common::{SmData, Song}, executive::{get_generics, join, send_msg, Ge
 pub async fn play(ctx: SmContext<'_>, query: String) -> CommandResult {
     let generics = get_generics(ctx);
 
-    start_song(SongType::New(query, ctx.author().id.to_string()), &generics, ctx.guild_id().expect("Should be a GuildId")).await;
+    start_song(SongType::New(query, ctx.author().id.to_string()), &generics).await;
     
     Ok(())
 }
@@ -18,9 +17,9 @@ pub fn search_song(song: String, data: &SmData) -> YoutubeDl {
     let do_search = !song.starts_with("http");
 
     let src = if do_search {
-        YoutubeDl::new_search(data.http.clone(), song)
+        YoutubeDl::new_search(data.reqwest.clone(), song)
     } else {
-        YoutubeDl::new(data.http.clone(), song)
+        YoutubeDl::new(data.reqwest.clone(), song)
     };
     src
 }
@@ -32,12 +31,12 @@ pub enum SongType {
     DB(Song)
 }
 
-pub async fn start_song(song: SongType, generics: &Generics<'_>, guild_id: GuildId) {
-    let Some(mut server) = generics.data.get_server(&guild_id) else {
+pub async fn start_song(song: SongType, generics: &Generics<'_>) {
+    let Some(mut server) = generics.data.get_server(&generics.guild_id) else {
         send_msg(generics, "Failed to aquire server", Some(15000)).await;
         return;
     };
-    if let Some(handler_lock) = generics.data.songbird.get(guild_id) {
+    if let Some(handler_lock) = generics.data.songbird.get(generics.guild_id) {
         let (query, requested_by) = match song {
             SongType::New(query, requested_by) => (query, requested_by),
             SongType::DB(song) => (song.url, song.requested_by),
@@ -57,6 +56,7 @@ pub async fn start_song(song: SongType, generics: &Generics<'_>, guild_id: Guild
         let thumbnail = song_data.thumbnail.unwrap_or_default();
         let duration = song_data.duration.unwrap_or_default();
         let _song = handler.play_input(src.into());
+        server.audio_player.play();
 
         let song = Song {
             title: title.clone(),

@@ -1,8 +1,9 @@
-use std::time::Duration;
+use std::{sync::Arc, time::Duration};
 use rusty_time::Timer;
-use serenity::all::{ChannelId, Http};
-use songbird::TrackEvent;
+use serenity::all::{ChannelId, GuildId, Http};
+use songbird::{Call, TrackEvent};
 use sqlx::types::Json;
+use tokio::sync::Mutex;
 use tracing::info;
 
 use crate::{common::{DltMsg, Server, SmData, Songs}, SmContext, SmError, TrackErrorNotifier};
@@ -39,6 +40,7 @@ pub async fn join(ctx: SmContext<'_>) -> ExecResult {
             voice_channel_id: connect_to.to_string(),
             name,
             songs: Json(Songs(Vec::new())),
+            ..Default::default()
         }).await;
     }
 
@@ -51,6 +53,32 @@ pub async fn join(ctx: SmContext<'_>) -> ExecResult {
         handler.add_global_event(TrackEvent::Error.into(), TrackErrorNotifier);
     }
     Ok(true)
+}
+
+pub async fn is_playing(ctx: SmContext<'_>) -> ExecResult {
+    let generics = get_generics(ctx);
+
+    if let Some(server) = generics.data.get_server(&ctx.guild_id().expect("Should be a GuildId")) {
+        match server.audio_player.state {
+            crate::common::AudioPlayerState::Playing => return Ok(true),
+            crate::common::AudioPlayerState::Idle => send_msg(&generics, "Not currently playing a song", Some(30000)).await,
+            crate::common::AudioPlayerState::Paused => send_msg(&generics, "Player is currently pause", Some(30000)).await,
+        }
+        return Ok(false);
+    } else {
+        send_msg(&generics, "Not Currently In A Voice Channel", Some(30000)).await;
+    }
+    Ok(false)
+}
+
+pub async fn get_audio_player_handler<'a>(generics: &'a Generics<'a>) -> Option<Arc<Mutex<Call>>> {
+    if let Some(handler) = generics.data.songbird.get(generics.guild_id) {
+        Some(handler)
+    }
+    else {
+        let _ = generics.channel_id.say(generics.http, "Not currently in a voice channel").await;
+        None
+    }
 }
 
 /// Checks that a message successfully sent; if not, then logs why to stdout.
@@ -73,7 +101,8 @@ pub async fn send_msg(generics: &Generics<'_>, msg: &str, millis_dur: Option<u64
 pub struct Generics<'a> {
     pub channel_id: ChannelId,
     pub http: &'a Http,
-    pub data: &'a SmData
+    pub data: &'a SmData,
+    pub guild_id: GuildId
 }
 
 pub fn get_generics(ctx: SmContext<'_>) -> Generics {
@@ -81,5 +110,6 @@ pub fn get_generics(ctx: SmContext<'_>) -> Generics {
         channel_id: ctx.channel_id(),
         http: ctx.http(),
         data: ctx.data(),
+        guild_id: ctx.guild_id().expect("GuildId should exist")
     }
 }

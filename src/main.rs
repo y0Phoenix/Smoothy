@@ -1,7 +1,7 @@
 use std::{env, sync::{mpsc::{self, RecvTimeoutError}, Mutex}, time::{Duration, Instant}};
 use std::sync::Arc;
 
-use commands::{leave::leave, play::play};
+use commands::{leave::leave, next::next, play::play};
 use common::{DltMsg, Servers, SmData};
 use dotenv::dotenv;
 use reqwest::Client as HttpClient;
@@ -19,8 +19,10 @@ async fn main() {
 
     // Configure the client with your Discord bot token in the environment.
     let token = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
+    // if the current dev env is testing
     let test = env::var("TEST").expect("Expected a TEST bool in the environment").parse::<bool>().expect("Expected TEST environment variable to be a bool");
     let mut db_url = env::var("DB_URL").expect("DB_URL env not set");
+    // if the current dev env is testing we should use the test-db as to not interfere with the main smoohty db
     if test {
         db_url = db_url.replace("smoothy", "smoothy-test");
     }
@@ -31,7 +33,7 @@ async fn main() {
     
     // Configure our command framework
     let options = poise::FrameworkOptions {
-        commands: vec![leave(), play()],
+        commands: vec![leave(), play(), next()],
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some(String::from("-")),
             ..Default::default()
@@ -64,7 +66,8 @@ async fn main() {
                 // `~play`. If we wanted, we could supply cookies and auth
                 // details ahead of time.
                 SmData {
-                    http: HttpClient::new(),
+                    reqwest: HttpClient::new(),
+                    http: Arc::new(Mutex::new(None)),
                     songbird: manager_clone,
                     db: pool,
                     servers: Arc::new(Mutex::new(Servers(std::collections::HashMap::new()))),
@@ -122,7 +125,7 @@ async fn main() {
                     msg.timer.tick(delta);
                     // println!("ticking timer for {}", msg.msg.content);
                     if msg.timer.just_finished() {
-                        info!("Message {} timer finished sending dlt request", msg.msg.content);
+                        info!("Message {} timer finished sending dlt request", msg.msg.id);
                         let _ = dlt_tx.send(msg.clone());
                     }
             }
