@@ -1,34 +1,55 @@
+use serenity::all::GuildId;
 use songbird::input::{Compose, YoutubeDl};
 use tracing::info;
 
-use crate::{common::Song, executive::{join, send_msg}, CommandResult, SmContext};
+use crate::{common::{SmData, Song}, executive::{get_generics, join, send_msg, Generics}, CommandResult, SmContext};
 
 
 #[poise::command(prefix_command, guild_only, aliases("p"), check = "join")]
-pub async fn play(ctx: SmContext<'_>, url: String) -> CommandResult {
-    let do_search = !url.starts_with("http");
+pub async fn play(ctx: SmContext<'_>, query: String) -> CommandResult {
+    let generics = get_generics(ctx);
 
-    let guild_id = ctx.guild_id().unwrap();
+    start_song(SongType::New(query, ctx.author().id.to_string()), &generics, ctx.guild_id().expect("Should be a GuildId")).await;
+    
+    Ok(())
+}
 
-    let data = ctx.data();
+pub fn search_song(song: String, data: &SmData) -> YoutubeDl {
+    let do_search = !song.starts_with("http");
 
-    let Some(mut server) = data.get_server(&guild_id) else {
-        send_msg(ctx, "Failed to aquire server", Some(15000)).await;
-        return Ok(());
+    let src = if do_search {
+        YoutubeDl::new_search(data.http.clone(), song)
+    } else {
+        YoutubeDl::new(data.http.clone(), song)
     };
-    if let Some(handler_lock) = data.songbird.get(guild_id) {
+    src
+}
+
+pub enum SongType {
+    /// if the song is a new play request. the first parameter is the youtube query which can also be a url. second parameter is the requested by which is the author of the request  
+    New(String, String),
+    /// if the song is from the DB and being initialed from there
+    DB(Song)
+}
+
+pub async fn start_song(song: SongType, generics: &Generics<'_>, guild_id: GuildId) {
+    let Some(mut server) = generics.data.get_server(&guild_id) else {
+        send_msg(generics, "Failed to aquire server", Some(15000)).await;
+        return;
+    };
+    if let Some(handler_lock) = generics.data.songbird.get(guild_id) {
+        let (query, requested_by) = match song {
+            SongType::New(query, requested_by) => (query, requested_by),
+            SongType::DB(song) => (song.url, song.requested_by),
+        };
         let mut handler = handler_lock.lock().await;
 
-        let mut src = if do_search {
-            YoutubeDl::new_search(data.http.clone(), url)
-        } else {
-            YoutubeDl::new(data.http.clone(), url)
-        };
+        let mut src = search_song(query, generics.data);
         let song_data = match src.aux_metadata().await {
             Ok(song) => song,
             Err(err) => {
                 info!("{}", err);
-                return Ok(());
+                return;
             }
         };
         let title = song_data.title.unwrap_or_default();
@@ -42,18 +63,16 @@ pub async fn play(ctx: SmContext<'_>, url: String) -> CommandResult {
             url,
             thumbnail,
             duration: duration.as_secs().to_string(),
-            requested_by: ctx.author().id.to_string()
+            requested_by
         };
 
         server.add_song(song);
 
-        data.update_server_db(server).await;
+        generics.data.update_server_db(server).await;
 
-        send_msg(ctx, format!("Playing song {}", title).as_str(), Some(15000)).await;
+        send_msg(generics, format!("Playing song {}", title).as_str(), Some(15000)).await;
+        info!("Playing song {}", title);
     } else {
-        send_msg(ctx, "Not in a voice channel to play in", Some(15000)).await;
+        send_msg(generics, "Not in a voice channel to play in", Some(15000)).await;
     }
-
-    println!("Playing song");
-    Ok(())
 }

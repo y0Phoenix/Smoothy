@@ -27,6 +27,7 @@ pub struct SmData {
 }
 
 impl SmData {
+    /// update a server in the database and updates server cache aswell
     pub async fn update_server_db(&self, server: Server) -> &Self {
         match query("UPDATE server SET songs = $1 WHERE server_id = $2")
             .bind(server.songs.clone())
@@ -40,9 +41,12 @@ impl SmData {
         self.servers.lock().unwrap().0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
         self
     }
+    /// add a server to the database and add it to the cache aswell
     pub async fn add_server_db(&self, server: Server) -> &Self {
-        match query("INSERT INTO server (server_id, name, songs) VALUES ($1, $2, $3)")
+        match query("INSERT INTO server (server_id, channel_id, voice_channel_id, name, songs) VALUES ($1, $2, $3, $4, $5)")
             .bind(server.id.clone())
+            .bind(server.channel_id.clone())
+            .bind(server.voice_channel_id.clone())
             .bind(server.name.clone())
             .bind(server.songs.clone())
             .execute(&self.db)
@@ -55,7 +59,8 @@ impl SmData {
         servers.0.insert(server.id.clone(), server);
         self
     }
-    pub async fn get_servers_db(&self) -> &Self {
+    /// gets all the servers from the database and updates the cache aswell
+    pub async fn get_servers_db(&self) -> Servers {
         match query("SELECT * FROM server")
             .fetch_all(&self.db)
             .await 
@@ -66,13 +71,14 @@ impl SmData {
                     let server = Server::from(row);
                     servers.insert(server.id.clone(), server);
                 }
-                *self.servers.lock().unwrap() = Servers(servers);
-                info!("Servers from DB aquired");
-                self
+                *self.servers.lock().unwrap() = Servers(servers.clone());
+                info!("{} Servers from DB aquired", servers.len());
+                Servers(servers.clone())
             },
             Err(err) => panic!("Failed to aquire servers from DB {}", err),
         }
     }
+    /// remove a server from the database and from the cache
     pub async fn remove_server_db(&self, guild_id: &GuildId) -> &Self {
         match query("DELETE FROM server WHERE server_id = $1")
             .bind(guild_id.to_string())
@@ -86,6 +92,7 @@ impl SmData {
         self.servers.lock().unwrap().0.remove(&guild_id.to_string());
         self
     }
+    /// attempts to get a specified server from the cache
     pub fn get_server(&self, guild_id: &GuildId) -> Option<Server> {
         match self.servers.lock().unwrap().0.get(&guild_id.to_string()) {
             Some(server) => Some(server.clone()),
@@ -99,6 +106,7 @@ impl SmData {
             println!("server.1.name {}", server.1.name);
         }
     }
+    /// initialized the bot with data from discord
     pub fn init_bot(&self, id: UserId) {
         *self.id.lock().unwrap() = id;
     }
@@ -125,11 +133,16 @@ impl Songs {
         self.0.push(song);
         self
     }
+    pub fn curr_song(&self) -> Option<Song> {
+        self.0.get(0).cloned()
+    }
 }
 
 #[derive(Debug, Default, FromRow, Serialize, Clone)]
 pub struct Server {
     pub id: String,
+    pub channel_id: String,
+    pub voice_channel_id: String,
     pub name: String,
     pub songs: sqlx::types::Json<Songs>,
     // #[sqlx(skip)]
@@ -138,8 +151,10 @@ pub struct Server {
 impl From<PgRow> for Server {
     fn from(value: PgRow) -> Self {
         Self { 
-            name: value.get("name"),
             id: value.get("server_id"),
+            channel_id: value.get("channel_id"),
+            voice_channel_id: value.get("voice_channel_id"),
+            name: value.get("name"),
             songs: value.get("songs")
         }
     }

@@ -35,6 +35,9 @@ async fn main() {
         event_handler: |ctx, event, framework, data| {
             Box::pin(event_handler(ctx, event, framework, data))
         },
+        // pre_command: |ctx| {
+
+        // }
         ..Default::default()
     };
     
@@ -115,7 +118,7 @@ async fn main() {
                     msg.timer.tick(delta);
                     // println!("ticking timer for {}", msg.msg.content);
                     if msg.timer.just_finished() {
-                        info!("Msg {} timer finished sending dlt request", msg.msg.content);
+                        info!("Message {} timer finished sending dlt request", msg.msg.content);
                         let _ = dlt_tx.send(msg.clone());
                     }
             }
@@ -129,19 +132,17 @@ async fn main() {
                     let server_name: String = match msg.msg.guild(&cache_clone) {
                         Some(guild) => guild.name.clone(),
                         None => {
-                            info!("Error while trying to get guild from msg {}", msg.msg.content);
+                            info!("Error while trying to get guild from Message {}", msg.msg.id);
                             continue;
-                            // return Some(msg.clone()); // Clone the message here
                         },
                     };
                     info!("There was a problem deleting a message from {server_name}");
-                    // return Some(msg.clone()); // Clone the message here
                 }
-                info!("Message {} deleted", msg.msg.content);
+                info!("Message {} deleted", msg.msg.id);
                 let mut dlt_msgs = dlt_msgs_clone_2.lock().unwrap();
                 *dlt_msgs = dlt_msgs.clone().into_iter().filter_map(|dlt_msg| {
                     if dlt_msg.msg.id == msg.msg.id {
-                        info!("removing {} from dlt_msgs", msg.msg.content);
+                        info!("Removing {} from dlt_msgs", msg.msg.id);
                         return None;
                     }
                     Some(dlt_msg)
