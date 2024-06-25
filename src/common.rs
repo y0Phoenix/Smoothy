@@ -202,6 +202,11 @@ impl SmData {
 #[derive(Debug)]
 pub struct Servers(pub std::collections::HashMap<String, Server>);
 
+#[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize)]
+pub struct NowPlayingMsg {
+    pub channel_id: String,
+    pub msg_id: String
+}
 
 #[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize)]
 pub struct Song {
@@ -209,7 +214,8 @@ pub struct Song {
     pub url: String,
     pub duration_in_sec: u64,
     pub thumbnail: String,
-    pub requested_by: String
+    pub requested_by: String,
+    pub now_playing_msg: Option<NowPlayingMsg>
 }
 
 impl TypeMapKey for Song {

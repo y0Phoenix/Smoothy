@@ -1,6 +1,6 @@
 use std::{sync::Arc, time::Duration};
 use rusty_time::Timer;
-use serenity::all::{ChannelId, GuildId, Http};
+use serenity::all::{ChannelId, GuildId, Http, Message};
 use songbird::Call;
 use sqlx::types::Json;
 use tokio::sync::Mutex;
@@ -68,7 +68,7 @@ pub async fn is_playing(ctx: SmContext<'_>) -> ExecResult {
             crate::common::AudioPlayerState::Idle => send_msg(&generics, "Not currently playing a song", Some(30000)).await,
             crate::common::AudioPlayerState::Paused => send_msg(&generics, "Player is currently paused", Some(30000)).await,
             crate::common::AudioPlayerState::Skipped => send_msg(&generics, "Player is skipping", Some(30000)).await,
-        }
+        };
         return Ok(false);
     } else {
         send_msg(&generics, "Not Currently In A Voice Channel", Some(30000)).await;
@@ -87,19 +87,25 @@ pub async fn get_audio_player_handler<'a>(generics: &Generics) -> Option<Arc<Mut
 }
 
 /// Checks that a message successfully sent; if not, then logs why to stdout.
-pub async fn send_msg(generics: &Generics, msg: &str, millis_dur: Option<u64>) {
+pub async fn send_msg(generics: &Generics, msg: &str, millis_dur: Option<u64>) -> Option<Box<Message>> {
     match generics.channel_id.say(generics.http(), msg).await {
         Ok(msg) => {
+            let msg = Box::new(msg);
             if let Some(dur) = millis_dur {
-            let mut dlt_msgs = generics.data.dlt_msgs.lock().unwrap();
-            dlt_msgs.push(DltMsg {
-                msg: Box::new(msg),
-                duration: dur,
-                timer: Timer::new(Duration::from_millis(dur))
-            })
+                let mut dlt_msgs = generics.data.dlt_msgs.lock().unwrap();
+                dlt_msgs.push(DltMsg {
+                    msg,
+                    duration: dur,
+                    timer: Timer::new(Duration::from_millis(dur))
+                });
+                return None;
             }
+            Some(msg)
         },
-        Err(why) => println!("Error sending message: {:?}", why)
+        Err(why) => {
+            println!("Error sending message: {:?}", why);
+            None
+        }
     }
 }
 

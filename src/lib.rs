@@ -2,13 +2,13 @@ use std::str::FromStr;
 
 use commands::play::start_song;
 // use commands::play::play;
-use common::{SmData, Song};
+use common::{NowPlayingMsg, SmData, Song};
 use executive::{send_msg, Generics};
-use ::serenity::{all::{ChannelId, GuildId}, async_trait};
+use ::serenity::{all::{ChannelId, GuildId, MessageId}, async_trait};
 use serenity::all as serenity;
 // Event related imports to detect track creation failures.
 use songbird::{events::{Event, EventContext, EventHandler as VoiceEventHandler}, Call, TrackEvent};
-use tracing::warn;
+use tracing::{info, warn};
 
 pub mod commands;
 pub mod executive;
@@ -44,11 +44,21 @@ pub struct SongEndEvent {
 #[async_trait]
 impl VoiceEventHandler for SongEndEvent {
     async fn act(&self, ctx: &EventContext<'_>) -> Option<Event> {
-        if let EventContext::Track(_tracks) = ctx {
-            // let track = tracks.get(0).expect("Should be a track at 0");
+        if let EventContext::Track(tracks) = ctx {
+            let track = tracks.get(0).expect("Should be a track at 0");
 
-            // let typemap = track.1.typemap().read().await;
-            // let curr_song = typemap.get::<Song>().expect("Should have a song");
+            let typemap = track.1.typemap().read().await;
+            let curr_song = typemap.get::<Song>().expect("Should have a song");
+            let now_playing_msg = &curr_song.now_playing_msg.clone().expect("Should have a msg");
+            
+            let http = self.generics.data.http.lock().unwrap().clone().expect("Should be an Http initialized");
+
+            let channel_id = ChannelId::from_str(now_playing_msg.channel_id.as_str()).expect("Should be valid ChannelId");
+            if let Ok(msg) = channel_id.message(&http, MessageId::from_str(&now_playing_msg.msg_id).expect("Should be a valid MessageId")).await {
+                if let Ok(_) = msg.delete(http).await {
+                    info!("Message {} deleted", msg.id)
+                }
+            }
 
             let mut server = self.generics.data.get_server(&self.generics.guild_id).expect("Server should exist");
             // info!("song len {}", server.songs.0.0.len());
@@ -77,12 +87,17 @@ impl VoiceEventHandler for SongStartEvent {
         if let EventContext::Track(tracks) = ctx {
             let track = tracks.get(0).expect("Should be a track at 0");
 
-            let typemap = track.1.typemap().read().await;
-            let curr_song = typemap.get::<Song>().expect("Should have a song");
+            let mut typemap = track.1.typemap().write().await;
+            let curr_song = typemap.get_mut::<Song>().expect("Should have a song");
             let mut server = self.generics.data.get_server(&self.generics.guild_id).expect("Server should exist");
             server.audio_player.play();
             // let curr_song = server.songs.curr_song().unwrap();
-            send_msg(&self.generics, format!("Now Playing {}", curr_song.title).as_str(), Some(10000)).await;
+            if let Some(msg) = send_msg(&self.generics, format!("Now Playing {}", curr_song.title).as_str(), None).await {
+                curr_song.now_playing_msg = Some(NowPlayingMsg {
+                    channel_id: msg.channel_id.to_string(),
+                    msg_id: msg.id.to_string()
+                });
+            }
             self.generics.data.update_server_db(server).await;
         }
         None

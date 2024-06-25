@@ -7,13 +7,16 @@ use crate::{common::{SmData, Song}, executive::{get_generics, join, send_msg, Ge
 
 
 #[poise::command(prefix_command, guild_only, aliases("p"), check = "join")]
-pub async fn play(ctx: SmContext<'_>, query: String) -> CommandResult {
+pub async fn play(ctx: SmContext<'_>, query: Vec<String>) -> CommandResult {
+    let query = query.join(" ");
+    println!("Command 'play' called with query: {}", query); // Logging
     let generics = get_generics(ctx);
 
     start_song(SongType::New(query, ctx.author().id.to_string()), &generics).await.unwrap();
     
     Ok(())
 }
+
 
 pub fn search_song(song: String, data: Arc<SmData>) -> YoutubeDl {
     let do_search = !song.starts_with("http");
@@ -71,7 +74,8 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
             url,
             thumbnail,
             duration_in_sec: duration.as_secs(),
-            requested_by
+            requested_by,
+            ..Default::default()
         };
         
         let mut typemap = clone.typemap().write().await;
