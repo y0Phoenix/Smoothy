@@ -1,19 +1,19 @@
 use std::{sync::Arc, time::Duration};
 use rusty_time::Timer;
 use serenity::all::{ChannelId, GuildId, Http, Message};
-use songbird::Call;
+use songbird::{typemap::TypeMapKey, Call};
 use sqlx::types::Json;
 use tokio::sync::Mutex;
 use tracing::info;
 
-use crate::{add_global_events, common::{DltMsg, Server, SmData, Songs}, SmContext, SmError};
+use crate::{add_global_events, common::{DltMsg, Server, ServerChannelId, ServerGuildId, Songs, UserData}, SmContext, SmError};
 
 pub type ExecResult = Result<bool, SmError>;
 
 pub async fn join(ctx: SmContext<'_>) -> ExecResult {
     let generics = Generics { 
         channel_id: ctx.channel_id(),
-        data: ctx.data().clone().into(),
+        data: ctx.data().clone(),
         guild_id: ctx.guild_id().expect("GuildId should exist")
     };
     let (guild_id, channel, name) = {
@@ -37,11 +37,11 @@ pub async fn join(ctx: SmContext<'_>) -> ExecResult {
         },
     };
 
-    if let None = generics.data.get_server(&guild_id) {
-        generics.data.add_server_db(Server {
-            id: guild_id.to_string(),
-            channel_id: ctx.channel_id().to_string(),
-            voice_channel_id: connect_to.to_string(),
+    if let None = generics.data.inner.get_server(&guild_id) {
+        generics.data.inner.add_server_db(Server {
+            id: ServerGuildId::from(&guild_id),
+            channel_id: ServerChannelId::from(&ctx.channel_id()),
+            voice_channel_id: ServerChannelId::from(&connect_to),
             name,
             songs: Json(Songs(Vec::new())),
             ..Default::default()
@@ -50,7 +50,7 @@ pub async fn join(ctx: SmContext<'_>) -> ExecResult {
 
     // data.print_servers();
 
-    let manager = &ctx.data().songbird;
+    let manager = &ctx.data().inner.songbird;
     if let Ok(handler_lock) = manager.join(guild_id, connect_to).await {
         // Attach an event handler to see notifications of all track errors.
         let handler = handler_lock.lock().await;
@@ -60,9 +60,9 @@ pub async fn join(ctx: SmContext<'_>) -> ExecResult {
 }
 
 pub async fn is_playing(ctx: SmContext<'_>) -> ExecResult {
-    let generics = ctx.data().get_generics(&ctx.guild_id().expect("GuildId should exist")).expect("Generic should exist");
+    let generics = get_generics(&ctx);
 
-    if let Some(server) = generics.data.get_server(&ctx.guild_id().expect("Should be a GuildId")) {
+    if let Some(server) = generics.data.inner.get_server(&ctx.guild_id().expect("Should be a GuildId")) {
         match server.audio_player.state {
             crate::common::AudioPlayerState::Playing => return Ok(true),
             crate::common::AudioPlayerState::Idle => send_msg(&generics, "Not currently playing a song", Some(30000)).await,
@@ -77,7 +77,7 @@ pub async fn is_playing(ctx: SmContext<'_>) -> ExecResult {
 }
 
 pub async fn get_audio_player_handler<'a>(generics: &Generics) -> Option<Arc<Mutex<Call>>> {
-    if let Some(handler) = generics.data.songbird.get(generics.guild_id) {
+    if let Some(handler) = generics.data.inner.songbird.get(generics.guild_id) {
         Some(handler)
     }
     else {
@@ -92,7 +92,7 @@ pub async fn send_msg(generics: &Generics, msg: &str, millis_dur: Option<u64>) -
         Ok(msg) => {
             let msg = Box::new(msg);
             if let Some(dur) = millis_dur {
-                let mut dlt_msgs = generics.data.dlt_msgs.lock().unwrap();
+                let mut dlt_msgs = generics.data.inner.dlt_msgs.lock().unwrap();
                 dlt_msgs.push(DltMsg {
                     msg,
                     duration: dur,
@@ -112,16 +112,33 @@ pub async fn send_msg(generics: &Generics, msg: &str, millis_dur: Option<u64>) -
 #[derive(Debug, Clone)]
 pub struct Generics {
     pub channel_id: ChannelId,
-    pub data: Arc<SmData>,
+    pub data: UserData,
     pub guild_id: GuildId
 }
 
 impl Generics {
     fn http(&self) -> Arc<Http> {
-        self.data.http.lock().unwrap().clone().unwrap()
+        self.data.inner.http.lock().unwrap().clone().unwrap()
+    }
+    pub fn from_user_data(data: &UserData, guild_id: &GuildId) -> Self {
+        let server = data.inner.get_server(guild_id).expect("Server should exist");
+        Self { 
+            channel_id: server.channel_id.channel_id(),
+            data: data.clone(),
+            guild_id: guild_id.clone()
+        }
     }
 }
 
-pub fn get_generics(ctx: SmContext<'_>) -> Generics {
-    ctx.data().get_generics(&ctx.guild_id().expect("GuildId should exist")).expect("Generic should exist")
+impl TypeMapKey for Generics {
+    type Value = Generics;
+}
+
+pub fn get_generics(ctx: &SmContext<'_>) -> Generics {
+    let data = ctx.data();
+    Generics {
+        channel_id: ctx.channel_id(),
+        data: data.clone(),
+        guild_id: ctx.guild_id().expect("GuildId should exist")
+    }
 }

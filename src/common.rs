@@ -10,13 +10,26 @@ use serenity::all::*;
 use sqlx::{postgres::PgRow, prelude::FromRow, query, Pool, Postgres, Row};
 use tracing::info;
 
-use crate::executive::{get_audio_player_handler, Generics};
-
 #[derive(Debug, Clone)]
 pub struct DltMsg {
     pub msg: Box<Message>,
     pub duration: u64,
     pub timer: Timer
+}
+
+#[derive(Debug, Clone)]
+pub struct UserData {
+    pub inner: Arc<SmData>
+}
+
+impl UserData {
+    pub fn new(data: SmData) -> Self {
+        Self { inner: Arc::new(data) }
+    }
+}
+
+impl TypeMapKey for UserData {
+    type Value = UserData;
 }
 
 #[derive(Debug, Clone)]
@@ -26,7 +39,6 @@ pub struct SmData {
     pub songbird: Arc<songbird::Songbird>,
     pub db: Arc<Pool<Postgres>>,
     pub servers: Arc<Mutex<Servers>>,
-    pub generics: Arc<Mutex<std::collections::HashMap<String, Generics>>>,
     pub dlt_msgs: Arc<Mutex<Vec<DltMsg>>>,
     pub id: Arc<Mutex<UserId>>
 }
@@ -36,12 +48,12 @@ impl SmData {
     pub async fn update_server_db(&self, server: Server) -> &Self {
         match query("UPDATE server SET songs = $1 WHERE server_id = $2")
             .bind(server.songs.clone())
-            .bind(server.id.clone())
+            .bind(server.id.0.clone())
             .execute(&*self.db)
             .await
         {
-            Ok(_) => info!("Server {} updated successfully", server.id),
-            Err(err) => info!("Failed to update server {}: {}", server.id, err),
+            Ok(_) => info!("Server {} updated successfully", server.id.0),
+            Err(err) => info!("Failed to update server {}: {}", server.id.0, err),
         };
         self.servers.lock().unwrap().0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
         self
@@ -49,19 +61,18 @@ impl SmData {
     /// add a server to the database and add it to the cache aswell
     pub async fn add_server_db(&self, server: Server) -> &Self {
         match query("INSERT INTO server (server_id, channel_id, voice_channel_id, name, songs) VALUES ($1, $2, $3, $4, $5)")
-            .bind(server.id.clone())
-            .bind(server.channel_id.clone())
-            .bind(server.voice_channel_id.clone())
+            .bind(server.id.clone().0)
+            .bind(server.channel_id.0.clone())
+            .bind(server.voice_channel_id.0.clone())
             .bind(server.name.clone())
             .bind(server.songs.clone())
             .execute(&*self.db)
             .await
         {
-            Ok(_) => info!("Server {} added successfully", server.id),
-            Err(err) => info!("Failed to update server {}: {}", server.id, err),
+            Ok(_) => info!("Server {} added successfully", server.id.0),
+            Err(err) => info!("Failed to update server {}: {}", server.id.0, err),
         };
         let mut servers = self.servers.lock().unwrap();
-        self.add_generic(&server);
         servers.0.insert(server.id.clone(), server);
         self
     }
@@ -95,8 +106,7 @@ impl SmData {
             // TODO do something usefull if we failed to remove server from DB for some reason
             Err(err) => info!("Failed to remove server {} from db: {}", guild_id.to_string(), err),
         }
-        self.servers.lock().unwrap().0.remove(&guild_id.to_string());
-        self.generics.lock().unwrap().remove(&guild_id.to_string());
+        self.servers.lock().unwrap().0.remove(&ServerGuildId::from(guild_id));
         self
     }
     /// attempts to get a specified server from the cache
@@ -107,7 +117,7 @@ impl SmData {
     /// 
     /// if you want to mutate internal server data you can modify the server return from this function and pass it into update_server_db on [`SmData`](crate::common::SmData)
     pub fn get_server(&self, guild_id: &GuildId) -> Option<Server> {
-        match self.servers.lock().unwrap().0.get_mut(&guild_id.to_string()) {
+        match self.servers.lock().unwrap().0.get_mut(&ServerGuildId::from(guild_id)) {
             Some(server) => Some(server.clone()),
             None => None,
         }
@@ -116,52 +126,41 @@ impl SmData {
     pub fn update_server(&self, server: Server) {
         self.servers.lock().unwrap().0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
     }
-    /// adds a generic to the generics pool
-    pub fn add_generic(&self, server: &Server) {
-        self.generics.lock().unwrap().insert(server.id.clone(), Generics { 
-            channel_id: ChannelId::from_str(&server.channel_id).expect("ChannelId should be valid"),
-            data: Arc::new(self.clone()),
-            guild_id: GuildId::from_str(&server.id).expect("GuildId should be valid") 
-        });
-    }
-    /// gets the specified generic for the guild from the generics pool
-    pub fn get_generics(&self, guild_id: &GuildId) -> Option<Generics> {
-        self.generics.lock().unwrap().get(&guild_id.to_string()).cloned()
-    }
     /// Attempts to stop the player. This will stop the songbird [`Call`] player as well as update the [`AudioPlayerState`]
-    pub async fn stop_player(&self, guild_id: &GuildId) -> Result<(), ()> {
-        let mut server = self.get_server(guild_id).expect("Server should exist");
+    // pub async fn stop_player(&self, guild_id: &GuildId) -> Result<(), ()> {
+    //     let mut server = self.get_server(guild_id).expect("Server should exist");
 
-        let handle = match get_audio_player_handler(&self.get_generics(guild_id).expect("Generic should exist")).await {
-            Some(handle) => handle,
-            None => return Err(()),
-        };
+    //     let handle = match get_audio_player_handler(&self.get_generics(guild_id).expect("Generic should exist")).await {
+    //         Some(handle) => handle,
+    //         None => return Err(()),
+    //     };
 
-        handle.lock().await.stop();
-        server.audio_player.stop();
-        self.update_server(server);
+    //     handle.lock().await.stop();
+    //     server.audio_player.stop();
+    //     self.update_server(server);
 
-        Ok(())
-    }
+    //     Ok(())
+    // }
     /// Attempts to advance the server queue to the next song. Returns [`Err`] if the server isn't in the cache
     /// 
     /// # Note
     /// 
     /// this doesn't advance the sonbird queue. it only advances the server queue
-    pub async fn next_song(&self, guild_id: &GuildId) -> Result<(), ()> {
+    pub async fn next_song(&self, guild_id: &GuildId) -> Result<(), String> {
         let mut server = match self.get_server(guild_id) {
             Some(server) => server,
-            None => return Err(()),
+            None => return Err("Server not found".to_string()),
         };
-        let handle = match get_audio_player_handler(&self.get_generics(guild_id).expect("Generic should exist")).await {
-            Some(handle) => handle,
-            None => return Err(()),
-        };
-        if let Err(err) = handle.lock().await.queue().skip() {
-            println!("{}", err);
+        if let Some(handler) = self.songbird.get(guild_id.clone()) {
+            if let Err(err) = handler.lock().await.queue().skip() {
+                println!("{}", err);
+            }
+            server.audio_player.skip();
+            self.update_server(server);
         }
-        server.audio_player.skip();
-        self.update_server(server);
+        else {
+            return Err("Not in a voice channel".to_string());
+        }
         Ok(())
     }
     /// Attempts to start the servers curr_song. Returns [`Err`] if the server isn't in the cache
@@ -195,7 +194,7 @@ impl SmData {
     /// starts a dc timer for the current server. Will dc from the voice channel when the timer finishes 
     pub fn start_dc_timer(&self, guild_id: &GuildId) -> Result<(), ()>{
         let binding = self.servers.lock().unwrap();
-        let mut server = binding.0.get(&guild_id.to_string()).expect("Server should exist from start_dc_timer").clone();
+        let mut server = binding.0.get(&ServerGuildId::from(guild_id)).expect("Server should exist from start_dc_timer").clone();
         server.dc_timer_started = true;
         self.update_server(server);
 
@@ -204,7 +203,7 @@ impl SmData {
     /// stops a dc timer for the current server.
     pub fn stop_dc_timer(&self, guild_id: &GuildId) -> Result<(), ()>{
         let binding = self.servers.lock().unwrap();
-        let mut server = binding.0.get(&guild_id.to_string()).expect("Server should exist from stop_dc_timer").clone();
+        let mut server = binding.0.get(&ServerGuildId::from(guild_id)).expect("Server should exist from stop_dc_timer").clone();
         server.dc_timer_started = false;
         self.update_server(server);
 
@@ -218,7 +217,7 @@ impl SmData {
 }
 
 #[derive(Debug)]
-pub struct Servers(pub std::collections::HashMap<String, Server>);
+pub struct Servers(pub std::collections::HashMap<ServerGuildId, Server>);
 
 #[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize)]
 pub struct NowPlayingMsg {
@@ -316,11 +315,55 @@ impl AudioPlayerState {
     }
 }
 
+#[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize, PartialEq, Eq, Hash)]
+pub struct ServerChannelId(pub String);
+
+impl Into<ChannelId> for ServerChannelId {
+    fn into(self) -> ChannelId {
+        ChannelId::from_str(&self.0).expect("Invalid ChannelId supplied")
+    }
+}
+
+impl ServerChannelId {
+    /// will convert the string channelid into a ChannelId
+    pub fn channel_id(self) -> ChannelId {
+        ChannelId::from_str(&self.0).expect("Invalid ChannelId supplied")
+    }
+}
+
+impl From<&ChannelId> for ServerChannelId {
+    fn from(value: &ChannelId) -> Self {
+        Self(value.to_string())
+    }
+}
+
+#[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize, PartialEq, Eq, Hash)]
+pub struct ServerGuildId(pub String);
+
+impl Into<GuildId> for ServerGuildId {
+    fn into(self) -> GuildId {
+        GuildId::from_str(&self.0).expect("Invalid GuildId supplied")
+    }
+}
+
+impl ServerGuildId {
+    /// will convert the string guildid into a GuildId
+    pub fn guild_id(self) -> GuildId {
+        GuildId::from_str(&self.0).expect("Invalid GuildId supplied")
+    }
+}
+
+impl From<&GuildId> for ServerGuildId {
+    fn from(value: &GuildId) -> Self {
+        Self(value.to_string())
+    }
+}
+
 #[derive(Debug, Default, FromRow, Serialize, Clone)]
 pub struct Server {
-    pub id: String,
-    pub channel_id: String,
-    pub voice_channel_id: String,
+    pub id: ServerGuildId,
+    pub channel_id: ServerChannelId,
+    pub voice_channel_id: ServerChannelId,
     pub name: String,
     pub songs: sqlx::types::Json<Songs>,
     #[sqlx(skip)]
@@ -332,9 +375,9 @@ pub struct Server {
 impl From<PgRow> for Server {
     fn from(value: PgRow) -> Self {
         Self { 
-            id: value.get("server_id"),
-            channel_id: value.get("channel_id"),
-            voice_channel_id: value.get("voice_channel_id"),
+            id: ServerGuildId(value.get("server_id")),
+            channel_id: ServerChannelId(value.get("channel_id")),
+            voice_channel_id: ServerChannelId(value.get("voice_channel_id")),
             name: value.get("name"),
             songs: value.get("songs"),
             ..Default::default()

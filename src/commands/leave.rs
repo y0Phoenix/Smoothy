@@ -2,10 +2,10 @@ use crate::{executive::{get_generics, send_msg}, CommandResult, SmContext};
 
 #[poise::command(prefix_command, guild_only, aliases("dc", "disconnect", "die"))]
 pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
-    let generics = get_generics(ctx);
+    let generics = get_generics(&ctx);
     let guild_id = ctx.guild_id().unwrap();
 
-    let manager = &ctx.data().songbird;
+    let manager = &ctx.data().inner.songbird;
     let has_handler = manager.get(guild_id).is_some();
 
     if has_handler {
