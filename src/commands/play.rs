@@ -9,7 +9,7 @@ use crate::{common::{SmData, Song}, executive::{get_generics, join, send_msg, Ge
 #[poise::command(prefix_command, guild_only, aliases("p"), check = "join")]
 pub async fn play(ctx: SmContext<'_>, query: Vec<String>) -> CommandResult {
     let query = query.join(" ");
-    println!("Command 'play' called with query: {}", query); // Logging
+    info!("Command 'play' called with query: {}", query); // Logging
     let generics = get_generics(ctx);
 
     start_song(SongType::New(query, ctx.author().id.to_string()), &generics).await.unwrap();

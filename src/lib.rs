@@ -18,6 +18,15 @@ pub type SmError = Box<dyn std::error::Error + Send + Sync>;
 pub type SmContext<'a> = poise::Context<'a, SmData, SmError>;
 pub type CommandResult = Result<(), SmError>;
 
+pub const VC_DC_TIMEOUT_IN_SEC: u64 = 1800;
+
+#[derive(Debug, Default)]
+pub struct SmMsg {
+    pub guild_id: GuildId,
+    pub channel_id: ChannelId,
+    pub content: String
+}
+
 pub struct TrackErrorNotifier;
 
 #[serenity::async_trait]
@@ -69,8 +78,13 @@ impl VoiceEventHandler for SongEndEvent {
             let no_more_songs = server.songs.0.is_empty();
             if no_more_songs {
                 send_msg(&self.generics, "No more songs to play :x:", Some(10000)).await;
+                info!("No more songs to play in {} starting dc timeout", server.name);
+                server.dc_timer_started = true;
             }
             self.generics.data.update_server_db(server).await;
+            let server = self.generics.data.get_server(&self.generics.guild_id).expect("Shou");
+
+            info!("{}", server.dc_timer_started);
         }
         None
     }
@@ -90,6 +104,7 @@ impl VoiceEventHandler for SongStartEvent {
             let mut typemap = track.1.typemap().write().await;
             let curr_song = typemap.get_mut::<Song>().expect("Should have a song");
             let mut server = self.generics.data.get_server(&self.generics.guild_id).expect("Server should exist");
+            server.dc_timer_started = false;
             server.audio_player.play();
             // let curr_song = server.songs.curr_song().unwrap();
             if let Some(msg) = send_msg(&self.generics, format!("Now Playing {}", curr_song.title).as_str(), None).await {
@@ -149,8 +164,12 @@ pub async fn event_handler(
             data.init_bot(data_about_bot.user.id, ctx.http.clone());
             let servers = data.get_servers_db().await;
             for (_, server) in servers.0.iter() {
+                let guild_id = GuildId::from_str(&server.id).expect("Should be a valid GuildId from DB");
+                if server.songs.0.is_empty() {
+                    data.remove_server_db(&guild_id).await;
+                }
                 data.add_generic(&server);
-                let generics = data.get_generics(&GuildId::from_str(&server.id).expect("GuildId should be valid")).expect("Generic should exist");
+                let generics = data.get_generics(&guild_id).expect("Generic should exist");
                 let voice_channel_id = ChannelId::from_str(&server.voice_channel_id).expect("Should be valid VoiceChannelId");
                 if let Some(song) = server.songs.curr_song() {
                     let manager = &data.songbird;

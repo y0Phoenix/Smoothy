@@ -192,6 +192,24 @@ impl SmData {
             println!("server.1.name {}", server.1.name);
         }
     }
+    /// starts a dc timer for the current server. Will dc from the voice channel when the timer finishes 
+    pub fn start_dc_timer(&self, guild_id: &GuildId) -> Result<(), ()>{
+        let binding = self.servers.lock().unwrap();
+        let mut server = binding.0.get(&guild_id.to_string()).expect("Server should exist from start_dc_timer").clone();
+        server.dc_timer_started = true;
+        self.update_server(server);
+
+        Ok(())
+    }
+    /// stops a dc timer for the current server.
+    pub fn stop_dc_timer(&self, guild_id: &GuildId) -> Result<(), ()>{
+        let binding = self.servers.lock().unwrap();
+        let mut server = binding.0.get(&guild_id.to_string()).expect("Server should exist from stop_dc_timer").clone();
+        server.dc_timer_started = false;
+        self.update_server(server);
+
+        Ok(())
+    }
     /// initialized the bot with data from discord
     pub fn init_bot(&self, id: UserId, http: Arc<Http>) {
         *self.id.lock().unwrap() = id;
@@ -306,7 +324,9 @@ pub struct Server {
     pub name: String,
     pub songs: sqlx::types::Json<Songs>,
     #[sqlx(skip)]
-    pub audio_player: AudioPlayer
+    pub audio_player: AudioPlayer,
+    /// if the vc dc timer should be ticking
+    pub dc_timer_started: bool
 }
 
 impl From<PgRow> for Server {
