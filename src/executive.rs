@@ -1,12 +1,11 @@
 use std::{sync::Arc, time::Duration};
 use rusty_time::Timer;
 use serenity::all::{ChannelId, GuildId, Http, Message};
-use songbird::{typemap::TypeMapKey, Call};
+use songbird::typemap::TypeMapKey;
 use sqlx::types::Json;
-use tokio::sync::Mutex;
 use tracing::info;
 
-use crate::{add_global_events, common::{DltMsg, Server, ServerChannelId, ServerGuildId, Songs, UserData}, SmContext, SmError};
+use crate::{add_global_events, common::{ClientChannel, DltMsg, Server, ServerChannelId, ServerGuildId, Songs, UserData}, SmContext, SmError};
 
 pub type ExecResult = Result<bool, SmError>;
 
@@ -76,28 +75,17 @@ pub async fn is_playing(ctx: SmContext<'_>) -> ExecResult {
     Ok(false)
 }
 
-pub async fn get_audio_player_handler<'a>(generics: &Generics) -> Option<Arc<Mutex<Call>>> {
-    if let Some(handler) = generics.data.inner.songbird.get(generics.guild_id) {
-        Some(handler)
-    }
-    else {
-        let _ = generics.channel_id.say(generics.http(), "Not currently in a voice channel").await;
-        None
-    }
-}
-
 /// Checks that a message successfully sent; if not, then logs why to stdout.
 pub async fn send_msg(generics: &Generics, msg: &str, millis_dur: Option<u64>) -> Option<Box<Message>> {
     match generics.channel_id.say(generics.http(), msg).await {
         Ok(msg) => {
             let msg = Box::new(msg);
             if let Some(dur) = millis_dur {
-                let mut dlt_msgs = generics.data.inner.dlt_msgs.lock().unwrap();
-                dlt_msgs.push(DltMsg {
+                generics.data.inner.client_tx.send(ClientChannel::DltMsg(DltMsg {
                     msg,
                     duration: dur,
                     timer: Timer::new(Duration::from_millis(dur))
-                });
+                })).expect("Should be able to send on client_tx channel");
                 return None;
             }
             Some(msg)

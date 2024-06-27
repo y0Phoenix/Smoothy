@@ -1,4 +1,4 @@
-use std::{str::FromStr, sync::{Arc, Mutex}};
+use std::{str::FromStr, sync::{mpsc::Sender, Arc, Mutex}};
 use std::collections::HashMap;
 
 use prelude::TypeMapKey;
@@ -39,8 +39,8 @@ pub struct SmData {
     pub songbird: Arc<songbird::Songbird>,
     pub db: Arc<Pool<Postgres>>,
     pub servers: Arc<Mutex<Servers>>,
-    pub dlt_msgs: Arc<Mutex<Vec<DltMsg>>>,
-    pub id: Arc<Mutex<UserId>>
+    pub id: Arc<Mutex<UserId>>,
+    pub client_tx: Arc<Sender<ClientChannel>>
 }
 
 impl SmData {
@@ -107,6 +107,12 @@ impl SmData {
             Err(err) => info!("Failed to remove server {} from db: {}", guild_id.to_string(), err),
         }
         self.servers.lock().unwrap().0.remove(&ServerGuildId::from(guild_id));
+        self.client_tx.send(ClientChannel::DcTimeOut(DcTimeOut { 
+            guild_id: ServerGuildId::from(guild_id),
+            channel_id: ServerChannelId::default(),
+            timer: Timer::default(),
+            end: true }
+        )).expect("Should be able to send on client_tx channel");
         self
     }
     /// attempts to get a specified server from the cache
@@ -127,20 +133,16 @@ impl SmData {
         self.servers.lock().unwrap().0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
     }
     /// Attempts to stop the player. This will stop the songbird [`Call`] player as well as update the [`AudioPlayerState`]
-    // pub async fn stop_player(&self, guild_id: &GuildId) -> Result<(), ()> {
-    //     let mut server = self.get_server(guild_id).expect("Server should exist");
+    pub async fn stop_player(&self, guild_id: &GuildId) -> Result<(), ()> {
+        let mut server = self.get_server(guild_id).expect("Server should exist");
 
-    //     let handle = match get_audio_player_handler(&self.get_generics(guild_id).expect("Generic should exist")).await {
-    //         Some(handle) => handle,
-    //         None => return Err(()),
-    //     };
-
-    //     handle.lock().await.stop();
-    //     server.audio_player.stop();
-    //     self.update_server(server);
-
-    //     Ok(())
-    // }
+        if let Some(handler) = self.songbird.get(server.id.guild_id()) {
+            handler.lock().await.stop();
+            server.audio_player.stop();
+            self.update_server(server);
+        }
+        Ok(())
+    }
     /// Attempts to advance the server queue to the next song. Returns [`Err`] if the server isn't in the cache
     /// 
     /// # Note
@@ -326,7 +328,7 @@ impl Into<ChannelId> for ServerChannelId {
 
 impl ServerChannelId {
     /// will convert the string channelid into a ChannelId
-    pub fn channel_id(self) -> ChannelId {
+    pub fn channel_id(&self) -> ChannelId {
         ChannelId::from_str(&self.0).expect("Invalid ChannelId supplied")
     }
 }
@@ -348,7 +350,7 @@ impl Into<GuildId> for ServerGuildId {
 
 impl ServerGuildId {
     /// will convert the string guildid into a GuildId
-    pub fn guild_id(self) -> GuildId {
+    pub fn guild_id(&self) -> GuildId {
         GuildId::from_str(&self.0).expect("Invalid GuildId supplied")
     }
 }
@@ -390,4 +392,19 @@ impl Server {
         self.songs.0.0.push(song);
         self
     }
+}
+
+#[derive(Debug, Clone)]
+pub enum ClientChannel {
+    DltMsg(DltMsg),
+    DcTimeOut(DcTimeOut),
+}
+
+#[derive(Debug, Clone)]
+pub struct DcTimeOut {
+    pub guild_id: ServerGuildId,
+    pub channel_id: ServerChannelId,
+    pub timer: Timer,
+    /// whether or not to end the timer
+    pub end: bool
 }

@@ -1,9 +1,10 @@
-use std::str::FromStr;
+use std::{str::FromStr, sync::{mpsc::Sender, Arc}, time::Duration};
 
 use commands::play::start_song;
 // use commands::play::play;
-use common::{NowPlayingMsg, Song, UserData};
+use common::{ClientChannel, DcTimeOut, NowPlayingMsg, Song, UserData};
 use executive::{send_msg, Generics};
+use rusty_time::Timer;
 use ::serenity::{all::{ChannelId, GuildId, MessageId}, async_trait};
 use serenity::all as serenity;
 // Event related imports to detect track creation failures.
@@ -18,7 +19,7 @@ pub type SmError = Box<dyn std::error::Error + Send + Sync>;
 pub type SmContext<'a> = poise::Context<'a, UserData, SmError>;
 pub type CommandResult = Result<(), SmError>;
 
-pub const VC_DC_TIMEOUT_IN_SEC: u64 = 1800;
+pub const VC_DC_TIMEOUT_IN_SEC: u64 = 5;
 
 #[derive(Debug, Default)]
 pub struct SmMsg {
@@ -30,7 +31,8 @@ pub struct SmMsg {
 #[derive(Debug, Clone)]
 pub struct TrackMetaData {
     pub song: Song,
-    pub generics: Generics
+    pub generics: Generics,
+    pub client_tx: Arc<Sender<ClientChannel>>
 }
 
 impl TypeMapKey for TrackMetaData {
@@ -87,7 +89,12 @@ impl VoiceEventHandler for SongEndEvent {
             if no_more_songs {
                 send_msg(&meta_data.generics, "No more songs to play :x:", Some(10000)).await;
                 info!("No more songs to play in {} starting dc timeout", server.name);
-                server.dc_timer_started = true;
+                meta_data.client_tx.send(ClientChannel::DcTimeOut(DcTimeOut { 
+                    guild_id: server.id.clone(),
+                    channel_id: server.channel_id.clone(),
+                    timer: Timer::new(Duration::from_secs(VC_DC_TIMEOUT_IN_SEC)),
+                    end: false
+                })).expect("Should be able to send on client tx");
             }
             meta_data.generics.data.inner.update_server_db(server).await;
         }
@@ -174,6 +181,19 @@ pub async fn event_handler(
                 }
             }
         },
+        // serenity::FullEvent::Message { new_message } => {
+        //     // FrameworkContext contains all data that poise::Framework usually manages
+        //     let shard_manager = (*_framework.shard_manager).clone();
+        //     let framework_data = poise::FrameworkContext {
+        //         bot_id: *data.inner.id.lock().unwrap(),
+        //         options: &_framework.options,
+        //         user_data: data,
+        //         shard_manager: &shard_manager,
+        //     };
+
+        //     let event = serenity::FullEvent::Message { new_message: new_message.clone() };
+        //     poise::dispatch_event(framework_data, &ctx, event).await;
+        // },
         _ => {}
     };
     Ok(())

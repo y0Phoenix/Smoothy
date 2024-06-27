@@ -17,6 +17,7 @@ tracing = "0.1.40"
 tracing-futures = "0.2.5"
 tracing-subscriber = "0.3.18"
 poise = { version = "0.6.1", default-features = false, features = ["cache"] }
+# poise = { path = "crates/poise", default-features = false, features = ["cache"] }
 sqlx = {version = "0.7.3", features = ["postgres", "runtime-tokio", "json", "tls-native-tls"]}
 rusty_time = "1.1.0"
 # futures = "0.3.30"

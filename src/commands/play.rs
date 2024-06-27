@@ -83,6 +83,7 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
         map.insert::<TrackMetaData>(TrackMetaData {
             song: song.clone(),
             generics: generics.clone(),
+            client_tx: generics.data.inner.client_tx.clone()
         });
         *typemap = map;
 
