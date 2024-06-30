@@ -1,6 +1,6 @@
 use serenity::all::CreateEmbed;
 
-use crate::{common::{embeds::{err_embed, FAILED_COLOR, LEAVING_COLOR}, message::send_embed}, get_generics, CommandResult, SmContext};
+use crate::{common::{embeds::{err_embed, LEAVING_COLOR}, message::send_embed}, get_generics, CommandResult, SmContext};
 
 #[poise::command(prefix_command, guild_only, aliases("dc", "disconnect", "die"))]
 pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
@@ -8,9 +8,9 @@ pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
     let guild_id = ctx.guild_id().unwrap();
 
     let manager = &ctx.data().inner.songbird;
-    let has_handler = manager.get(guild_id).is_some();
+    let in_vc = manager.get(guild_id).is_some();
 
-    if has_handler {
+    if in_vc {
         if let Err(_err) = manager.remove(guild_id).await {
             send_embed(&generics, err_embed(format!("Failed to leave vc. Try again later.")), Some(60000)).await;
         }

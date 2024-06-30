@@ -7,7 +7,7 @@ use ::serenity::{all::{ChannelId, CreateEmbed, CreateEmbedAuthor, GuildId, Http,
 use serenity::all as serenity;
 // Event related imports to detect track creation failures.
 use songbird::{events::{Event, EventContext, EventHandler as VoiceEventHandler}, typemap::TypeMapKey, Call, TrackEvent};
-use tracing::{info, warn};
+use tracing::{error, info, warn};
 
 pub mod commands;
 pub mod executive;
@@ -191,33 +191,37 @@ pub async fn event_handler(
             for (_, server) in servers.0.iter() {
                 info!("{}", server.id.0);
                 let guild_id = server.id.guild_id();
+
+                let manager = &data.inner.songbird;
+                let in_vc = manager.get(guild_id).is_some();
+
                 if server.songs.0.is_empty() {
                     info!("removing db");
                     data.inner.remove_server_db(&guild_id, &mut servers_lock).await;
+                    if in_vc {
+                        data.inner.start_dc_timer(ServerGuildId::from(guild_id), server.channel_id.clone());
+                    }
                     continue;
                 }
                 let generics = Generics::from_user_data(data, &guild_id, &mut servers_lock);
                 let voice_channel_id = server.voice_channel_id.clone().channel_id();
-                if let Some(_) = server.songs.curr_song() {
-                    info!("has song");
-                    let manager = &data.inner.songbird;
-                    if let Ok(handler_lock) = manager.join(generics.guild_id, voice_channel_id).await {
-                        // Attach an event handler to see notifications of all track errors.
-                        let mut handler = handler_lock.lock().await;
-                        info!("handler aquired");
-                        add_global_events(&mut handler, &generics);
-                        for song in server.songs.0.0.iter() {
-                            info!("{}", song.title);
-                            let src = search_song(song.url.clone(), &generics.data.inner);
-                            let track = handler.enqueue(src.into()).await;
 
-                            init_track(&song, &generics, track).await;
-                        }
+                if let Ok(handler_lock) = manager.join(generics.guild_id, voice_channel_id).await {
+                    // Attach an event handler to see notifications of all track errors.
+                    let mut handler = handler_lock.lock().await;
+                    add_global_events(&mut handler, &generics);
+                    for song in server.songs.0.0.iter() {
+                        info!("{}", song.title);
+                        let src = search_song(song.url.clone(), &generics.data.inner);
+                        let track = handler.enqueue(src.into()).await;
+
+                        init_track(&song, &generics, track).await;
                     }
-                    else {
-                        send_embed(&generics, err_embed("Failed to join vc"), Some(60000)).await;
-                        data.inner.remove_server_db(&guild_id, &mut servers_lock).await;
-                    }
+                }
+                else {
+                    send_embed(&generics, err_embed("Failed to join vc"), Some(60000)).await;
+                    error!("Failed to join vc from bot ready state in {}", server.name);
+                    data.inner.remove_server_db(&guild_id, &mut servers_lock).await;
                 }
             }
             println!("Logged in as {} id: {}", data_about_bot.user.name, data.inner.id.lock().await);

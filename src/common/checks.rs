@@ -53,7 +53,7 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
         },
     };
 
-    let mut servers = generics.data.inner.servers.lock().await;
+    let mut servers = generics.data.inner.servers_unlocked().await;
     if let None = servers.0.get(&ServerGuildId::from(guild_id)) {
         let server = Server {
             id: ServerGuildId::from(guild_id),

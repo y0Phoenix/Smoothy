@@ -47,7 +47,7 @@ pub struct SmData {
 }
 
 impl SmData {
-    /// update a server in the database and updates server cache aswell
+    /// update a server in the database
     pub async fn update_server_db(&self, server: &Server) -> &Self {
         // servers_lock.0.entry(server.id.clone()).and_modify(|old_server| *old_server = server.clone());
         match query("UPDATE server SET songs = $1 WHERE server_id = $2")
@@ -61,7 +61,7 @@ impl SmData {
         };
         self
     }
-    /// add a server to the database and add it to the cache aswell
+    /// add a server to the database
     pub async fn add_server_db(&self, server: Server) -> &Self {
         match query("INSERT INTO server (server_id, channel_id, voice_channel_id, name, songs) VALUES ($1, $2, $3, $4, $5)")
             .bind(server.id.clone().0)

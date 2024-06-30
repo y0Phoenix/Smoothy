@@ -142,9 +142,9 @@ tokio::spawn(async move {
 
             if dc_timeout.timer.just_finished() {
                 let guild_id = guild_id.guild_id();
-                let has_handler = manager_clone_main.get(guild_id).is_some();
+                let in_vc = manager_clone_main.get(guild_id).is_some();
 
-                if has_handler {
+                if in_vc {
                     if let Err(e) = manager_clone_main.remove(guild_id).await {
                         warn!("failed to leave vc {}", e);
                     }
@@ -156,7 +156,7 @@ tokio::spawn(async move {
                         content: CreateEmbed::new().color(LEAVING_COLOR).description(":cry: Left vc due to idle")
                     }, &http, Some(30000), &mut dlt_msgs).await;
                 } else {
-                    error!("Failed to leave vc from idle");
+                    info!("DC timer called but not in a vc");
                 }
             }
         }
