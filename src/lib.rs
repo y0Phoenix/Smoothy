@@ -23,7 +23,7 @@ pub const VC_DC_TIMEOUT_IN_SEC: u64 = 1800;
 pub struct SmMsg {
     pub guild_id: GuildId,
     pub channel_id: ChannelId,
-    pub content: String
+    pub content: CreateEmbed
 }
 
 #[derive(Debug, Clone)]

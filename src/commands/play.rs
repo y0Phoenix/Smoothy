@@ -40,7 +40,7 @@ pub enum SongType {
 pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHandle, ()> {
     let mut servers_lock = generics.data.inner.servers_unlocked().await;
     let Some(server) = servers_lock.0.get_mut(&ServerGuildId::from(generics.guild_id)) else {
-        send_embed(generics, err_embed("Failed to aquire server"), Some(15000)).await;
+        send_embed(generics, err_embed("Failed to aquire server"), Some(60000)).await;
         return Err(());
     };
     if let Some(handler_lock) = generics.data.inner.songbird.get(generics.guild_id) {
@@ -88,7 +88,7 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
         generics.data.inner.update_server_db(server).await;
         return Ok(track);
     } else {
-        send_embed(generics, err_embed("Not in a voice channel to play in"), Some(15000)).await;
+        send_embed(generics, err_embed("Not in a voice channel to play in"), Some(30000)).await;
         return Err(());
     }
 }

@@ -46,7 +46,7 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
     let connect_to = match channel {
         Some(channel) => channel,
         None => {
-            send_embed(&generics, err_embed("You're not in a voice channel"), Some(15000)).await;
+            send_embed(&generics, err_embed("You're not in a voice channel"), Some(30000)).await;
             let err_msg = "Failed to join voice channel. User not in channel";
             info!("{err_msg}");
             return Ok(false);

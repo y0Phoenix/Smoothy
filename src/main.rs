@@ -2,15 +2,15 @@ use std::{env, sync::mpsc::{self, RecvTimeoutError}, time::{Duration, Instant}};
 use std::sync::Arc;
 
 use commands::{leave::leave, next::next, play::play, queue::queue};
-use common::{message::DltMsg, server::{ServerGuildId, Servers}, ClientChannel, DcTimeOut, SmData, UserData};
+use common::{embeds::LEAVING_COLOR, message::DltMsg, server::{ServerGuildId, Servers}, ClientChannel, DcTimeOut, SmData, UserData};
 use dotenv::dotenv;
 use reqwest::Client as HttpClient;
 use rusty_time::Timer;
-use ::serenity::all::{GatewayIntents, Http, UserId};
+use ::serenity::all::{CreateEmbed, CreateMessage, GatewayIntents, Http, UserId};
 use serenity::all as serenity;
 use sqlx::PgPool;
 use tokio::sync::Mutex;
-use tracing::{info, warn};
+use tracing::{error, info, warn};
 
 use smoothy::*;
 
@@ -146,18 +146,17 @@ tokio::spawn(async move {
 
                 if has_handler {
                     if let Err(e) = manager_clone_main.remove(guild_id).await {
-                        // send_msg(&generics, format!("Failed: {:?}", e).as_str(), Some(15000)).await;
                         warn!("failed to leave vc {}", e);
                     }
 
-                    info!("left vc");
+                    info!("left vc due to idle in {}", guild_id);
                     send_msg(SmMsg {
                         guild_id,
                         channel_id: dc_timeout.channel_id.channel_id(),
-                        content: "Left VC due to idle".to_string()
-                    }, &http, Some(15000), &mut dlt_msgs).await;
+                        content: CreateEmbed::new().color(LEAVING_COLOR).description(":cry: Left vc due to idle")
+                    }, &http, Some(30000), &mut dlt_msgs).await;
                 } else {
-                    // send_msg(&generics, "Not in a voice channel", Some(15000)).await;
+                    error!("Failed to leave vc from idle");
                 }
             }
         }
@@ -208,7 +207,8 @@ tokio::spawn(async move {
 }
 
 async fn send_msg(msg: SmMsg, http: &Http, millis_dur: Option<u64>, dlt_msgs: &mut Vec<DltMsg>) {
-    match msg.channel_id.say(http, msg.content).await {
+    let builder = CreateMessage::new().embed(msg.content);
+    match msg.channel_id.send_message(http, builder).await {
         Ok(msg) => {
             let msg = Box::new(msg);
             if let Some(dur) = millis_dur {
@@ -219,6 +219,8 @@ async fn send_msg(msg: SmMsg, http: &Http, millis_dur: Option<u64>, dlt_msgs: &m
                 });
             }
         },
-        Err(err) => warn!("Error sending message from main {}", err),
+        Err(why) => {
+            error!("Error sending message: {:?}", why);
+        }
     }
 }
