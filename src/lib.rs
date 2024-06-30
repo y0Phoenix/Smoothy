@@ -1,9 +1,9 @@
 use std::{str::FromStr, sync::{mpsc::Sender, Arc}, time::Duration};
 
-use commands::play::start_song;
+use commands::play::search_song;
 // use commands::play::play;
 use common::{ClientChannel, DcTimeOut, NowPlayingMsg, Song, UserData};
-use executive::{send_msg, Generics};
+use executive::{init_track, send_msg, Generics};
 use rusty_time::Timer;
 use ::serenity::{all::{ChannelId, GuildId, MessageId}, async_trait};
 use serenity::all as serenity;
@@ -70,7 +70,7 @@ impl VoiceEventHandler for SongEndEvent {
             let meta_data = typemap.get::<TrackMetaData>().expect("Should have metadata");
             let now_playing_msg = &meta_data.song.now_playing_msg.clone().expect("Should have a msg");
             
-            let http = meta_data.generics.data.inner.http.lock().unwrap().clone().expect("Should be an Http initialized");
+            let http = meta_data.generics.data.inner.http.lock().await.clone().expect("Should be an Http initialized");
 
             let channel_id = ChannelId::from_str(now_playing_msg.channel_id.as_str()).expect("Should be valid ChannelId");
             if let Ok(msg) = channel_id.message(&http, MessageId::from_str(&now_playing_msg.msg_id).expect("Should be a valid MessageId")).await {
@@ -79,7 +79,7 @@ impl VoiceEventHandler for SongEndEvent {
                 }
             }
 
-            let mut server = meta_data.generics.data.inner.get_server(&meta_data.generics.guild_id).expect("Server should exist");
+            let mut server = meta_data.generics.data.inner.get_server(&meta_data.generics.guild_id).await.expect("Server should exist");
             // info!("song len {}", server.songs.0.0.len());
             server.songs.next_song();
             // info!("song len {}", server.songs.0.0.len());
@@ -113,7 +113,7 @@ impl VoiceEventHandler for SongStartEvent {
 
             let mut typemap = track.1.typemap().write().await;
             let meta_data = typemap.get_mut::<TrackMetaData>().expect("Should have metadata");
-            let mut server = meta_data.generics.data.inner.get_server(&meta_data.generics.guild_id).expect("Server should exist");
+            let mut server = meta_data.generics.data.inner.get_server(&meta_data.generics.guild_id).await.expect("Server should exist");
             server.dc_timer_started = false;
             server.audio_player.play();
             // let curr_song = server.songs.curr_song().unwrap();
@@ -129,7 +129,7 @@ impl VoiceEventHandler for SongStartEvent {
     }
 }
 
-pub fn add_global_events(mut handler: tokio::sync::MutexGuard<Call>, _generics: &Generics) {
+pub fn add_global_events(handler: &mut tokio::sync::MutexGuard<Call>, _generics: &Generics) {
     handler.add_global_event(TrackEvent::Error.into(), TrackErrorNotifier);
     // handler.add_global_event(Event::Track(TrackEvent::End), SongEndEvent {
     //     generics: generics.clone().into()
@@ -149,7 +149,7 @@ pub async fn event_handler(
     match event {
         
         serenity::FullEvent::Ready { data_about_bot, .. } => {
-            data.inner.init_bot(data_about_bot.user.id, ctx.http.clone());
+            data.inner.init_bot(data_about_bot.user.id, ctx.http.clone()).await;
             let servers = data.inner.get_servers_db().await;
             for (_, server) in servers.0.iter() {
                 let guild_id = server.id.clone().guild_id();
@@ -157,26 +157,31 @@ pub async fn event_handler(
                     data.inner.remove_server_db(&guild_id).await;
                     continue;
                 }
-                let generics = Generics::from_user_data(data, &guild_id);
+                let generics = Generics::from_user_data(data, &guild_id).await;
                 let voice_channel_id = server.voice_channel_id.clone().channel_id();
-                if let Some(song) = server.songs.curr_song() {
+                if let Some(_) = server.songs.curr_song() {
                     let manager = &data.inner.songbird;
                     if let Ok(handler_lock) = manager.join(generics.guild_id, voice_channel_id).await {
                         // Attach an event handler to see notifications of all track errors.
-                        let handler = handler_lock.lock().await;
-                        add_global_events(handler, &generics);
+                        let mut handler = handler_lock.lock().await;
+                        add_global_events(&mut handler, &generics);
+                        for song in server.songs.0.0.iter() {
+                            let src = search_song(song.url.clone(), &generics.data.inner);
+                            let track = handler.enqueue(src.into()).await;
+
+                            init_track(&song, &generics, track).await;
+                        }
                     }
-                    start_song(commands::play::SongType::DB(song), &generics).await.unwrap();
                 }
             }
-            println!("Logged in as {} id: {}", data_about_bot.user.name, data.inner.id.lock().unwrap());
+            println!("Logged in as {} id: {}", data_about_bot.user.name, data.inner.id.lock().await);
         },
         // on voice channel disconnect
         serenity::FullEvent::VoiceStateUpdate { old: _, new } => {
             // let cache = _ctx.cache().unwrap().guild(new.guild_id.unwrap()).unwrap();
             if new.channel_id.is_none() {
                 let guild_id = new.guild_id.expect("Should have guild_id");
-                if new.member.clone().unwrap().user.id == data.inner.id.lock().unwrap().clone() {
+                if new.member.clone().unwrap().user.id == data.inner.id.lock().await.clone() {
                     data.inner.remove_server_db(&guild_id).await;
                 }
             }

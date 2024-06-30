@@ -1,4 +1,4 @@
-use std::{str::FromStr, sync::{mpsc::Sender, Arc, Mutex}};
+use std::{str::FromStr, sync::{mpsc::Sender, Arc}};
 use std::collections::HashMap;
 
 use prelude::TypeMapKey;
@@ -8,6 +8,7 @@ use rusty_time::Timer;
 use serde::{Serialize, Deserialize};
 use serenity::all::*;
 use sqlx::{postgres::PgRow, prelude::FromRow, query, Pool, Postgres, Row};
+use tokio::sync::Mutex;
 use tracing::info;
 
 #[derive(Debug, Clone)]
@@ -55,7 +56,7 @@ impl SmData {
             Ok(_) => info!("Server {} updated successfully", server.id.0),
             Err(err) => info!("Failed to update server {}: {}", server.id.0, err),
         };
-        self.servers.lock().unwrap().0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
+        self.servers.lock().await.0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
         self
     }
     /// add a server to the database and add it to the cache aswell
@@ -72,7 +73,7 @@ impl SmData {
             Ok(_) => info!("Server {} added successfully", server.id.0),
             Err(err) => info!("Failed to update server {}: {}", server.id.0, err),
         };
-        let mut servers = self.servers.lock().unwrap();
+        let mut servers = self.servers.lock().await;
         servers.0.insert(server.id.clone(), server);
         self
     }
@@ -88,7 +89,7 @@ impl SmData {
                     let server = Server::from(row);
                     servers.insert(server.id.clone(), server);
                 }
-                *self.servers.lock().unwrap() = Servers(servers.clone());
+                *self.servers.lock().await = Servers(servers.clone());
                 info!("{} Servers from DB aquired", servers.len());
                 Servers(servers.clone())
             },
@@ -106,7 +107,7 @@ impl SmData {
             // TODO do something usefull if we failed to remove server from DB for some reason
             Err(err) => info!("Failed to remove server {} from db: {}", guild_id.to_string(), err),
         }
-        self.servers.lock().unwrap().0.remove(&ServerGuildId::from(guild_id));
+        self.servers.lock().await.0.remove(&ServerGuildId::from(guild_id));
         self.client_tx.send(ClientChannel::DcTimeOut(DcTimeOut { 
             guild_id: ServerGuildId::from(guild_id),
             channel_id: ServerChannelId::default(),
@@ -122,24 +123,24 @@ impl SmData {
     /// The [`Server`](crate::common::Server) does not mutate the internal server data in [`SmData`](crate::common::SmData)
     /// 
     /// if you want to mutate internal server data you can modify the server return from this function and pass it into update_server_db on [`SmData`](crate::common::SmData)
-    pub fn get_server(&self, guild_id: &GuildId) -> Option<Server> {
-        match self.servers.lock().unwrap().0.get_mut(&ServerGuildId::from(guild_id)) {
+    pub async fn get_server(&self, guild_id: &GuildId) -> Option<Server> {
+        match self.servers.lock().await.0.get_mut(&ServerGuildId::from(guild_id)) {
             Some(server) => Some(server.clone()),
             None => None,
         }
     }
     /// Update the server in the cache and not in the db
-    pub fn update_server(&self, server: Server) {
-        self.servers.lock().unwrap().0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
+    pub async fn update_server(&self, server: Server) {
+        self.servers.lock().await.0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
     }
     /// Attempts to stop the player. This will stop the songbird [`Call`] player as well as update the [`AudioPlayerState`]
     pub async fn stop_player(&self, guild_id: &GuildId) -> Result<(), ()> {
-        let mut server = self.get_server(guild_id).expect("Server should exist");
+        let mut server = self.get_server(guild_id).await.expect("Server should exist");
 
         if let Some(handler) = self.songbird.get(server.id.guild_id()) {
             handler.lock().await.stop();
             server.audio_player.stop();
-            self.update_server(server);
+            self.update_server(server).await;
         }
         Ok(())
     }
@@ -149,16 +150,16 @@ impl SmData {
     /// 
     /// this doesn't advance the sonbird queue. it only advances the server queue
     pub async fn next_song(&self, guild_id: &GuildId) -> Result<(), String> {
-        let mut server = match self.get_server(guild_id) {
+        let mut server = match self.get_server(guild_id).await {
             Some(server) => server,
             None => return Err("Server not found".to_string()),
         };
         if let Some(handler) = self.songbird.get(guild_id.clone()) {
             if let Err(err) = handler.lock().await.queue().skip() {
-                println!("{}", err);
+                println!("failed to skip song {}", err);
             }
             server.audio_player.skip();
-            self.update_server(server);
+            self.update_server(server).await;
         }
         else {
             return Err("Not in a voice channel".to_string());
@@ -170,51 +171,51 @@ impl SmData {
     /// # Note
     /// 
     /// this doesn't start song in the sonbird queue. it only start the player in the the server queue
-    pub fn start_song(&self, guild_id: &GuildId) -> Result<(), ()> {
-        let mut server = match self.get_server(guild_id) {
+    pub async fn start_song(&self, guild_id: &GuildId) -> Result<(), ()> {
+        let mut server = match self.get_server(guild_id).await {
             Some(server) => server,
             None => return Err(()),
         };
         server.audio_player.play();
-        self.update_server(server);
+        self.update_server(server).await;
         Ok(())
     }
-    pub fn curr_song(&self, guild_id: &GuildId) -> Option<Song> {
-        let server = match self.get_server(guild_id) {
+    pub async fn curr_song(&self, guild_id: &GuildId) -> Option<Song> {
+        let server = match self.get_server(guild_id).await {
             Some(server) => server,
             None => return None,
         };
         server.songs.curr_song()
     }
-    pub fn print_servers(&self) {
-        let servers = self.servers.lock().unwrap();
+    pub async fn print_servers(&self) {
+        let servers = self.servers.lock().await;
         println!("{}", servers.0.len());
         for server in servers.0.iter() {
             println!("server.1.name {}", server.1.name);
         }
     }
     /// starts a dc timer for the current server. Will dc from the voice channel when the timer finishes 
-    pub fn start_dc_timer(&self, guild_id: &GuildId) -> Result<(), ()>{
-        let binding = self.servers.lock().unwrap();
+    pub async fn start_dc_timer(&self, guild_id: &GuildId) -> Result<(), ()>{
+        let binding = self.servers.lock().await;
         let mut server = binding.0.get(&ServerGuildId::from(guild_id)).expect("Server should exist from start_dc_timer").clone();
         server.dc_timer_started = true;
-        self.update_server(server);
+        self.update_server(server).await;
 
         Ok(())
     }
     /// stops a dc timer for the current server.
-    pub fn stop_dc_timer(&self, guild_id: &GuildId) -> Result<(), ()>{
-        let binding = self.servers.lock().unwrap();
+    pub async fn stop_dc_timer(&self, guild_id: &GuildId) -> Result<(), ()>{
+        let binding = self.servers.lock().await;
         let mut server = binding.0.get(&ServerGuildId::from(guild_id)).expect("Server should exist from stop_dc_timer").clone();
         server.dc_timer_started = false;
-        self.update_server(server);
+        self.update_server(server).await;
 
         Ok(())
     }
     /// initialized the bot with data from discord
-    pub fn init_bot(&self, id: UserId, http: Arc<Http>) {
-        *self.id.lock().unwrap() = id;
-        *self.http.lock().unwrap() = Some(Arc::clone(&http));
+    pub async fn init_bot(&self, id: UserId, http: Arc<Http>) {
+        *self.id.lock().await = id;
+        *self.http.lock().await = Some(Arc::clone(&http));
     }
 }
 

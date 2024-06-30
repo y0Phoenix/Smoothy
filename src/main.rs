@@ -1,7 +1,7 @@
-use std::{env, sync::{mpsc::{self, RecvTimeoutError}, Mutex}, time::{Duration, Instant}};
+use std::{env, sync::mpsc::{self, RecvTimeoutError}, time::{Duration, Instant}};
 use std::sync::Arc;
 
-use commands::{leave::leave, next::next, play::play};
+use commands::{leave::leave, next::next, play::play, queue::queue};
 use common::{ClientChannel, DcTimeOut, DltMsg, ServerGuildId, Servers, SmData, UserData};
 use dotenv::dotenv;
 use reqwest::Client as HttpClient;
@@ -9,6 +9,7 @@ use rusty_time::Timer;
 use ::serenity::all::{GatewayIntents, Http, UserId};
 use serenity::all as serenity;
 use sqlx::PgPool;
+use tokio::sync::Mutex;
 use tracing::{info, warn};
 
 use smoothy::*;
@@ -31,10 +32,13 @@ async fn main() {
     
     // Create our songbird voice manager
     let manager = songbird::Songbird::serenity();
+    // We have to clone our voice manager's Arc to share it between serenity and our user data.
+    let manager_clone = Arc::clone(&manager);
+    let manager_clone_main = Arc::clone(&manager);
     
     // Configure our command framework
     let options = poise::FrameworkOptions {
-        commands: vec![leave(), play(), next()],
+        commands: vec![leave(), play(), next(), queue()],
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some(String::from("-")),
             ..Default::default()
@@ -48,10 +52,6 @@ async fn main() {
         ..Default::default()
     };
     
-    // We have to clone our voice manager's Arc to share it between serenity and our user data.
-    let manager_clone = Arc::clone(&manager);
-    let manager_clone_main = Arc::clone(&manager);
-    
     // connect to the db
     let pool = PgPool::connect(&db_url).await.expect("Failed to connect to db");
     sqlx::migrate!("./migrations").run(&pool).await.expect("Couldn't run db migrations");
@@ -61,7 +61,6 @@ async fn main() {
 
     let servers = Arc::new(Mutex::new(Servers(std::collections::HashMap::new())));
     let (client_tx, client_rx) = mpsc::channel::<ClientChannel>();
-    // let servers_timer = servers.clone();
     
     let framework = poise::Framework::new(options, |_, _, _| {
         Box::pin(async {
@@ -187,7 +186,7 @@ tokio::spawn(async move {
             }
         }
 
-        match kill_rx_clone.lock().unwrap().recv_timeout(Duration::from_millis(5)) {
+        match kill_rx_clone.lock().await.recv_timeout(Duration::from_millis(5)) {
             Ok(_) => break,
             Err(err) => match err {
                 RecvTimeoutError::Disconnected => {

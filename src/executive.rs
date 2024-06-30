@@ -1,11 +1,11 @@
 use std::{sync::Arc, time::Duration};
 use rusty_time::Timer;
 use serenity::all::{ChannelId, GuildId, Http, Message};
-use songbird::typemap::TypeMapKey;
+use songbird::{tracks::TrackHandle, typemap::{TypeMap, TypeMapKey}};
 use sqlx::types::Json;
 use tracing::info;
 
-use crate::{add_global_events, common::{ClientChannel, DltMsg, Server, ServerChannelId, ServerGuildId, Songs, UserData}, SmContext, SmError};
+use crate::{add_global_events, common::{ClientChannel, DltMsg, Server, ServerChannelId, ServerGuildId, Song, Songs, UserData}, SmContext, SmError, SongEndEvent, SongStartEvent, TrackMetaData};
 
 pub type ExecResult = Result<bool, SmError>;
 
@@ -36,7 +36,7 @@ pub async fn join(ctx: SmContext<'_>) -> ExecResult {
         },
     };
 
-    if let None = generics.data.inner.get_server(&guild_id) {
+    if let None = generics.data.inner.get_server(&guild_id).await {
         generics.data.inner.add_server_db(Server {
             id: ServerGuildId::from(&guild_id),
             channel_id: ServerChannelId::from(&ctx.channel_id()),
@@ -52,8 +52,8 @@ pub async fn join(ctx: SmContext<'_>) -> ExecResult {
     let manager = &ctx.data().inner.songbird;
     if let Ok(handler_lock) = manager.join(guild_id, connect_to).await {
         // Attach an event handler to see notifications of all track errors.
-        let handler = handler_lock.lock().await;
-        add_global_events(handler, &generics);
+        let mut handler = handler_lock.lock().await;
+        add_global_events(&mut handler, &generics);
     }
     Ok(true)
 }
@@ -61,7 +61,7 @@ pub async fn join(ctx: SmContext<'_>) -> ExecResult {
 pub async fn is_playing(ctx: SmContext<'_>) -> ExecResult {
     let generics = get_generics(&ctx);
 
-    if let Some(server) = generics.data.inner.get_server(&ctx.guild_id().expect("Should be a GuildId")) {
+    if let Some(server) = generics.data.inner.get_server(&ctx.guild_id().expect("Should be a GuildId")).await {
         match server.audio_player.state {
             crate::common::AudioPlayerState::Playing => return Ok(true),
             crate::common::AudioPlayerState::Idle => send_msg(&generics, "Not currently playing a song", Some(30000)).await,
@@ -77,7 +77,7 @@ pub async fn is_playing(ctx: SmContext<'_>) -> ExecResult {
 
 /// Checks that a message successfully sent; if not, then logs why to stdout.
 pub async fn send_msg(generics: &Generics, msg: &str, millis_dur: Option<u64>) -> Option<Box<Message>> {
-    match generics.channel_id.say(generics.http(), msg).await {
+    match generics.channel_id.say(generics.http().await, msg).await {
         Ok(msg) => {
             let msg = Box::new(msg);
             if let Some(dur) = millis_dur {
@@ -97,6 +97,22 @@ pub async fn send_msg(generics: &Generics, msg: &str, millis_dur: Option<u64>) -
     }
 }
 
+pub async fn init_track(song: &Song, generics: &Generics, track: TrackHandle) -> TrackHandle {
+    let clone = track.clone();
+    let mut typemap = clone.typemap().write().await;
+    let mut map = TypeMap::new();
+    map.insert::<TrackMetaData>(TrackMetaData {
+        song: song.clone(),
+        generics: generics.clone(),
+        client_tx: generics.data.inner.client_tx.clone()
+    });
+    *typemap = map;
+
+    track.add_event(songbird::Event::Track(songbird::TrackEvent::Playable), SongStartEvent).unwrap();
+    track.add_event(songbird::Event::Track(songbird::TrackEvent::End), SongEndEvent).unwrap();
+    track
+}
+
 #[derive(Debug, Clone)]
 pub struct Generics {
     pub channel_id: ChannelId,
@@ -105,11 +121,11 @@ pub struct Generics {
 }
 
 impl Generics {
-    fn http(&self) -> Arc<Http> {
-        self.data.inner.http.lock().unwrap().clone().unwrap()
+    async fn http(&self) -> Arc<Http> {
+        self.data.inner.http.lock().await.clone().unwrap()
     }
-    pub fn from_user_data(data: &UserData, guild_id: &GuildId) -> Self {
-        let server = data.inner.get_server(guild_id).expect("Server should exist");
+    pub async fn from_user_data(data: &UserData, guild_id: &GuildId) -> Self {
+        let server = data.inner.get_server(guild_id).await.expect("Server should exist");
         Self { 
             channel_id: server.channel_id.channel_id(),
             data: data.clone(),

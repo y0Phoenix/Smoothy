@@ -1,9 +1,9 @@
 use std::sync::Arc;
 
-use songbird::{input::{Compose, YoutubeDl}, tracks::TrackHandle, typemap::TypeMap};
+use songbird::{input::{Compose, YoutubeDl}, tracks::TrackHandle};
 use tracing::info;
 
-use crate::{common::{SmData, Song}, executive::{get_generics, join, send_msg, Generics}, CommandResult, SmContext, SongEndEvent, SongStartEvent, TrackMetaData};
+use crate::{common::{SmData, Song}, executive::{get_generics, init_track, join, send_msg, Generics}, CommandResult, SmContext};
 
 
 #[poise::command(prefix_command, guild_only, aliases("p"), check = "join")]
@@ -18,7 +18,7 @@ pub async fn play(ctx: SmContext<'_>, query: Vec<String>) -> CommandResult {
 }
 
 
-pub fn search_song(song: String, data: Arc<SmData>) -> YoutubeDl {
+pub fn search_song(song: String, data: &Arc<SmData>) -> YoutubeDl {
     let do_search = !song.starts_with("http");
 
     let src = if do_search {
@@ -37,7 +37,7 @@ pub enum SongType {
 }
 
 pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHandle, ()> {
-    let Some(mut server) = generics.data.inner.get_server(&generics.guild_id) else {
+    let Some(mut server) = generics.data.inner.get_server(&generics.guild_id).await else {
         send_msg(generics, "Failed to aquire server", Some(15000)).await;
         return Err(());
     };
@@ -48,7 +48,7 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
         };
         let mut handler = handler_lock.lock().await;
 
-        let mut src = search_song(query, generics.data.inner.clone());
+        let mut src = search_song(query, &generics.data.inner);
         let song_data = match src.aux_metadata().await {
             Ok(song) => song,
             Err(err) => {
@@ -67,7 +67,6 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
             info!("Playing song {}", title);
         }
         let track = handler.enqueue(src.into()).await;
-        let clone = track.clone();
         
         let song = Song {
             title: title.clone(),
@@ -78,17 +77,7 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
             ..Default::default()
         };
         
-        let mut typemap = clone.typemap().write().await;
-        let mut map = TypeMap::new();
-        map.insert::<TrackMetaData>(TrackMetaData {
-            song: song.clone(),
-            generics: generics.clone(),
-            client_tx: generics.data.inner.client_tx.clone()
-        });
-        *typemap = map;
-
-        track.add_event(songbird::Event::Track(songbird::TrackEvent::Playable), SongStartEvent).unwrap();
-        track.add_event(songbird::Event::Track(songbird::TrackEvent::End), SongEndEvent).unwrap();
+        let track = init_track(&song, generics, track).await;
 
         server.add_song(song);
         // info!("song len {}", server.songs.0.0.len());
