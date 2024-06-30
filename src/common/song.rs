@@ -18,6 +18,20 @@ impl TypeMapKey for Song {
     type Value = Song;
 }
 
+impl Song {
+    pub fn duration_formatted(&self) -> String {
+        let hour = self.duration_in_sec / 3600;
+        let minute = (self.duration_in_sec % 3600) / 60;
+        let second = self.duration_in_sec % 60;
+
+        if hour > 0 {
+            format!("{:02}:{:02}:{:02}", hour, minute, second)
+        } else {
+            format!("{:02}:{:02}", minute, second)
+        }
+    }
+}
+
 #[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize)]
 pub struct Songs(pub Vec<Song>);
 

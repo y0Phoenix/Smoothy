@@ -16,6 +16,7 @@ pub mod message;
 pub mod server;
 pub mod song;
 pub mod checks;
+pub mod embeds;
 
 #[derive(Debug, Clone)]
 pub struct UserData {

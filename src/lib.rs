@@ -1,10 +1,10 @@
-use std::{str::FromStr, sync::{mpsc::Sender, Arc}, time::Duration};
+use std::{str::FromStr, sync::Arc, time::Duration};
 
 use commands::play::search_song;
-use common::{message::{send_msg, NowPlayingMsg}, song::Song, ClientChannel, DcTimeOut, UserData};
+use common::{embeds::{LEAVING_COLOR, NOW_PLAYING_COLOR}, message::{send_embed, NowPlayingMsg}, song::Song, ClientChannel, DcTimeOut, UserData};
 use executive::init_track;
 use rusty_time::Timer;
-use ::serenity::{all::{ChannelId, GuildId, Http, MessageId}, async_trait};
+use ::serenity::{all::{ChannelId, CreateEmbed, CreateEmbedAuthor, GuildId, Http, MessageId}, async_trait};
 use serenity::all as serenity;
 // Event related imports to detect track creation failures.
 use songbird::{events::{Event, EventContext, EventHandler as VoiceEventHandler}, typemap::TypeMapKey, Call, TrackEvent};
@@ -31,7 +31,6 @@ pub struct SmMsg {
 pub struct TrackMetaData {
     pub song: Song,
     pub generics: Generics,
-    pub client_tx: Arc<Sender<ClientChannel>>
 }
 
 impl TypeMapKey for TrackMetaData {
@@ -40,6 +39,7 @@ impl TypeMapKey for TrackMetaData {
 
 pub struct TrackErrorNotifier;
 
+//
 #[serenity::async_trait]
 impl VoiceEventHandler for TrackErrorNotifier {
     async fn act(&self, ctx: &EventContext<'_>) -> Option<Event> { 
@@ -56,11 +56,9 @@ impl VoiceEventHandler for TrackErrorNotifier {
         None
     }
 }
-
-
-//TODO make Play event for songs
 pub struct SongEndEvent;
 
+// the event that fires when the song ends
 #[async_trait]
 impl VoiceEventHandler for SongEndEvent {
     async fn act(&self, ctx: &EventContext<'_>) -> Option<Event> {
@@ -88,9 +86,12 @@ impl VoiceEventHandler for SongEndEvent {
             server.audio_player.stop();
             let no_more_songs = server.songs.0.is_empty();
             if no_more_songs {
-                send_msg(&meta_data.generics, "No more songs to play :x:", Some(10000)).await;
+                let embed = CreateEmbed::new()
+                    .color(LEAVING_COLOR)
+                    .description(":x: No more songs to play");
+                send_embed(&meta_data.generics, embed, Some(10000)).await;
                 info!("No more songs to play in {} starting dc timeout", server.name);
-                meta_data.client_tx.send(ClientChannel::DcTimeOut(DcTimeOut { 
+                meta_data.generics.data.inner.client_tx.send(ClientChannel::DcTimeOut(DcTimeOut { 
                     guild_id: server.id.clone(),
                     channel_id: server.channel_id.clone(),
                     timer: Timer::new(Duration::from_secs(VC_DC_TIMEOUT_IN_SEC)),
@@ -105,6 +106,7 @@ impl VoiceEventHandler for SongEndEvent {
 
 pub struct SongStartEvent;
 
+// the event that fires when the song starts or is within 5 seconds of starting if next in queue
 #[async_trait]
 impl VoiceEventHandler for SongStartEvent {
     async fn act(&self, ctx: &EventContext<'_>) -> Option<Event> {
@@ -118,13 +120,48 @@ impl VoiceEventHandler for SongStartEvent {
             server.dc_timer_started = false;
             server.audio_player.play();
             // let curr_song = server.songs.curr_song().unwrap();
-            if let Some(msg) = send_msg(&meta_data.generics, format!("Now Playing {}", meta_data.song.title).as_str(), None).await {
+            let embed = CreateEmbed::new()
+                .color(NOW_PLAYING_COLOR)
+                .author(CreateEmbedAuthor::new("Now Playing").icon_url("https://cdn.discordapp.com/attachments/778600026280558617/781024479623118878/ezgif.com-gif-maker_1.gif"))
+                .description(format!("***[{}]({})***", meta_data.song.title, meta_data.song.url))
+                .field("Requested by", format!("<@{}>", meta_data.song.requested_by), true)
+                .field("Duration", format!("{}", meta_data.song.duration_formatted()), true)
+                .thumbnail(meta_data.song.thumbnail.clone())
+            ;
+            if let Some(msg) = send_embed(&meta_data.generics, embed, None).await {
                 meta_data.song.now_playing_msg = Some(NowPlayingMsg {
                     channel_id: msg.channel_id.to_string(),
                     msg_id: msg.id.to_string()
                 });
             }
             meta_data.generics.data.inner.update_server_db(server).await;
+        }
+        None
+    }
+}
+
+pub struct SongPlayEvent;
+
+#[async_trait]
+impl VoiceEventHandler for SongPlayEvent {
+    async fn act(&self, ctx: &EventContext<'_>) -> Option<Event> {
+        // println!("playable event");
+        if let EventContext::Track(tracks) = ctx {
+            let track = tracks.get(0).expect("Should be a track at 0");
+
+            let mut typemap = track.1.typemap().write().await;
+            let meta_data = typemap.get_mut::<TrackMetaData>().expect("Should have metadata");
+            let mut server = meta_data.generics.data.inner.get_server(&meta_data.generics.guild_id).await.expect("Server should exist");
+
+            // set the audio player status back to play from idle.
+            // when a song is started from the queue the "Playable" event is never fired 
+            // so the audio player status will remain idle from the "End" event being fired
+            // additionally we only set it to play when idle because thats the only state the player is in with this scenario
+            if server.audio_player.state.is_idle() {
+                server.audio_player.play();
+                meta_data.generics.data.inner.update_server_db(server).await;
+            }
+            
         }
         None
     }
@@ -189,16 +226,17 @@ pub async fn event_handler(
         },
         // serenity::FullEvent::Message { new_message } => {
         //     // FrameworkContext contains all data that poise::Framework usually manages
-        //     let shard_manager = (*_framework.shard_manager).clone();
-        //     let framework_data = poise::FrameworkContext {
-        //         bot_id: *data.inner.id.lock().unwrap(),
-        //         options: &_framework.options,
-        //         user_data: data,
-        //         shard_manager: &shard_manager,
-        //     };
+        //     // let shard_manager = (*_framework.shard_manager).clone();
+        //     // let framework_data = poise::FrameworkContext {
+        //     //     bot_id: *data.inner.id.lock().unwrap(),
+        //     //     options: &_framework.options,
+        //     //     user_data: data,
+        //     //     shard_manager: &shard_manager,
+        //     // };
 
-        //     let event = serenity::FullEvent::Message { new_message: new_message.clone() };
-        //     poise::dispatch_event(framework_data, &ctx, event).await;
+        //     // let event = serenity::FullEvent::Message { new_message: new_message.clone() };
+        //     // poise::dispatch_event(framework_data, &ctx, event).await;
+        //     info!("msg {}", new_message.content);
         // },
         _ => {}
     };

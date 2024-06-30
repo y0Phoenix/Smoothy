@@ -1,9 +1,10 @@
 use std::sync::Arc;
 
+use serenity::all::CreateEmbed;
 use songbird::{input::{Compose, YoutubeDl}, tracks::TrackHandle};
 use tracing::info;
 
-use crate::{common::{checks::vc, message::send_msg, song::Song, SmData}, executive::init_track, get_generics, CommandResult, Generics, SmContext};
+use crate::{common::{checks::vc, embeds::{err_embed, ADD_QUEUE_COLOR}, message::send_embed, song::Song, SmData}, executive::init_track, get_generics, CommandResult, Generics, SmContext};
 
 
 #[poise::command(prefix_command, guild_only, aliases("p"), check = "vc")]
@@ -12,7 +13,7 @@ pub async fn play(ctx: SmContext<'_>, query: Vec<String>) -> CommandResult {
     info!("Command 'play' called with query: {}", query); // Logging
     let generics = get_generics(&ctx);
 
-    start_song(SongType::New(query, ctx.author().id.to_string()), &generics).await.unwrap();
+    let _ = start_song(SongType::New(query, ctx.author().id.to_string()), &generics).await;
     
     Ok(())
 }
@@ -38,7 +39,7 @@ pub enum SongType {
 
 pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHandle, ()> {
     let Some(mut server) = generics.data.inner.get_server(&generics.guild_id).await else {
-        send_msg(generics, "Failed to aquire server", Some(15000)).await;
+        send_embed(generics, err_embed("Failed to aquire server"), Some(15000)).await;
         return Err(());
     };
     if let Some(handler_lock) = generics.data.inner.songbird.get(generics.guild_id) {
@@ -53,7 +54,7 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
             Ok(song) => song,
             Err(err) => {
                 info!("{}", err);
-                send_msg(generics, "There was a problem getting video information try again later", Some(60000)).await;
+                send_embed(generics, err_embed("There was a problem getting video information try again later"), Some(60000)).await;
                 return Err(());
             }
         };
@@ -62,9 +63,10 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
         let thumbnail = song_data.thumbnail.unwrap_or_default();
         let duration = song_data.duration.unwrap_or_default();
         if server.audio_player.state.is_playing() {
-            send_msg(generics, format!("Adding {} to queue", title).as_str(), Some(30000)).await;
-        } else {
-            info!("Playing song {}", title);
+            let embed = CreateEmbed::new()
+                .color(ADD_QUEUE_COLOR)
+                .description(format!("***[{title}]({url})***\nHas been added to the queue :arrow_down:"));
+            send_embed(generics, embed, Some(300000)).await;
         }
         let track = handler.enqueue(src.into()).await;
         
@@ -83,11 +85,9 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
         // info!("song len {}", server.songs.0.0.len());
 
         generics.data.inner.update_server_db(server).await;
-
-        // send_msg(generics, format!("Playing song {}", title).as_str(), Some(15000)).await;
         return Ok(track);
     } else {
-        send_msg(generics, "Not in a voice channel to play in", Some(15000)).await;
+        send_embed(generics, err_embed("Not in a voice channel to play in"), Some(15000)).await;
         return Err(());
     }
 }

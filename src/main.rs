@@ -166,6 +166,7 @@ tokio::spawn(async move {
                             Some(_dc_timer) => {
                                 if dc_timout.end {
                                     dc_timers.remove(&dc_timout.guild_id).expect("Should be able to remove dc timer");
+                                    info!("Stopping dc timeout for {}", dc_timout.guild_id.0);
                                 }
                             },
                             None => {

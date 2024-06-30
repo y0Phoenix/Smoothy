@@ -1,4 +1,6 @@
-use crate::{common::message::send_msg, get_generics, CommandResult, SmContext};
+use serenity::all::CreateEmbed;
+
+use crate::{common::{embeds::{FAILED_COLOR, LEAVING_COLOR}, message::send_embed}, get_generics, CommandResult, SmContext};
 
 #[poise::command(prefix_command, guild_only, aliases("dc", "disconnect", "die"))]
 pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
@@ -10,12 +12,15 @@ pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
 
     if has_handler {
         if let Err(e) = manager.remove(guild_id).await {
-            send_msg(&generics, format!("Failed: {:?}", e).as_str(), Some(15000)).await;
+            let embed = CreateEmbed::new().color(FAILED_COLOR).description(format!("Failed: {:?}", e));
+            send_embed(&generics, embed, Some(15000)).await;
         }
 
-        send_msg(&generics, "Left voice channel", Some(15000)).await;
+        let embed = CreateEmbed::new().color(LEAVING_COLOR).description("Left voice channel");
+        send_embed(&generics, embed, Some(15000)).await;
     } else {
-        send_msg(&generics, "Not in a voice channel", Some(15000)).await;
+        let embed = CreateEmbed::new().color(LEAVING_COLOR).description("Not in a voice channel");
+        send_embed(&generics, embed, Some(15000)).await;
     }
 
     Ok(())

@@ -4,7 +4,7 @@ use tracing::info;
 use crate::{add_global_events, get_generics, Generics, SmError};
 use crate::SmContext;
 
-use super::{message::send_msg, server::{Server, ServerChannelId, ServerGuildId}, song::Songs};
+use super::{embeds::err_embed, message::send_embed, server::{Server, ServerChannelId, ServerGuildId}, song::Songs};
 
 pub type CheckResult = Result<bool, SmError>;
 
@@ -14,13 +14,13 @@ pub async fn is_playing(ctx: SmContext<'_>) -> CheckResult {
     if let Some(server) = generics.data.inner.get_server(&ctx.guild_id().expect("Should be a GuildId")).await {
         match server.audio_player.state {
             crate::common::server::AudioPlayerState::Playing => return Ok(true),
-            crate::common::server::AudioPlayerState::Idle => send_msg(&generics, "Not currently playing a song", Some(30000)).await,
-            crate::common::server::AudioPlayerState::Paused => send_msg(&generics, "Player is currently paused", Some(30000)).await,
-            crate::common::server::AudioPlayerState::Skipped => send_msg(&generics, "Player is skipping", Some(30000)).await,
+            crate::common::server::AudioPlayerState::Idle => send_embed(&generics, err_embed("Not currently playing a song"), Some(30000)).await,
+            crate::common::server::AudioPlayerState::Paused => send_embed(&generics, err_embed("Player is currently paused"), Some(30000)).await,
+            crate::common::server::AudioPlayerState::Skipped => send_embed(&generics, err_embed("Player is skipping"), Some(30000)).await,
         };
         return Ok(false);
     } else {
-        send_msg(&generics, "Not Currently In A Voice Channel", Some(30000)).await;
+        send_embed(&generics, err_embed("Not Currently In A Voice Channel"), Some(30000)).await;
     }
     Ok(false)
 }
@@ -45,7 +45,7 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
     let connect_to = match channel {
         Some(channel) => channel,
         None => {
-            send_msg(&generics, "You're not in a voice channel", Some(15000)).await;
+            send_embed(&generics, err_embed("You're not in a voice channel"), Some(15000)).await;
             let err_msg = "Failed to join voice channel. User not in channel";
             info!("{err_msg}");
             return Ok(false);
