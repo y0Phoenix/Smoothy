@@ -1,6 +1,6 @@
-use crate::{executive::{get_generics, is_playing, send_msg}, CommandResult, SmContext};
+use crate::{common::{checks::vc, message::send_msg}, get_generics, CommandResult, SmContext};
 
-#[poise::command(prefix_command, guild_only, aliases("n", "next", "skip", "s"), check = "is_playing")]
+#[poise::command(prefix_command, guild_only, aliases("n", "next", "skip", "s"), check = "vc")]
 pub async fn next(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);
 

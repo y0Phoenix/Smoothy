@@ -1,22 +1,21 @@
-use std::{str::FromStr, sync::{mpsc::Sender, Arc}};
+use std::sync::{mpsc::Sender, Arc};
 use std::collections::HashMap;
 
-use prelude::TypeMapKey;
-// YtDl requests need an HTTP client to operate -- we'll create and store our own.
-use reqwest::Client as HttpClient;
+use message::DltMsg;
 use rusty_time::Timer;
-use serde::{Serialize, Deserialize};
-use serenity::all::*;
-use sqlx::{postgres::PgRow, prelude::FromRow, query, Pool, Postgres, Row};
+use serenity::all::{GuildId, Http, UserId};
+use server::{Server, ServerChannelId, ServerGuildId, Servers};
+use song::Song;
+use songbird::typemap::TypeMapKey;
+use sqlx::{query, Pool, Postgres};
+use reqwest::Client as HttpClient;
 use tokio::sync::Mutex;
 use tracing::info;
 
-#[derive(Debug, Clone)]
-pub struct DltMsg {
-    pub msg: Box<Message>,
-    pub duration: u64,
-    pub timer: Timer
-}
+pub mod message;
+pub mod server;
+pub mod song;
+pub mod checks;
 
 #[derive(Debug, Clone)]
 pub struct UserData {
@@ -216,182 +215,6 @@ impl SmData {
     pub async fn init_bot(&self, id: UserId, http: Arc<Http>) {
         *self.id.lock().await = id;
         *self.http.lock().await = Some(Arc::clone(&http));
-    }
-}
-
-#[derive(Debug)]
-pub struct Servers(pub std::collections::HashMap<ServerGuildId, Server>);
-
-#[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize)]
-pub struct NowPlayingMsg {
-    pub channel_id: String,
-    pub msg_id: String
-}
-
-#[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize)]
-pub struct Song {
-    pub title: String,
-    pub url: String,
-    pub duration_in_sec: u64,
-    pub thumbnail: String,
-    pub requested_by: String,
-    pub now_playing_msg: Option<NowPlayingMsg>
-}
-
-impl TypeMapKey for Song {
-    type Value = Song;
-}
-
-#[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize)]
-pub struct Songs(pub Vec<Song>);
-
-impl Songs {
-    pub fn add_song(&mut self, song: Song) -> &mut Self {
-        self.0.push(song);
-        self
-    }
-    pub fn next_song(&mut self) -> &mut Self {
-        if !self.0.is_empty() {
-            self.0.remove(0);
-        }
-        self
-    }
-    pub fn is_empty(&self) -> bool {
-        self.0.is_empty()
-    }  
-    pub fn curr_song(&self) -> Option<Song> {
-        self.0.get(0).cloned()
-    }
-}
-
-#[derive(Debug, Default, Serialize, Clone)]
-pub struct AudioPlayer {
-    pub state: AudioPlayerState,
-}
-
-impl AudioPlayer {
-    pub fn stop(&mut self) {
-        self.update_state(AudioPlayerState::Idle)
-    }
-    pub fn play(&mut self) {
-        self.update_state(AudioPlayerState::Playing)
-    }
-    pub fn pause(&mut self) {
-        self.update_state(AudioPlayerState::Paused)
-    }
-    pub fn skip(&mut self) {
-        self.update_state(AudioPlayerState::Skipped)
-    }
-    fn update_state(&mut self, state: AudioPlayerState) {
-        info!("New AudioPlayerState {:?}", state);
-        self.state = state;
-    }
-}
-
-#[derive(Debug, Default, Serialize, Clone)]
-pub enum AudioPlayerState {
-    Playing,
-    #[default]
-    Idle,
-    Paused,
-    Skipped,
-}
-
-impl AudioPlayerState {
-    pub fn is_playing(&self) -> bool {
-        match self {
-            Self::Playing => true,
-            _ => false
-        }
-    }
-    pub fn is_idle(&self) -> bool {
-        match self {
-            Self::Idle => true,
-            _ => false
-        }
-    }
-    pub fn is_pause(&self) -> bool {
-        match self {
-            Self::Paused => true,
-            _ => false
-        }
-    }
-}
-
-#[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize, PartialEq, Eq, Hash)]
-pub struct ServerChannelId(pub String);
-
-impl Into<ChannelId> for ServerChannelId {
-    fn into(self) -> ChannelId {
-        ChannelId::from_str(&self.0).expect("Invalid ChannelId supplied")
-    }
-}
-
-impl ServerChannelId {
-    /// will convert the string channelid into a ChannelId
-    pub fn channel_id(&self) -> ChannelId {
-        ChannelId::from_str(&self.0).expect("Invalid ChannelId supplied")
-    }
-}
-
-impl From<&ChannelId> for ServerChannelId {
-    fn from(value: &ChannelId) -> Self {
-        Self(value.to_string())
-    }
-}
-
-#[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize, PartialEq, Eq, Hash)]
-pub struct ServerGuildId(pub String);
-
-impl Into<GuildId> for ServerGuildId {
-    fn into(self) -> GuildId {
-        GuildId::from_str(&self.0).expect("Invalid GuildId supplied")
-    }
-}
-
-impl ServerGuildId {
-    /// will convert the string guildid into a GuildId
-    pub fn guild_id(&self) -> GuildId {
-        GuildId::from_str(&self.0).expect("Invalid GuildId supplied")
-    }
-}
-
-impl From<&GuildId> for ServerGuildId {
-    fn from(value: &GuildId) -> Self {
-        Self(value.to_string())
-    }
-}
-
-#[derive(Debug, Default, FromRow, Serialize, Clone)]
-pub struct Server {
-    pub id: ServerGuildId,
-    pub channel_id: ServerChannelId,
-    pub voice_channel_id: ServerChannelId,
-    pub name: String,
-    pub songs: sqlx::types::Json<Songs>,
-    #[sqlx(skip)]
-    pub audio_player: AudioPlayer,
-    /// if the vc dc timer should be ticking
-    pub dc_timer_started: bool
-}
-
-impl From<PgRow> for Server {
-    fn from(value: PgRow) -> Self {
-        Self { 
-            id: ServerGuildId(value.get("server_id")),
-            channel_id: ServerChannelId(value.get("channel_id")),
-            voice_channel_id: ServerChannelId(value.get("voice_channel_id")),
-            name: value.get("name"),
-            songs: value.get("songs"),
-            ..Default::default()
-        }
-    }
-}
-
-impl Server {
-    pub fn add_song(&mut self, song: Song) -> &mut Self {
-        self.songs.0.0.push(song);
-        self
     }
 }
 

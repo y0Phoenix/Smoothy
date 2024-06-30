@@ -2,7 +2,7 @@ use std::{env, sync::mpsc::{self, RecvTimeoutError}, time::{Duration, Instant}};
 use std::sync::Arc;
 
 use commands::{leave::leave, next::next, play::play, queue::queue};
-use common::{ClientChannel, DcTimeOut, DltMsg, ServerGuildId, Servers, SmData, UserData};
+use common::{message::DltMsg, server::{ServerGuildId, Servers}, ClientChannel, DcTimeOut, SmData, UserData};
 use dotenv::dotenv;
 use reqwest::Client as HttpClient;
 use rusty_time::Timer;

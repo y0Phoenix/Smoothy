@@ -1,4 +1,4 @@
-use crate::{executive::{get_generics, send_msg}, CommandResult, SmContext};
+use crate::{common::message::send_msg, get_generics, CommandResult, SmContext};
 
 #[poise::command(prefix_command, guild_only, aliases("dc", "disconnect", "die"))]
 pub async fn leave(ctx: SmContext<'_>) -> CommandResult {

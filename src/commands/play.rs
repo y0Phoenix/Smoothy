@@ -3,10 +3,10 @@ use std::sync::Arc;
 use songbird::{input::{Compose, YoutubeDl}, tracks::TrackHandle};
 use tracing::info;
 
-use crate::{common::{SmData, Song}, executive::{get_generics, init_track, join, send_msg, Generics}, CommandResult, SmContext};
+use crate::{common::{checks::vc, message::send_msg, song::Song, SmData}, executive::init_track, get_generics, CommandResult, Generics, SmContext};
 
 
-#[poise::command(prefix_command, guild_only, aliases("p"), check = "join")]
+#[poise::command(prefix_command, guild_only, aliases("p"), check = "vc")]
 pub async fn play(ctx: SmContext<'_>, query: Vec<String>) -> CommandResult {
     let query = query.join(" ");
     info!("Command 'play' called with query: {}", query); // Logging

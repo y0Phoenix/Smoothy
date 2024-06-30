@@ -1,6 +1,6 @@
-use serenity::all::CreateEmbed;
+use serenity::all::{CreateEmbed, CreateMessage};
 
-use crate::{executive::{get_generics, is_playing, send_msg}, CommandResult, SmContext, TrackMetaData};
+use crate::{common::{checks::is_playing, message::send_msg}, get_generics, CommandResult, SmContext, TrackMetaData};
 
 #[poise::command(prefix_command, guild_only, aliases("n", "next", "skip", "s"), check = "is_playing")]
 pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
@@ -27,8 +27,10 @@ pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
         embed = embed.field(format!("Track {}", i + 1), meta_data.song.title.clone(), false);
     }
 
+    let builder = CreateMessage::new().embed(embed);
+    let _ = generics.channel_id.send_message(generics.http().await, builder).await;
 
-    send_msg(&generics, format!("Here is the queue {}", generics.data.inner.curr_song(&generics.guild_id).await.expect("Should be a current song").title).as_str(), Some(30000)).await;
+    // send_msg(&generics, format!("Here is the queue {}", generics.data.inner.curr_song(&generics.guild_id).await.expect("Should be a current song").title).as_str(), Some(30000)).await;
 
     if let Err(err) = generics.data.inner.next_song(&generics.guild_id).await {
         send_msg(&generics, &err, Some(60000)).await;

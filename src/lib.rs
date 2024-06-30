@@ -1,11 +1,10 @@
 use std::{str::FromStr, sync::{mpsc::Sender, Arc}, time::Duration};
 
 use commands::play::search_song;
-// use commands::play::play;
-use common::{ClientChannel, DcTimeOut, NowPlayingMsg, Song, UserData};
-use executive::{init_track, send_msg, Generics};
+use common::{message::{send_msg, NowPlayingMsg}, song::Song, ClientChannel, DcTimeOut, UserData};
+use executive::init_track;
 use rusty_time::Timer;
-use ::serenity::{all::{ChannelId, GuildId, MessageId}, async_trait};
+use ::serenity::{all::{ChannelId, GuildId, Http, MessageId}, async_trait};
 use serenity::all as serenity;
 // Event related imports to detect track creation failures.
 use songbird::{events::{Event, EventContext, EventHandler as VoiceEventHandler}, typemap::TypeMapKey, Call, TrackEvent};
@@ -58,6 +57,8 @@ impl VoiceEventHandler for TrackErrorNotifier {
     }
 }
 
+
+//TODO make Play event for songs
 pub struct SongEndEvent;
 
 #[async_trait]
@@ -202,4 +203,39 @@ pub async fn event_handler(
         _ => {}
     };
     Ok(())
+}
+
+
+#[derive(Debug, Clone)]
+pub struct Generics {
+    pub channel_id: ChannelId,
+    pub data: UserData,
+    pub guild_id: GuildId
+}
+
+impl Generics {
+    pub async fn http(&self) -> Arc<Http> {
+        self.data.inner.http.lock().await.clone().unwrap()
+    }
+    pub async fn from_user_data(data: &UserData, guild_id: &GuildId) -> Self {
+        let server = data.inner.get_server(guild_id).await.expect("Server should exist");
+        Self { 
+            channel_id: server.channel_id.channel_id(),
+            data: data.clone(),
+            guild_id: guild_id.clone()
+        }
+    }
+}
+
+impl TypeMapKey for Generics {
+    type Value = Generics;
+}
+
+pub fn get_generics(ctx: &SmContext<'_>) -> Generics {
+    let data = ctx.data();
+    Generics {
+        channel_id: ctx.channel_id(),
+        data: data.clone(),
+        guild_id: ctx.guild_id().expect("GuildId should exist")
+    }
 }
