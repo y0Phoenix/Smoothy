@@ -4,7 +4,7 @@ use serenity::all::CreateEmbed;
 use songbird::{input::{Compose, YoutubeDl}, tracks::TrackHandle};
 use tracing::info;
 
-use crate::{common::{checks::vc, embeds::{err_embed, ADD_QUEUE_COLOR}, message::send_embed, song::Song, SmData}, executive::init_track, get_generics, CommandResult, Generics, SmContext};
+use crate::{common::{checks::vc, embeds::{err_embed, ADD_QUEUE_COLOR}, message::send_embed, server::ServerGuildId, song::Song, SmData}, executive::init_track, get_generics, CommandResult, Generics, SmContext};
 
 
 #[poise::command(prefix_command, guild_only, aliases("p"), check = "vc")]
@@ -38,7 +38,8 @@ pub enum SongType {
 }
 
 pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHandle, ()> {
-    let Some(mut server) = generics.data.inner.get_server(&generics.guild_id).await else {
+    let mut servers_lock = generics.data.inner.servers_unlocked().await;
+    let Some(server) = servers_lock.0.get_mut(&ServerGuildId::from(generics.guild_id)) else {
         send_embed(generics, err_embed("Failed to aquire server"), Some(15000)).await;
         return Err(());
     };

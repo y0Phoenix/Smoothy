@@ -3,6 +3,7 @@ use std::str::FromStr;
 use serde::{Deserialize, Serialize};
 use serenity::all::{ChannelId, GuildId};
 use sqlx::{postgres::PgRow, prelude::FromRow, Row};
+use tokio::sync::MutexGuard;
 use tracing::info;
 
 use super::song::{Song, Songs};
@@ -83,6 +84,12 @@ impl From<&ChannelId> for ServerChannelId {
     }
 }
 
+impl From<ChannelId> for ServerChannelId {
+    fn from(value: ChannelId) -> Self {
+        Self(value.to_string())
+    }
+}
+
 #[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize, PartialEq, Eq, Hash)]
 pub struct ServerGuildId(pub String);
 
@@ -105,12 +112,22 @@ impl From<&GuildId> for ServerGuildId {
     }
 }
 
+impl From<GuildId> for ServerGuildId {
+    fn from(value: GuildId) -> Self {
+        Self(value.to_string())
+    }
+}
+
 
 #[derive(Debug)]
 pub struct Servers(pub std::collections::HashMap<ServerGuildId, Server>);
 
+pub type ServersLock<'a> = MutexGuard<'a, Servers>;
+
 #[derive(Debug, Default, FromRow, Serialize, Clone)]
 pub struct Server {
+    // because of how this API has to work with aquiring 
+    pub locked: bool,
     pub id: ServerGuildId,
     pub channel_id: ServerChannelId,
     pub voice_channel_id: ServerChannelId,

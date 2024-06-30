@@ -1,9 +1,8 @@
-use std::{str::FromStr, sync::Arc, time::Duration};
+use std::{str::FromStr, sync::Arc};
 
 use commands::play::search_song;
-use common::{embeds::{LEAVING_COLOR, NOW_PLAYING_COLOR}, message::{send_embed, NowPlayingMsg}, song::Song, ClientChannel, DcTimeOut, UserData};
+use common::{embeds::{err_embed, LEAVING_COLOR, NOW_PLAYING_COLOR}, message::{send_embed, NowPlayingMsg}, server::{ServerChannelId, ServerGuildId, ServersLock}, song::Song, UserData};
 use executive::init_track;
-use rusty_time::Timer;
 use ::serenity::{all::{ChannelId, CreateEmbed, CreateEmbedAuthor, GuildId, Http, MessageId}, async_trait};
 use serenity::all as serenity;
 // Event related imports to detect track creation failures.
@@ -78,7 +77,8 @@ impl VoiceEventHandler for SongEndEvent {
                 }
             }
 
-            let mut server = meta_data.generics.data.inner.get_server(&meta_data.generics.guild_id).await.expect("Server should exist");
+            let mut servers = meta_data.generics.data.inner.servers.lock().await;
+            let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
             // info!("song len {}", server.songs.0.0.len());
             server.songs.next_song();
             // info!("song len {}", server.songs.0.0.len());
@@ -91,12 +91,7 @@ impl VoiceEventHandler for SongEndEvent {
                     .description(":x: No more songs to play");
                 send_embed(&meta_data.generics, embed, Some(10000)).await;
                 info!("No more songs to play in {} starting dc timeout", server.name);
-                meta_data.generics.data.inner.client_tx.send(ClientChannel::DcTimeOut(DcTimeOut { 
-                    guild_id: server.id.clone(),
-                    channel_id: server.channel_id.clone(),
-                    timer: Timer::new(Duration::from_secs(VC_DC_TIMEOUT_IN_SEC)),
-                    end: false
-                })).expect("Should be able to send on client tx");
+                meta_data.generics.data.inner.start_dc_timer(ServerGuildId::from(meta_data.generics.guild_id), ServerChannelId::from(meta_data.generics.channel_id));
             }
             meta_data.generics.data.inner.update_server_db(server).await;
         }
@@ -116,7 +111,8 @@ impl VoiceEventHandler for SongStartEvent {
 
             let mut typemap = track.1.typemap().write().await;
             let meta_data = typemap.get_mut::<TrackMetaData>().expect("Should have metadata");
-            let mut server = meta_data.generics.data.inner.get_server(&meta_data.generics.guild_id).await.expect("Server should exist");
+            let mut servers = meta_data.generics.data.inner.servers.lock().await;
+            let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
             server.dc_timer_started = false;
             server.audio_player.play();
             // let curr_song = server.songs.curr_song().unwrap();
@@ -134,7 +130,8 @@ impl VoiceEventHandler for SongStartEvent {
                     msg_id: msg.id.to_string()
                 });
             }
-            meta_data.generics.data.inner.update_server_db(server).await;
+            meta_data.generics.data.inner.update_server_db(&server).await;
+            meta_data.generics.data.inner.stop_dc_timer(ServerGuildId::from(meta_data.generics.guild_id), ServerChannelId::from(meta_data.generics.channel_id));
         }
         None
     }
@@ -151,8 +148,8 @@ impl VoiceEventHandler for SongPlayEvent {
 
             let mut typemap = track.1.typemap().write().await;
             let meta_data = typemap.get_mut::<TrackMetaData>().expect("Should have metadata");
-            let mut server = meta_data.generics.data.inner.get_server(&meta_data.generics.guild_id).await.expect("Server should exist");
-
+            let mut servers = meta_data.generics.data.inner.servers.lock().await;
+            let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
             // set the audio player status back to play from idle.
             // when a song is started from the queue the "Playable" event is never fired 
             // so the audio player status will remain idle from the "End" event being fired
@@ -175,6 +172,7 @@ pub fn add_global_events(handler: &mut tokio::sync::MutexGuard<Call>, _generics:
     // handler.add_global_event(Event::Track(TrackEvent::Playable), SongStartEvent {
     //     generics: generics.clone().into()
     // });
+    info!("Global Events Added");
 }
 
 /// global event handler for discord
@@ -188,27 +186,37 @@ pub async fn event_handler(
         
         serenity::FullEvent::Ready { data_about_bot, .. } => {
             data.inner.init_bot(data_about_bot.user.id, ctx.http.clone()).await;
-            let servers = data.inner.get_servers_db().await;
+            let mut servers_lock = data.inner.servers_unlocked().await;
+            let servers = data.inner.get_servers_db(&mut servers_lock).await;
             for (_, server) in servers.0.iter() {
-                let guild_id = server.id.clone().guild_id();
+                info!("{}", server.id.0);
+                let guild_id = server.id.guild_id();
                 if server.songs.0.is_empty() {
-                    data.inner.remove_server_db(&guild_id).await;
+                    info!("removing db");
+                    data.inner.remove_server_db(&guild_id, &mut servers_lock).await;
                     continue;
                 }
-                let generics = Generics::from_user_data(data, &guild_id).await;
+                let generics = Generics::from_user_data(data, &guild_id, &mut servers_lock);
                 let voice_channel_id = server.voice_channel_id.clone().channel_id();
                 if let Some(_) = server.songs.curr_song() {
+                    info!("has song");
                     let manager = &data.inner.songbird;
                     if let Ok(handler_lock) = manager.join(generics.guild_id, voice_channel_id).await {
                         // Attach an event handler to see notifications of all track errors.
                         let mut handler = handler_lock.lock().await;
+                        info!("handler aquired");
                         add_global_events(&mut handler, &generics);
                         for song in server.songs.0.0.iter() {
+                            info!("{}", song.title);
                             let src = search_song(song.url.clone(), &generics.data.inner);
                             let track = handler.enqueue(src.into()).await;
 
                             init_track(&song, &generics, track).await;
                         }
+                    }
+                    else {
+                        send_embed(&generics, err_embed("Failed to join vc"), Some(60000)).await;
+                        data.inner.remove_server_db(&guild_id, &mut servers_lock).await;
                     }
                 }
             }
@@ -220,7 +228,8 @@ pub async fn event_handler(
             if new.channel_id.is_none() {
                 let guild_id = new.guild_id.expect("Should have guild_id");
                 if new.member.clone().unwrap().user.id == data.inner.id.lock().await.clone() {
-                    data.inner.remove_server_db(&guild_id).await;
+                    let mut servers_lock = data.inner.servers_unlocked().await;
+                    data.inner.remove_server_db(&guild_id, &mut servers_lock).await;
                 }
             }
         },
@@ -255,8 +264,8 @@ impl Generics {
     pub async fn http(&self) -> Arc<Http> {
         self.data.inner.http.lock().await.clone().unwrap()
     }
-    pub async fn from_user_data(data: &UserData, guild_id: &GuildId) -> Self {
-        let server = data.inner.get_server(guild_id).await.expect("Server should exist");
+    pub fn from_user_data(data: &UserData, guild_id: &GuildId, servers_lock: &mut ServersLock<'_>) -> Self {
+        let server = servers_lock.0.get_mut(&ServerGuildId::from(guild_id)).expect("Server should exist");
         Self { 
             channel_id: server.channel_id.channel_id(),
             data: data.clone(),

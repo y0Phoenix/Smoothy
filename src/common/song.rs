@@ -49,7 +49,10 @@ impl Songs {
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }  
-    pub fn curr_song(&self) -> Option<Song> {
-        self.0.get(0).cloned()
+    pub fn curr_song(&self) -> Option<&Song> {
+        self.0.get(0)
+    }
+    pub fn curr_song_mut(&mut self) -> Option<&mut Song> {
+        self.0.get_mut(0)
     }
 }

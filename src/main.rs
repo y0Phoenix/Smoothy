@@ -115,6 +115,8 @@ tokio::spawn(async move {
     loop {
         let delta = instant.elapsed();
         instant = Instant::now();
+
+        // DLT MSG LOOP
         for msg in dlt_msgs.iter_mut() {
             msg.timer.tick(delta);
             // println!("ticking timer for {}", msg.msg.content);
@@ -132,6 +134,8 @@ tokio::spawn(async move {
                 }
             }
         }
+        
+        // DC TIMER LOOP
         for (guild_id, dc_timeout) in dc_timers.iter_mut() {
             // println!("dc timeout");
             dc_timeout.timer.tick(delta);
@@ -158,6 +162,7 @@ tokio::spawn(async move {
             }
         }
         
+        // CLIENT CHANNEL RECIEVER
         match client_rx.recv_timeout(Duration::from_millis(5)) {
             Ok(from_client) => {
                 match from_client {
@@ -187,6 +192,7 @@ tokio::spawn(async move {
             }
         }
 
+        // KILL EVENT RECIEVER FROM Ctrl-C
         match kill_rx_clone.lock().await.recv_timeout(Duration::from_millis(5)) {
             Ok(_) => break,
             Err(err) => match err {

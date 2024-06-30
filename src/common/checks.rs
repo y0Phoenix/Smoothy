@@ -11,7 +11,8 @@ pub type CheckResult = Result<bool, SmError>;
 pub async fn is_playing(ctx: SmContext<'_>) -> CheckResult {
     let generics = get_generics(&ctx);
 
-    if let Some(server) = generics.data.inner.get_server(&ctx.guild_id().expect("Should be a GuildId")).await {
+    let servers = generics.data.inner.servers.lock().await;
+    if let Some(server) = servers.0.get(&ServerGuildId::from(generics.guild_id)) {
         match server.audio_player.state {
             crate::common::server::AudioPlayerState::Playing => return Ok(true),
             crate::common::server::AudioPlayerState::Idle => send_embed(&generics, err_embed("Not currently playing a song"), Some(30000)).await,
@@ -52,16 +53,20 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
         },
     };
 
-    if let None = generics.data.inner.get_server(&guild_id).await {
-        generics.data.inner.add_server_db(Server {
-            id: ServerGuildId::from(&guild_id),
-            channel_id: ServerChannelId::from(&ctx.channel_id()),
-            voice_channel_id: ServerChannelId::from(&connect_to),
+    let mut servers = generics.data.inner.servers.lock().await;
+    if let None = servers.0.get(&ServerGuildId::from(guild_id)) {
+        let server = Server {
+            id: ServerGuildId::from(guild_id),
+            channel_id: ServerChannelId::from(ctx.channel_id()),
+            voice_channel_id: ServerChannelId::from(connect_to),
             name,
             songs: Json(Songs(Vec::new())),
             ..Default::default()
-        }).await;
+        };
+        servers.0.insert(server.id.clone(), server.clone());
+        generics.data.inner.add_server_db(server).await;
     }
+    info!("Server added");
 
     // data.print_servers();
 
@@ -70,6 +75,9 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
         // Attach an event handler to see notifications of all track errors.
         let mut handler = handler_lock.lock().await;
         add_global_events(&mut handler, &generics);
+    }
+    else {
+        send_embed(&generics, err_embed("Failed to join vc"), Some(60000)).await;
     }
     Ok(true)
 }

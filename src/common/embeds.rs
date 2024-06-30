@@ -13,6 +13,5 @@ pub const FAILED_COLOR: Colour = Colour::from_rgb(252, 3, 3);
 pub fn err_embed(err: impl ToString + Debug + Display) -> CreateEmbed {
     CreateEmbed::new()
         .color(FAILED_COLOR)
-        .title(":x: Error")
-        .description(format!("{}", err))
+        .description(format!(":x: {}", err))
 }
