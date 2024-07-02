@@ -19,7 +19,7 @@ pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
     }
 
     let mut embed = CreateEmbed::default()
-        .title("Song queue")
+        .title(format!("{} Song Queue", generics.guild_id.name(ctx.cache()).expect("Server name should exist")))
         .color(LIST_QUEUE_COLOR)    
     ;
     let mut queue_list = Vec::new(); 

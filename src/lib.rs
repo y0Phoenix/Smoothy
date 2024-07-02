@@ -38,6 +38,20 @@ impl TypeMapKey for TrackMetaData {
     type Value = TrackMetaData;
 }
 
+/// will attempt to delete the now playing msg from the tracks meta_data. this won't panic and will simply not delete the message if something goes wrong
+pub async fn delete_now_playing_msg(meta_data: &TrackMetaData) {
+    if let Some(now_playing_msg) = &meta_data.song.now_playing_msg.clone() {
+        let http = meta_data.generics.data.inner.http.lock().await.clone().expect("Should be an Http initialized");
+        
+        let channel_id = ChannelId::from_str(now_playing_msg.channel_id.as_str()).expect("Should be valid ChannelId");
+        if let Ok(msg) = channel_id.message(&http, MessageId::from_str(&now_playing_msg.msg_id).expect("Should be a valid MessageId")).await {
+            if let Ok(_) = msg.delete(http).await {
+                info!("Message {} deleted", msg.id)
+            }
+        }
+    }
+}
+
 pub struct TrackErrorNotifier;
 
 //
@@ -80,6 +94,8 @@ impl VoiceEventHandler for SongEndEvent {
             let typemap = track.1.typemap().read().await;
             let meta_data: &TrackMetaData = typemap.get::<TrackMetaData>().expect("Should have metadata");
 
+            delete_now_playing_msg(&meta_data).await;
+
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
             // info!("song len {}", server.songs.0.0.len());
@@ -117,16 +133,7 @@ impl VoiceEventHandler for SongStartEvent {
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
 
-            if let Some(now_playing_msg) = &meta_data.song.now_playing_msg.clone() {
-                let http = meta_data.generics.data.inner.http.lock().await.clone().expect("Should be an Http initialized");
-                
-                let channel_id = ChannelId::from_str(now_playing_msg.channel_id.as_str()).expect("Should be valid ChannelId");
-                if let Ok(msg) = channel_id.message(&http, MessageId::from_str(&now_playing_msg.msg_id).expect("Should be a valid MessageId")).await {
-                    if let Ok(_) = msg.delete(http).await {
-                        info!("Message {} deleted", msg.id)
-                    }
-                }
-            }
+            delete_now_playing_msg(&meta_data).await;
 
             server.dc_timer_started = false;
             server.audio_player.play();
