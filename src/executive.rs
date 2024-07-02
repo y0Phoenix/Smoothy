@@ -10,6 +10,7 @@ pub async fn init_track(song: &Song, generics: &Generics, track: TrackHandle) ->
     map.insert::<TrackMetaData>(TrackMetaData {
         song: song.clone(),
         generics: generics.clone(),
+        looped: false,
     });
     *typemap = map;
 

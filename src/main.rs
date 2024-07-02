@@ -1,7 +1,7 @@
 use std::{env, sync::mpsc::{self, RecvTimeoutError}, time::{Duration, Instant}};
 use std::sync::Arc;
 
-use commands::{leave::leave, next::next, play::play, queue::queue};
+use commands::{leave::leave, loop_song::loop_song, next::next, play::play, queue::queue};
 use common::{embeds::LEAVING_COLOR, message::DltMsg, server::{ServerGuildId, Servers}, ClientChannel, DcTimeOut, SmData, UserData};
 use dotenv::dotenv;
 use reqwest::Client as HttpClient;
@@ -38,7 +38,7 @@ async fn main() {
     
     // Configure our command framework
     let options = poise::FrameworkOptions {
-        commands: vec![leave(), play(), next(), queue()],
+        commands: vec![leave(), play(), next(), queue(), loop_song()],
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some(String::from("-")),
             ..Default::default()

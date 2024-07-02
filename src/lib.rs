@@ -30,6 +30,8 @@ pub struct SmMsg {
 pub struct TrackMetaData {
     pub song: Song,
     pub generics: Generics,
+    /// if the song is looped
+    pub looped: bool,
 }
 
 impl TypeMapKey for TrackMetaData {
@@ -42,14 +44,25 @@ pub struct TrackErrorNotifier;
 #[serenity::async_trait]
 impl VoiceEventHandler for TrackErrorNotifier {
     async fn act(&self, ctx: &EventContext<'_>) -> Option<Event> { 
-        warn!("songbird event");
+        warn!("songbird error event fired");
         if let EventContext::Track(track_list) = ctx {
             for (state, handle) in *track_list {
-                println!(
-                    "Track {:?} encountered an error: {:?}",
-                    handle.uuid(),
-                    state.playing
-                );
+                let typemap = handle.typemap().read().await;
+                let meta_data = typemap.get::<TrackMetaData>().expect("Should have meta data");
+                let error = match &state.playing {
+                    songbird::tracks::PlayMode::Errored(err) => {
+                        match err {
+                            songbird::error::PlayError::Create(err) => format!("Create stream error occured on ***[{}]({})*** {}", meta_data.song.title, meta_data.song.url, err),
+                            songbird::error::PlayError::Parse(err) => format!("Parsing error occured on ***[{}]({})*** {}", meta_data.song.title, meta_data.song.url, err),
+                            songbird::error::PlayError::Decode(err) => format!("Decode error occured on ***[{}]({})*** {}", meta_data.song.title, meta_data.song.url, err),
+                            songbird::error::PlayError::Seek(err) => format!("Seek error occured on ***[{}]({})*** {}", meta_data.song.title, meta_data.song.url, err),
+                            _ => format!("Error occured on ***[{}]({})*** try again later", meta_data.song.title, meta_data.song.url),
+                        }
+                    },
+                    _ => format!("Error occured on ***[{}]({})*** try again later", meta_data.song.title, meta_data.song.url),
+                };
+                error!("{error}");
+                send_embed(&meta_data.generics, err_embed(error), Some(75000)).await;
             }
         }
         None
@@ -65,17 +78,7 @@ impl VoiceEventHandler for SongEndEvent {
             let track = tracks.get(0).expect("Should be a track at 0");
 
             let typemap = track.1.typemap().read().await;
-            let meta_data = typemap.get::<TrackMetaData>().expect("Should have metadata");
-            let now_playing_msg = &meta_data.song.now_playing_msg.clone().expect("Should have a msg");
-            
-            let http = meta_data.generics.data.inner.http.lock().await.clone().expect("Should be an Http initialized");
-
-            let channel_id = ChannelId::from_str(now_playing_msg.channel_id.as_str()).expect("Should be valid ChannelId");
-            if let Ok(msg) = channel_id.message(&http, MessageId::from_str(&now_playing_msg.msg_id).expect("Should be a valid MessageId")).await {
-                if let Ok(_) = msg.delete(http).await {
-                    info!("Message {} deleted", msg.id)
-                }
-            }
+            let meta_data: &TrackMetaData = typemap.get::<TrackMetaData>().expect("Should have metadata");
 
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
@@ -113,6 +116,18 @@ impl VoiceEventHandler for SongStartEvent {
             let meta_data = typemap.get_mut::<TrackMetaData>().expect("Should have metadata");
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
+
+            if let Some(now_playing_msg) = &meta_data.song.now_playing_msg.clone() {
+                let http = meta_data.generics.data.inner.http.lock().await.clone().expect("Should be an Http initialized");
+                
+                let channel_id = ChannelId::from_str(now_playing_msg.channel_id.as_str()).expect("Should be valid ChannelId");
+                if let Ok(msg) = channel_id.message(&http, MessageId::from_str(&now_playing_msg.msg_id).expect("Should be a valid MessageId")).await {
+                    if let Ok(_) = msg.delete(http).await {
+                        info!("Message {} deleted", msg.id)
+                    }
+                }
+            }
+
             server.dc_timer_started = false;
             server.audio_player.play();
             // let curr_song = server.songs.curr_song().unwrap();

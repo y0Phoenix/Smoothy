@@ -13,6 +13,7 @@ pub async fn is_playing(ctx: SmContext<'_>) -> CheckResult {
 
     let servers = generics.data.inner.servers.lock().await;
     if let Some(server) = servers.0.get(&ServerGuildId::from(generics.guild_id)) {
+        info!("Checking play state for {}", server.name);
         match server.audio_player.state {
             crate::common::server::AudioPlayerState::Playing => return Ok(true),
             crate::common::server::AudioPlayerState::Idle => send_embed(&generics, err_embed("Not currently playing a song"), Some(30000)).await,
@@ -21,7 +22,7 @@ pub async fn is_playing(ctx: SmContext<'_>) -> CheckResult {
         };
         return Ok(false);
     } else {
-        send_embed(&generics, err_embed("Not Currently In A Voice Channel"), Some(30000)).await;
+        send_embed(&generics, err_embed(":rofl: Not Currently In A Voice Channel"), Some(30000)).await;
     }
     Ok(false)
 }

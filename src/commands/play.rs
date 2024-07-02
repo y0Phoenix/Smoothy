@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use serenity::all::CreateEmbed;
 use songbird::{input::{Compose, YoutubeDl}, tracks::TrackHandle};
-use tracing::info;
+use tracing::{info, error};
 
 use crate::{common::{checks::vc, embeds::{err_embed, ADD_QUEUE_COLOR}, message::send_embed, server::ServerGuildId, song::Song, SmData}, executive::init_track, get_generics, CommandResult, Generics, SmContext};
 
@@ -54,7 +54,7 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
         let song_data = match src.aux_metadata().await {
             Ok(song) => song,
             Err(err) => {
-                info!("{}", err);
+                error!("{}", err);
                 send_embed(generics, err_embed("There was a problem getting video information try again later"), Some(60000)).await;
                 return Err(());
             }

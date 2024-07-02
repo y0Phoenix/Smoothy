@@ -118,9 +118,9 @@ impl SmData {
             // TODO do something usefull if we failed to remove server from DB for some reason
             Err(err) => info!("Failed to remove server {} from db: {}", guild_id.to_string(), err),
         }
-        let channel_id = servers_lock.0.get_mut(&ServerGuildId::from(guild_id)).expect("Server should exist").channel_id.clone();
+        let Some(server) = servers_lock.0.get_mut(&ServerGuildId::from(guild_id)).cloned() else { return self };
         servers_lock.0.remove(&ServerGuildId::from(guild_id));
-        self.stop_dc_timer(ServerGuildId::from(guild_id), channel_id);
+        self.stop_dc_timer(ServerGuildId::from(guild_id), server.channel_id.clone());
         self
     }
     /// attempts to get a specified server from the cache
