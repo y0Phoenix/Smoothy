@@ -4,6 +4,7 @@ use serenity::all::CreateEmbed;
 
 use crate::{common::{checks::is_playing, embeds::{err_embed, SEEK_COLOR}, generics::get_generics, message::send_embed, song::TrackMetaData}, CommandResult, SmContext};
 
+/// Restart the current song
 #[poise::command(guild_only, prefix_command, check = "is_playing", aliases("again"))]
 pub async fn restart(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);

@@ -2,6 +2,7 @@ use serenity::all::CreateEmbed;
 
 use crate::{common::{embeds::{err_embed, LEAVING_COLOR}, generics::get_generics, message::send_embed}, CommandResult, SmContext};
 
+/// Leaves the voice channel. Any songs queued are destroyed
 #[poise::command(prefix_command, guild_only, aliases("dc", "disconnect", "die"))]
 pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);

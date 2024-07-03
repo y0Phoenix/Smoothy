@@ -8,3 +8,4 @@ pub mod restart;
 pub mod seek;
 pub mod pause;
 pub mod resume;
+pub mod help;

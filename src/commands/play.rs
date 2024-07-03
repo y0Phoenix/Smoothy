@@ -3,9 +3,11 @@ use tracing::info;
 
 use crate::{common::{checks::vc, embeds::{err_embed, ADD_QUEUE_COLOR}, generics::get_generics, message::send_embed, server::ServerGuildId, song::{search_song, SongType}}, executive::init_track, CommandResult, SmContext};
 
-
+/// Play a song via query or url. Joins voice channel if not already. Queues song if already playing another 
+/// 
+/// Example usage -p somewhere over the rainbow
 #[poise::command(prefix_command, guild_only, aliases("p"), check = "vc")]
-pub async fn play(ctx: SmContext<'_>, query: Vec<String>) -> CommandResult {
+pub async fn play(ctx: SmContext<'_>, #[description = "Valid formats are URL like https://youtu.be/dQw4w9WgXcQ?si=Gba3jLx3n4Rluzdh or a query like \"Somewhere over the Rainbow\""] query: Vec<String>) -> CommandResult {
     let query = query.join(" ");
     info!("Command 'play' called with query: {}", query); // Logging
     let generics = get_generics(&ctx);

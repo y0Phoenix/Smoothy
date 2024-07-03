@@ -2,6 +2,7 @@ use serenity::all::CreateEmbed;
 
 use crate::{common::{checks::vc, embeds::{err_embed, SKIPPING_COLOR}, generics::get_generics, message::send_embed}, CommandResult, SmContext};
 
+/// Skip song
 #[poise::command(prefix_command, guild_only, aliases("n", "next", "skip", "s"), check = "vc")]
 pub async fn next(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);

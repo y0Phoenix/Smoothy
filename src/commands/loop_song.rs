@@ -1,6 +1,7 @@
 use serenity::all::CreateEmbed;
 use crate::{common::{checks::is_playing, embeds::{err_embed, GET_SERVER_FAIL_DLT_TIME, GET_SERVER_FAIL_MSG, LOOPED_COLOR}, generics::get_generics, message::send_embed, server::ServerGuildId, song::TrackMetaData}, CommandResult, SmContext};
 
+/// Loops the current song only
 #[poise::command(prefix_command, guild_only, aliases("ls"), check = "is_playing")]
 pub async fn loopsong(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);

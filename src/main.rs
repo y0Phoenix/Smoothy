@@ -1,13 +1,13 @@
 use std::{env, sync::mpsc::{self, RecvTimeoutError}, time::{Duration, Instant}};
 use std::sync::Arc;
 
-use commands::{leave::leave, loop_queue::loopqueue, loop_song::loopsong, next::next, pause::pause, play::play, queue::queue, restart::restart, resume::resume, seek::seek};
+use commands::{help::help, leave::leave, loop_queue::loopqueue, loop_song::loopsong, next::next, pause::pause, play::play, queue::queue, restart::restart, resume::resume, seek::seek};
 use common::{embeds::LEAVING_COLOR, message::{DltMsg, SmMsg}, server::{ServerGuildId, Servers}, ClientChannel, DcTimeOut, SmData, UserData};
 use dotenv::dotenv;
 use events::event_handler;
 use reqwest::Client as HttpClient;
 use rusty_time::Timer;
-use ::serenity::all::{CreateEmbed, CreateMessage, GatewayIntents, Http, UserId};
+use ::serenity::all::{ActivityData, CreateEmbed, CreateMessage, GatewayIntents, Http, UserId};
 use serenity::all as serenity;
 use sqlx::PgPool;
 use tokio::sync::Mutex;
@@ -39,9 +39,10 @@ async fn main() {
     
     // Configure our command framework
     let options = poise::FrameworkOptions {
-        commands: vec![leave(), play(), next(), queue(), loopsong(), loopqueue(), restart(), seek(), pause(), resume()],
+        commands: vec![leave(), play(), next(), queue(), loopsong(), loopqueue(), restart(), seek(), pause(), resume(), help()],
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some(String::from("-")),
+            ignore_bots: true,
             ..Default::default()
         },
         event_handler: |ctx, event, framework, data| {
@@ -87,6 +88,7 @@ async fn main() {
     let mut client = serenity::Client::builder(&token, intents)
         .voice_manager_arc(manager)
         .framework(framework)
+        .activity(ActivityData::listening("-help"))
         .await
         .expect("Err creating client");
     let http_clone_main = Arc::clone(&client.http);

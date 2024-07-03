@@ -2,6 +2,7 @@ use serenity::all::{CreateEmbed, CreateEmbedFooter};
 
 use crate::{common::{checks::is_playing, embeds::{err_embed, LIST_QUEUE_COLOR}, generics::get_generics, message::send_embed, server::ServerGuildId, song::TrackMetaData}, CommandResult, SmContext};
 
+/// Display the entire song queue
 #[poise::command(prefix_command, guild_only, aliases("q"), check = "is_playing")]
 pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);

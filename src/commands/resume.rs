@@ -2,6 +2,7 @@ use serenity::all::CreateEmbed;
 
 use crate::{common::{embeds::{err_embed, PAUSE_COLOR}, generics::get_generics, message::send_embed, server::ServerGuildId, song::TrackMetaData}, CommandResult, SmContext};
 
+/// Resume song
 #[poise::command(guild_only, prefix_command, aliases("re", "unpause"))]
 pub async fn resume(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);

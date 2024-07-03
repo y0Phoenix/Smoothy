@@ -2,6 +2,7 @@ use serenity::all::CreateEmbed;
 
 use crate::{common::{checks::is_playing, embeds::{err_embed, PAUSE_COLOR}, generics::get_generics, message::send_embed, server::ServerGuildId, song::TrackMetaData}, CommandResult, SmContext};
 
+/// Pause song
 #[poise::command(guild_only, prefix_command, check = "is_playing", aliases("pa"))]
 pub async fn pause(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);

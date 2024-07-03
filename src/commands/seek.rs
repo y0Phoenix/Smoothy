@@ -4,8 +4,9 @@ use serenity::all::CreateEmbed;
 
 use crate::{common::{checks::is_playing, embeds::{err_embed, SEEK_COLOR}, generics::get_generics, message::send_embed, song::TrackMetaData}, CommandResult, SmContext};
 
+/// Seek song to a position
 #[poise::command(guild_only, prefix_command, check = "is_playing")]
-pub async fn seek(ctx: SmContext<'_>, seek: String) -> CommandResult {
+pub async fn seek(ctx: SmContext<'_>, #[description = "Valid format 'H:M:S'"] seek: String) -> CommandResult {
     let generics = get_generics(&ctx);
 
     let Some(manager) = generics.data.inner.songbird.get(generics.guild_id) else {
