@@ -1,7 +1,7 @@
 use songbird::{input::{Compose, YoutubeDl}, tracks::TrackHandle, typemap::TypeMap, Call};
 use tracing::error;
 
-use crate::{commands::play::SongType, common::{embeds::err_embed, message::send_embed, song::Song}, Generics, SongEndEvent, SongPlayEvent, SongStartEvent, TrackMetaData};
+use crate::{common::{embeds::err_embed, generics::Generics, message::send_embed, song::{Song, SongType, TrackMetaData}}, events::{end::SongEndEvent, play::SongPlayEvent, playable::SongStartEvent}};
 
 
 pub async fn init_track(mut src: YoutubeDl, generics: &Generics, song_type: SongType, handler: &mut tokio::sync::MutexGuard<'_, Call>) -> Result<(TrackHandle, Song), ()> {

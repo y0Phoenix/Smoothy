@@ -19,6 +19,7 @@ pub mod server;
 pub mod song;
 pub mod checks;
 pub mod embeds;
+pub mod generics;
 
 #[derive(Debug, Clone)]
 pub struct UserData {
@@ -172,7 +173,7 @@ impl SmData {
             Some(server) => server,
             None => return Err("Server not found".to_string()),
         };
-        if let Some(handler) = self.songbird.get(guild_id.clone()) {
+        if let Some(handler) = self.songbird.get(*guild_id) {
             if let Err(err) = handler.lock().await.queue().skip() {
                 println!("failed to skip song {}", err);
             }
@@ -215,26 +216,24 @@ impl SmData {
     }
     /// starts a dc timer for the current server. Will dc from the voice channel when the timer finishes
     pub fn start_dc_timer(&self, guild_id: ServerGuildId, channel_id: ServerChannelId) {
-        match self.client_tx.send(ClientChannel::DcTimeOut(DcTimeOut {
+        if let Err(err) = self.client_tx.send(ClientChannel::DcTimeOut(DcTimeOut {
             guild_id,
             channel_id,
             timer: Timer::new(Duration::from_secs(VC_DC_TIMEOUT_IN_SEC)),
             end: false 
         })) {
-            Err(err) => error!("Failed to send start dc timeout event over client channel {}", err),
-            _ => {}
+            error!("Failed to send start dc timeout event over client channel {}", err);
         }
     }
     /// stops a dc timer for the current server.
     pub fn stop_dc_timer(&self, guild_id: ServerGuildId, channel_id: ServerChannelId) {
-        match self.client_tx.send(ClientChannel::DcTimeOut(DcTimeOut {
+        if let Err(err) = self.client_tx.send(ClientChannel::DcTimeOut(DcTimeOut {
             guild_id,
             channel_id,
             timer: Timer::new(Duration::from_secs(VC_DC_TIMEOUT_IN_SEC)),
             end: true 
         })) {
-            Err(err) => error!("Failed to send stop dc timeout event over client channel {}", err),
-            _ => {}
+            error!("Failed to send stop dc timeout event over client channel {}", err);
         }
     }
     /// initialized the bot with data from discord

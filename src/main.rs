@@ -2,8 +2,9 @@ use std::{env, sync::mpsc::{self, RecvTimeoutError}, time::{Duration, Instant}};
 use std::sync::Arc;
 
 use commands::{leave::leave, loop_queue::loopqueue, loop_song::loopsong, next::next, play::play, queue::queue};
-use common::{embeds::LEAVING_COLOR, message::DltMsg, server::{ServerGuildId, Servers}, ClientChannel, DcTimeOut, SmData, UserData};
+use common::{embeds::LEAVING_COLOR, message::{DltMsg, SmMsg}, server::{ServerGuildId, Servers}, ClientChannel, DcTimeOut, SmData, UserData};
 use dotenv::dotenv;
+use events::event_handler;
 use reqwest::Client as HttpClient;
 use rusty_time::Timer;
 use ::serenity::all::{CreateEmbed, CreateMessage, GatewayIntents, Http, UserId};
@@ -103,7 +104,7 @@ async fn main() {
         .map_err(|why| println!("Client ended: {:?}", why));   
     });
 
-tokio::spawn(async move {
+    tokio::spawn(async move {
         info!("kill check thread spawned");
         let _signal_err = tokio::signal::ctrl_c().await;
         kill_tx.send(true).unwrap();
@@ -122,7 +123,7 @@ tokio::spawn(async move {
             // println!("ticking timer for {}", msg.msg.content);
             if msg.timer.just_finished() {
                 // info!("Message {} timer finished sending dlt request", msg.msg.id);
-                if let Err(_) = msg.msg.delete(http.clone()).await {
+                if (msg.msg.delete(http.clone()).await).is_err() {
                     let server_name: String = match msg.msg.guild(&cache_clone_main) {
                         Some(guild) => guild.name.clone(),
                         None => {
@@ -183,22 +184,16 @@ tokio::spawn(async move {
                     ClientChannel::DltMsg(dlt_msg) => dlt_msgs.push(dlt_msg)
                 }
             },
-            Err(err) => match err {
-                RecvTimeoutError::Disconnected => {
-                    break;
-                },
-                _ => {}
+            Err(err) => if err == RecvTimeoutError::Disconnected {
+                break;
             }
         }
 
         // KILL EVENT RECIEVER FROM Ctrl-C
         match kill_rx_clone.lock().await.recv_timeout(Duration::from_millis(5)) {
             Ok(_) => break,
-            Err(err) => match err {
-                RecvTimeoutError::Disconnected => {
-                    break;
-                },
-                _ => {}
+            Err(err) => if err == RecvTimeoutError::Disconnected {
+                break;
             }
         }
     }

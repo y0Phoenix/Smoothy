@@ -1,10 +1,9 @@
 use sqlx::types::Json;
 use tracing::info;
 
-use crate::{add_global_events, get_generics, Generics, SmError};
-use crate::SmContext;
+use crate::{common::generics::Generics, events::add_global_events, SmContext, SmError};
 
-use super::{embeds::{err_embed, GET_SERVER_FAIL_DLT_TIME, GET_SERVER_FAIL_MSG}, message::send_embed, server::{Server, ServerChannelId, ServerGuildId}, song::Songs};
+use super::{embeds::{err_embed, GET_SERVER_FAIL_DLT_TIME, GET_SERVER_FAIL_MSG}, generics::get_generics, message::send_embed, server::{Server, ServerChannelId, ServerGuildId}, song::Songs};
 
 pub type CheckResult = Result<bool, SmError>;
 
@@ -16,7 +15,7 @@ pub async fn is_playing(ctx: SmContext<'_>) -> CheckResult {
     if let Some(manager) = songbird.get(generics.guild_id) {
         let manager_lock = manager.lock().await;
 
-        if let None = manager_lock.queue().current() {
+        if manager_lock.queue().current().is_none() {
             send_embed(&generics, err_embed(":rofl: Not currently playing a song"), Some(45000)).await;
             return Ok(false);
         }
@@ -34,7 +33,7 @@ pub async fn is_playing(ctx: SmContext<'_>) -> CheckResult {
         } else {
             send_embed(&generics, err_embed(GET_SERVER_FAIL_MSG), Some(GET_SERVER_FAIL_DLT_TIME)).await;
             if let Err(err) = songbird.remove(generics.guild_id).await {
-                send_embed(&generics, err_embed(format!(":x: Failed to leave voice channel {}", err.to_string())), Some(60000)).await;
+                send_embed(&generics, err_embed(format!(":x: Failed to leave voice channel {}", err)), Some(60000)).await;
             }
         }
     }
@@ -73,7 +72,7 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
     };
 
     let mut servers = generics.data.inner.servers_unlocked().await;
-    if let None = servers.0.get(&ServerGuildId::from(guild_id)) {
+    if !servers.0.contains_key(&ServerGuildId::from(guild_id)) {
         let server = Server {
             id: ServerGuildId::from(guild_id),
             channel_id: ServerChannelId::from(ctx.channel_id()),

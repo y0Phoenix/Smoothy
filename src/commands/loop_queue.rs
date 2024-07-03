@@ -1,5 +1,5 @@
 use serenity::all::CreateEmbed;
-use crate::{common::{checks::is_playing, embeds::{err_embed, GET_SERVER_FAIL_DLT_TIME, GET_SERVER_FAIL_MSG, LOOPED_COLOR}, message::send_embed, server::ServerGuildId}, get_generics, CommandResult, SmContext};
+use crate::{common::{checks::is_playing, embeds::{err_embed, GET_SERVER_FAIL_DLT_TIME, GET_SERVER_FAIL_MSG, LOOPED_COLOR}, generics::get_generics, message::send_embed, server::ServerGuildId}, CommandResult, SmContext};
 
 #[poise::command(prefix_command, guild_only, aliases("loop", "l"), check = "is_playing")]
 pub async fn loopqueue(ctx: SmContext<'_>) -> CommandResult {

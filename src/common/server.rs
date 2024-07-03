@@ -43,31 +43,22 @@ pub enum AudioPlayerState {
 
 impl AudioPlayerState {
     pub fn is_playing(&self) -> bool {
-        match self {
-            Self::Playing => true,
-            _ => false
-        }
+        matches!(self, Self::Playing)
     }
     pub fn is_idle(&self) -> bool {
-        match self {
-            Self::Idle => true,
-            _ => false
-        }
+        matches!(self, Self::Idle)
     }
     pub fn is_pause(&self) -> bool {
-        match self {
-            Self::Paused => true,
-            _ => false
-        }
+        matches!(self, Self::Paused)
     }
 }
 
 #[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize, PartialEq, Eq, Hash)]
 pub struct ServerChannelId(pub String);
 
-impl Into<ChannelId> for ServerChannelId {
-    fn into(self) -> ChannelId {
-        ChannelId::from_str(&self.0).expect("Invalid ChannelId supplied")
+impl From<ServerChannelId> for ChannelId {
+    fn from(value: ServerChannelId) -> Self {
+        ChannelId::from_str(&value.0).expect("Invalid ChannelId supplied")
     }
 }
 
@@ -93,9 +84,9 @@ impl From<ChannelId> for ServerChannelId {
 #[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize, PartialEq, Eq, Hash)]
 pub struct ServerGuildId(pub String);
 
-impl Into<GuildId> for ServerGuildId {
-    fn into(self) -> GuildId {
-        GuildId::from_str(&self.0).expect("Invalid GuildId supplied")
+impl From<ServerGuildId> for GuildId {
+    fn from(value: ServerGuildId) -> Self {
+        GuildId::from_str(&value.0).expect("Invalid GuildId supplied")
     }
 }
 

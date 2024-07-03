@@ -1,8 +1,10 @@
+use std::sync::Arc;
+
 use serde::{Deserialize, Serialize};
-use songbird::typemap::TypeMapKey;
+use songbird::{input::YoutubeDl, typemap::TypeMapKey};
 use sqlx::prelude::FromRow;
 
-use super::message::NowPlayingMsg;
+use super::{generics::Generics, message::NowPlayingMsg, SmData};
 
 #[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize)]
 pub struct Song {
@@ -54,9 +56,42 @@ impl Songs {
         self.songs.is_empty()
     }  
     pub fn curr_song(&self) -> Option<&Song> {
-        self.songs.get(0)
+        self.songs.first()
     }
     pub fn curr_song_mut(&mut self) -> Option<&mut Song> {
-        self.songs.get_mut(0)
+        self.songs.first_mut()
     }
+}
+
+pub fn search_song(song: String, data: &Arc<SmData>) -> YoutubeDl {
+    let do_search = !song.starts_with("http");
+
+    if do_search {
+        YoutubeDl::new_search(data.reqwest.clone(), song)
+    } else {
+        YoutubeDl::new(data.reqwest.clone(), song)
+    }
+}
+
+
+#[derive(Debug, Clone)]
+pub enum SongType {
+    /// if the song is a new play request. the first parameter is the youtube query which can also be a url. second parameter is the requested by which is the author of the request  
+    New(String, String),
+    /// if the song is from the DB and being initialed from there
+    DB(Song)
+}
+
+
+#[derive(Debug, Clone)]
+pub struct TrackMetaData {
+    pub song: Song,
+    pub generics: Generics,
+    /// if the song is looped
+    pub looped: bool,
+    pub src: YoutubeDl,
+}
+
+impl TypeMapKey for TrackMetaData {
+    type Value = TrackMetaData;
 }
