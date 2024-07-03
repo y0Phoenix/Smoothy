@@ -1,6 +1,9 @@
+// use end::SongEndEvent;
 use error::TrackErrorNotifier;
+use play::SongPlayEvent;
+// use playable::SongStartEvent;
 use tracing::error;
-use songbird::{Call, TrackEvent};
+use songbird::{Call, Event, TrackEvent};
 use tracing::info;
 use serenity::all as serenity;
 
@@ -13,12 +16,9 @@ pub mod error;
 
 pub fn add_global_events(handler: &mut tokio::sync::MutexGuard<Call>, _generics: &Generics) {
     handler.add_global_event(TrackEvent::Error.into(), TrackErrorNotifier);
-    // handler.add_global_event(Event::Track(TrackEvent::End), SongEndEvent {
-    //     generics: generics.clone().into()
-    // });
-    // handler.add_global_event(Event::Track(TrackEvent::Playable), SongStartEvent {
-    //     generics: generics.clone().into()
-    // });
+    // handler.add_global_event(Event::Track(TrackEvent::End), SongEndEvent);
+    // handler.add_global_event(Event::Track(TrackEvent::Playable), SongStartEvent);
+    handler.add_global_event(Event::Track(TrackEvent::Play), SongPlayEvent);
     info!("Global Events Added");
 }
 

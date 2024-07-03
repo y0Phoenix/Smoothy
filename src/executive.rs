@@ -1,7 +1,7 @@
 use songbird::{input::{Compose, YoutubeDl}, tracks::TrackHandle, typemap::TypeMap, Call};
 use tracing::error;
 
-use crate::{common::{embeds::err_embed, generics::Generics, message::send_embed, song::{Song, SongType, TrackMetaData}}, events::{end::SongEndEvent, play::SongPlayEvent, playable::SongStartEvent}};
+use crate::{common::{embeds::err_embed, generics::Generics, message::send_embed, song::{Song, SongType, TrackMetaData}}, events::{end::SongEndEvent, playable::SongStartEvent}};
 
 
 pub async fn init_track(mut src: YoutubeDl, generics: &Generics, song_type: SongType, handler: &mut tokio::sync::MutexGuard<'_, Call>) -> Result<(TrackHandle, Song), ()> {
@@ -49,7 +49,7 @@ pub async fn init_track(mut src: YoutubeDl, generics: &Generics, song_type: Song
 
     track.add_event(songbird::Event::Track(songbird::TrackEvent::Playable), SongStartEvent).unwrap();
     track.add_event(songbird::Event::Track(songbird::TrackEvent::End), SongEndEvent).unwrap();
-    track.add_event(songbird::Event::Track(songbird::TrackEvent::Play), SongPlayEvent).unwrap();
+    // track.add_event(songbird::Event::Track(songbird::TrackEvent::Play), SongPlayEvent).unwrap();
     // track.add_event(songbird::Event::Track(songbird::TrackEvent::Loop), SongLoopEvent).unwrap();
     Ok((track, song))
 }
