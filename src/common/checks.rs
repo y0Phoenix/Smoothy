@@ -50,6 +50,12 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
         data: ctx.data().clone(),
         guild_id: ctx.guild_id().expect("GuildId should exist")
     };
+
+    if generics.data.inner.songbird.get(generics.guild_id).is_some() {
+        info!("Already in voice channel");
+        return Ok(true);
+    }
+
     let (guild_id, channel, name) = {
         let guild = ctx.guild().unwrap();
         let name = guild.name.clone();
