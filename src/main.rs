@@ -1,7 +1,7 @@
 use std::{env, sync::mpsc::{self, RecvTimeoutError}, time::{Duration, Instant}};
 use std::sync::Arc;
 
-use commands::{leave::leave, loop_queue::loopqueue, loop_song::loopsong, next::next, play::play, queue::queue};
+use commands::{leave::leave, loop_queue::loopqueue, loop_song::loopsong, next::next, play::play, queue::queue, restart::restart, seek::seek};
 use common::{embeds::LEAVING_COLOR, message::{DltMsg, SmMsg}, server::{ServerGuildId, Servers}, ClientChannel, DcTimeOut, SmData, UserData};
 use dotenv::dotenv;
 use events::event_handler;
@@ -39,7 +39,7 @@ async fn main() {
     
     // Configure our command framework
     let options = poise::FrameworkOptions {
-        commands: vec![leave(), play(), next(), queue(), loopsong(), loopqueue()],
+        commands: vec![leave(), play(), next(), queue(), loopsong(), loopqueue(), restart(), seek()],
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some(String::from("-")),
             ..Default::default()

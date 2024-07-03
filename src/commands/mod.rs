@@ -4,3 +4,5 @@ pub mod next;
 pub mod queue;
 pub mod loop_song;
 pub mod loop_queue;
+pub mod restart;
+pub mod seek;

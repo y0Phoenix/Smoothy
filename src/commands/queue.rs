@@ -14,7 +14,7 @@ pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
 
     let servers_lock = generics.data.inner.servers_unlocked().await;
     let Some(server) = servers_lock.0.get(&ServerGuildId::from(generics.guild_id)) else {
-        send_embed(&generics, err_embed(":cry: Something went wrong. Error obtaining server info, try again later"), Some(75000)).await;
+        send_embed(&generics, err_embed("Something went wrong. Error obtaining server info, try again later"), Some(75000)).await;
         return Ok(());
     };
 
@@ -33,12 +33,12 @@ pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
             CreateEmbed::default()
                 .title(format!("{} Song Queue", server.name))
                 .color(LIST_QUEUE_COLOR)
-                .footer(CreateEmbedFooter::new(format!("{}", if server.songs.0.looped { "Queue is looping" } else { "Not looping queue" })))
+                .footer(CreateEmbedFooter::new(if server.songs.0.looped { "Queue is looping" } else { "Not looping queue" }))
         }
         else {
             CreateEmbed::default()
                 .color(LIST_QUEUE_COLOR)
-                .footer(CreateEmbedFooter::new(format!("{}", if server.songs.0.looped { "Queue is looping" } else { "Not looping queue" })))
+                .footer(CreateEmbedFooter::new(if server.songs.0.looped { "Queue is looping" } else { "Not looping queue" }))
         };
 
         let mut description = String::new();
