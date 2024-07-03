@@ -33,26 +33,30 @@ impl Song {
 }
 
 #[derive(Debug, Default, FromRow, Serialize, Clone, Deserialize)]
-pub struct Songs(pub Vec<Song>);
+pub struct Songs {
+    pub songs: Vec<Song>,
+    /// if the queue is looped
+    pub looped: bool
+}
 
 impl Songs {
     pub fn add_song(&mut self, song: Song) -> &mut Self {
-        self.0.push(song);
+        self.songs.push(song);
         self
     }
     pub fn next_song(&mut self) -> &mut Self {
-        if !self.0.is_empty() {
-            self.0.remove(0);
+        if !self.songs.is_empty() {
+            self.songs.remove(0);
         }
         self
     }
     pub fn is_empty(&self) -> bool {
-        self.0.is_empty()
+        self.songs.is_empty()
     }  
     pub fn curr_song(&self) -> Option<&Song> {
-        self.0.get(0)
+        self.songs.get(0)
     }
     pub fn curr_song_mut(&mut self) -> Option<&mut Song> {
-        self.0.get_mut(0)
+        self.songs.get_mut(0)
     }
 }

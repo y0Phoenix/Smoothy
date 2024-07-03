@@ -11,6 +11,10 @@ pub const LEAVING_COLOR: Colour = Colour::from_rgb(252, 3, 3);
 pub const FAILED_COLOR: Colour = Colour::from_rgb(252, 3, 3);
 pub const LOOPED_COLOR: Colour = Colour::PURPLE;
 
+pub const GET_SERVER_FAIL_MSG: &'static str = ":cry: Something went terribly wrong trying to obtain server info. Leaving vc, try again later";
+pub const GET_SERVER_FAIL_DLT_TIME: u64 = 120000;
+
+
 pub fn err_embed(err: impl ToString + Debug + Display) -> CreateEmbed {
     CreateEmbed::new()
         .color(FAILED_COLOR)

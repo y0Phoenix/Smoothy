@@ -154,7 +154,7 @@ impl From<PgRow> for Server {
 
 impl Server {
     pub fn add_song(&mut self, song: Song) -> &mut Self {
-        self.songs.0.0.push(song);
+        self.songs.0.songs.push(song);
         self
     }
 }

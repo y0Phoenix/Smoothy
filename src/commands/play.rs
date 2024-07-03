@@ -1,8 +1,8 @@
 use std::sync::Arc;
 
 use serenity::all::CreateEmbed;
-use songbird::{input::{Compose, YoutubeDl}, tracks::TrackHandle};
-use tracing::{info, error};
+use songbird::{input::YoutubeDl, tracks::TrackHandle};
+use tracing::info;
 
 use crate::{common::{checks::vc, embeds::{err_embed, ADD_QUEUE_COLOR}, message::send_embed, server::ServerGuildId, song::Song, SmData}, executive::init_track, get_generics, CommandResult, Generics, SmContext};
 
@@ -30,6 +30,7 @@ pub fn search_song(song: String, data: &Arc<SmData>) -> YoutubeDl {
     src
 }
 
+#[derive(Debug, Clone)]
 pub enum SongType {
     /// if the song is a new play request. the first parameter is the youtube query which can also be a url. second parameter is the requested by which is the author of the request  
     New(String, String),
@@ -44,49 +45,29 @@ pub async fn start_song(song: SongType, generics: &Generics) -> Result<TrackHand
         return Err(());
     };
     if let Some(handler_lock) = generics.data.inner.songbird.get(generics.guild_id) {
-        let (query, requested_by) = match song {
+        let (query, _requested_by) = match song.clone() {
             SongType::New(query, requested_by) => (query, requested_by),
             SongType::DB(song) => (song.url, song.requested_by),
         };
         let mut handler = handler_lock.lock().await;
 
-        let mut src = search_song(query, &generics.data.inner);
-        let song_data = match src.aux_metadata().await {
-            Ok(song) => song,
-            Err(err) => {
-                error!("{}", err);
-                send_embed(generics, err_embed("There was a problem getting video information try again later"), Some(60000)).await;
-                return Err(());
-            }
-        };
-        let title = song_data.title.unwrap_or_default();
-        let url = song_data.source_url.unwrap_or_default();
-        let thumbnail = song_data.thumbnail.unwrap_or_default();
-        let duration = song_data.duration.unwrap_or_default();
+        let src = search_song(query, &generics.data.inner);
+        
+        
+        let track = init_track(src, generics, song, &mut handler).await.expect("Should initialize track");
+
         if server.audio_player.state.is_playing() {
             let embed = CreateEmbed::new()
                 .color(ADD_QUEUE_COLOR)
-                .description(format!("***[{title}]({url})***\nHas been added to the queue :arrow_down:"));
+                .description(format!("***[{}]({})***\nHas been added to the queue :arrow_down:", track.1.title, track.1.url));
             send_embed(generics, embed, Some(300000)).await;
         }
-        let track = handler.enqueue(src.into()).await;
-        
-        let song = Song {
-            title: title.clone(),
-            url,
-            thumbnail,
-            duration_in_sec: duration.as_secs(),
-            requested_by,
-            ..Default::default()
-        };
-        
-        let track = init_track(&song, generics, track).await;
 
-        server.add_song(song);
+        server.add_song(track.1);
         // info!("song len {}", server.songs.0.0.len());
 
         generics.data.inner.update_server_db(server).await;
-        return Ok(track);
+        return Ok(track.0);
     } else {
         send_embed(generics, err_embed("Not in a voice channel to play in"), Some(30000)).await;
         return Err(());

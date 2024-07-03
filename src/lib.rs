@@ -1,12 +1,12 @@
 use std::{str::FromStr, sync::Arc};
 
-use commands::play::search_song;
+use commands::play::{search_song, SongType};
 use common::{embeds::{err_embed, LEAVING_COLOR, NOW_PLAYING_COLOR}, message::{send_embed, NowPlayingMsg}, server::{ServerChannelId, ServerGuildId, ServersLock}, song::Song, UserData};
 use executive::init_track;
 use ::serenity::{all::{ChannelId, CreateEmbed, CreateEmbedAuthor, GuildId, Http, MessageId}, async_trait};
 use serenity::all as serenity;
 // Event related imports to detect track creation failures.
-use songbird::{events::{Event, EventContext, EventHandler as VoiceEventHandler}, typemap::TypeMapKey, Call, TrackEvent};
+use songbird::{events::{Event, EventContext, EventHandler as VoiceEventHandler}, input::YoutubeDl, typemap::TypeMapKey, Call, TrackEvent};
 use tracing::{error, info, warn};
 
 pub mod commands;
@@ -32,6 +32,7 @@ pub struct TrackMetaData {
     pub generics: Generics,
     /// if the song is looped
     pub looped: bool,
+    pub src: YoutubeDl,
 }
 
 impl TypeMapKey for TrackMetaData {
@@ -89,8 +90,10 @@ pub struct SongEndEvent;
 impl VoiceEventHandler for SongEndEvent {
     async fn act(&self, ctx: &EventContext<'_>) -> Option<Event> {
         if let EventContext::Track(tracks) = ctx {
+            info!("Smoothy track end event");
             let track = tracks.get(0).expect("Should be a track at 0");
 
+            // aquire the meta data on the track for info
             let typemap = track.1.typemap().read().await;
             let meta_data: &TrackMetaData = typemap.get::<TrackMetaData>().expect("Should have metadata");
 
@@ -98,9 +101,19 @@ impl VoiceEventHandler for SongEndEvent {
 
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
-            // info!("song len {}", server.songs.0.0.len());
+
+            // looped queue functionality
+            if server.songs.0.looped {
+                let manager = meta_data.generics.data.inner.songbird.get(meta_data.generics.guild_id).expect("Should be a valid manager");
+                let mut manager_lock = manager.lock().await;
+
+                let track = init_track(meta_data.src.clone(), &meta_data.generics, SongType::DB(meta_data.song.clone()), &mut manager_lock).await.expect("Should initialize track");
+
+                server.songs.0.songs.push(track.1);
+            }
+            
+            // advance our song queue
             server.songs.next_song();
-            // info!("song len {}", server.songs.0.0.len());
             // stop the audio player to maintain state update
             server.audio_player.stop();
             let no_more_songs = server.songs.0.is_empty();
@@ -128,8 +141,10 @@ impl VoiceEventHandler for SongStartEvent {
         if let EventContext::Track(tracks) = ctx {
             let track = tracks.get(0).expect("Should be a track at 0");
 
+            // aquire the meta data on the track for info
             let mut typemap = track.1.typemap().write().await;
             let meta_data = typemap.get_mut::<TrackMetaData>().expect("Should have metadata");
+
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
 
@@ -168,8 +183,10 @@ impl VoiceEventHandler for SongPlayEvent {
         if let EventContext::Track(tracks) = ctx {
             let track = tracks.get(0).expect("Should be a track at 0");
 
+            // aquire the meta data on the track for info
             let mut typemap = track.1.typemap().write().await;
             let meta_data = typemap.get_mut::<TrackMetaData>().expect("Should have metadata");
+
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
             // set the audio player status back to play from idle.
@@ -211,7 +228,6 @@ pub async fn event_handler(
             let mut servers_lock = data.inner.servers_unlocked().await;
             let servers = data.inner.get_servers_db(&mut servers_lock).await;
             for (_, server) in servers.0.iter() {
-                info!("{}", server.id.0);
                 let guild_id = server.id.guild_id();
 
                 let manager = &data.inner.songbird;
@@ -232,12 +248,9 @@ pub async fn event_handler(
                     // Attach an event handler to see notifications of all track errors.
                     let mut handler = handler_lock.lock().await;
                     add_global_events(&mut handler, &generics);
-                    for song in server.songs.0.0.iter() {
-                        info!("{}", song.title);
+                    for song in server.songs.0.songs.iter() {
                         let src = search_song(song.url.clone(), &generics.data.inner);
-                        let track = handler.enqueue(src.into()).await;
-
-                        init_track(&song, &generics, track).await;
+                        init_track(src, &generics, SongType::DB(song.clone()), &mut handler).await.expect("Should initialize track");
                     }
                 }
                 else {

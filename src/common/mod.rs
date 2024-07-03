@@ -167,7 +167,7 @@ impl SmData {
     /// 
     /// this doesn't advance the sonbird queue. it only advances the server queue
     pub async fn next_song(&self, guild_id: &GuildId) -> Result<(), String> {
-        let mut servers = self.servers.lock().await;
+        let mut servers = self.servers_unlocked().await;
         let server = match servers.0.get_mut(&ServerGuildId::from(guild_id)) {
             Some(server) => server,
             None => return Err("Server not found".to_string()),

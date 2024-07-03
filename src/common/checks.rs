@@ -4,26 +4,44 @@ use tracing::info;
 use crate::{add_global_events, get_generics, Generics, SmError};
 use crate::SmContext;
 
-use super::{embeds::err_embed, message::send_embed, server::{Server, ServerChannelId, ServerGuildId}, song::Songs};
+use super::{embeds::{err_embed, GET_SERVER_FAIL_DLT_TIME, GET_SERVER_FAIL_MSG}, message::send_embed, server::{Server, ServerChannelId, ServerGuildId}, song::Songs};
 
 pub type CheckResult = Result<bool, SmError>;
 
 pub async fn is_playing(ctx: SmContext<'_>) -> CheckResult {
     let generics = get_generics(&ctx);
 
-    let servers = generics.data.inner.servers.lock().await;
-    if let Some(server) = servers.0.get(&ServerGuildId::from(generics.guild_id)) {
-        info!("Checking play state for {}", server.name);
-        match server.audio_player.state {
-            crate::common::server::AudioPlayerState::Playing => return Ok(true),
-            crate::common::server::AudioPlayerState::Idle => send_embed(&generics, err_embed("Not currently playing a song"), Some(30000)).await,
-            crate::common::server::AudioPlayerState::Paused => send_embed(&generics, err_embed("Player is currently paused"), Some(30000)).await,
-            crate::common::server::AudioPlayerState::Skipped => send_embed(&generics, err_embed("Player is skipping"), Some(30000)).await,
-        };
-        return Ok(false);
-    } else {
+    let songbird = &generics.data.inner.songbird;
+
+    if let Some(manager) = songbird.get(generics.guild_id) {
+        let manager_lock = manager.lock().await;
+
+        if let None = manager_lock.queue().current() {
+            send_embed(&generics, err_embed(":rofl: Not currently playing a song"), Some(45000)).await;
+            return Ok(false);
+        }
+
+        let servers = generics.data.inner.servers.lock().await;
+        if let Some(server) = servers.0.get(&ServerGuildId::from(generics.guild_id)) {
+            info!("Checking play state for {}", server.name);
+            match server.audio_player.state {
+                crate::common::server::AudioPlayerState::Playing => return Ok(true),
+                crate::common::server::AudioPlayerState::Idle => send_embed(&generics, err_embed("Not currently playing a song"), Some(30000)).await,
+                crate::common::server::AudioPlayerState::Paused => send_embed(&generics, err_embed("Player is currently paused"), Some(30000)).await,
+                crate::common::server::AudioPlayerState::Skipped => send_embed(&generics, err_embed("Player is skipping"), Some(30000)).await,
+            };
+            return Ok(false);
+        } else {
+            send_embed(&generics, err_embed(GET_SERVER_FAIL_MSG), Some(GET_SERVER_FAIL_DLT_TIME)).await;
+            if let Err(err) = songbird.remove(generics.guild_id).await {
+                send_embed(&generics, err_embed(format!(":x: Failed to leave voice channel {}", err.to_string())), Some(60000)).await;
+            }
+        }
+    }
+    else {
         send_embed(&generics, err_embed(":rofl: Not Currently In A Voice Channel"), Some(30000)).await;
     }
+
     Ok(false)
 }
 
@@ -61,7 +79,7 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
             channel_id: ServerChannelId::from(ctx.channel_id()),
             voice_channel_id: ServerChannelId::from(connect_to),
             name,
-            songs: Json(Songs(Vec::new())),
+            songs: Json(Songs::default()),
             ..Default::default()
         };
         servers.0.insert(server.id.clone(), server.clone());

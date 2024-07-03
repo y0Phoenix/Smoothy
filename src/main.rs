@@ -1,7 +1,7 @@
 use std::{env, sync::mpsc::{self, RecvTimeoutError}, time::{Duration, Instant}};
 use std::sync::Arc;
 
-use commands::{leave::leave, loop_song::loop_song, next::next, play::play, queue::queue};
+use commands::{leave::leave, loop_queue::loopqueue, loop_song::loopsong, next::next, play::play, queue::queue};
 use common::{embeds::LEAVING_COLOR, message::DltMsg, server::{ServerGuildId, Servers}, ClientChannel, DcTimeOut, SmData, UserData};
 use dotenv::dotenv;
 use reqwest::Client as HttpClient;
@@ -38,7 +38,7 @@ async fn main() {
     
     // Configure our command framework
     let options = poise::FrameworkOptions {
-        commands: vec![leave(), play(), next(), queue(), loop_song()],
+        commands: vec![leave(), play(), next(), queue(), loopsong(), loopqueue()],
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some(String::from("-")),
             ..Default::default()
@@ -170,7 +170,7 @@ tokio::spawn(async move {
                             Some(_dc_timer) => {
                                 if dc_timout.end {
                                     dc_timers.remove(&dc_timout.guild_id).expect("Should be able to remove dc timer");
-                                    info!("Stopping dc timeout for {}", dc_timout.guild_id.0);
+                                    info!("Removing dc timeout for {}", dc_timout.guild_id.0);
                                 }
                             },
                             None => {
