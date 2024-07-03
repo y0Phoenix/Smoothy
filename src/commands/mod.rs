@@ -6,3 +6,5 @@ pub mod loop_song;
 pub mod loop_queue;
 pub mod restart;
 pub mod seek;
+pub mod pause;
+pub mod resume;

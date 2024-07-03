@@ -58,7 +58,7 @@ pub async fn delete_now_playing_msg(meta_data: &TrackMetaData) {
         let channel_id = ChannelId::from_str(now_playing_msg.channel_id.as_str()).expect("Should be valid ChannelId");
         if let Ok(msg) = channel_id.message(&http, MessageId::from_str(&now_playing_msg.msg_id).expect("Should be a valid MessageId")).await {
             if msg.delete(http).await.is_ok() {
-                info!("Message {} deleted", msg.id)
+                info!("Now playing message {} deleted", msg.id)
             }
         }
     }

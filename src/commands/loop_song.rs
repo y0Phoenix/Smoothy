@@ -51,5 +51,7 @@ pub async fn loopsong(ctx: SmContext<'_>) -> CommandResult {
     }
     send_embed(&generics, embed, Some(60000)).await;
 
+    generics.data.inner.update_server_db(server).await;
+
     Ok(())
 }

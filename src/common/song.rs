@@ -38,7 +38,7 @@ impl Song {
 pub struct Songs {
     pub songs: Vec<Song>,
     /// if the queue is looped
-    pub looped: bool
+    pub looped: bool,
 }
 
 impl Songs {

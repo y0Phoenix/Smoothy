@@ -32,7 +32,7 @@ impl AudioPlayer {
     }
 }
 
-#[derive(Debug, Default, Serialize, Clone)]
+#[derive(Debug, Default, Serialize, Clone, PartialEq, Eq)]
 pub enum AudioPlayerState {
     Playing,
     #[default]
@@ -48,8 +48,9 @@ impl AudioPlayerState {
     pub fn is_idle(&self) -> bool {
         matches!(self, Self::Idle)
     }
-    pub fn is_pause(&self) -> bool {
-        matches!(self, Self::Paused)
+    pub fn is_paused(&self) -> bool {
+        self == &Self::Paused 
+        // matches!(self, Self::Paused)
     }
 }
 

@@ -1,7 +1,7 @@
 use serenity::async_trait;
 use songbird::events::{Event, EventContext, EventHandler as VoiceEventHandler};
 
-use crate::common::{server::ServerGuildId, song::TrackMetaData};
+use crate::common::{embeds::now_playing_embed, message::{delete_now_playing_msg, send_embed}, server::ServerGuildId, song::TrackMetaData};
 
 pub struct SongPlayEvent;
 
@@ -18,13 +18,18 @@ impl VoiceEventHandler for SongPlayEvent {
 
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers.0.get_mut(&ServerGuildId::from(&meta_data.generics.guild_id)).expect("Server should exist");
+
+            if server.audio_player.state.is_paused() {
+                delete_now_playing_msg(meta_data).await;
+                send_embed(&meta_data.generics, now_playing_embed(meta_data), None).await;
+            }
+
             // set the audio player status back to play from idle.
             // when a song is started from the queue the "Playable" event is never fired 
             // so the audio player status will remain idle from the "End" event being fired
             // additionally we only set it to play when idle because thats the only state the player is in with this scenario
-            if server.audio_player.state.is_idle() {
+            if server.audio_player.state.is_idle() || server.audio_player.state.is_paused() {
                 server.audio_player.play();
-                meta_data.generics.data.inner.update_server_db(server).await;
             }
             
         }

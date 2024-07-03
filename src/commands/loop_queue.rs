@@ -36,5 +36,7 @@ pub async fn loopqueue(ctx: SmContext<'_>) -> CommandResult {
 
     send_embed(&generics, CreateEmbed::new().color(LOOPED_COLOR).description(description), Some(60000)).await;
 
+    generics.data.inner.update_server_db(server).await;
+
     Ok(())
 }
