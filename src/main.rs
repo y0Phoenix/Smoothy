@@ -6,6 +6,7 @@ use std::{
 };
 
 use ::serenity::all::{ActivityData, CreateEmbed, CreateMessage, GatewayIntents, Http, UserId};
+use commands::remove::remove;
 use commands::{
     help::help, leave::leave, loop_queue::loopqueue, loop_song::loopsong, next::next, pause::pause,
     play::play, queue::queue, restart::restart, resume::resume, seek::seek,
@@ -65,6 +66,7 @@ async fn main() {
             pause(),
             resume(),
             help(),
+            remove(),
         ],
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some(String::from("-")),

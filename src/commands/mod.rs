@@ -6,7 +6,7 @@ pub mod next;
 pub mod pause;
 pub mod play;
 pub mod queue;
+pub mod remove;
 pub mod restart;
 pub mod resume;
 pub mod seek;
-
