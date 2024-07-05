@@ -3,6 +3,7 @@ pub mod leave;
 pub mod loop_queue;
 pub mod loop_song;
 pub mod next;
+pub mod now_playing;
 pub mod pause;
 pub mod play;
 pub mod queue;
