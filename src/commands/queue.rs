@@ -1,6 +1,16 @@
 use serenity::all::{CreateEmbed, CreateEmbedFooter};
 
-use crate::{common::{checks::is_playing, embeds::{err_embed, LIST_QUEUE_COLOR}, generics::get_generics, message::send_embed, server::ServerGuildId, song::TrackMetaData}, CommandResult, SmContext};
+use crate::{
+    common::{
+        checks::is_playing,
+        embeds::{err_embed, LIST_QUEUE_COLOR},
+        generics::get_generics,
+        message::send_embed,
+        server::ServerGuildId,
+        song::TrackMetaData,
+    },
+    CommandResult, SmContext,
+};
 
 /// Display the entire song queue
 #[poise::command(prefix_command, guild_only, aliases("q"), check = "is_playing")]
@@ -8,7 +18,9 @@ pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);
 
     let songbird = &ctx.data().inner.songbird;
-    let manager_lock = songbird.get(generics.guild_id).expect("Manager should exist");
+    let manager_lock = songbird
+        .get(generics.guild_id)
+        .expect("Manager should exist");
     let manager = manager_lock.lock().await;
     let queue = manager.queue().clone();
     let current_queue = queue.current_queue();
@@ -34,19 +46,28 @@ pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
             CreateEmbed::default()
                 .title(format!("{} Song Queue", server.name))
                 .color(LIST_QUEUE_COLOR)
-                .footer(CreateEmbedFooter::new(if server.songs.0.looped { "Queue is looping" } else { "Not looping queue" }))
-        }
-        else {
+                .footer(CreateEmbedFooter::new(if server.songs.0.looped {
+                    "Queue is looping"
+                } else {
+                    "Not looping queue"
+                }))
+        } else {
             CreateEmbed::default()
                 .color(LIST_QUEUE_COLOR)
-                .footer(CreateEmbedFooter::new(if server.songs.0.looped { "Queue is looping" } else { "Not looping queue" }))
+                .footer(CreateEmbedFooter::new(if server.songs.0.looped {
+                    "Queue is looping"
+                } else {
+                    "Not looping queue"
+                }))
         };
 
         let mut description = String::new();
 
         for (i, track) in queue_chunk.iter().enumerate() {
             let type_map = track.typemap().read().await;
-            let meta_data = type_map.get::<TrackMetaData>().expect("Metadata should exist");
+            let meta_data = type_map
+                .get::<TrackMetaData>()
+                .expect("Metadata should exist");
 
             description.push_str(&format!(
                 "***{}***: ***[{}]({})***\nRequested by: <@{}> ***Duration*** {}\n",
@@ -65,3 +86,4 @@ pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
 
     Ok(())
 }
+

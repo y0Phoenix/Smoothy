@@ -49,7 +49,7 @@ impl AudioPlayerState {
         matches!(self, Self::Idle)
     }
     pub fn is_paused(&self) -> bool {
-        self == &Self::Paused 
+        self == &Self::Paused
         // matches!(self, Self::Paused)
     }
 }
@@ -110,7 +110,6 @@ impl From<GuildId> for ServerGuildId {
     }
 }
 
-
 #[derive(Debug)]
 pub struct Servers(pub std::collections::HashMap<ServerGuildId, Server>);
 
@@ -118,7 +117,7 @@ pub type ServersLock<'a> = MutexGuard<'a, Servers>;
 
 #[derive(Debug, Default, FromRow, Serialize, Clone)]
 pub struct Server {
-    // because of how this API has to work with aquiring 
+    // because of how this API has to work with aquiring
     pub locked: bool,
     pub id: ServerGuildId,
     pub channel_id: ServerChannelId,
@@ -128,12 +127,12 @@ pub struct Server {
     #[sqlx(skip)]
     pub audio_player: AudioPlayer,
     /// if the vc dc timer should be ticking
-    pub dc_timer_started: bool
+    pub dc_timer_started: bool,
 }
 
 impl From<PgRow> for Server {
     fn from(value: PgRow) -> Self {
-        Self { 
+        Self {
             id: ServerGuildId(value.get("server_id")),
             channel_id: ServerChannelId(value.get("channel_id")),
             voice_channel_id: ServerChannelId(value.get("voice_channel_id")),
@@ -150,3 +149,4 @@ impl Server {
         self
     }
 }
+

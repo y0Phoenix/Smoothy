@@ -1,11 +1,12 @@
-pub mod play;
-pub mod leave;
-pub mod next;
-pub mod queue;
-pub mod loop_song;
-pub mod loop_queue;
-pub mod restart;
-pub mod seek;
-pub mod pause;
-pub mod resume;
 pub mod help;
+pub mod leave;
+pub mod loop_queue;
+pub mod loop_song;
+pub mod next;
+pub mod pause;
+pub mod play;
+pub mod queue;
+pub mod restart;
+pub mod resume;
+pub mod seek;
+

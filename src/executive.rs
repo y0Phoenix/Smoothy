@@ -1,10 +1,27 @@
-use songbird::{input::{Compose, YoutubeDl}, tracks::TrackHandle, typemap::TypeMap, Call};
+use songbird::{
+    input::{Compose, YoutubeDl},
+    tracks::TrackHandle,
+    typemap::TypeMap,
+    Call,
+};
 use tracing::error;
 
-use crate::{common::{embeds::err_embed, generics::Generics, message::send_embed, song::{Song, SongType, TrackMetaData}}, events::{end::SongEndEvent, playable::SongStartEvent}};
+use crate::{
+    common::{
+        embeds::err_embed,
+        generics::Generics,
+        message::send_embed,
+        song::{Song, SongType, TrackMetaData},
+    },
+    events::{end::SongEndEvent, playable::SongStartEvent},
+};
 
-
-pub async fn init_track(mut src: YoutubeDl, generics: &Generics, song_type: SongType, handler: &mut tokio::sync::MutexGuard<'_, Call>) -> Result<(TrackHandle, Song), ()> {
+pub async fn init_track(
+    mut src: YoutubeDl,
+    generics: &Generics,
+    song_type: SongType,
+    handler: &mut tokio::sync::MutexGuard<'_, Call>,
+) -> Result<(TrackHandle, Song), ()> {
     let (_query, requested_by) = match song_type {
         SongType::New(query, requested_by) => (query, requested_by),
         SongType::DB(song) => (song.url, song.requested_by),
@@ -14,7 +31,12 @@ pub async fn init_track(mut src: YoutubeDl, generics: &Generics, song_type: Song
         Ok(song) => song,
         Err(err) => {
             error!("{}", err);
-            send_embed(generics, err_embed("There was a problem getting video information try again later"), Some(60000)).await;
+            send_embed(
+                generics,
+                err_embed("There was a problem getting video information try again later"),
+                Some(60000),
+            )
+            .await;
             return Err(());
         }
     };
@@ -38,7 +60,6 @@ pub async fn init_track(mut src: YoutubeDl, generics: &Generics, song_type: Song
     let mut typemap = clone.typemap().write().await;
     let mut map = TypeMap::new();
 
-
     map.insert::<TrackMetaData>(TrackMetaData {
         song: song.clone(),
         generics: generics.clone(),
@@ -47,9 +68,20 @@ pub async fn init_track(mut src: YoutubeDl, generics: &Generics, song_type: Song
     });
     *typemap = map;
 
-    track.add_event(songbird::Event::Track(songbird::TrackEvent::Playable), SongStartEvent).unwrap();
-    track.add_event(songbird::Event::Track(songbird::TrackEvent::End), SongEndEvent).unwrap();
+    track
+        .add_event(
+            songbird::Event::Track(songbird::TrackEvent::Playable),
+            SongStartEvent,
+        )
+        .unwrap();
+    track
+        .add_event(
+            songbird::Event::Track(songbird::TrackEvent::End),
+            SongEndEvent,
+        )
+        .unwrap();
     // track.add_event(songbird::Event::Track(songbird::TrackEvent::Play), SongPlayEvent).unwrap();
     // track.add_event(songbird::Event::Track(songbird::TrackEvent::Loop), SongLoopEvent).unwrap();
     Ok((track, song))
 }
+

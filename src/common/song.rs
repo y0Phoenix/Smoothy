@@ -13,7 +13,7 @@ pub struct Song {
     pub duration_in_sec: u64,
     pub thumbnail: String,
     pub requested_by: String,
-    pub now_playing_msg: Option<NowPlayingMsg>
+    pub now_playing_msg: Option<NowPlayingMsg>,
 }
 
 impl TypeMapKey for Song {
@@ -54,7 +54,7 @@ impl Songs {
     }
     pub fn is_empty(&self) -> bool {
         self.songs.is_empty()
-    }  
+    }
     pub fn curr_song(&self) -> Option<&Song> {
         self.songs.first()
     }
@@ -73,15 +73,13 @@ pub fn search_song(song: String, data: &Arc<SmData>) -> YoutubeDl {
     }
 }
 
-
 #[derive(Debug, Clone)]
 pub enum SongType {
     /// if the song is a new play request. the first parameter is the youtube query which can also be a url. second parameter is the requested by which is the author of the request  
     New(String, String),
     /// if the song is from the DB and being initialed from there
-    DB(Song)
+    DB(Song),
 }
-
 
 #[derive(Debug, Clone)]
 pub struct TrackMetaData {
@@ -95,3 +93,4 @@ pub struct TrackMetaData {
 impl TypeMapKey for TrackMetaData {
     type Value = TrackMetaData;
 }
+

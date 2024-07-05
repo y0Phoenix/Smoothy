@@ -1,34 +1,39 @@
-use std::{sync::{mpsc::Sender, Arc}, time::Duration};
 use std::collections::HashMap;
+use std::{
+    sync::{mpsc::Sender, Arc},
+    time::Duration,
+};
 
 use message::DltMsg;
+use reqwest::Client as HttpClient;
 use rusty_time::Timer;
 use serenity::all::{GuildId, Http, UserId};
 use server::{Server, ServerChannelId, ServerGuildId, Servers, ServersLock};
 use song::Song;
 use songbird::typemap::TypeMapKey;
 use sqlx::{query, Pool, Postgres};
-use reqwest::Client as HttpClient;
 use tokio::sync::Mutex;
 use tracing::{error, info};
 
 use crate::VC_DC_TIMEOUT_IN_SEC;
 
-pub mod message;
-pub mod server;
-pub mod song;
 pub mod checks;
 pub mod embeds;
 pub mod generics;
+pub mod message;
+pub mod server;
+pub mod song;
 
 #[derive(Debug, Clone)]
 pub struct UserData {
-    pub inner: Arc<SmData>
+    pub inner: Arc<SmData>,
 }
 
 impl UserData {
     pub fn new(data: SmData) -> Self {
-        Self { inner: Arc::new(data) }
+        Self {
+            inner: Arc::new(data),
+        }
     }
 }
 
@@ -44,7 +49,7 @@ pub struct SmData {
     pub db: Arc<Pool<Postgres>>,
     pub servers: Arc<Mutex<Servers>>,
     pub id: Arc<Mutex<UserId>>,
-    pub client_tx: Arc<Sender<ClientChannel>>
+    pub client_tx: Arc<Sender<ClientChannel>>,
 }
 
 impl SmData {
@@ -80,16 +85,13 @@ impl SmData {
         self
     }
     /// gets all the servers from the database and updates the cache aswell
-    /// 
+    ///
     /// # Note
-    /// 
+    ///
     /// a server lock needs to be aquired and passed in as a reference into this method for better
     /// thread hygeine
     pub async fn get_servers_db(&self, servers_lock: &mut ServersLock<'_>) -> Servers {
-        match query("SELECT * FROM server")
-            .fetch_all(&*self.db)
-            .await 
-        {
+        match query("SELECT * FROM server").fetch_all(&*self.db).await {
             Ok(res) => {
                 let mut servers = HashMap::new();
                 for row in res.into_iter() {
@@ -99,17 +101,21 @@ impl SmData {
                 **servers_lock = Servers(servers.clone());
                 info!("{} Servers from DB aquired", servers.len());
                 Servers(servers.clone())
-            },
+            }
             Err(err) => panic!("Failed to aquire servers from DB {}", err),
         }
     }
     /// remove a server from the database and from the cache
-    /// 
+    ///
     /// # Note
-    /// 
+    ///
     /// a server lock needs to be aquired and passed in as a reference into this method for better
     /// thread hygeine
-    pub async fn remove_server_db(&self, guild_id: &GuildId, servers_lock: &mut ServersLock<'_>) -> &Self {
+    pub async fn remove_server_db(
+        &self,
+        guild_id: &GuildId,
+        servers_lock: &mut ServersLock<'_>,
+    ) -> &Self {
         match query("DELETE FROM server WHERE server_id = $1")
             .bind(guild_id.to_string())
             .execute(&*self.db)
@@ -117,7 +123,11 @@ impl SmData {
         {
             Ok(_) => info!("Removed server {} from db", guild_id.to_string()),
             // TODO do something usefull if we failed to remove server from DB for some reason
-            Err(err) => info!("Failed to remove server {} from db: {}", guild_id.to_string(), err),
+            Err(err) => info!(
+                "Failed to remove server {} from db: {}",
+                guild_id.to_string(),
+                err
+            ),
         }
         let Some(server) = servers_lock.0.get_mut(&ServerGuildId::from(guild_id)).cloned() else { return self };
         servers_lock.0.remove(&ServerGuildId::from(guild_id));
@@ -125,11 +135,11 @@ impl SmData {
         self
     }
     /// attempts to get a specified server from the cache
-    /// 
-    /// # Note 
-    /// 
+    ///
+    /// # Note
+    ///
     /// The [`Server`](crate::common::Server) does not mutate the internal server data in [`SmData`](crate::common::SmData)
-    /// 
+    ///
     /// if you want to mutate internal server data you can modify the server return from this function and pass it into update_server_db on [`SmData`](crate::common::SmData)
     // pub async fn get_server(&self, guild_id: &GuildId) -> Option<Server> {
     //     match self.servers.lock().await.0.get_mut(&ServerGuildId::from(guild_id)) {
@@ -140,20 +150,30 @@ impl SmData {
     //     }
     // }
     /// Update the server in the cache and not in the db
-    /// 
+    ///
     /// # Note
-    /// 
+    ///
     /// a server lock needs to be aquired and passed in as a reference into this method for better
     /// thread hygeine
     pub async fn update_server(&self, server: Server, servers_lock: &mut ServersLock<'_>) {
-        servers_lock.0.entry(server.id.clone()).and_modify(|old_server| *old_server = server);
+        servers_lock
+            .0
+            .entry(server.id.clone())
+            .and_modify(|old_server| *old_server = server);
     }
     pub async fn servers_unlocked(&self) -> ServersLock {
         self.servers.lock().await
     }
     /// Attempts to stop the player. This will stop the songbird [`Call`] player as well as update the [`AudioPlayerState`]
-    pub async fn stop_player(&self, guild_id: &GuildId, servers_lock: &mut ServersLock<'_>) -> Result<(), ()> {
-        let server = servers_lock.0.get_mut(&ServerGuildId::from(guild_id)).expect("Server should exist");
+    pub async fn stop_player(
+        &self,
+        guild_id: &GuildId,
+        servers_lock: &mut ServersLock<'_>,
+    ) -> Result<(), ()> {
+        let server = servers_lock
+            .0
+            .get_mut(&ServerGuildId::from(guild_id))
+            .expect("Server should exist");
 
         if let Some(handler) = self.songbird.get(server.id.guild_id()) {
             handler.lock().await.stop();
@@ -163,9 +183,9 @@ impl SmData {
         Ok(())
     }
     /// Attempts to advance the server queue to the next song. Returns [`Err`] if the server isn't in the cache
-    /// 
+    ///
     /// # Note
-    /// 
+    ///
     /// this doesn't advance the sonbird queue. it only advances the server queue
     pub async fn next_song(&self, guild_id: &GuildId) -> Result<(), String> {
         let mut servers = self.servers_unlocked().await;
@@ -179,16 +199,15 @@ impl SmData {
             }
             server.audio_player.skip();
             // self.update_server(server).await;
-        }
-        else {
+        } else {
             return Err("Not in a voice channel".to_string());
         }
         Ok(())
     }
     /// Attempts to start the servers curr_song. Returns [`Err`] if the server isn't in the cache
-    /// 
+    ///
     /// # Note
-    /// 
+    ///
     /// this doesn't start song in the sonbird queue. it only start the player in the the server queue
     pub async fn start_song(&self, guild_id: &GuildId) -> Result<(), ()> {
         let mut servers = self.servers.lock().await;
@@ -220,9 +239,12 @@ impl SmData {
             guild_id,
             channel_id,
             timer: Timer::new(Duration::from_secs(VC_DC_TIMEOUT_IN_SEC)),
-            end: false 
+            end: false,
         })) {
-            error!("Failed to send start dc timeout event over client channel {}", err);
+            error!(
+                "Failed to send start dc timeout event over client channel {}",
+                err
+            );
         }
     }
     /// stops a dc timer for the current server.
@@ -231,9 +253,12 @@ impl SmData {
             guild_id,
             channel_id,
             timer: Timer::new(Duration::from_secs(VC_DC_TIMEOUT_IN_SEC)),
-            end: true 
+            end: true,
         })) {
-            error!("Failed to send stop dc timeout event over client channel {}", err);
+            error!(
+                "Failed to send stop dc timeout event over client channel {}",
+                err
+            );
         }
     }
     /// initialized the bot with data from discord
@@ -255,5 +280,6 @@ pub struct DcTimeOut {
     pub channel_id: ServerChannelId,
     pub timer: Timer,
     /// whether or not to end the timer
-    pub end: bool
+    pub end: bool,
 }
+

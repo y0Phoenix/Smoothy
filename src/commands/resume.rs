@@ -1,6 +1,15 @@
 use serenity::all::CreateEmbed;
 
-use crate::{common::{embeds::{err_embed, PAUSE_COLOR}, generics::get_generics, message::send_embed, server::ServerGuildId, song::TrackMetaData}, CommandResult, SmContext};
+use crate::{
+    common::{
+        embeds::{err_embed, PAUSE_COLOR},
+        generics::get_generics,
+        message::send_embed,
+        server::ServerGuildId,
+        song::TrackMetaData,
+    },
+    CommandResult, SmContext,
+};
 
 /// Resume song
 #[poise::command(guild_only, prefix_command, aliases("re", "unpause"))]
@@ -36,17 +45,28 @@ pub async fn resume(ctx: SmContext<'_>) -> CommandResult {
     };
 
     if track.play().is_err() {
-        send_embed(&generics, err_embed(format!("Failed to resume ***[{}]({})***", meta_data.song.title, meta_data.song.url)), Some(75000)).await;
+        send_embed(
+            &generics,
+            err_embed(format!(
+                "Failed to resume ***[{}]({})***",
+                meta_data.song.title, meta_data.song.url
+            )),
+            Some(75000),
+        )
+        .await;
         return Ok(());
     }
 
     send_embed(
         &generics,
-        CreateEmbed::new()
-            .color(PAUSE_COLOR)
-            .description(format!(":arrow_forward: Resumed ***[{}]({})***", meta_data.song.title, meta_data.song.url)),
-        Some(60000)
-    ).await;
+        CreateEmbed::new().color(PAUSE_COLOR).description(format!(
+            ":arrow_forward: Resumed ***[{}]({})***",
+            meta_data.song.title, meta_data.song.url
+        )),
+        Some(60000),
+    )
+    .await;
 
     Ok(())
 }
+

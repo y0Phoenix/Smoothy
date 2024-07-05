@@ -1,13 +1,28 @@
 use serenity::all::CreateEmbed;
 use tracing::info;
 
-use crate::{common::{checks::vc, embeds::{err_embed, ADD_QUEUE_COLOR}, generics::get_generics, message::send_embed, server::ServerGuildId, song::{search_song, SongType}}, executive::init_track, CommandResult, SmContext};
+use crate::{
+    common::{
+        checks::vc,
+        embeds::{err_embed, ADD_QUEUE_COLOR},
+        generics::get_generics,
+        message::send_embed,
+        server::ServerGuildId,
+        song::{search_song, SongType},
+    },
+    executive::init_track,
+    CommandResult, SmContext,
+};
 
-/// Play a song via query or url. Joins voice channel if not already. Queues song if already playing another 
-/// 
+/// Play a song via query or url. Joins voice channel if not already. Queues song if already playing another
+///
 /// Example usage -p somewhere over the rainbow
 #[poise::command(prefix_command, guild_only, aliases("p"), check = "vc")]
-pub async fn play(ctx: SmContext<'_>, #[description = "Valid formats are URL like https://youtu.be/dQw4w9WgXcQ?si=Gba3jLx3n4Rluzdh or a query like \"Somewhere over the Rainbow\""] query: Vec<String>) -> CommandResult {
+pub async fn play(
+    ctx: SmContext<'_>,
+    #[description = "Valid formats are URL like https://youtu.be/dQw4w9WgXcQ?si=Gba3jLx3n4Rluzdh or a query like \"Somewhere over the Rainbow\""]
+    query: Vec<String>,
+) -> CommandResult {
     let query = query.join(" ");
     info!("Command 'play' called with query: {}", query); // Logging
     let generics = get_generics(&ctx);
@@ -26,13 +41,23 @@ pub async fn play(ctx: SmContext<'_>, #[description = "Valid formats are URL lik
     let mut handler = handler_lock.lock().await;
 
     let src = search_song(query.clone(), &generics.data.inner);
-    
-    let track = init_track(src, &generics, SongType::New(query, ctx.author().id.to_string()), &mut handler).await.expect("Should initialize track");
+
+    let track = init_track(
+        src,
+        &generics,
+        SongType::New(query, ctx.author().id.to_string()),
+        &mut handler,
+    )
+    .await
+    .expect("Should initialize track");
 
     if server.audio_player.state.is_playing() {
         let embed = CreateEmbed::new()
             .color(ADD_QUEUE_COLOR)
-            .description(format!("***[{}]({})***\nHas been added to the queue :arrow_down:", track.1.title, track.1.url));
+            .description(format!(
+                "***[{}]({})***\nHas been added to the queue :arrow_down:",
+                track.1.title, track.1.url
+            ));
         send_embed(&generics, embed, Some(300000)).await;
     }
 

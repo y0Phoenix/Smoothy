@@ -3,7 +3,13 @@ use tracing::info;
 
 use crate::{common::generics::Generics, events::add_global_events, SmContext, SmError};
 
-use super::{embeds::{err_embed, GET_SERVER_FAIL_DLT_TIME, GET_SERVER_FAIL_MSG}, generics::get_generics, message::send_embed, server::{Server, ServerChannelId, ServerGuildId}, song::Songs};
+use super::{
+    embeds::{err_embed, GET_SERVER_FAIL_DLT_TIME, GET_SERVER_FAIL_MSG},
+    generics::get_generics,
+    message::send_embed,
+    server::{Server, ServerChannelId, ServerGuildId},
+    song::Songs,
+};
 
 pub type CheckResult = Result<bool, SmError>;
 
@@ -16,7 +22,12 @@ pub async fn is_playing(ctx: SmContext<'_>) -> CheckResult {
         let manager_lock = manager.lock().await;
 
         if manager_lock.queue().current().is_none() {
-            send_embed(&generics, err_embed(":rofl: Not currently playing a song"), Some(45000)).await;
+            send_embed(
+                &generics,
+                err_embed(":rofl: Not currently playing a song"),
+                Some(45000),
+            )
+            .await;
             return Ok(false);
         }
 
@@ -25,33 +36,69 @@ pub async fn is_playing(ctx: SmContext<'_>) -> CheckResult {
             info!("Checking play state for {}", server.name);
             match server.audio_player.state {
                 crate::common::server::AudioPlayerState::Playing => return Ok(true),
-                crate::common::server::AudioPlayerState::Idle => send_embed(&generics, err_embed("Not currently playing a song"), Some(30000)).await,
-                crate::common::server::AudioPlayerState::Paused => send_embed(&generics, err_embed("Player is currently paused"), Some(30000)).await,
-                crate::common::server::AudioPlayerState::Skipped => send_embed(&generics, err_embed("Player is skipping"), Some(30000)).await,
+                crate::common::server::AudioPlayerState::Idle => {
+                    send_embed(
+                        &generics,
+                        err_embed("Not currently playing a song"),
+                        Some(30000),
+                    )
+                    .await
+                }
+                crate::common::server::AudioPlayerState::Paused => {
+                    send_embed(
+                        &generics,
+                        err_embed("Player is currently paused"),
+                        Some(30000),
+                    )
+                    .await
+                }
+                crate::common::server::AudioPlayerState::Skipped => {
+                    send_embed(&generics, err_embed("Player is skipping"), Some(30000)).await
+                }
             };
             return Ok(false);
         } else {
-            send_embed(&generics, err_embed(GET_SERVER_FAIL_MSG), Some(GET_SERVER_FAIL_DLT_TIME)).await;
+            send_embed(
+                &generics,
+                err_embed(GET_SERVER_FAIL_MSG),
+                Some(GET_SERVER_FAIL_DLT_TIME),
+            )
+            .await;
             if let Err(err) = songbird.remove(generics.guild_id).await {
-                send_embed(&generics, err_embed(format!(":x: Failed to leave voice channel {}", err)), Some(60000)).await;
+                send_embed(
+                    &generics,
+                    err_embed(format!(":x: Failed to leave voice channel {}", err)),
+                    Some(60000),
+                )
+                .await;
             }
         }
-    }
-    else {
-        send_embed(&generics, err_embed(":rofl: Not Currently In A Voice Channel"), Some(30000)).await;
+    } else {
+        send_embed(
+            &generics,
+            err_embed(":rofl: Not Currently In A Voice Channel"),
+            Some(30000),
+        )
+        .await;
     }
 
     Ok(false)
 }
 
 pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
-    let generics = Generics { 
+    let generics = Generics {
         channel_id: ctx.channel_id(),
         data: ctx.data().clone(),
-        guild_id: ctx.guild_id().expect("GuildId should exist")
+        guild_id: ctx.guild_id().expect("GuildId should exist"),
     };
 
-    if generics.data.inner.songbird.get(generics.guild_id).is_some() {
+    if generics
+        .data
+        .inner
+        .songbird
+        .get(generics.guild_id)
+        .is_some()
+    {
         info!("Already in voice channel");
         return Ok(true);
     }
@@ -70,11 +117,16 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
     let connect_to = match channel {
         Some(channel) => channel,
         None => {
-            send_embed(&generics, err_embed("You're not in a voice channel"), Some(30000)).await;
+            send_embed(
+                &generics,
+                err_embed("You're not in a voice channel"),
+                Some(30000),
+            )
+            .await;
             let err_msg = "Failed to join voice channel. User not in channel";
             info!("{err_msg}");
             return Ok(false);
-        },
+        }
     };
 
     let mut servers = generics.data.inner.servers_unlocked().await;
@@ -99,9 +151,9 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
         // Attach an event handler to see notifications of all track errors.
         let mut handler = handler_lock.lock().await;
         add_global_events(&mut handler, &generics);
-    }
-    else {
+    } else {
         send_embed(&generics, err_embed("Failed to join vc"), Some(60000)).await;
     }
     Ok(true)
 }
+

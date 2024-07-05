@@ -2,17 +2,28 @@
 use error::TrackErrorNotifier;
 use play::SongPlayEvent;
 // use playable::SongStartEvent;
-use tracing::error;
-use songbird::{Call, Event, TrackEvent};
-use tracing::info;
 use serenity::all as serenity;
+use songbird::{Call, Event, TrackEvent};
+use tracing::error;
+use tracing::info;
 
-use crate::{common::{embeds::err_embed, generics::Generics, message::send_embed, server::ServerGuildId, song::{search_song, SongType}, UserData}, executive::init_track, SmError};
+use crate::{
+    common::{
+        embeds::err_embed,
+        generics::Generics,
+        message::send_embed,
+        server::ServerGuildId,
+        song::{search_song, SongType},
+        UserData,
+    },
+    executive::init_track,
+    SmError,
+};
 
-pub mod playable;
-pub mod play;
 pub mod end;
 pub mod error;
+pub mod play;
+pub mod playable;
 
 pub fn add_global_events(handler: &mut tokio::sync::MutexGuard<Call>, _generics: &Generics) {
     handler.add_global_event(TrackEvent::Error.into(), TrackErrorNotifier);
@@ -30,9 +41,10 @@ pub async fn event_handler(
     data: &UserData,
 ) -> Result<(), SmError> {
     match event {
-        
         serenity::FullEvent::Ready { data_about_bot, .. } => {
-            data.inner.init_bot(data_about_bot.user.id, ctx.http.clone()).await;
+            data.inner
+                .init_bot(data_about_bot.user.id, ctx.http.clone())
+                .await;
             let mut servers_lock = data.inner.servers_unlocked().await;
             let servers = data.inner.get_servers_db(&mut servers_lock).await;
             for (_, server) in servers.0.iter() {
@@ -43,9 +55,14 @@ pub async fn event_handler(
 
                 if server.songs.0.is_empty() {
                     info!("removing db");
-                    data.inner.remove_server_db(&guild_id, &mut servers_lock).await;
+                    data.inner
+                        .remove_server_db(&guild_id, &mut servers_lock)
+                        .await;
                     if in_vc {
-                        data.inner.start_dc_timer(ServerGuildId::from(guild_id), server.channel_id.clone());
+                        data.inner.start_dc_timer(
+                            ServerGuildId::from(guild_id),
+                            server.channel_id.clone(),
+                        );
                     }
                     continue;
                 }
@@ -58,17 +75,24 @@ pub async fn event_handler(
                     add_global_events(&mut handler, &generics);
                     for song in server.songs.0.songs.iter() {
                         let src = search_song(song.url.clone(), &generics.data.inner);
-                        init_track(src, &generics, SongType::DB(song.clone()), &mut handler).await.expect("Should initialize track");
+                        init_track(src, &generics, SongType::DB(song.clone()), &mut handler)
+                            .await
+                            .expect("Should initialize track");
                     }
-                }
-                else {
+                } else {
                     send_embed(&generics, err_embed("Failed to join vc"), Some(60000)).await;
                     error!("Failed to join vc from bot ready state in {}", server.name);
-                    data.inner.remove_server_db(&guild_id, &mut servers_lock).await;
+                    data.inner
+                        .remove_server_db(&guild_id, &mut servers_lock)
+                        .await;
                 }
             }
-            println!("Logged in as {} id: {}", data_about_bot.user.name, data.inner.id.lock().await);
-        },
+            println!(
+                "Logged in as {} id: {}",
+                data_about_bot.user.name,
+                data.inner.id.lock().await
+            );
+        }
         // on voice channel disconnect
         serenity::FullEvent::VoiceStateUpdate { old: _, new } => {
             // let cache = _ctx.cache().unwrap().guild(new.guild_id.unwrap()).unwrap();
@@ -76,10 +100,12 @@ pub async fn event_handler(
                 let guild_id = new.guild_id.expect("Should have guild_id");
                 if new.member.clone().unwrap().user.id == *data.inner.id.lock().await {
                     let mut servers_lock = data.inner.servers_unlocked().await;
-                    data.inner.remove_server_db(&guild_id, &mut servers_lock).await;
+                    data.inner
+                        .remove_server_db(&guild_id, &mut servers_lock)
+                        .await;
                 }
             }
-        },
+        }
         // serenity::FullEvent::Message { new_message } => {
         //     // FrameworkContext contains all data that poise::Framework usually manages
         //     // let shard_manager = (*_framework.shard_manager).clone();

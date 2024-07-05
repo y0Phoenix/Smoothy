@@ -1,6 +1,16 @@
 use serenity::all::CreateEmbed;
 
-use crate::{common::{checks::is_playing, embeds::{err_embed, PAUSE_COLOR}, generics::get_generics, message::send_embed, server::ServerGuildId, song::TrackMetaData}, CommandResult, SmContext};
+use crate::{
+    common::{
+        checks::is_playing,
+        embeds::{err_embed, PAUSE_COLOR},
+        generics::get_generics,
+        message::send_embed,
+        server::ServerGuildId,
+        song::TrackMetaData,
+    },
+    CommandResult, SmContext,
+};
 
 /// Pause song
 #[poise::command(guild_only, prefix_command, check = "is_playing", aliases("pa"))]
@@ -31,7 +41,15 @@ pub async fn pause(ctx: SmContext<'_>) -> CommandResult {
     };
 
     if track.pause().is_err() {
-        send_embed(&generics, err_embed(format!("Failed to pause ***[{}]({})***", meta_data.song.title, meta_data.song.url)), Some(75000)).await;
+        send_embed(
+            &generics,
+            err_embed(format!(
+                "Failed to pause ***[{}]({})***",
+                meta_data.song.title, meta_data.song.url
+            )),
+            Some(75000),
+        )
+        .await;
         return Ok(());
     }
 
@@ -39,11 +57,14 @@ pub async fn pause(ctx: SmContext<'_>) -> CommandResult {
     server.audio_player.pause();
     send_embed(
         &generics,
-        CreateEmbed::new()
-            .color(PAUSE_COLOR)
-            .description(format!(":pause_button: Paused ***[{}]({})***", meta_data.song.title, meta_data.song.url)),
-        Some(60000)
-    ).await;
+        CreateEmbed::new().color(PAUSE_COLOR).description(format!(
+            ":pause_button: Paused ***[{}]({})***",
+            meta_data.song.title, meta_data.song.url
+        )),
+        Some(60000),
+    )
+    .await;
 
     Ok(())
 }
+

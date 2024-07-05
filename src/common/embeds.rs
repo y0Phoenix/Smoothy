@@ -15,9 +15,9 @@ pub const LOOPED_COLOR: Colour = Colour::PURPLE;
 pub const SEEK_COLOR: Colour = Colour::from_rgb(3, 220, 3);
 pub const PAUSE_COLOR: Colour = Colour::MEIBE_PINK;
 
-pub const GET_SERVER_FAIL_MSG: &str = ":cry: Something went terribly wrong trying to obtain server info. Leaving vc, try again later";
+pub const GET_SERVER_FAIL_MSG: &str =
+    ":cry: Something went terribly wrong trying to obtain server info. Leaving vc, try again later";
 pub const GET_SERVER_FAIL_DLT_TIME: u64 = 120000;
-
 
 pub fn err_embed(err: impl ToString + Debug + Display) -> CreateEmbed {
     CreateEmbed::new()
@@ -34,3 +34,4 @@ pub fn now_playing_embed(meta_data: &TrackMetaData) -> CreateEmbed {
         .field("Duration", meta_data.song.duration_formatted().to_string(), true)
         .thumbnail(meta_data.song.thumbnail.clone())
 }
+
