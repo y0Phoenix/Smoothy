@@ -3,7 +3,7 @@ use songbird::events::{Event, EventContext, EventHandler as VoiceEventHandler};
 
 use crate::common::{
     embeds::now_playing_embed,
-    message::{delete_now_playing_msg, send_embed},
+    message::{delete_now_playing_msg, send_embed, NowPlayingMsg},
     server::ServerGuildId,
     song::TrackMetaData,
 };
@@ -34,6 +34,15 @@ impl VoiceEventHandler for SongPlayEvent {
                 send_embed(&meta_data.generics, now_playing_embed(meta_data), None).await;
             }
 
+            if let Some(msg) =
+                send_embed(&meta_data.generics, now_playing_embed(meta_data), None).await
+            {
+                meta_data.song.now_playing_msg = Some(NowPlayingMsg {
+                    channel_id: msg.channel_id.to_string(),
+                    msg_id: msg.id.to_string(),
+                });
+            }
+
             // set the audio player status back to play from idle.
             // when a song is started from the queue the "Playable" event is never fired
             // so the audio player status will remain idle from the "End" event being fired
@@ -45,4 +54,3 @@ impl VoiceEventHandler for SongPlayEvent {
         None
     }
 }
-

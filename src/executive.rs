@@ -84,4 +84,3 @@ pub async fn init_track(
     // track.add_event(songbird::Event::Track(songbird::TrackEvent::Loop), SongLoopEvent).unwrap();
     Ok((track, song))
 }
-

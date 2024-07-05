@@ -30,19 +30,19 @@ impl VoiceEventHandler for SongStartEvent {
                 .get_mut(&ServerGuildId::from(&meta_data.generics.guild_id))
                 .expect("Server should exist");
 
-            delete_now_playing_msg(meta_data).await;
+            // delete_now_playing_msg(meta_data).await;
 
             server.dc_timer_started = false;
             server.audio_player.play();
             // let curr_song = server.songs.curr_song().unwrap();
-            if let Some(msg) =
-                send_embed(&meta_data.generics, now_playing_embed(meta_data), None).await
-            {
-                meta_data.song.now_playing_msg = Some(NowPlayingMsg {
-                    channel_id: msg.channel_id.to_string(),
-                    msg_id: msg.id.to_string(),
-                });
-            }
+            // if let Some(msg) =
+            //     send_embed(&meta_data.generics, now_playing_embed(meta_data), None).await
+            // {
+            //     meta_data.song.now_playing_msg = Some(NowPlayingMsg {
+            //         channel_id: msg.channel_id.to_string(),
+            //         msg_id: msg.id.to_string(),
+            //     });
+            // }
             meta_data.generics.data.inner.update_server_db(server).await;
             meta_data.generics.data.inner.stop_dc_timer(
                 ServerGuildId::from(meta_data.generics.guild_id),
@@ -52,4 +52,3 @@ impl VoiceEventHandler for SongStartEvent {
         None
     }
 }
-
