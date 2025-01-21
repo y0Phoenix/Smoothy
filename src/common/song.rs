@@ -1,9 +1,10 @@
 use std::{sync::Arc, time::Instant};
 
-use rusty_ytdl::search::SearchResult;
+use rusty_ytdl::{search::SearchResult, Video};
 use serde::{Deserialize, Serialize};
 use songbird::{input::YoutubeDl, typemap::TypeMapKey};
 use sqlx::prelude::FromRow;
+use url::Url;
 
 use super::{generics::Generics, message::NowPlayingMsg, SmData};
 
@@ -67,18 +68,20 @@ impl Songs {
 pub async fn search_song(
     song: String,
     data: &Arc<SmData>,
-) -> Result<(YoutubeDl, rusty_ytdl::search::Video), ()> {
-    // let do_search = !song.starts_with("http");
-
+) -> Result<YoutubeDl, ()> {
     let instant = Instant::now();
-    let video = rusty_ytdl::search::YouTube::new().unwrap();
-    let video = video.search(song.clone(), None).await.unwrap();
-    if let SearchResult::Video(video) = video.first().unwrap() {
+    if Url::parse(&song).is_ok() {
+        let video = Video::new(song.clone()).unwrap();
+        let video = video.get_basic_info().await.unwrap();
+        println!("{} elapsed {}", video.video_details.title, instant.elapsed().as_millis());
+        return Ok(YoutubeDl::new(data.reqwest.clone(), video.video_details.video_url));
+    }
+    let youtube = rusty_ytdl::search::YouTube::new().unwrap();
+    let video = youtube.search(song.clone(), None).await.unwrap();
+    println!("{}", video.len());
+    if let Some(SearchResult::Video(video)) = video.first() {
         println!("{} elapsed {}", video.title, instant.elapsed().as_millis());
-        return Ok((
-            YoutubeDl::new(data.reqwest.clone(), video.url.clone()),
-            video.clone(),
-        ));
+        return Ok(YoutubeDl::new(data.reqwest.clone(), video.url.clone()));
     }
     Err(())
 }

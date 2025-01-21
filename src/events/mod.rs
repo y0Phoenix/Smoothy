@@ -78,7 +78,7 @@ pub async fn event_handler(
                             .await
                             .unwrap();
 
-                        init_track(src.0, &generics, SongType::DB(song.clone()), &mut handler)
+                        init_track(src, &generics, SongType::DB(song.clone()), &mut handler)
                             .await
                             .expect("Should initialize track");
                     }

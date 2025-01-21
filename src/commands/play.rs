@@ -45,7 +45,7 @@ pub async fn play(
         .unwrap();
 
     let track = init_track(
-        src.0,
+        src,
         &generics,
         SongType::New(query, ctx.author().id.to_string()),
         &mut handler,
