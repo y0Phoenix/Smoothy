@@ -10,3 +10,5 @@ checklist.txt
 global.json
 build
 .DS_Store
+.env
+config.json
