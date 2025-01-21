@@ -1,4 +1,5 @@
 pub mod help;
+pub mod jump;
 pub mod leave;
 pub mod loop_queue;
 pub mod loop_song;

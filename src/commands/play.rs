@@ -40,10 +40,12 @@ pub async fn play(
 
     let mut handler = handler_lock.lock().await;
 
-    let src = search_song(query.clone(), &generics.data.inner);
+    let src = search_song(query.clone(), &generics.data.inner)
+        .await
+        .unwrap();
 
     let track = init_track(
-        src,
+        src.0,
         &generics,
         SongType::New(query, ctx.author().id.to_string()),
         &mut handler,

@@ -22,3 +22,4 @@ sqlx = {version = "0.7.3", features = ["postgres", "runtime-tokio", "json", "tls
 rusty_time = "1.1.0"
 # futures = "0.3.30"
 serde = {version = "1.0.196", features = ["derive"]}
+rusty_ytdl = "0.6.6"

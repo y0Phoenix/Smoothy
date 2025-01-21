@@ -74,8 +74,11 @@ pub async fn event_handler(
                     let mut handler = handler_lock.lock().await;
                     add_global_events(&mut handler, &generics);
                     for song in server.songs.0.songs.iter() {
-                        let src = search_song(song.url.clone(), &generics.data.inner);
-                        init_track(src, &generics, SongType::DB(song.clone()), &mut handler)
+                        let src = search_song(song.url.clone(), &generics.data.inner)
+                            .await
+                            .unwrap();
+
+                        init_track(src.0, &generics, SongType::DB(song.clone()), &mut handler)
                             .await
                             .expect("Should initialize track");
                     }

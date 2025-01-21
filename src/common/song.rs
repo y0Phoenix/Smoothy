@@ -1,5 +1,6 @@
-use std::sync::Arc;
+use std::{sync::Arc, time::Instant};
 
+use rusty_ytdl::search::SearchResult;
 use serde::{Deserialize, Serialize};
 use songbird::{input::YoutubeDl, typemap::TypeMapKey};
 use sqlx::prelude::FromRow;
@@ -63,14 +64,23 @@ impl Songs {
     }
 }
 
-pub fn search_song(song: String, data: &Arc<SmData>) -> YoutubeDl {
-    let do_search = !song.starts_with("http");
+pub async fn search_song(
+    song: String,
+    data: &Arc<SmData>,
+) -> Result<(YoutubeDl, rusty_ytdl::search::Video), ()> {
+    // let do_search = !song.starts_with("http");
 
-    if do_search {
-        YoutubeDl::new_search(data.reqwest.clone(), song)
-    } else {
-        YoutubeDl::new(data.reqwest.clone(), song)
+    let instant = Instant::now();
+    let video = rusty_ytdl::search::YouTube::new().unwrap();
+    let video = video.search(song.clone(), None).await.unwrap();
+    if let SearchResult::Video(video) = video.first().unwrap() {
+        println!("{} elapsed {}", video.title, instant.elapsed().as_millis());
+        return Ok((
+            YoutubeDl::new(data.reqwest.clone(), video.url.clone()),
+            video.clone(),
+        ));
     }
+    Err(())
 }
 
 #[derive(Debug, Clone)]
@@ -93,4 +103,3 @@ pub struct TrackMetaData {
 impl TypeMapKey for TrackMetaData {
     type Value = TrackMetaData;
 }
-

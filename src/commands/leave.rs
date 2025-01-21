@@ -15,14 +15,14 @@ pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);
     let guild_id = ctx.guild_id().unwrap();
 
-    let manager = &ctx.data().inner.songbird;
+    let manager = &generics.data.inner.songbird;
     let in_vc = manager.get(guild_id).is_some();
 
     if in_vc {
         if let Err(_err) = manager.remove(guild_id).await {
             send_embed(
                 &generics,
-                err_embed(":cry: Failed to leave vc. Try again later."),
+                err_embed("Failed to leave vc. Try again later."),
                 Some(60000),
             )
             .await;
@@ -43,4 +43,3 @@ pub async fn leave(ctx: SmContext<'_>) -> CommandResult {
 
     Ok(())
 }
-

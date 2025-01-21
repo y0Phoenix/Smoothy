@@ -31,7 +31,6 @@ impl VoiceEventHandler for SongPlayEvent {
 
             if server.audio_player.state.is_paused() {
                 delete_now_playing_msg(meta_data).await;
-                send_embed(&meta_data.generics, now_playing_embed(meta_data), None).await;
             }
 
             if let Some(msg) =
