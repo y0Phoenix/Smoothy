@@ -53,6 +53,8 @@ pub async fn play(
     .await
     .expect("Should initialize track");
 
+    // track.0.set_volume(50.).unwrap();
+
     if server.audio_player.state.is_playing() {
         let embed = CreateEmbed::new()
             .color(ADD_QUEUE_COLOR)
