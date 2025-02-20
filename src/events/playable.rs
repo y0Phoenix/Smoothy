@@ -32,7 +32,7 @@ impl VoiceEventHandler for SongStartEvent {
 
             server.dc_timer_started = false;
             server.audio_player.play();
-            track.1.set_volume(0.15).unwrap();
+            track.1.set_volume(0.35).unwrap();
 
             meta_data.generics.data.inner.update_server_db(server).await;
             meta_data.generics.data.inner.stop_dc_timer(

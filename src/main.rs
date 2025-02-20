@@ -27,7 +27,7 @@ use sqlx::PgPool;
 use tokio::sync::Mutex;
 use tracing::{error, info, warn};
 
-use smoothy::*;
+use smoothy::{commands::jump::jump, *};
 
 #[tokio::main]
 async fn main() {
@@ -69,6 +69,7 @@ async fn main() {
             help(),
             remove(),
             now_playing(),
+            jump(),
         ],
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some(String::from("-")),
