@@ -106,6 +106,7 @@ pub async fn event_handler(
                     data.inner
                         .remove_server_db(&guild_id, &mut servers_lock)
                         .await;
+                    let _ = data.inner.songbird.remove(guild_id).await;
                 }
             }
         }
