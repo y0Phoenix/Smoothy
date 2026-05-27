@@ -33,13 +33,26 @@ pub async fn remove(
     };
 
     let Some(manager) = generics.data.inner.songbird.get(generics.guild_id) else {
-        send_embed(&generics, err_embed("Something went wrong. Failed to acquire voice manager. Try again later"), Some(75000)).await;
+        send_embed(
+            &generics,
+            err_embed("Something went wrong. Failed to acquire voice manager. Try again later"),
+            Some(75000),
+        )
+        .await;
         return Ok(());
     };
 
     let mut servers_locked = generics.data.inner.servers_unlocked().await;
-    let Some(server) = servers_locked.0.get_mut(&ServerGuildId::from(generics.guild_id)) else {
-        send_embed(&generics, err_embed("Something went wrong. Failed to acquire server info. Try again later"), Some(75000)).await;
+    let Some(server) = servers_locked
+        .0
+        .get_mut(&ServerGuildId::from(generics.guild_id))
+    else {
+        send_embed(
+            &generics,
+            err_embed("Something went wrong. Failed to acquire server info. Try again later"),
+            Some(75000),
+        )
+        .await;
         return Ok(());
     };
 
@@ -68,11 +81,8 @@ pub async fn remove(
         }
     };
 
-    let typemap = track.typemap().read().await;
-    let Some(meta_data) = typemap.get::<TrackMetaData>() else {
-        send_embed(&generics, err_embed("Something went wrong. Failed to acquire song info. Try again later"), Some(75000)).await;
-        return Ok(());
-    };
+    let meta_data = track.data::<TrackMetaData>();
+    let song = meta_data.song.lock().await;
 
     send_embed(
         &generics,
@@ -80,7 +90,7 @@ pub async fn remove(
             .color(Colour::BLURPLE)
             .description(format!(
                 ":thumbsup: Removed ***[{}]({})***",
-                meta_data.song.title, meta_data.song.url
+                song.title, song.url
             )),
         Some(60000),
     )

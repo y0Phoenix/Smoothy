@@ -153,7 +153,7 @@ pub async fn vc(ctx: SmContext<'_>) -> CheckResult {
         add_global_events(&mut handler, &generics);
     } else {
         send_embed(&generics, err_embed("Failed to join vc"), Some(60000)).await;
+        println!("here 1");
     }
     Ok(true)
 }
-

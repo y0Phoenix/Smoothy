@@ -27,7 +27,12 @@ pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
 
     let servers_lock = generics.data.inner.servers_unlocked().await;
     let Some(server) = servers_lock.0.get(&ServerGuildId::from(generics.guild_id)) else {
-        send_embed(&generics, err_embed("Something went wrong. Error obtaining server info, try again later"), Some(75000)).await;
+        send_embed(
+            &generics,
+            err_embed("Something went wrong. Error obtaining server info, try again later"),
+            Some(75000),
+        )
+        .await;
         return Ok(());
     };
 
@@ -64,18 +69,15 @@ pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
         let mut description = String::new();
 
         for (i, track) in queue_chunk.iter().enumerate() {
-            let type_map = track.typemap().read().await;
-            let meta_data = type_map
-                .get::<TrackMetaData>()
-                .expect("Metadata should exist");
-
+            let meta_data = track.data::<TrackMetaData>();
+            let song = meta_data.song.lock().await;
             description.push_str(&format!(
                 "***{}***: ***[{}]({})***\nRequested by: <@{}> ***Duration*** {}\n",
                 start + i + 1,
-                meta_data.song.title,
-                meta_data.song.url,
-                meta_data.song.requested_by,
-                meta_data.song.duration_formatted()
+                song.title,
+                song.url,
+                song.requested_by,
+                song.duration_formatted()
             ));
         }
 
@@ -86,4 +88,3 @@ pub async fn queue(ctx: SmContext<'_>) -> CommandResult {
 
     Ok(())
 }
-

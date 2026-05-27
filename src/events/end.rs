@@ -23,12 +23,9 @@ impl VoiceEventHandler for SongEndEvent {
             let track = tracks.first().expect("Should be a track at 0");
 
             // aquire the meta data on the track for info
-            let typemap = track.1.typemap().read().await;
-            let meta_data = typemap
-                .get::<TrackMetaData>()
-                .expect("Should have metadata");
-
-            delete_now_playing_msg(meta_data).await;
+            let meta_data = track.1.data::<TrackMetaData>();
+            let song = meta_data.song.lock().await;
+            delete_now_playing_msg(&meta_data, &song).await;
 
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers
@@ -48,9 +45,9 @@ impl VoiceEventHandler for SongEndEvent {
                 let mut manager_lock = manager.lock().await;
 
                 let track = init_track(
-                    meta_data.src.clone(),
+                    None,
                     &meta_data.generics,
-                    SongType::DB(meta_data.song.clone()),
+                    SongType::DB(song.clone()),
                     &mut manager_lock,
                 )
                 .await
@@ -83,4 +80,3 @@ impl VoiceEventHandler for SongEndEvent {
         None
     }
 }
-

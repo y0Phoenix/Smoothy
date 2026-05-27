@@ -19,21 +19,28 @@ pub async fn restart(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);
 
     let Some(manager) = generics.data.inner.songbird.get(generics.guild_id) else {
-        send_embed(&generics, err_embed("Something went wrong. Failed to acquire voice manager. Try again later"), Some(75000)).await;
+        send_embed(
+            &generics,
+            err_embed("Something went wrong. Failed to acquire voice manager. Try again later"),
+            Some(75000),
+        )
+        .await;
         return Ok(());
     };
 
     let handler = manager.lock().await;
     let Some(track) = handler.queue().current() else {
-        send_embed(&generics, err_embed("Something went wrong. Failed to aquire current song. Try again later"), Some(75000)).await;
+        send_embed(
+            &generics,
+            err_embed("Something went wrong. Failed to aquire current song. Try again later"),
+            Some(75000),
+        )
+        .await;
         return Ok(());
     };
 
-    let typemap = track.typemap().read().await;
-    let Some(meta_data) = typemap.get::<TrackMetaData>() else {
-        send_embed(&generics, err_embed("Something went wrong. Failed to aquire song info. Try again later"), Some(75000)).await;
-        return Ok(());
-    };
+    let meta_data = track.data::<TrackMetaData>();
+    let song = meta_data.song.lock().await;
 
     let result = track.seek(Duration::from_secs(0));
     if result.is_hung_up() {
@@ -41,7 +48,7 @@ pub async fn restart(ctx: SmContext<'_>) -> CommandResult {
             &generics,
             err_embed(format!(
                 "Failed to restart ***[{}]({})***",
-                meta_data.song.title, meta_data.song.url
+                song.title, song.url
             )),
             Some(75000),
         )
@@ -56,7 +63,7 @@ pub async fn restart(ctx: SmContext<'_>) -> CommandResult {
         CreateEmbed::new()
             .description(format!(
                 ":arrows_clockwise: Restarting ***[{}]({})***",
-                meta_data.song.title, meta_data.song.url
+                song.title, song.url
             ))
             .color(SEEK_COLOR),
         Some(60000),
@@ -65,4 +72,3 @@ pub async fn restart(ctx: SmContext<'_>) -> CommandResult {
 
     Ok(())
 }
-

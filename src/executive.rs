@@ -1,7 +1,8 @@
+use std::sync::Arc;
+
 use songbird::{
     input::{Compose, YoutubeDl},
-    tracks::TrackHandle,
-    typemap::TypeMap,
+    tracks::{Track, TrackHandle},
     Call,
 };
 use tracing::error;
@@ -11,13 +12,13 @@ use crate::{
         embeds::err_embed,
         generics::Generics,
         message::send_embed,
-        song::{Song, SongType, TrackMetaData},
+        song::{search_song, Song, SongType, TrackMetaData},
     },
     events::{end::SongEndEvent, playable::SongStartEvent},
 };
 
 pub async fn init_track(
-    mut src: YoutubeDl,
+    src: Option<YoutubeDl<'static>>,
     generics: &Generics,
     song_type: SongType,
     handler: &mut tokio::sync::MutexGuard<'_, Call>,
@@ -25,6 +26,11 @@ pub async fn init_track(
     let (_query, requested_by) = match song_type {
         SongType::New(query, requested_by) => (query, requested_by),
         SongType::DB(song) => (song.url, song.requested_by),
+    };
+    let mut src = if let Some(src) = src {
+        src
+    } else {
+        search_song(_query, &generics.data.inner).await.unwrap()
     };
 
     let song_data = match src.aux_metadata().await {
@@ -55,19 +61,17 @@ pub async fn init_track(
         ..Default::default()
     };
 
-    let track = handler.enqueue_input(src.clone().into()).await;
-    let clone = track.clone();
-    let mut typemap = clone.typemap().write().await;
-    let mut map = TypeMap::new();
-
-    map.insert::<TrackMetaData>(TrackMetaData {
-        song: song.clone(),
+    let metadata = TrackMetaData {
+        song: song.clone().into(),
         generics: generics.clone(),
-        looped: false,
-        src,
-    });
-    *typemap = map;
+        looped: false.into(),
+    };
 
+    let input: songbird::input::Input = src.into();
+    let mut track_data = Track::from(input);
+    track_data.user_data = Arc::new(metadata);
+
+    let track = handler.enqueue(track_data).await;
     track
         .add_event(
             songbird::Event::Track(songbird::TrackEvent::Playable),

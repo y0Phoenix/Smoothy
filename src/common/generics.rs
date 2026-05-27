@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use serenity::all::{ChannelId, GuildId, Http};
-use songbird::typemap::TypeMapKey;
+use serenity::prelude::*;
 
 use crate::SmContext;
 
@@ -50,4 +50,3 @@ pub fn get_generics(ctx: &SmContext<'_>) -> Generics {
         guild_id: ctx.guild_id().expect("GuildId should exist"),
     }
 }
-

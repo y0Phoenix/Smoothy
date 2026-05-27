@@ -17,8 +17,16 @@ pub async fn loopqueue(ctx: SmContext<'_>) -> CommandResult {
     let generics = get_generics(&ctx);
 
     let mut server_lock = generics.data.inner.servers_unlocked().await;
-    let Some(server) = server_lock.0.get_mut(&ServerGuildId::from(generics.guild_id)) else {
-        send_embed(&generics, err_embed(GET_SERVER_FAIL_MSG), Some(GET_SERVER_FAIL_DLT_TIME)).await;
+    let Some(server) = server_lock
+        .0
+        .get_mut(&ServerGuildId::from(generics.guild_id))
+    else {
+        send_embed(
+            &generics,
+            err_embed(GET_SERVER_FAIL_MSG),
+            Some(GET_SERVER_FAIL_DLT_TIME),
+        )
+        .await;
         return Ok(());
     };
 
@@ -33,12 +41,9 @@ pub async fn loopqueue(ctx: SmContext<'_>) -> CommandResult {
         .queue()
         .current()
         .expect("Should be a current song");
-    let mut typemap = track.typemap().write().await;
-    let meta_data = typemap
-        .get_mut::<TrackMetaData>()
-        .expect("Track should have meta data");
-
-    if meta_data.looped {
+    let meta_data = track.data::<TrackMetaData>();
+    let mut looped = meta_data.looped.lock().await;
+    if *looped {
         if track.disable_loop().is_err() {
             send_embed(
                 &generics,
@@ -50,7 +55,7 @@ pub async fn loopqueue(ctx: SmContext<'_>) -> CommandResult {
             .await;
             return Ok(());
         }
-        meta_data.looped = false;
+        *looped = false;
     }
 
     let description = if server.songs.0.looped {
@@ -73,4 +78,3 @@ pub async fn loopqueue(ctx: SmContext<'_>) -> CommandResult {
 
     Ok(())
 }
-

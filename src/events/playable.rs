@@ -17,11 +17,7 @@ impl VoiceEventHandler for SongStartEvent {
             let track = tracks.first().expect("Should be a track at 0");
 
             // aquire the meta data on the track for info
-            let mut typemap = track.1.typemap().write().await;
-            let meta_data = typemap
-                .get_mut::<TrackMetaData>()
-                .expect("Should have metadata");
-
+            let meta_data = track.1.data::<TrackMetaData>();
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers
                 .0

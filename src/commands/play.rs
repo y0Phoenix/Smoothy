@@ -28,13 +28,21 @@ pub async fn play(
     let generics = get_generics(&ctx);
 
     let mut servers_lock = generics.data.inner.servers_unlocked().await;
-    let Some(server) = servers_lock.0.get_mut(&ServerGuildId::from(generics.guild_id)) else {
+    let Some(server) = servers_lock
+        .0
+        .get_mut(&ServerGuildId::from(generics.guild_id))
+    else {
         send_embed(&generics, err_embed("Failed to aquire server"), Some(60000)).await;
         return Ok(());
     };
 
     let Some(handler_lock) = generics.data.inner.songbird.get(generics.guild_id) else {
-        send_embed(&generics, err_embed(":cry: Something went wrong. Not in a voice channel to play in"), Some(75000)).await;
+        send_embed(
+            &generics,
+            err_embed(":cry: Something went wrong. Not in a voice channel to play in"),
+            Some(75000),
+        )
+        .await;
         return Ok(());
     };
 
@@ -45,7 +53,7 @@ pub async fn play(
         .unwrap();
 
     let track = init_track(
-        src,
+        Some(src),
         &generics,
         SongType::New(query, ctx.author().id.to_string()),
         &mut handler,

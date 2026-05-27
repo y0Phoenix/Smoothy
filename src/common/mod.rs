@@ -8,9 +8,9 @@ use message::DltMsg;
 use reqwest::Client as HttpClient;
 use rusty_time::Timer;
 use serenity::all::{GuildId, Http, UserId};
+use serenity::prelude::*;
 use server::{Server, ServerChannelId, ServerGuildId, Servers, ServersLock};
 use song::Song;
-use songbird::typemap::TypeMapKey;
 use sqlx::{query, Pool, Postgres};
 use tokio::sync::Mutex;
 use tracing::{error, info};
@@ -129,7 +129,13 @@ impl SmData {
                 err
             ),
         }
-        let Some(server) = servers_lock.0.get_mut(&ServerGuildId::from(guild_id)).cloned() else { return self };
+        let Some(server) = servers_lock
+            .0
+            .get_mut(&ServerGuildId::from(guild_id))
+            .cloned()
+        else {
+            return self;
+        };
         servers_lock.0.remove(&ServerGuildId::from(guild_id));
         self.stop_dc_timer(ServerGuildId::from(guild_id), server.channel_id.clone());
         self
@@ -282,4 +288,3 @@ pub struct DcTimeOut {
     /// whether or not to end the timer
     pub end: bool,
 }
-

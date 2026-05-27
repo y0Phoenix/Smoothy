@@ -2,7 +2,7 @@ use std::fmt::{Debug, Display};
 
 use serenity::all::{Colour, CreateEmbed, CreateEmbedAuthor};
 
-use super::song::TrackMetaData;
+use crate::common::song::Song;
 
 pub const LIST_QUEUE_COLOR: Colour = Colour::from_rgb(252, 3, 103);
 pub const ADD_QUEUE_COLOR: Colour = Colour::from_rgb(252, 227, 3);
@@ -25,13 +25,12 @@ pub fn err_embed(err: impl ToString + Debug + Display) -> CreateEmbed {
         .description(format!(":x: {}", err))
 }
 
-pub fn now_playing_embed(meta_data: &TrackMetaData) -> CreateEmbed {
+pub fn now_playing_embed(song: &Song) -> CreateEmbed {
     CreateEmbed::new()
         .color(NOW_PLAYING_COLOR)
         .author(CreateEmbedAuthor::new("Now Playing").icon_url("https://cdn.discordapp.com/attachments/778600026280558617/781024479623118878/ezgif.com-gif-maker_1.gif"))
-        .description(format!("***[{}]({})***", meta_data.song.title, meta_data.song.url))
-        .field("Requested by", format!("<@{}>", meta_data.song.requested_by), true)
-        .field("Duration", meta_data.song.duration_formatted().to_string(), true)
-        .thumbnail(meta_data.song.thumbnail.clone())
+        .description(format!("***[{}]({})***", song.title, song.url))
+        .field("Requested by", format!("<@{}>", song.requested_by), true)
+        .field("Duration", song.duration_formatted().to_string(), true)
+        .thumbnail(song.thumbnail.clone())
 }
-

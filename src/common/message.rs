@@ -6,6 +6,8 @@ use serenity::all::{ChannelId, CreateEmbed, CreateMessage, GuildId, Message, Mes
 use sqlx::prelude::FromRow;
 use tracing::info;
 
+use crate::common::song::Song;
+
 use super::{generics::Generics, song::TrackMetaData, ClientChannel};
 
 #[derive(Debug, Clone)]
@@ -65,8 +67,12 @@ pub async fn send_embed(
 }
 
 /// will attempt to delete the now playing msg from the tracks meta_data. this won't panic and will simply not delete the message if something goes wrong
-pub async fn delete_now_playing_msg(meta_data: &TrackMetaData) {
-    if let Some(now_playing_msg) = &meta_data.song.now_playing_msg.clone() {
+///
+/// &Song is needed to be passed. This function shouldn't try to accquire a lock on Song. That may
+/// cause a halt. You need to accquire the Song lock outside this function and pass it in as a
+/// reference
+pub async fn delete_now_playing_msg(meta_data: &TrackMetaData, song: &Song) {
+    if let Some(now_playing_msg) = song.now_playing_msg.clone() {
         let http = meta_data
             .generics
             .data
@@ -91,4 +97,3 @@ pub async fn delete_now_playing_msg(meta_data: &TrackMetaData) {
         }
     }
 }
-

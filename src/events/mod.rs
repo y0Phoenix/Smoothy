@@ -78,9 +78,14 @@ pub async fn event_handler(
                             .await
                             .unwrap();
 
-                        init_track(src, &generics, SongType::DB(song.clone()), &mut handler)
-                            .await
-                            .expect("Should initialize track");
+                        init_track(
+                            Some(src),
+                            &generics,
+                            SongType::DB(song.clone()),
+                            &mut handler,
+                        )
+                        .await
+                        .expect("Should initialize track");
                     }
                 } else {
                     send_embed(&generics, err_embed("Failed to join vc"), Some(60000)).await;

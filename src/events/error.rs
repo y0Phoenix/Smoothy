@@ -12,36 +12,34 @@ impl VoiceEventHandler for TrackErrorNotifier {
         warn!("songbird error event fired");
         if let EventContext::Track(track_list) = ctx {
             for (state, handle) in *track_list {
-                let typemap = handle.typemap().read().await;
-                let meta_data = typemap
-                    .get::<TrackMetaData>()
-                    .expect("Should have meta data");
+                let meta_data = handle.data::<TrackMetaData>();
+                let song = meta_data.song.lock().await;
                 let error = match &state.playing {
                     songbird::tracks::PlayMode::Errored(err) => match err {
                         songbird::error::PlayError::Create(err) => format!(
                             "Create stream error occured on ***[{}]({})*** {}",
-                            meta_data.song.title, meta_data.song.url, err
+                            song.title, song.url, err
                         ),
                         songbird::error::PlayError::Parse(err) => format!(
                             "Parsing error occured on ***[{}]({})*** {}",
-                            meta_data.song.title, meta_data.song.url, err
+                            song.title, song.url, err
                         ),
                         songbird::error::PlayError::Decode(err) => format!(
                             "Decode error occured on ***[{}]({})*** {}",
-                            meta_data.song.title, meta_data.song.url, err
+                            song.title, song.url, err
                         ),
                         songbird::error::PlayError::Seek(err) => format!(
                             "Seek error occured on ***[{}]({})*** {}",
-                            meta_data.song.title, meta_data.song.url, err
+                            song.title, song.url, err
                         ),
                         _ => format!(
                             "Error occured on ***[{}]({})*** try again later",
-                            meta_data.song.title, meta_data.song.url
+                            song.title, song.url
                         ),
                     },
                     _ => format!(
                         "Error occured on ***[{}]({})*** try again later",
-                        meta_data.song.title, meta_data.song.url
+                        song.title, song.url
                     ),
                 };
                 error!("{error}");
@@ -51,4 +49,3 @@ impl VoiceEventHandler for TrackErrorNotifier {
         None
     }
 }
-

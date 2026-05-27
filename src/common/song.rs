@@ -2,7 +2,8 @@ use std::{sync::Arc, time::Instant};
 
 use rusty_ytdl::{search::SearchResult, Video};
 use serde::{Deserialize, Serialize};
-use songbird::{input::YoutubeDl, typemap::TypeMapKey};
+use serenity::prelude::*;
+use songbird::input::YoutubeDl;
 use sqlx::prelude::FromRow;
 use url::Url;
 
@@ -65,19 +66,23 @@ impl Songs {
     }
 }
 
-pub async fn search_song(
-    song: String,
-    data: &Arc<SmData>,
-) -> Result<YoutubeDl, ()> {
+pub async fn search_song(song_name: String, data: &Arc<SmData>) -> Result<YoutubeDl<'static>, ()> {
     let instant = Instant::now();
-    if Url::parse(&song).is_ok() {
-        let video = Video::new(song.clone()).unwrap();
+    if Url::parse(&song_name).is_ok() {
+        let video = Video::new(song_name.clone()).unwrap();
         let video = video.get_basic_info().await.unwrap();
-        println!("{} elapsed {}", video.video_details.title, instant.elapsed().as_millis());
-        return Ok(YoutubeDl::new(data.reqwest.clone(), video.video_details.video_url));
+        println!(
+            "{} elapsed {}",
+            video.video_details.title,
+            instant.elapsed().as_millis()
+        );
+        return Ok(YoutubeDl::new(
+            data.reqwest.clone(),
+            video.video_details.video_url,
+        ));
     }
     let youtube = rusty_ytdl::search::YouTube::new().unwrap();
-    let video = youtube.search(song.clone(), None).await.unwrap();
+    let video = youtube.search(song_name.clone(), None).await.unwrap();
     println!("{}", video.len());
     if let Some(SearchResult::Video(video)) = video.first() {
         println!("{} elapsed {}", video.title, instant.elapsed().as_millis());
@@ -94,13 +99,12 @@ pub enum SongType {
     DB(Song),
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct TrackMetaData {
-    pub song: Song,
+    pub song: Mutex<Song>,
     pub generics: Generics,
     /// if the song is looped
-    pub looped: bool,
-    pub src: YoutubeDl,
+    pub looped: Mutex<bool>,
 }
 
 impl TypeMapKey for TrackMetaData {

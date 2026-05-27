@@ -18,10 +18,8 @@ impl VoiceEventHandler for SongPlayEvent {
             let track = tracks.first().expect("Should be a track at 0");
 
             // aquire the meta data on the track for info
-            let mut typemap = track.1.typemap().write().await;
-            let meta_data = typemap
-                .get_mut::<TrackMetaData>()
-                .expect("Should have metadata");
+            let meta_data = track.1.data::<TrackMetaData>();
+            let mut song = meta_data.song.lock().await;
 
             let mut servers = meta_data.generics.data.inner.servers.lock().await;
             let server = servers
@@ -30,13 +28,12 @@ impl VoiceEventHandler for SongPlayEvent {
                 .expect("Server should exist");
 
             if server.audio_player.state.is_paused() {
-                delete_now_playing_msg(meta_data).await;
+                delete_now_playing_msg(&meta_data, &song).await;
             }
 
-            if let Some(msg) =
-                send_embed(&meta_data.generics, now_playing_embed(meta_data), None).await
+            if let Some(msg) = send_embed(&meta_data.generics, now_playing_embed(&song), None).await
             {
-                meta_data.song.now_playing_msg = Some(NowPlayingMsg {
+                song.now_playing_msg = Some(NowPlayingMsg {
                     channel_id: msg.channel_id.to_string(),
                     msg_id: msg.id.to_string(),
                 });
